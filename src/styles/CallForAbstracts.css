@@ -1,0 +1,90 @@
+.abstracts {
+  padding: 100px 0;
+  background: #ffffff;
+}
+
+.abstracts-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.abstracts-content {
+  max-width: 700px;
+  text-align: center;
+}
+
+.abstracts h2 {
+  font-size: 2.5rem;
+  margin-bottom: 25px;
+  color: var(--primary-green);
+}
+
+.abstracts-intro {
+  font-size: 1.1rem;
+  margin-bottom: 35px;
+  line-height: 1.7;
+}
+
+.deadline-box {
+  background-color: #f4efe7;
+  padding: 20px;
+  margin-bottom: 35px;
+  border-left: 5px solid var(--primary-green);
+  font-size: 1.1rem;
+}
+
+.deadline-box span {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.deadline-box strong {
+  font-size: 1.3rem;
+  color: #000;
+}
+
+.abstract-guidelines {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 40px;
+}
+
+.abstract-guidelines li {
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+
+.abstract-email-btn {
+  display: inline-block;
+  background-color: var(--primary-green);
+  color: white;
+  padding: 14px 30px;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.abstract-email-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+@media (max-width: 600px) {
+  .abstracts h2 {
+    font-size: 2rem;
+  }
+
+  .abstracts-intro {
+    font-size: 1rem;
+  }
+
+  .deadline-box {
+    font-size: 1rem;
+  }
+
+  .abstract-guidelines li {
+    font-size: 0.95rem;
+  }
+  
+}

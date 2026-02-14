@@ -1,0 +1,58 @@
+.venue {
+  padding: 100px 0;
+  background-color: #ffffff;
+}
+
+.venue-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.venue-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 25px;
+  color: var(--primary-green);
+}
+
+.venue-description {
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.venue-details p {
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+
+.map-btn {
+  display: inline-block;
+  margin-top: 25px;
+  background-color: var(--primary-green);
+  color: white;
+  padding: 12px 28px;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.map-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+}
+
+.venue-image img {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  object-fit: cover;
+}
+
+@media (max-width: 900px) {
+  .venue-grid {
+    grid-template-columns: 1fr;
+  }
+}
