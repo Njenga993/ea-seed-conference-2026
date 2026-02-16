@@ -6,28 +6,28 @@ const speakers = [
     title: "Agroecology Researcher",
     organization: "University of Nairobi",
     country: "Kenya",
-    image: "https://randomuser.me/api/portraits/women/44.jpg",
+    image: "",
   },
-  {
+  /*{
     name: "Mr. Samuel Okello",
     title: "Seed Systems Specialist",
     organization: "Eastern Africa Farmers Alliance",
     country: "Uganda",
-    image: "https://randomuser.me/api/portraits/men/32.jpg",
+    image: "",
   },
   {
     name: "Dr. Asha Mwinyi",
     title: "Policy & Advocacy Advisor",
     organization: "Tanzania Seed Network",
     country: "Tanzania",
-    image: "https://randomuser.me/api/portraits/women/65.jpg",
-  },
+    image: "",
+  },*/
   {
     name: "Prof. Daniel Tesfaye",
     title: "Climate Resilience Expert",
     organization: "Addis Ababa University",
     country: "Ethiopia",
-    image: "https://randomuser.me/api/portraits/men/75.jpg",
+    image: "",
   },
 ];
 

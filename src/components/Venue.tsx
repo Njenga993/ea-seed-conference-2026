@@ -13,10 +13,10 @@ const Venue = () => {
           </p>
 
           <div className="venue-details">
-            <p><strong>Venue:</strong> Grand Conference Hall</p>
-            <p><strong>Institution:</strong> National University Campus</p>
-            <p><strong>City:</strong> Kampala, Uganda</p>
-            <p><strong>Date:</strong> 12–14 September 2026</p>
+            <p><strong>Venue:</strong> To be confirmed</p>
+            <p><strong>Institution:</strong>  Campus</p>
+            <p><strong>City:</strong> Nairobi, Kenya</p>
+            <p><strong>Date:</strong> 17–20 November 2026</p>
           </div>
 
           <a
@@ -31,7 +31,7 @@ const Venue = () => {
 
         <div className="venue-image">
           <img
-            src="https://images.unsplash.com/photo-1515169067865-5387ec356754"
+            src="../assets/conference-room.webp"
             alt="Conference Hall"
           />
         </div>

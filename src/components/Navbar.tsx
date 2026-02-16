@@ -62,7 +62,7 @@ const Navbar = () => {
     <nav className={scrolled ? "navbar scrolled" : "navbar"}>
       <div className="container nav-content">
         <Link to="/" className="logo" onClick={() => scrollToSection("home")}>
-          EASISC 2026
+           EA- ISC 2026
         </Link>
         
         <button 
