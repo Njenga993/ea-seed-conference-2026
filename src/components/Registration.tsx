@@ -1,5 +1,5 @@
 // components/HomeRegistration.tsx
-import "../styles/registration.css";
+import "../styles/Registration.css";
 
 const Registration = () => {
   const registrationTypes = [
