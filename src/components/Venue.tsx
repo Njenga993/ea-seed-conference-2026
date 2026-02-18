@@ -1,5 +1,5 @@
 // components/HomeVenue.tsx
-import "../styles/venue.css";
+import "../styles/Venue.css";
 
 const Venue = () => {
   return (

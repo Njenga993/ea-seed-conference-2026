@@ -1,5 +1,5 @@
 // components/HomeSponsors.tsx
-import "../styles/sponsors.css";
+import "../styles/Sponsors.css";
 
 const Sponsors = () => {
   const sponsors = [

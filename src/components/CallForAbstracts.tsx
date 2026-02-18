@@ -1,5 +1,5 @@
 // components/HomeCallForAbstracts.tsx
-import "../styles/callForAbstracts.css";
+import "../styles/CallForAbstracts.css";
 
 const CallForAbstracts = () => {
   return (
