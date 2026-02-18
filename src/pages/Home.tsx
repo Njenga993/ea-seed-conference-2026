@@ -1,4 +1,4 @@
-import Navbar from "../components/Navbar";
+
 import Hero from "../components/Hero";
 import About from "../components/About";
 import FocusAreas from "../components/FocusAreas";
@@ -9,12 +9,13 @@ import CallForAbstracts from "../components/CallForAbstracts";
 import Registration from "../components/Registration";
 import Venue from "../components/Venue";
 import Sponsors from "../components/Sponsors";
-import Footer from "../components/Footer";
+import Contact from "../components/Contact";
+
 
 const Home = () => {
   return (
     <>
-      <Navbar />
+      
       <Hero />
       <About />
       <FocusAreas />
@@ -25,7 +26,8 @@ const Home = () => {
       <Registration />
       <Venue />
       <Sponsors />
-      <Footer />
+      <Contact />
+    
     </>
   );
 };

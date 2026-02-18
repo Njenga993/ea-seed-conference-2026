@@ -1,47 +1,247 @@
-.sponsors {
-  padding: 90px 0;
-  background-color: #f4efe7;
+/* sponsors.css - Simple and clean */
+
+/* Base Section */
+.home-sponsors {
+  background-color: #f5f1eb;
+  padding: 80px 0;
   text-align: center;
 }
 
-.sponsors-intro {
-  max-width: 650px;
-  margin: 0 auto 50px;
-  font-size: 1.05rem;
+.home-sponsors-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Header */
+.home-sponsors-header {
+  margin-bottom: 50px;
+}
+
+.home-sponsors-tag {
+  display: inline-block;
+  background: #e8f0f7;
+  color: #1e4a6b;
+  padding: 6px 16px;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+
+.home-sponsors-title {
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: #1e4a6b;
+  margin-bottom: 15px;
+}
+
+.home-sponsors-intro {
+  font-size: 1.1rem;
+  color: #475569;
   line-height: 1.6;
+  max-width: 650px;
+  margin: 0 auto;
 }
 
-.sponsor-grid {
+/* Sponsors Grid */
+.home-sponsors-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 40px;
-  align-items: center;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  margin-bottom: 50px;
 }
 
-.sponsor-card {
+/* Sponsor Card */
+.home-sponsor-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 25px 15px;
+  transition: all 0.2s ease;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  padding: 20px;
-  transition: all 0.3s ease;
+  gap: 12px;
 }
 
-.sponsor-card img {
+.home-sponsor-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  border-color: #c17b3c;
+}
+
+.home-sponsor-image {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-sponsor-image img {
   max-width: 100%;
+  max-height: 100%;
+  width: auto;
   height: auto;
   filter: grayscale(100%);
   opacity: 0.7;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
-.sponsor-card:hover img {
+.home-sponsor-card:hover .home-sponsor-image img {
   filter: grayscale(0%);
   opacity: 1;
   transform: scale(1.05);
 }
-@media (max-width: 600px) {
-  .sponsor-grid {
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+
+.home-sponsor-level {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1e4a6b;
+  padding: 4px 12px;
+  background: #e8f0f7;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* CTA Section */
+.home-sponsors-cta {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 30px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.home-sponsors-cta-text {
+  font-size: 1rem;
+  color: #475569;
+  margin-bottom: 15px;
+}
+
+.home-sponsors-button {
+  display: inline-block;
+  background: #c17b3c;
+  color: white;
+  padding: 12px 32px;
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.home-sponsors-button:hover {
+  background: #a5672f;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(193, 123, 60, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .home-sponsors-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
   }
   
+  .home-sponsors-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .home-sponsors-grid {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 600px;
+    margin: 0 auto 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .home-sponsors {
+    padding: 60px 0;
+  }
+  
+  .home-sponsors-title {
+    font-size: 1.8rem;
+  }
+  
+  .home-sponsors-intro {
+    font-size: 1rem;
+  }
+  
+  .home-sponsor-card {
+    padding: 20px 15px;
+  }
+  
+  .home-sponsor-image {
+    height: 70px;
+  }
+  
+  .home-sponsors-cta {
+    padding: 25px 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .home-sponsors-tag {
+    font-size: 0.75rem;
+    padding: 4px 12px;
+  }
+  
+  .home-sponsors-title {
+    font-size: 1.6rem;
+  }
+  
+  .home-sponsors-grid {
+    grid-template-columns: 1fr;
+    max-width: 280px;
+    gap: 15px;
+  }
+  
+  .home-sponsor-card {
+    padding: 20px;
+  }
+  
+  .home-sponsor-image {
+    height: 80px;
+  }
+  
+  .home-sponsors-cta-text {
+    font-size: 0.95rem;
+  }
+  
+  .home-sponsors-button {
+    width: 100%;
+    max-width: 280px;
+  }
+}
+
+/* Small phones */
+@media (max-width: 380px) {
+  .home-sponsors-title {
+    font-size: 1.4rem;
+  }
+  
+  .home-sponsor-card {
+    padding: 15px;
+  }
+  
+  .home-sponsor-image {
+    height: 60px;
+  }
+  
+  .home-sponsor-level {
+    font-size: 0.75rem;
+    padding: 3px 10px;
+  }
+  
+  .home-sponsors-cta {
+    padding: 20px 15px;
+  }
 }

@@ -1,119 +1,311 @@
-.registration {
-  padding: 100px 0;
-  background-color: #f4efe7;
+/* registration.css - Simple and clean */
+
+/* Base Section */
+.home-registration {
+  background-color: #f5f1eb;
+  padding: 80px 0;
   text-align: center;
 }
 
-.section-title {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
-  color: var(--primary-green);
+.home-registration-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
-.registration-intro {
-  max-width: 650px;
-  margin: 0 auto 60px;
-  font-size: 1.1rem;
-  line-height: 1.6;
+/* Header */
+.home-registration-header {
+  margin-bottom: 50px;
 }
 
-.pricing-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 30px;
-}
-
-.pricing-card {
-  background: white;
-  padding: 40px 30px;
-  border-radius: 8px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-  position: relative;
-  transition: transform 0.3s ease;
-}
-
-.pricing-card:hover {
-  transform: translateY(-6px);
-}
-
-.pricing-card h3 {
-  font-size: 1.4rem;
+.home-registration-tag {
+  display: inline-block;
+  background: #e8f0f7;
+  color: #1e4a6b;
+  padding: 6px 16px;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: 500;
   margin-bottom: 15px;
 }
 
-.price {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 25px;
-  color: var(--primary-green);
-}
-
-.pricing-card ul {
-  list-style: none;
-  padding: 0;
-  margin-bottom: 30px;
-}
-
-.pricing-card li {
-  margin-bottom: 10px;
-  font-size: 0.95rem;
-}
-
-.register-btn {
-  background-color: var(--primary-green);
-  color: white;
-  border: none;
-  padding: 12px 25px;
-  cursor: pointer;
+.home-registration-title {
+  font-size: 2.2rem;
   font-weight: 600;
-  border-radius: 4px;
-  transition: all 0.3s ease;
+  color: #1e4a6b;
+  margin-bottom: 15px;
 }
 
-.register-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+.home-registration-intro {
+  font-size: 1.1rem;
+  color: #475569;
+  line-height: 1.6;
+  max-width: 650px;
+  margin: 0 auto;
 }
 
-.featured {
-  border: 2px solid var(--primary-green);
+/* Pricing Grid */
+.home-pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  margin-bottom: 40px;
 }
 
-.badge {
+/* Pricing Card */
+.home-pricing-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 35px 25px;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.home-pricing-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+.home-pricing-card.popular {
+  border: 2px solid #c17b3c;
+  box-shadow: 0 5px 15px rgba(193, 123, 60, 0.1);
+}
+
+.home-popular-badge {
   position: absolute;
   top: -12px;
   right: 20px;
-  background-color: var(--primary-green);
+  background: #c17b3c;
   color: white;
-  padding: 5px 12px;
+  padding: 5px 15px;
   font-size: 0.75rem;
   font-weight: 600;
-  border-radius: 3px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.registration-note {
-  margin-top: 40px;
-  font-size: 0.95rem;
-  opacity: 0.8;
+/* Pricing Content */
+.home-pricing-name {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #1e4a6b;
+  margin-bottom: 15px;
 }
-.registration-note a {
-  color: var(--primary-green);
+
+.home-pricing-price {
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #e8f0f7;
+}
+
+.home-price-amount {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #1e4a6b;
+}
+
+.home-price-period {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin-left: 5px;
+}
+
+/* Features List */
+.home-pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 30px 0;
+  text-align: left;
+}
+
+.home-feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+  color: #475569;
+  line-height: 1.5;
+}
+
+.home-feature-item:last-child {
+  margin-bottom: 0;
+}
+
+.home-feature-icon {
+  color: #c17b3c;
+  font-weight: bold;
+  min-width: 18px;
+  font-size: 1rem;
+}
+
+/* Register Button */
+.home-register-btn {
+  background: #1e4a6b;
+  color: white;
+  border: none;
+  width: 100%;
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.home-register-btn:hover {
+  background: #0f2c3f;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(30, 74, 107, 0.2);
+}
+
+.home-pricing-card.popular .home-register-btn {
+  background: #c17b3c;
+}
+
+.home-pricing-card.popular .home-register-btn:hover {
+  background: #a5672f;
+}
+
+/* Footer */
+.home-registration-footer {
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.home-registration-note {
+  font-size: 0.95rem;
+  color: #64748b;
+  margin-bottom: 10px;
+}
+
+.home-registration-support {
+  font-size: 0.9rem;
+  color: #475569;
+  margin: 0;
+}
+
+.home-registration-support a {
+  color: #1e4a6b;
   text-decoration: none;
   font-weight: 500;
+  transition: color 0.2s ease;
 }
-.registration-note a:hover {
+
+.home-registration-support a:hover {
+  color: #c17b3c;
   text-decoration: underline;
 }
-@media (max-width: 600px) {
-  .section-title {
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .home-pricing-grid {
+    gap: 20px;
+  }
+  
+  .home-pricing-name {
+    font-size: 1.3rem;
+  }
+  
+  .home-price-amount {
     font-size: 2rem;
   }
+}
 
-  .registration-intro {
+@media (max-width: 900px) {
+  .home-pricing-grid {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 700px;
+    margin: 0 auto 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .home-registration {
+    padding: 60px 0;
+  }
+  
+  .home-registration-title {
+    font-size: 2rem;
+  }
+  
+  .home-registration-intro {
     font-size: 1rem;
   }
+  
+  .home-pricing-grid {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+  }
+  
+  .home-pricing-card {
+    padding: 30px 20px;
+  }
+  
+  .home-pricing-name {
+    font-size: 1.2rem;
+  }
+  
+  .home-price-amount {
+    font-size: 1.8rem;
+  }
+  
+  .home-feature-item {
+    font-size: 0.9rem;
+  }
+}
 
-  .price {
+@media (max-width: 576px) {
+  .home-registration-tag {
+    font-size: 0.75rem;
+    padding: 4px 12px;
+  }
+  
+  .home-registration-title {
+    font-size: 1.8rem;
+  }
+  
+  .home-pricing-card {
+    padding: 25px 20px;
+  }
+  
+  .home-popular-badge {
+    right: 15px;
+    padding: 4px 12px;
+    font-size: 0.7rem;
+  }
+  
+  .home-price-amount {
+    font-size: 1.6rem;
+  }
+  
+  .home-registration-support {
+    font-size: 0.85rem;
+  }
+}
+
+/* Small phones */
+@media (max-width: 380px) {
+  .home-pricing-card {
+    padding: 20px 15px;
+  }
+  
+  .home-pricing-name {
+    font-size: 1.1rem;
+  }
+  
+  .home-price-amount {
     font-size: 1.5rem;
+  }
+  
+  .home-price-period {
+    font-size: 0.8rem;
+  }
+  
+  .home-feature-item {
+    font-size: 0.85rem;
   }
 }

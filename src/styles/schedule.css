@@ -1,101 +1,238 @@
-.schedule {
-  background-color: var(--secondary-beige);
-  padding: 100px 0;
+/* schedule.css - Simple and clean */
+
+/* Base Section */
+.home-schedule {
+  background-color: #f5f1eb;
+  padding: 80px 0;
 }
 
-.schedule-header {
+.home-schedule-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Header */
+.home-schedule-header {
   text-align: center;
-  max-width: 750px;
-  margin: 0 auto 60px auto;
+  max-width: 700px;
+  margin: 0 auto 50px;
 }
 
-.schedule-header h2 {
-  font-size: 2.2rem;
-  margin-bottom: 20px;
-  color: var(--primary-green);
-}
-
-.schedule-header p {
-  font-size: 1.05rem;
-  line-height: 1.7;
-  color: #444;
-}
-
-.accordion-item {
+.home-schedule-tag {
+  display: inline-block;
+  background: #e8f0f7;
+  color: #1e4a6b;
+  padding: 6px 16px;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: 500;
   margin-bottom: 15px;
+}
+
+.home-schedule-title {
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: #1e4a6b;
+  margin-bottom: 15px;
+}
+
+.home-schedule-subtitle {
+  font-size: 1.05rem;
+  color: #475569;
+  line-height: 1.6;
+}
+
+/* Accordion */
+.home-schedule-accordion {
+  margin-bottom: 30px;
+}
+
+.home-accordion-item {
+  margin-bottom: 12px;
+  border: 1px solid #e2e8f0;
   border-radius: 6px;
   overflow: hidden;
+  background: white;
 }
 
-.accordion-title {
+.home-accordion-button {
   width: 100%;
-  text-align: left;
-  padding: 18px 25px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 20px;
+  background: white;
   border: none;
   cursor: pointer;
-  border-left: 5px solid var(--primary-green);
-  transition: all 0.3s ease;
+  text-align: left;
+  transition: all 0.2s ease;
 }
 
-.accordion-title:hover {
-  background-color: #f5f5f5;
+.home-accordion-button:hover {
+  background: #f8fafc;
 }
 
-.accordion-title.active {
-  background-color: var(--primary-green);
+.home-accordion-button.active {
+  background: #1e4a6b;
   color: white;
 }
 
-.accordion-content {
+.home-accordion-day {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1e4a6b;
+}
+
+.home-accordion-button.active .home-accordion-day {
+  color: white;
+}
+
+.home-accordion-icon {
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: #1e4a6b;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-accordion-button.active .home-accordion-icon {
+  color: white;
+}
+
+/* Accordion Content */
+.home-accordion-content {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.4s ease;
-  background-color: white;
-  padding: 0 25px;
+  transition: max-height 0.3s ease;
+  background: #f8fafc;
 }
 
-.accordion-content.open {
+.home-accordion-content.open {
   max-height: 500px;
-  padding: 20px 25px;
 }
 
-.accordion-content ul {
-  list-style: none;
-  padding: 0;
+.home-sessions-list {
+  padding: 20px;
+  border-top: 1px solid #e2e8f0;
 }
 
-.accordion-content li {
-  margin-bottom: 12px;
+.home-session-item {
+  display: flex;
+  gap: 20px;
+  padding: 10px 0;
+  border-bottom: 1px dashed #e2e8f0;
+}
+
+.home-session-item:last-child {
+  border-bottom: none;
+}
+
+.home-session-time {
+  min-width: 120px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #c17b3c;
+}
+
+.home-session-title {
   font-size: 0.98rem;
-  position: relative;
-  padding-left: 18px;
+  color: #1e293b;
+  line-height: 1.5;
+  flex: 1;
 }
 
-.accordion-content li::before {
-  content: "•";
-  position: absolute;
-  left: 0;
-  color: var(--accent-brown);
-  font-weight: bold;
+/* Note */
+.home-schedule-note {
+  text-align: center;
+  padding: 20px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
 }
-@media (max-width: 700px) {
-  .schedule-header h2 {
+
+.home-schedule-note p {
+  font-size: 0.9rem;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 0;
+}
+
+.home-note-icon {
+  font-size: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .home-schedule {
+    padding: 60px 0;
+  }
+
+  .home-schedule-title {
     font-size: 1.8rem;
   }
 
-  .accordion-title {
+  .home-schedule-subtitle {
     font-size: 1rem;
-    padding: 15px 20px;
   }
 
-  .accordion-content {
-    padding: 0 20px;
+  .home-accordion-day {
+    font-size: 1rem;
   }
 
-  .accordion-content.open {
-    padding: 15px 20px;
+  .home-accordion-button {
+    padding: 15px;
+  }
+
+  .home-session-item {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .home-session-time {
+    min-width: auto;
+    font-size: 0.85rem;
+  }
+
+  .home-session-title {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .home-schedule-tag {
+    font-size: 0.75rem;
+    padding: 4px 12px;
+  }
+
+  .home-schedule-title {
+    font-size: 1.6rem;
+  }
+
+  .home-schedule-note p {
+    flex-direction: column;
+    gap: 5px;
+    text-align: center;
+  }
+
+  .home-session-item {
+    padding: 8px 0;
+  }
+}
+
+/* Small phones */
+@media (max-width: 380px) {
+  .home-accordion-day {
+    font-size: 0.95rem;
+  }
+
+  .home-accordion-icon {
+    font-size: 1.2rem;
   }
 }

@@ -1,90 +1,314 @@
-.abstracts {
-  padding: 100px 0;
+/* callForAbstracts.css - Simple and clean */
+
+/* Base Section */
+.home-abstracts {
   background: #ffffff;
+  padding: 80px 0;
 }
 
-.abstracts-wrapper {
-  display: flex;
-  justify-content: center;
+.home-abstracts-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
-.abstracts-content {
-  max-width: 700px;
+.home-abstracts-content {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 50px;
+}
+
+/* Header */
+.home-abstracts-header {
   text-align: center;
-}
-
-.abstracts h2 {
-  font-size: 2.5rem;
-  margin-bottom: 25px;
-  color: var(--primary-green);
-}
-
-.abstracts-intro {
-  font-size: 1.1rem;
-  margin-bottom: 35px;
-  line-height: 1.7;
-}
-
-.deadline-box {
-  background-color: #f4efe7;
-  padding: 20px;
-  margin-bottom: 35px;
-  border-left: 5px solid var(--primary-green);
-  font-size: 1.1rem;
-}
-
-.deadline-box span {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: 500;
-}
-
-.deadline-box strong {
-  font-size: 1.3rem;
-  color: #000;
-}
-
-.abstract-guidelines {
-  list-style: none;
-  padding: 0;
   margin-bottom: 40px;
 }
 
-.abstract-guidelines li {
-  margin-bottom: 10px;
+.home-abstracts-tag {
+  display: inline-block;
+  background: #e8f0f7;
+  color: #1e4a6b;
+  padding: 6px 16px;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+
+.home-abstracts-title {
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: #1e4a6b;
+  margin-bottom: 15px;
+}
+
+.home-abstracts-intro {
+  font-size: 1.1rem;
+  color: #475569;
+  line-height: 1.7;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Deadline Card */
+.home-deadline-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: #1e4a6b;
+  color: white;
+  padding: 25px 30px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+.home-deadline-icon {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.home-deadline-text {
+  flex: 1;
+}
+
+.home-deadline-text span {
+  display: block;
+  font-size: 0.95rem;
+  opacity: 0.9;
+  margin-bottom: 4px;
+}
+
+.home-deadline-text strong {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/* Guidelines Card */
+.home-guidelines-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 30px;
+  margin-bottom: 30px;
+}
+
+.home-guidelines-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1e4a6b;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #e8f0f7;
+}
+
+.home-guidelines-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.home-guideline-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 15px;
+  font-size: 1rem;
+  color: #1e293b;
+  line-height: 1.5;
+}
+
+.home-guideline-item:last-child {
+  margin-bottom: 0;
+}
+
+.home-guideline-icon {
+  color: #c17b3c;
+  font-weight: bold;
+  min-width: 20px;
+  font-size: 1.1rem;
+}
+
+/* Submission Actions */
+.home-submission-actions {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.home-email-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: #c17b3c;
+  color: white;
+  padding: 14px 40px;
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  margin-bottom: 15px;
+  border: none;
+  cursor: pointer;
+}
+
+.home-email-btn:hover {
+  background: #a5672f;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(193, 123, 60, 0.2);
+}
+
+.home-btn-icon {
+  font-size: 1.2rem;
+}
+
+.home-submission-note {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin: 0;
+}
+
+/* Footer */
+.home-abstracts-footer {
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.home-notification-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  color: #475569;
+  background: #e8f0f7;
+  padding: 10px 20px;
+  border-radius: 30px;
+  margin: 0;
+}
+
+.home-notification-icon {
   font-size: 1rem;
 }
 
-.abstract-email-btn {
-  display: inline-block;
-  background-color: var(--primary-green);
-  color: white;
-  padding: 14px 30px;
-  text-decoration: none;
+.home-notification-text strong {
+  color: #1e4a6b;
   font-weight: 600;
-  border-radius: 4px;
-  transition: all 0.3s ease;
 }
 
-.abstract-email-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-}
-@media (max-width: 600px) {
-  .abstracts h2 {
+/* Responsive Design */
+@media (max-width: 768px) {
+  .home-abstracts {
+    padding: 60px 0;
+  }
+
+  .home-abstracts-content {
+    padding: 30px;
+  }
+
+  .home-abstracts-title {
     font-size: 2rem;
   }
 
-  .abstracts-intro {
+  .home-abstracts-intro {
     font-size: 1rem;
   }
 
-  .deadline-box {
-    font-size: 1rem;
+  .home-deadline-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+    padding: 20px;
   }
 
-  .abstract-guidelines li {
+  .home-deadline-icon {
+    font-size: 2rem;
+  }
+
+  .home-deadline-text strong {
+    font-size: 1.5rem;
+  }
+
+  .home-guidelines-card {
+    padding: 25px;
+  }
+
+  .home-guideline-item {
     font-size: 0.95rem;
   }
-  
+
+  .home-email-btn {
+    width: 100%;
+    max-width: 300px;
+    padding: 12px 30px;
+  }
+}
+
+@media (max-width: 576px) {
+  .home-abstracts-content {
+    padding: 25px 20px;
+  }
+
+  .home-abstracts-tag {
+    font-size: 0.75rem;
+    padding: 4px 12px;
+  }
+
+  .home-abstracts-title {
+    font-size: 1.8rem;
+  }
+
+  .home-deadline-text strong {
+    font-size: 1.3rem;
+  }
+
+  .home-guidelines-title {
+    font-size: 1.1rem;
+  }
+
+  .home-guideline-item {
+    gap: 10px;
+  }
+
+  .home-notification-text {
+    flex-direction: column;
+    gap: 5px;
+    text-align: center;
+    padding: 15px;
+    width: 100%;
+  }
+}
+
+/* Small phones */
+@media (max-width: 380px) {
+  .home-abstracts-content {
+    padding: 20px 15px;
+  }
+
+  .home-abstracts-title {
+    font-size: 1.6rem;
+  }
+
+  .home-deadline-card {
+    padding: 15px;
+  }
+
+  .home-deadline-icon {
+    font-size: 1.8rem;
+  }
+
+  .home-deadline-text strong {
+    font-size: 1.2rem;
+  }
+
+  .home-guidelines-card {
+    padding: 20px 15px;
+  }
+
+  .home-guideline-item {
+    font-size: 0.9rem;
+  }
 }

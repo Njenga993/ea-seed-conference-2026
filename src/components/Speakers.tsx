@@ -1,3 +1,4 @@
+// components/HomeSpeakers.tsx
 import "../styles/speakers.css";
 
 const speakers = [
@@ -6,13 +7,15 @@ const speakers = [
     title: "Agroecology Researcher",
     organization: "University of Nairobi",
     country: "Kenya",
-    image: "",
+    expertise: ["Seed Systems", "Agroecology"],
+    image: "", // Placeholder - replace with actual images
   },
-  /*{
+  {
     name: "Mr. Samuel Okello",
     title: "Seed Systems Specialist",
     organization: "Eastern Africa Farmers Alliance",
     country: "Uganda",
+    expertise: ["Farmer-Managed Seeds", "Policy"],
     image: "",
   },
   {
@@ -20,42 +23,57 @@ const speakers = [
     title: "Policy & Advocacy Advisor",
     organization: "Tanzania Seed Network",
     country: "Tanzania",
+    expertise: ["Policy Advocacy", "Seed Rights"],
     image: "",
-  },*/
+  },
   {
     name: "Prof. Daniel Tesfaye",
     title: "Climate Resilience Expert",
     organization: "Addis Ababa University",
     country: "Ethiopia",
+    expertise: ["Climate Adaptation", "Seed Diversity"],
     image: "",
   },
 ];
 
 const Speakers = () => {
   return (
-    <section className="speakers">
-      <div className="container">
-        <div className="speakers-header">
-          <h2>Featured Speakers</h2>
-          <p>
+    <section className="home-speakers">
+      <div className="home-speakers-container">
+        <div className="home-speakers-header">
+          <span className="home-speakers-tag">Meet the Experts</span>
+          <h2 className="home-speakers-title">Featured Speakers</h2>
+          <p className="home-speakers-subtitle">
             Distinguished regional leaders, researchers, and practitioners
             contributing to advancing indigenous seed systems across Eastern Africa.
           </p>
         </div>
 
-        <div className="speakers-grid">
+        <div className="home-speakers-grid">
           {speakers.map((speaker, index) => (
-            <div className="speaker-card" key={index}>
-              <div className="speaker-image">
+            <div className="home-speaker-card" key={index}>
+              <div className="home-speaker-image">
                 <img src={speaker.image} alt={speaker.name} />
               </div>
 
-              <h3>{speaker.name}</h3>
-              <p className="speaker-title">{speaker.title}</p>
-              <p className="speaker-org">{speaker.organization}</p>
-              <p className="speaker-country">{speaker.country}</p>
+              <div className="home-speaker-content">
+                <h3 className="home-speaker-name">{speaker.name}</h3>
+                <p className="home-speaker-title">{speaker.title}</p>
+                <p className="home-speaker-org">{speaker.organization}</p>
+                
+                <div className="home-speaker-expertise">
+                  {speaker.expertise.map((exp, i) => (
+                    <span key={i} className="home-expertise-tag">{exp}</span>
+                  ))}
+                </div>
+              
+              </div>
             </div>
           ))}
+        </div>
+
+        <div className="home-speakers-cta">
+          <button className="home-speakers-button">View All Speakers</button>
         </div>
       </div>
     </section>

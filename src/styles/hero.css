@@ -1,110 +1,495 @@
-.hero {
-  height: 100vh;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+/* homeHero.css - Homepage hero only */
+.home-hero {
   position: relative;
+  height: 100vh;
+  min-height: 700px;
   display: flex;
   align-items: center;
+  color: white;
+  overflow: hidden;
 }
 
-.hero-overlay {
+.home-hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    rgba(0, 0, 0, 0.65),
-    rgba(0, 0, 0, 0.65)
-  );
-  display: flex;
-  align-items: center;
+  z-index: 1;
 }
 
-.hero-content {
-  color: white;
-  animation: fadeUp 1s ease forwards;
+.home-hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.home-hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.home-hero-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.home-hero-content {
+  max-width: 800px;
+  animation: homeFadeInUp 0.8s ease forwards;
   opacity: 0;
   transform: translateY(30px);
 }
 
-@keyframes fadeUp {
+@keyframes homeFadeInUp {
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-.hero-content h1 {
-  font-size: 3.2rem;
-  font-weight: 700;
-  line-height: 1.15;
-  margin-bottom: 25px;
-}
-
-.hero-theme {
-  font-size: 1.4rem;
+.home-hero-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 6px 16px;
+  border-radius: 30px;
+  font-size: 0.85rem;
   font-weight: 500;
-  margin-bottom: 18px;
-  opacity: 0.95;
+  letter-spacing: 0.5px;
+  margin-bottom: 25px;
+  backdrop-filter: blur(5px);
 }
 
-.hero-details {
-  font-size: 1.15rem;
+.home-hero-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  letter-spacing: -0.02em;
+  color: white;
+}
+
+.home-hero-theme {
+  font-size: 1.4rem;
+  font-weight: 400;
+  margin-bottom: 30px;
+  opacity: 0.95;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.home-hero-meta {
+  display: flex;
+  gap: 30px;
   margin-bottom: 35px;
+  flex-wrap: wrap;
+}
+
+.home-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.1rem;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 8px 20px;
+  border-radius: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.home-meta-icon {
+  font-size: 1.2rem;
+}
+
+.home-hero-buttons {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 50px;
+  flex-wrap: wrap;
+}
+
+.home-btn {
+  display: inline-block;
+  padding: 14px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+  text-align: center;
+}
+
+.home-btn-primary {
+  background: #1e4a6b;
+  color: white;
+  border: 2px solid #1e4a6b;
+}
+
+.home-btn-primary:hover {
+  background: #0f2c3f;
+  border-color: #0f2c3f;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.home-btn-secondary {
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+}
+
+.home-btn-secondary:hover {
+  background: white;
+  color: #0f2c3f;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.home-hero-stats {
+  display: flex;
+  gap: 40px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.home-stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.home-stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: white;
+}
+
+.home-stat-label {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
-.hero-buttons {
-  display: flex;
-  gap: 15px;
+.home-hero-scroll {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  text-align: center;
+  animation: homeBounce 2s infinite;
 }
 
-.primary-btn {
-  background-color: var(--primary-green);
-  color: white;
-  border: none;
-  padding: 14px 28px;
-  cursor: pointer;
-  font-weight: 600;
-  border-radius: 4px;
-  transition: all 0.3s ease;
+@keyframes homeBounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  40% {
+    transform: translateX(-50%) translateY(-10px);
+  }
+  60% {
+    transform: translateX(-50%) translateY(-5px);
+  }
 }
 
-.primary-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+.home-scroll-text {
+  display: block;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  opacity: 0.7;
 }
 
-.secondary-btn {
-  background: transparent;
-  border: 2px solid white;
-  color: white;
-  padding: 14px 28px;
-  cursor: pointer;
-  font-weight: 600;
-  border-radius: 4px;
-  transition: all 0.3s ease;
+.home-scroll-line {
+  width: 2px;
+  height: 30px;
+  background: white;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
 }
 
-.secondary-btn:hover {
-  background-color: white;
-  color: black;
-  transform: translateY(-2px);
+.home-scroll-line::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5);
+  animation: homeScroll 2s ease-in-out infinite;
 }
+
+@keyframes homeScroll {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+/* homeHero.css - Add this to your existing CSS, don't replace it */
+
+/* Additional responsive improvements without breaking existing styles */
+@media (max-width: 1200px) {
+  .home-heor-container-responsive {
+    padding: 0 20px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .home-hero-title-responsive {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .home-hero-title-responsive {
+    font-size: 2.5rem;
+  }
+  
+  .home-hero-theme-responsive {
+    font-size: 1.2rem;
+  }
+  
+  .home-hero-meta-responsive {
+    gap: 20px;
+  }
+}
+
 @media (max-width: 768px) {
-  .hero-content h1 {
+  .home-hero-responsive {
+    min-height: 600px;
+  }
+  
+  .home-hero-title-responsive {
     font-size: 2.2rem;
   }
-
-  .hero-theme {
+  
+  .home-hero-theme-responsive {
     font-size: 1.1rem;
+    margin-bottom: 25px;
   }
+  
+  .home-hero-meta-responsive {
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+  }
+  
+  .home-meta-item-responsive {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .home-hero-buttons-responsive {
+    flex-direction: column;
+    width: 100%;
+    max-width: 300px;
+    gap: 15px;
+  }
+  
+  .home-btn-responsive {
+    width: 100%;
+  }
+  
+  .home-hero-stats-responsive {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .home-stat-responsive {
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .home-hero-scroll-responsive {
+    display: none;
+  }
+}
 
-  .hero-details {
+@media (max-width: 640px) {
+  .home-hero-container-responsive {
+    padding: 0 16px;
+  }
+  
+  .home-hero-content-responsive {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .home-hero-title-responsive {
+    font-size: 1.8rem;
+  }
+  
+  .home-hero-theme-responsive {
+    font-size: 0.95rem;
+  }
+  
+  .home-meta-item-responsive {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+  }
+  
+  .home-stat-value-responsive {
+    font-size: 1.5rem;
+  }
+  
+  .home-stat-label-responsive {
+    font-size: 0.75rem;
+  }
+  
+  .home-btn-responsive {
+    padding: 12px 24px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-hero-responsive {
+    min-height: 500px;
+  }
+  
+  .home-hero-title-responsive {
+    font-size: 1.5rem;
+  }
+  
+  .home-hero-theme-responsive {
+    font-size: 0.85rem;
+  }
+  
+  .home-meta-item-responsive {
+    font-size: 0.85rem;
+    padding: 6px 14px;
+  }
+  
+  .home-meta-icon-responsive {
     font-size: 1rem;
   }
+  
+  .home-stat-value-responsive {
+    font-size: 1.3rem;
+  }
+  
+  .home-stat-label-responsive {
+    font-size: 0.7rem;
+  }
+  
+  .home-hero-stats-responsive {
+    padding-top: 15px;
+  }
+}
 
-  .hero-buttons {
-    flex-direction: column;
-    align-items: flex-start;
+/* Very small devices */
+@media (max-width: 360px) {
+  .home-hero-title-responsive {
+    font-size: 1.3rem;
+  }
+  
+  .home-hero-theme-responsive {
+    font-size: 0.8rem;
+  }
+  
+  .home-meta-item-responsive {
+    font-size: 0.8rem;
+    padding: 5px 12px;
+  }
+  
+  .home-btn-responsive {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Landscape orientation fixes */
+@media (max-height: 600px) and (orientation: landscape) {
+  .home-hero-responsive {
+    min-height: 550px;
+  }
+  
+  .home-hero-badge-responsive {
+    margin-bottom: 15px;
+  }
+  
+  .home-hero-title-responsive {
+    margin-bottom: 10px;
+  }
+  
+  .home-hero-theme-responsive {
+    margin-bottom: 15px;
+  }
+  
+  .home-hero-meta-responsive {
+    margin-bottom: 20px;
+  }
+  
+  .home-hero-buttons-responsive {
+    margin-bottom: 25px;
+  }
+  
+  .home-hero-stats-responsive {
+    padding-top: 15px;
+  }
+}
+
+/* iPad and tablet specific */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+  .home-hero-content-responsive {
+    max-width: 700px;
+  }
+  
+  .home-hero-title-responsive {
+    font-size: 2.8rem;
+  }
+}
+
+/* Fix for very tall phones */
+@media (min-height: 800px) and (max-width: 480px) {
+  .home-hero-responsive {
+    min-height: 600px;
+  }
+  
+  .home-hero-content-responsive {
+    padding: 20px 0;
+  }
+}
+
+/* Ensure content stays visible */
+.home-hero-content-responsive {
+  position: relative;
+  z-index: 2;
+}
+
+/* Better touch targets for mobile */
+@media (hover: none) and (pointer: coarse) {
+  .home-btn-responsive {
+    padding: 16px 32px; /* Larger touch target */
+  }
+  
+  .home-meta-item-responsive {
+    padding: 10px 18px; /* Larger touch target */
+  }
+}
+
+/* Fix for notched phones */
+@supports (padding: max(0px)) {
+  .home-hero-container-responsive {
+    padding-left: max(24px, env(safe-area-inset-left));
+    padding-right: max(24px, env(safe-area-inset-right));
   }
 }

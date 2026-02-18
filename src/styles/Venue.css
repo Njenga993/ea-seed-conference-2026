@@ -1,58 +1,332 @@
-.venue {
-  padding: 100px 0;
+/* venue.css - Simple and clean */
+
+/* Base Section */
+.home-venue {
   background-color: #ffffff;
+  padding: 80px 0;
 }
 
-.venue-grid {
+.home-venue-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.home-venue-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 60px;
+  gap: 50px;
   align-items: center;
 }
 
-.venue-content h2 {
-  font-size: 2.5rem;
+/* Content Side */
+.home-venue-content {
+  padding-right: 20px;
+}
+
+.home-venue-header {
   margin-bottom: 25px;
-  color: var(--primary-green);
 }
 
-.venue-description {
+.home-venue-tag {
+  display: inline-block;
+  background: #e8f0f7;
+  color: #1e4a6b;
+  padding: 6px 16px;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+
+.home-venue-title {
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: #1e4a6b;
+  line-height: 1.2;
+}
+
+.home-venue-description {
   font-size: 1.1rem;
+  color: #475569;
+  line-height: 1.7;
   margin-bottom: 30px;
-  line-height: 1.6;
 }
 
-.venue-details p {
-  margin-bottom: 10px;
+/* Details */
+.home-venue-details {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 25px;
+  margin-bottom: 25px;
+}
+
+.home-detail-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  padding: 12px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.home-detail-item:last-child {
+  border-bottom: none;
+}
+
+.home-detail-icon {
+  font-size: 1.2rem;
+  min-width: 28px;
+}
+
+.home-detail-item div {
+  flex: 1;
+}
+
+.home-detail-label {
+  font-size: 0.9rem;
+  color: #64748b;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.home-detail-value {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #1e293b;
+  display: block;
+}
+
+/* Actions */
+.home-venue-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+
+.home-map-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #1e4a6b;
+  color: white;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.home-map-btn:hover {
+  background: #0f2c3f;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(30, 74, 107, 0.2);
+}
+
+.home-btn-icon {
+  font-size: 1.1rem;
+}
+
+.home-accommodation-link {
+  color: #1e4a6b;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.home-accommodation-link:hover {
+  color: #c17b3c;
+  transform: translateX(3px);
+}
+
+/* Note */
+.home-venue-note {
+  background: #f8fafc;
+  border-left: 4px solid #c17b3c;
+  padding: 15px 20px;
+  border-radius: 0 4px 4px 0;
+}
+
+.home-venue-note p {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+  color: #475569;
+  margin: 0;
+}
+
+.home-note-icon {
   font-size: 1rem;
 }
 
-.map-btn {
-  display: inline-block;
-  margin-top: 25px;
-  background-color: var(--primary-green);
-  color: white;
-  padding: 12px 28px;
-  text-decoration: none;
-  font-weight: 600;
-  border-radius: 4px;
-  transition: all 0.3s ease;
+/* Image Side */
+.home-venue-image-wrapper {
+  position: relative;
 }
 
-.map-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
-}
-
-.venue-image img {
-  width: 100%;
+.home-venue-image-card {
+  background: white;
+  border: 1px solid #e2e8f0;
   border-radius: 8px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.home-venue-image-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.home-venue-image {
+  width: 100%;
+  height: 350px;
   object-fit: cover;
+  display: block;
+}
+
+.home-image-caption {
+  padding: 15px 20px;
+  background: white;
+  font-size: 0.9rem;
+  color: #1e4a6b;
+  font-weight: 500;
+  border-top: 1px solid #e2e8f0;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .home-venue-grid {
+    gap: 40px;
+  }
+  
+  .home-venue-title {
+    font-size: 2rem;
+  }
+  
+  .home-venue-image {
+    height: 320px;
+  }
 }
 
 @media (max-width: 900px) {
-  .venue-grid {
+  .home-venue-grid {
     grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  
+  .home-venue-content {
+    padding-right: 0;
+  }
+  
+  .home-venue-image-wrapper {
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .home-venue {
+    padding: 60px 0;
+  }
+  
+  .home-venue-title {
+    font-size: 1.8rem;
+  }
+  
+  .home-venue-description {
+    font-size: 1rem;
+  }
+  
+  .home-venue-details {
+    padding: 20px;
+  }
+  
+  .home-detail-item {
+    padding: 10px 0;
+  }
+  
+  .home-detail-value {
+    font-size: 0.95rem;
+  }
+  
+  .home-venue-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  
+  .home-map-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .home-venue-image {
+    height: 280px;
+  }
+}
+
+@media (max-width: 576px) {
+  .home-venue-tag {
+    font-size: 0.75rem;
+    padding: 4px 12px;
+  }
+  
+  .home-venue-title {
+    font-size: 1.6rem;
+  }
+  
+  .home-venue-description {
+    font-size: 0.95rem;
+  }
+  
+  .home-detail-icon {
+    font-size: 1rem;
+    min-width: 24px;
+  }
+  
+  .home-detail-label {
+    font-size: 0.85rem;
+  }
+  
+  .home-detail-value {
+    font-size: 0.9rem;
+  }
+  
+  .home-venue-note p {
+    font-size: 0.85rem;
+    flex-direction: column;
+    text-align: center;
+    gap: 5px;
+  }
+  
+  .home-venue-image {
+    height: 220px;
+  }
+  
+  .home-image-caption {
+    padding: 12px 15px;
+    font-size: 0.85rem;
+  }
+}
+
+/* Small phones */
+@media (max-width: 380px) {
+  .home-venue-title {
+    font-size: 1.4rem;
+  }
+  
+  .home-venue-image {
+    height: 180px;
+  }
+  
+  .home-detail-item {
+    flex-wrap: wrap;
   }
 }

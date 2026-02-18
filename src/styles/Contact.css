@@ -1,0 +1,348 @@
+/* contact.css - Simple and clean */
+
+/* Base Section */
+.home-contact {
+  background-color: #ffffff;
+  padding: 80px 0;
+}
+
+.home-contact-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Header */
+.home-contact-header {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 50px;
+}
+
+.home-contact-tag {
+  display: inline-block;
+  background: #e8f0f7;
+  color: #1e4a6b;
+  padding: 6px 16px;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+
+.home-contact-title {
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: #1e4a6b;
+  margin-bottom: 15px;
+}
+
+.home-contact-intro {
+  font-size: 1.1rem;
+  color: #475569;
+  line-height: 1.6;
+}
+
+/* Grid Layout */
+.home-contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+/* Form Side */
+.home-contact-form-wrapper {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 35px;
+}
+
+.home-contact-form {
+  margin-bottom: 30px;
+}
+
+.home-form-group {
+  margin-bottom: 20px;
+}
+
+.home-form-group label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #1e293b;
+  margin-bottom: 6px;
+}
+
+.home-form-group input,
+.home-form-group textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  background: white;
+}
+
+.home-form-group input:focus,
+.home-form-group textarea:focus {
+  outline: none;
+  border-color: #1e4a6b;
+  box-shadow: 0 0 0 3px rgba(30, 74, 107, 0.1);
+}
+
+.home-form-group input::placeholder,
+.home-form-group textarea::placeholder {
+  color: #94a3b8;
+}
+
+.home-contact-btn {
+  width: 100%;
+  background: #1e4a6b;
+  color: white;
+  border: none;
+  padding: 14px 20px;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.home-contact-btn:hover {
+  background: #0f2c3f;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(30, 74, 107, 0.2);
+}
+
+/* Contact Info */
+.home-contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding-top: 20px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.home-info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.home-info-icon {
+  font-size: 1.2rem;
+  min-width: 28px;
+  color: #1e4a6b;
+}
+
+.home-info-item div {
+  flex: 1;
+}
+
+.home-info-label {
+  display: block;
+  font-size: 0.8rem;
+  color: #64748b;
+  margin-bottom: 2px;
+}
+
+.home-info-item a,
+.home-info-item span {
+  font-size: 0.95rem;
+  color: #1e293b;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.home-info-item a:hover {
+  color: #c17b3c;
+}
+
+/* Map Side */
+.home-contact-map-wrapper {
+  height: 100%;
+}
+
+.home-map-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-map-iframe {
+  width: 100%;
+  height: 400px;
+  border: none;
+  display: block;
+}
+
+.home-map-caption {
+  padding: 15px 20px;
+  background: white;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  color: #1e4a6b;
+}
+
+.home-map-marker {
+  font-size: 1.1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .home-contact-grid {
+    gap: 30px;
+  }
+  
+  .home-contact-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .home-contact-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  .home-contact-form-wrapper {
+    order: 2;
+  }
+  
+  .home-contact-map-wrapper {
+    order: 1;
+  }
+  
+  .home-map-iframe {
+    height: 350px;
+  }
+}
+
+@media (max-width: 768px) {
+  .home-contact {
+    padding: 60px 0;
+  }
+  
+  .home-contact-title {
+    font-size: 1.8rem;
+  }
+  
+  .home-contact-intro {
+    font-size: 1rem;
+  }
+  
+  .home-contact-form-wrapper {
+    padding: 25px;
+  }
+  
+  .home-info-item {
+    gap: 10px;
+  }
+  
+  .home-info-icon {
+    font-size: 1rem;
+    min-width: 24px;
+  }
+  
+  .home-info-item a,
+  .home-info-item span {
+    font-size: 0.9rem;
+  }
+  
+  .home-map-iframe {
+    height: 300px;
+  }
+  
+  .home-map-caption {
+    padding: 12px 15px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .home-contact-tag {
+    font-size: 0.75rem;
+    padding: 4px 12px;
+  }
+  
+  .home-contact-title {
+    font-size: 1.6rem;
+  }
+  
+  .home-contact-intro {
+    font-size: 0.95rem;
+  }
+  
+  .home-contact-form-wrapper {
+    padding: 20px;
+  }
+  
+  .home-form-group input,
+  .home-form-group textarea {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+  }
+  
+  .home-contact-btn {
+    padding: 12px;
+    font-size: 0.95rem;
+  }
+  
+  .home-contact-info {
+    gap: 12px;
+  }
+  
+  .home-info-item {
+    flex-wrap: wrap;
+  }
+  
+  .home-map-iframe {
+    height: 250px;
+  }
+}
+
+/* Small phones */
+@media (max-width: 380px) {
+  .home-contact-title {
+    font-size: 1.4rem;
+  }
+  
+  .home-contact-form-wrapper {
+    padding: 15px;
+  }
+  
+  .home-form-group label {
+    font-size: 0.85rem;
+  }
+  
+  .home-form-group input,
+  .home-form-group textarea {
+    padding: 8px 10px;
+    font-size: 0.85rem;
+  }
+  
+  .home-info-item {
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .home-info-icon {
+    min-width: auto;
+  }
+  
+  .home-map-caption {
+    flex-direction: column;
+    text-align: center;
+    gap: 5px;
+  }
+}
