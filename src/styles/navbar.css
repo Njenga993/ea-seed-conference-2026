@@ -1,60 +1,83 @@
-/* navbar.css - Clean, professional navbar without gradients */
+/* =========================================
+   EA-ISC 2026 – Professional Navbar System
+   Clean | Premium | Responsive
+========================================= */
 
-/* CSS Variables */
+/* ========= CSS VARIABLES ========= */
 :root {
-  --nav-bg: #ffffff;
-  --nav-scrolled: #C59849;
-  --nav-text: #2c3e50;
-  --nav-text-light: #ffffff;
-  --nav-hover: #1e4a6b;
-  --nav-border: #e2e8f0;
-  --nav-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  --nav-shadow-scrolled: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --transition: all 0.2s ease;
+  --nav-white: #ffffff;
+  --nav-gold: #C59849;
+  --nav-dark: #1f2937;
+  --nav-muted: #6b7280;
+
+  --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.06);
+  --shadow-medium: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+  --transition-fast: 0.2s ease;
+  --transition-smooth: 0.35s cubic-bezier(.4,0,.2,1);
 }
 
-/* Base Navbar Styles */
+/* =========================================
+   BASE NAVBAR
+========================================= */
+
 .navbar {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  background-color: transparent;
-  transition: var(--transition);
   z-index: 1000;
-  padding: 1rem 0;
+
+  padding: 1.2rem 0;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  transition: var(--transition-smooth);
 }
 
+/* When user scrolls */
 .navbar.scrolled {
-  background-color: var(--nav-scrolled);
-  box-shadow: var(--nav-shadow-scrolled);
-  padding: 0.5rem 0;
+  background: var(--nav-white);
+  box-shadow: var(--shadow-light);
+  padding: 0.7rem 0;
 }
+
+/* =========================================
+   CONTAINER
+========================================= */
 
 .nav-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
+
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 }
 
-/* Logo */
+/* =========================================
+   LOGO
+========================================= */
+
 .nav-logo {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--nav-text-light);
-  text-decoration: none;
+  font-size: 1.3rem;
+  font-weight: 700;
   letter-spacing: -0.02em;
-  transition: var(--transition);
+  text-decoration: none;
+
+  color: var(--nav-white);
+  transition: var(--transition-fast);
 }
 
-.nav-logo:hover {
-  opacity: 0.9;
+/* Change color when scrolled */
+.navbar.scrolled .nav-logo {
+  color: var(--nav-dark);
 }
 
-/* Navigation Menu */
+/* =========================================
+   NAV MENU
+========================================= */
+
 .nav-menu {
   display: flex;
   align-items: center;
@@ -63,7 +86,7 @@
 .nav-list {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 2.2rem;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -73,29 +96,42 @@
   position: relative;
 }
 
+/* =========================================
+   LINKS
+========================================= */
+
 .nav-link {
   background: none;
   border: none;
-  color: var(--nav-text-light);
+  cursor: pointer;
+  text-decoration: none;
+
   font-size: 0.95rem;
   font-weight: 500;
-  text-decoration: none;
-  cursor: pointer;
-  padding: 0.5rem 0;
-  transition: var(--transition);
+  letter-spacing: 0.02em;
+
+  color: var(--nav-white);
   position: relative;
+  transition: var(--transition-fast);
 }
 
-/* Underline effect */
+/* Link color when scrolled */
+.navbar.scrolled .nav-link {
+  color: var(--nav-dark);
+}
+
+/* Elegant underline animation */
 .nav-link::after {
-  content: '';
+  content: "";
   position: absolute;
-  bottom: 0;
   left: 0;
+  bottom: -6px;
+
   width: 0;
   height: 2px;
-  background-color: var(--nav-text-light);
-  transition: var(--transition);
+  background: currentColor;
+
+  transition: var(--transition-fast);
 }
 
 .nav-link:hover::after,
@@ -103,48 +139,74 @@
   width: 100%;
 }
 
-/* CTA Button */
+.nav-link.active {
+  font-weight: 600;
+}
+
+/* =========================================
+   CTA BUTTON
+========================================= */
+
 .nav-cta {
-  background: var(--nav-text-light);
-  color: var(--nav-scrolled);
+  background: var(--nav-white);
+  color: var(--nav-gold);
   border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 4px;
-  font-size: 0.95rem;
+
+  padding: 0.65rem 1.4rem;
+  border-radius: 40px;
+
+  font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
-  transition: var(--transition);
+
+  transition: var(--transition-smooth);
+  box-shadow: var(--shadow-light);
+}
+
+/* CTA when navbar is scrolled */
+.navbar.scrolled .nav-cta {
+  background: var(--nav-gold);
+  color: var(--nav-white);
 }
 
 .nav-cta:hover {
-  background: #f8fafc;
-  transform: translateY(-1px);
-  box-shadow: var(--nav-shadow);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
 }
 
-/* Mobile Toggle Button */
+/* =========================================
+   MOBILE TOGGLE
+========================================= */
+
 .mobile-toggle {
   display: none;
   flex-direction: column;
   justify-content: space-between;
-  width: 24px;
+
+  width: 26px;
   height: 18px;
+
   background: transparent;
   border: none;
   cursor: pointer;
   padding: 0;
-  z-index: 1001;
+  z-index: 1100;
 }
 
 .mobile-toggle span {
   display: block;
-  width: 100%;
   height: 2px;
-  background-color: var(--nav-text-light);
-  transition: var(--transition);
+  width: 100%;
+  background: var(--nav-white);
+  transition: var(--transition-smooth);
 }
 
-.mobile-toggle.active span:first-child {
+.navbar.scrolled .mobile-toggle span {
+  background: var(--nav-dark);
+}
+
+/* Animate to X */
+.mobile-toggle.active span:nth-child(1) {
   transform: rotate(45deg) translate(5px, 5px);
 }
 
@@ -152,12 +214,16 @@
   opacity: 0;
 }
 
-.mobile-toggle.active span:last-child {
+.mobile-toggle.active span:nth-child(3) {
   transform: rotate(-45deg) translate(6px, -6px);
 }
 
-/* Responsive Styles */
+/* =========================================
+   MOBILE MENU
+========================================= */
+
 @media (max-width: 768px) {
+
   .mobile-toggle {
     display: flex;
   }
@@ -167,11 +233,15 @@
     top: 0;
     right: -100%;
     width: 80%;
+    max-width: 380px;
     height: 100vh;
-    background-color: var(--nav-scrolled);
-    transition: var(--transition);
-    z-index: 1000;
-    padding: 5rem 2rem 2rem;
+
+    background: var(--nav-white);
+    box-shadow: var(--shadow-medium);
+
+    padding: 6rem 2rem 2rem;
+
+    transition: var(--transition-smooth);
   }
 
   .nav-menu.active {
@@ -181,73 +251,48 @@
   .nav-list {
     flex-direction: column;
     gap: 2rem;
-    width: 100%;
-  }
-
-  .nav-item {
-    width: 100%;
-    text-align: center;
+    align-items: flex-start;
   }
 
   .nav-link {
-    display: inline-block;
-    font-size: 1.2rem;
-    padding: 0.5rem 0;
+    font-size: 1.1rem;
+    color: var(--nav-dark);
+  }
+
+  .nav-link::after {
+    background: var(--nav-gold);
   }
 
   .nav-cta {
-    display: inline-block;
-    width: auto;
-    min-width: 180px;
-    padding: 0.8rem 2rem;
-    font-size: 1.1rem;
+    background: var(--nav-gold);
+    color: var(--nav-white);
+    margin-top: 1rem;
   }
 }
 
-/* Tablet Styles */
+/* =========================================
+   TABLET REFINEMENT
+========================================= */
+
 @media (min-width: 769px) and (max-width: 1024px) {
   .nav-list {
     gap: 1.5rem;
   }
-
-  .nav-link {
-    font-size: 0.9rem;
-  }
 }
 
-/* Small Desktop */
-@media (min-width: 1025px) and (max-width: 1200px) {
-  .nav-container {
-    padding: 0 2rem;
-  }
-}
+/* =========================================
+   ACCESSIBILITY
+========================================= */
 
-/* Accessibility */
-@media (prefers-reduced-motion: reduce) {
-  .navbar,
-  .nav-link,
-  .nav-link::after,
-  .nav-cta,
-  .mobile-toggle span,
-  .nav-menu {
-    transition: none;
-  }
-}
-
-/* Focus States for Accessibility */
 .nav-link:focus-visible,
 .nav-cta:focus-visible,
 .mobile-toggle:focus-visible {
-  outline: 2px solid var(--nav-text-light);
-  outline-offset: 2px;
+  outline: 2px solid var(--nav-gold);
+  outline-offset: 3px;
 }
 
-/* Active States */
-.nav-link.active {
-  font-weight: 600;
-}
-
-/* Prevent body scroll when menu is open */
-body.menu-open {
-  overflow: hidden;
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
 }

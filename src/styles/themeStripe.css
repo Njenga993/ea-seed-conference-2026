@@ -1,37 +1,85 @@
-/* styles/themeStripe.css - Solid color version */
-.theme-stripe {
-  position: relative;
-  background: #C59849;
-  padding: 60px 0 40px;
-  overflow: hidden;
-  isolation: isolate;
+/* ===================================================== */
+/* THEME STRIPE – STICKY UNDER NAVBAR VERSION */
+/* Works with Improved EA-ISC Navbar */
+/* ===================================================== */
+
+/* IMPORTANT:
+   This must match navbar height.
+   Adjust only if you change navbar padding.
+*/
+:root {
+  --navbar-height: 80px;
 }
 
-/* Dynamic gradient overlay - changed to solid */
+/* ============================= */
+/* Base Stripe */
+/* ============================= */
+
+.theme-stripe {
+  position: relative;
+  margin-top: -80px; /* FIXED */
+  margin-bottom: 60px;
+  background: linear-gradient(
+    135deg,
+    #72BF44 0%,
+    #5DAE35 50%,
+    #4F9E2C 100%
+  );
+  padding: 70px 0 50px;
+  overflow: hidden;
+  isolation: isolate;
+  z-index: 1;
+}
+
+/* ============================= */
+/* Sticky Behavior (Fixed) */
+/* ============================= */
+
+.sticky-stripe {
+  position: relative;
+  top: var(--navbar-height); /* FIXED */
+  z-index: 900; /* below navbar (1000) */
+}
+
+/* ============================= */
+/* Subtle Top Border (Separation) */
+/* ============================= */
+
+.theme-stripe::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: rgba(255,255,255,0.3);
+  z-index: 2;
+}
+
+/* ============================= */
+/* Mouse Radial Highlight */
+/* ============================= */
+
 .theme-stripe-gradient {
   position: absolute;
   inset: 0;
-  background: #d9a84e;
-  opacity: 0;
+  background: radial-gradient(
+    circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 255, 255, 0.12),
+    transparent 60%
+  );
+  opacity: 0.5;
   transition: opacity 0.3s ease;
   pointer-events: none;
   z-index: 1;
 }
 
-.theme-stripe:hover .theme-stripe-gradient {
-  opacity: 1;
-}
-
-/* Organic pattern overlay */
-.theme-stripe-pattern {
-  position: absolute;
-  inset: 0;
-  opacity: 0.5;
-  z-index: 1;
-}
+/* ============================= */
+/* Container */
+/* ============================= */
 
 .theme-stripe-container {
-  max-width: 1400px;
+  max-width: 1300px;
   margin: 0 auto;
   padding: 0 32px;
   position: relative;
@@ -43,357 +91,207 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 24px;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border-radius: 24px;
-  padding: 32px 40px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3);
+  gap: 28px;
+
+  background: rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(8px);
+
+  border-radius: 20px;
+  padding: 36px 40px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  /* Scroll Reveal */
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
 }
 
-/* Individual items */
+/* Scroll Reveal Active */
+.stripe-visible .theme-stripe-content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================= */
+/* Items */
+/* ============================= */
+
 .theme-stripe-item {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 18px;
   flex: 1;
-  min-width: 200px;
-  padding: 16px;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.03);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: default;
-  position: relative;
-  overflow: hidden;
-}
-
-.theme-stripe-item::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(255, 255, 255, 0.1);
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  min-width: 220px;
+  padding: 10px 0;
+  transition: transform 0.25s ease;
 }
 
 .theme-stripe-item:hover {
-  transform: translateY(-4px);
-  background: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3);
+  transform: translateY(-3px);
 }
 
-.theme-stripe-item:hover::before {
-  opacity: 1;
-}
-
+/* ============================= */
 /* Icons */
+/* ============================= */
+
 .theme-stripe-icon {
   width: 48px;
   height: 48px;
   min-width: 48px;
-  color: #d9a84e;
-  background: rgba(217, 168, 78, 0.1);
+
+  background: rgba(0, 0, 0, 0.25);
   border-radius: 12px;
-  padding: 12px;
-  transition: all 0.3s ease;
-}
 
-.theme-stripe-item:hover .theme-stripe-icon {
-  transform: scale(1.1) rotate(5deg);
-  background: rgba(217, 168, 78, 0.2);
-}
-
-/* Text content */
-.theme-stripe-text {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 20px;
+  color: #ffffff;
 }
+
+/* ============================= */
+/* Text */
+/* ============================= */
 
 .theme-stripe-label {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.5);
   text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 4px;
+  letter-spacing: 1.5px;
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 6px;
+  display: block;
 }
 
 .theme-stripe-value {
-  font-size: 1.3rem;
+  font-size: 1.25rem;
   font-weight: 700;
-  color: white;
-  line-height: 1.2;
+  color: #ffffff;
   margin: 0;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  line-height: 1.2;
 }
 
 .theme-stripe-subtitle {
   font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.6);
-  margin: 4px 0 0;
+  color: rgba(255, 255, 255, 0.85);
+  margin-top: 4px;
 }
 
-/* Dividers */
+/* ============================= */
+/* Divider */
+/* ============================= */
+
 .theme-stripe-divider {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 0 8px;
+  width: 1px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.25);
 }
 
-.theme-stripe-divider-dot {
-  width: 4px;
-  height: 4px;
-  background: #d9a84e;
-  border-radius: 50%;
-  opacity: 0.5;
-}
+/* ============================= */
+/* CTA */
+/* ============================= */
 
-.theme-stripe-divider-line {
-  width: 40px;
-  height: 1px;
-  background: #d9a84e;
-}
-
-/* CTA Button - changed gradient to solid */
 .theme-stripe-cta-wrapper {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: 8px;
 }
 
 .theme-stripe-cta {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  padding: 16px 32px;
-  background: #d9a84e;
-  color: #0b3b2c;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 1.1rem;
-  border-radius: 50px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: none;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.3);
-}
+  gap: 10px;
 
-.theme-stripe-cta-shine {
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.3);
-  transition: left 0.5s ease;
+  padding: 16px 34px;
+  border-radius: 50px;
+
+  background: #1E4D11;
+  color: #ffffff;
+  text-decoration: none;
+
+  font-weight: 700;
+  font-size: 1rem;
+
+  transition: all 0.3s ease;
 }
 
 .theme-stripe-cta:hover {
+  background: #15390C;
   transform: translateY(-2px);
-  box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.4);
-}
-
-.theme-stripe-cta:hover .theme-stripe-cta-shine {
-  left: 100%;
-}
-
-.theme-stripe-cta-icon {
-  width: 20px;
-  height: 20px;
-  transition: transform 0.3s ease;
-}
-
-.theme-stripe-cta:hover .theme-stripe-cta-icon {
-  transform: translateX(5px);
 }
 
 .theme-stripe-cta-note {
   font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.85);
   margin: 0;
 }
 
-/* Stats bar */
-.theme-stripe-stats {
-  display: flex;
-  justify-content: center;
-  gap: 60px;
-  margin-top: 40px;
-  padding: 24px 32px;
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 50px;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-  position: relative;
-  z-index: 2;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.theme-stripe-stat {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.theme-stripe-stat-number {
-  font-size: 1.8rem;
-  font-weight: 800;
-  color: #d9a84e;
-  line-height: 1;
-  margin-bottom: 4px;
-  text-shadow: 0 2px 10px rgba(217, 168, 78, 0.3);
-}
-
-.theme-stripe-stat-label {
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.6);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-/* Animation */
-.theme-stripe-item,
-.theme-stripe-divider,
-.theme-stripe-cta-wrapper,
-.theme-stripe-stat {
-  opacity: 0;
-  transform: translateY(30px);
-  animation: slideUpFade 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-.theme-stripe-item:nth-child(1) { animation-delay: 0.1s; }
-.theme-stripe-divider:nth-of-type(1) { animation-delay: 0.2s; }
-.theme-stripe-item:nth-child(2) { animation-delay: 0.3s; }
-.theme-stripe-divider:nth-of-type(2) { animation-delay: 0.4s; }
-.theme-stripe-item:nth-child(3) { animation-delay: 0.5s; }
-.theme-stripe-cta-wrapper { animation-delay: 0.6s; }
-.theme-stripe-stat { animation-delay: 0.8s; }
-
-@keyframes slideUpFade {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Responsive Design */
-@media (max-width: 1200px) {
-  .theme-stripe-content {
-    padding: 24px 32px;
-  }
-  
-  .theme-stripe-value {
-    font-size: 1.1rem;
-  }
-  
-  .theme-stripe-stats {
-    gap: 40px;
-    padding: 20px 24px;
-  }
-}
+/* ============================= */
+/* Responsive */
+/* ============================= */
 
 @media (max-width: 1024px) {
   .theme-stripe-content {
     flex-direction: column;
-    align-items: stretch;
+    align-items: flex-start;
   }
-  
+
   .theme-stripe-divider {
     display: none;
   }
-  
-  .theme-stripe-item {
-    width: 100%;
-  }
-  
+
   .theme-stripe-cta-wrapper {
     margin-top: 16px;
-  }
-  
-  .theme-stripe-stats {
-    flex-wrap: wrap;
-    gap: 30px;
-    border-radius: 24px;
-    margin-top: 30px;
   }
 }
 
 @media (max-width: 768px) {
-  .theme-stripe {
-    padding: 40px 0 30px;
+  :root {
+    --navbar-height: 70px;
   }
-  
+
+  .theme-stripe {
+    padding: 50px 0 40px;
+  }
+
   .theme-stripe-container {
     padding: 0 20px;
   }
-  
-  .theme-stripe-content {
-    padding: 20px;
-  }
-  
-  .theme-stripe-stats {
-    gap: 20px;
-    padding: 16px;
-  }
-  
-  .theme-stripe-stat-number {
-    font-size: 1.5rem;
-  }
-  
-  .theme-stripe-stat-label {
-    font-size: 0.75rem;
-  }
-}
 
-@media (max-width: 480px) {
+  .theme-stripe-content {
+    padding: 28px;
+  }
+
   .theme-stripe-item {
     flex-direction: column;
-    text-align: center;
-    padding: 20px;
+    align-items: flex-start;
   }
-  
-  .theme-stripe-text {
-    align-items: center;
-  }
-  
-  .theme-stripe-stats {
-    flex-direction: column;
-    gap: 16px;
-  }
-  
+
   .theme-stripe-cta {
     width: 100%;
     justify-content: center;
   }
 }
 
-/* Dark mode support - changed gradient to solid */
-@media (prefers-color-scheme: dark) {
-  .theme-stripe {
-    background: #0a2e22;
-  }
-}
+/* ============================= */
+/* Reduced Motion */
+/* ============================= */
 
-/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .theme-stripe-item,
-  .theme-stripe-divider,
-  .theme-stripe-cta-wrapper,
-  .theme-stripe-stat {
-    animation: none;
+  .theme-stripe-content {
+    transition: none;
     opacity: 1;
     transform: none;
   }
-  
-  .theme-stripe-gradient,
-  .theme-stripe-cta-shine {
+
+  .theme-stripe-item:hover,
+  .theme-stripe-cta:hover {
+    transform: none;
+  }
+
+  .theme-stripe-gradient {
     display: none;
   }
 }
