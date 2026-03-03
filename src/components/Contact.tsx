@@ -109,14 +109,14 @@ const Contact = () => {
                 <span className="home-info-icon"></span>
                 <div>
                   <span className="home-info-label">Phone</span>
-                  <a href="tel:+256700123456">+256 700 123 456</a>
+                  <a href="tel:+256700123456">+254 712 451 777</a>
                 </div>
               </div>
               <div className="home-info-item">
                 <span className="home-info-icon"></span>
                 <div>
                   <span className="home-info-label">Address</span>
-                  <span>Kampala, Uganda</span>
+                  <span>Nairobi, Kenya</span>
                 </div>
               </div>
             </div>
@@ -127,7 +127,7 @@ const Contact = () => {
             <div className="home-map-card">
               <iframe
                 title="Conference Location"
-                src="https://www.google.com/maps?q=Kampala,Uganda&output=embed"
+                src="https://www.google.com/maps?q=nairobi,kenya&output=embed"
                 loading="lazy"
                 className="home-map-iframe"
               ></iframe>

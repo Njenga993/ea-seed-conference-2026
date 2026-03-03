@@ -22,7 +22,7 @@
 .home-contact-tag {
   display: inline-block;
   background: #e8f0f7;
-  color: #1e4a6b;
+  color: #C59849;
   padding: 6px 16px;
   border-radius: 30px;
   font-size: 0.85rem;
@@ -33,7 +33,7 @@
 .home-contact-title {
   font-size: 2.2rem;
   font-weight: 600;
-  color: #1e4a6b;
+  color: #C59849;
   margin-bottom: 15px;
 }
 
@@ -70,7 +70,7 @@
   display: block;
   font-size: 0.9rem;
   font-weight: 500;
-  color: #1e293b;
+  color: #C59849;
   margin-bottom: 6px;
 }
 
@@ -89,7 +89,7 @@
 .home-form-group input:focus,
 .home-form-group textarea:focus {
   outline: none;
-  border-color: #1e4a6b;
+  border-color: #C59849;
   box-shadow: 0 0 0 3px rgba(30, 74, 107, 0.1);
 }
 
@@ -100,7 +100,7 @@
 
 .home-contact-btn {
   width: 100%;
-  background: #1e4a6b;
+  background: #C59849;
   color: white;
   border: none;
   padding: 14px 20px;
@@ -112,7 +112,7 @@
 }
 
 .home-contact-btn:hover {
-  background: #0f2c3f;
+  background: #C59849;
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(30, 74, 107, 0.2);
 }
@@ -135,7 +135,7 @@
 .home-info-icon {
   font-size: 1.2rem;
   min-width: 28px;
-  color: #1e4a6b;
+  color: #C59849;
 }
 
 .home-info-item div {
@@ -152,7 +152,7 @@
 .home-info-item a,
 .home-info-item span {
   font-size: 0.95rem;
-  color: #1e293b;
+  color: black;
   text-decoration: none;
   transition: color 0.2s ease;
 }
@@ -191,7 +191,7 @@
   align-items: center;
   gap: 8px;
   font-size: 0.95rem;
-  color: #1e4a6b;
+  color: #C59849;
 }
 
 .home-map-marker {

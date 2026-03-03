@@ -70,7 +70,7 @@ const Footer = () => {
         <div className="footer-bottom">
           <div className="footer-bottom-content">
             <p className="copyright">
-              © {currentYear} East African International Science Conference. All rights reserved.
+              © {currentYear} 1st East African Indigenous Seeds Conference. All rights reserved.
             </p>
             <div className="footer-bottom-links">
               <a href="/privacy">Privacy Policy</a>

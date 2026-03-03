@@ -1,12 +1,12 @@
-/* homeAbout.css - Homepage about section only */
+/* styles/about.css - Homepage about section only */
 
 /* CSS Variables */
 :root {
   --home-primary: #1e4a6b;
   --home-primary-light: #e8f0f7;
   --home-secondary: #c17b3c;
-  --home-bg-light: #f8fafc;
-  --home-bg-beige: #f5f1eb;
+  --home-gold: #C59849;
+  --home-gold-light: #d9a84e;
   --home-text-dark: #1e293b;
   --home-text-medium: #475569;
   --home-text-light: #64748b;
@@ -19,8 +19,8 @@
 
 /* Base Section */
 .home-about {
-  background-color: var(--home-bg-beige);
-  padding: 100px 0;
+  background-color: var(--home-gold);
+  padding: 60px 0;
   position: relative;
   overflow: hidden;
 }
@@ -32,7 +32,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: radial-gradient(circle at 10% 20%, rgba(193, 123, 60, 0.03) 0%, transparent 50%);
+  background-image: radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
   pointer-events: none;
 }
 
@@ -45,9 +45,9 @@
 /* Grid Layout */
 .home-about-grid {
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 60px;
-  align-items: start;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
   position: relative;
   z-index: 2;
 }
@@ -67,75 +67,84 @@
 }
 
 .home-about-header {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .home-about-tag {
   display: inline-block;
-  background: var(--home-primary-light);
-  color: var(--home-primary);
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
   padding: 6px 16px;
   border-radius: 30px;
   font-size: 0.85rem;
   font-weight: 600;
   letter-spacing: 0.5px;
   margin-bottom: 15px;
+  backdrop-filter: blur(10px);
 }
 
 .home-about-title {
-  font-size: 2.2rem;
+  font-size: 2rem;
   font-weight: 700;
   line-height: 1.3;
-  color: var(--home-primary);
+  color: white;
   margin: 0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .home-about-text {
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 }
 
 .home-about-paragraph {
-  margin-bottom: 20px;
-  font-size: 1.05rem;
-  line-height: 1.7;
-  color: var(--home-text-medium);
+  margin-bottom: 15px;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .home-about-paragraph strong {
-  color: var(--home-primary);
+  color: white;
   font-weight: 600;
 }
 
-/* Stats */
-.home-about-stats {
-  display: flex;
-  gap: 40px;
-  padding-top: 30px;
-  border-top: 2px solid var(--home-border);
+/* CTA Button */
+.home-about-cta {
+  margin-top: 10px;
 }
 
-.home-stat-item {
-  display: flex;
-  flex-direction: column;
+.home-learn-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 12px 24px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: var(--home-transition);
 }
 
-.home-stat-number {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--home-secondary);
-  line-height: 1.2;
-  margin-bottom: 4px;
+.home-learn-more:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
 }
 
-.home-stat-label {
-  font-size: 0.9rem;
-  color: var(--home-text-light);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+.home-cta-arrow {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
 }
 
-/* Highlight Side */
-.home-about-highlight {
+.home-learn-more:hover .home-cta-arrow {
+  transform: translateX(4px);
+}
+
+/* Photo Collage Side */
+.home-about-visual {
   animation: homeSlideInRight 0.8s ease forwards;
   opacity: 0;
   transform: translateX(30px);
@@ -148,133 +157,85 @@
   }
 }
 
-.home-highlight-card {
-  background-color: white;
-  padding: 35px;
+.home-photo-collage {
+  position: relative;
+  height: 450px;
+  width: 100%;
+}
+
+.home-photo {
+  position: absolute;
   border-radius: 12px;
-  border-left: 5px solid var(--home-secondary);
-  box-shadow: var(--home-shadow-md);
-  margin-bottom: 30px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
   transition: var(--home-transition);
 }
 
-.home-highlight-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--home-shadow-lg);
+.home-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
-.home-highlight-title {
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: var(--home-primary);
-  margin-bottom: 25px;
-  position: relative;
-  padding-bottom: 12px;
+/* Photo 1 - Main photo */
+.home-photo-1 {
+  width: 85%;
+  height: 70%;
+  top: 0;
+  right: 0;
+  z-index: 3;
+  border: 4px solid white;
 }
 
-.home-highlight-title::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
+/* Photo 2 - Top left */
+.home-photo-2 {
+  width: 65%;
+  height: 50%;
+  top: 10%;
   left: 0;
-  width: 50px;
-  height: 3px;
-  background-color: var(--home-secondary);
-}
-
-.home-highlight-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.home-highlight-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  margin-bottom: 16px;
-  font-size: 1rem;
-  color: var(--home-text-dark);
-  line-height: 1.5;
-}
-
-.home-highlight-item:last-child {
-  margin-bottom: 0;
-}
-
-.home-highlight-icon {
-  font-size: 1.2rem;
-  min-width: 24px;
-  color: var(--home-secondary);
-}
-
-/* Quote */
-.home-highlight-quote {
-  background: white;
-  padding: 30px;
-  border-radius: 12px;
-  border: 1px solid var(--home-border);
-  position: relative;
-}
-
-.home-highlight-quote::before {
-  content: '"';
-  position: absolute;
-  top: 15px;
-  left: 20px;
-  font-size: 4rem;
-  color: var(--home-primary);
-  opacity: 0.1;
-  font-family: serif;
-}
-
-.home-quote-text {
-  font-size: 1rem;
-  line-height: 1.7;
-  color: var(--home-text-medium);
-  margin-bottom: 15px;
-  font-style: italic;
-  position: relative;
   z-index: 2;
+  border: 4px solid white;
+  transform: rotate(-3deg);
 }
 
-.home-quote-author {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  z-index: 2;
+/* Photo 3 - Bottom */
+.home-photo-3 {
+  width: 70%;
+  height: 45%;
+  bottom: 0;
+  left: 15%;
+  z-index: 1;
+  border: 4px solid white;
+  transform: rotate(2deg);
 }
 
-.home-author-name {
-  font-weight: 600;
-  color: var(--home-primary);
-  margin-bottom: 2px;
-}
-
-.home-author-title {
-  font-size: 0.85rem;
-  color: var(--home-text-light);
+/* Hover effects */
+.home-photo:hover {
+  transform: scale(1.05) rotate(0deg) !important;
+  z-index: 10;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
 }
 
 /* Responsive Design */
 @media (max-width: 1024px) {
   .home-about-title {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
   
-  .home-stat-number {
-    font-size: 1.8rem;
+  .home-photo-collage {
+    height: 380px;
   }
 }
 
 @media (max-width: 900px) {
   .home-about-grid {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 30px;
   }
 
   .home-about-content,
-  .home-about-highlight {
+  .home-about-visual {
     animation: homeFadeIn 0.8s ease forwards;
     transform: none;
   }
@@ -285,58 +246,49 @@
     }
   }
 
-  .home-highlight-card {
-    margin-bottom: 25px;
+  .home-photo-collage {
+    height: 350px;
+    max-width: 500px;
+    margin: 0 auto;
   }
 }
 
 @media (max-width: 768px) {
   .home-about {
-    padding: 70px 0;
+    padding: 50px 0;
   }
 
   .home-about-title {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
 
   .home-about-paragraph {
-    font-size: 1rem;
-  }
-
-  .home-about-stats {
-    flex-direction: column;
-    gap: 20px;
-    padding-top: 25px;
-  }
-
-  .home-stat-item {
-    flex-direction: row;
-    align-items: baseline;
-    gap: 10px;
-  }
-
-  .home-stat-number {
-    font-size: 1.5rem;
-    margin-bottom: 0;
-  }
-
-  .home-highlight-card {
-    padding: 25px;
-  }
-
-  .home-highlight-title {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-  }
-
-  .home-highlight-item {
     font-size: 0.95rem;
+  }
+
+  .home-photo-collage {
+    height: 300px;
+  }
+
+  .home-photo-1 {
+    width: 90%;
+    height: 65%;
+  }
+
+  .home-photo-2 {
+    width: 70%;
+    height: 45%;
+  }
+
+  .home-photo-3 {
+    width: 75%;
+    height: 40%;
   }
 }
 
 @media (max-width: 576px) {
   .home-about-title {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
   }
 
   .home-about-tag {
@@ -344,16 +296,20 @@
     padding: 4px 12px;
   }
 
-  .home-highlight-icon {
-    font-size: 1rem;
+  .home-photo-collage {
+    height: 250px;
+  }
+
+  .home-photo {
+    border-width: 3px;
   }
 }
 
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   .home-about-content,
-  .home-about-highlight,
-  .home-highlight-card {
+  .home-about-visual,
+  .home-photo {
     animation: none;
     transition: none;
     transform: none;

@@ -31,7 +31,7 @@
 .home-venue-tag {
   display: inline-block;
   background: #e8f0f7;
-  color: #1e4a6b;
+  color: #C59849;
   padding: 6px 16px;
   border-radius: 30px;
   font-size: 0.85rem;
@@ -42,7 +42,7 @@
 .home-venue-title {
   font-size: 2.2rem;
   font-weight: 600;
-  color: #1e4a6b;
+  color: #C59849;
   line-height: 1.2;
 }
 
@@ -93,7 +93,7 @@
 .home-detail-value {
   font-size: 1rem;
   font-weight: 500;
-  color: #1e293b;
+  color: #C59849;
   display: block;
 }
 
@@ -110,8 +110,8 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: #1e4a6b;
-  color: white;
+  background: #C59849;
+  color: black;
   padding: 12px 24px;
   font-size: 1rem;
   font-weight: 500;
@@ -121,7 +121,7 @@
 }
 
 .home-map-btn:hover {
-  background: #0f2c3f;
+  background: wheat;
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(30, 74, 107, 0.2);
 }
@@ -131,7 +131,7 @@
 }
 
 .home-accommodation-link {
-  color: #1e4a6b;
+  color: #C59849;
   text-decoration: none;
   font-size: 1rem;
   font-weight: 500;
@@ -194,7 +194,7 @@
   padding: 15px 20px;
   background: white;
   font-size: 0.9rem;
-  color: #1e4a6b;
+  color: #C59849;
   font-weight: 500;
   border-top: 1px solid #e2e8f0;
 }

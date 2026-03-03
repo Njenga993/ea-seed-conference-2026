@@ -10,6 +10,7 @@ import Registration from "../components/Registration";
 import Venue from "../components/Venue";
 import Sponsors from "../components/Sponsors";
 import Contact from "../components/Contact";
+import ThemeStripe from "../components/ThemeStripe";
 
 
 const Home = () => {
@@ -17,6 +18,7 @@ const Home = () => {
     <>
       
       <Hero />
+      <ThemeStripe />
       <About />
       <FocusAreas />
       <Countdown />

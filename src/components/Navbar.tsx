@@ -117,7 +117,7 @@ const Navbar = () => {
               </Link>
             </li>
 
-            <li className="nav-item">
+            {/*<li className="nav-item">
               <Link
                 to="/program"
                 className={`nav-link ${location.pathname === "/program" ? "active" : ""}`}
@@ -133,7 +133,7 @@ const Navbar = () => {
               >
                 Speakers
               </Link>
-            </li>
+            </li>*/}
 
             <li className="nav-item">
               <Link
