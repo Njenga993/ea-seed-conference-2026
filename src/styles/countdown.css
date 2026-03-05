@@ -1,201 +1,186 @@
-/* countdown.css - Simple and clean */
+/* styles/countdown.css - Minimal countdown with theme colors */
+
+/* CSS Variables */
+:root {
+  --home-primary-green: #72BF44;
+  --home-secondary-green: #5DAE35;
+  --home-dark-green: #4F9E2C;
+  --home-darkest-green: #1E4D11;
+  --home-text-light: rgba(255, 255, 255, 0.9);
+  --home-text-muted: rgba(255, 255, 255, 0.7);
+}
 
 /* Base Section */
 .home-countdown {
-  background-color: #1e4a6b;
+  background: var(--home-dark-green);
   color: white;
-  padding: 80px 0;
+  padding: 40px 0;
   text-align: center;
 }
 
 .home-countdown-container {
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 20px;
 }
 
 /* Header */
 .home-countdown-header {
-  margin-bottom: 50px;
-}
-
-.home-countdown-tag {
-  display: inline-block;
-  background: rgba(255, 255, 255, 0.15);
-  padding: 6px 16px;
-  border-radius: 30px;
-  font-size: 0.85rem;
-  margin-bottom: 15px;
+  margin-bottom: 30px;
 }
 
 .home-countdown-title {
-  font-size: 2.2rem;
+  font-size: 1.8rem;
   font-weight: 600;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
+  color: white;
 }
 
 .home-countdown-subtitle {
-  font-size: 1.1rem;
-  opacity: 0.9;
-  max-width: 600px;
-  margin: 0 auto;
-  line-height: 1.6;
+  font-size: 0.95rem;
+  color: var(--home-text-muted);
+  margin: 0;
 }
 
 /* Timer Grid */
+.home-countdown-timer {
+  margin-bottom: 30px;
+}
+
 .home-timer-grid {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 60px;
+  gap: 20px;
   flex-wrap: wrap;
 }
 
-.home-time-card {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  padding: 25px 20px;
-  min-width: 110px;
-  transition: background 0.2s ease;
-}
-
-.home-time-card:hover {
-  background: rgba(255, 255, 255, 0.15);
+.home-time-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 70px;
 }
 
 .home-time-number {
   display: block;
-  font-size: 2.8rem;
-  font-weight: 600;
+  font-size: 2.2rem;
+  font-weight: 700;
   line-height: 1;
-  margin-bottom: 8px;
+  color: white;
+  font-family: 'Courier New', monospace;
 }
 
 .home-time-label {
   display: block;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  opacity: 0.8;
+  letter-spacing: 1px;
+  color: var(--home-text-muted);
+  margin-top: 4px;
 }
 
 .home-time-separator {
-  font-size: 2.5rem;
+  font-size: 1.8rem;
   font-weight: 300;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--home-text-muted);
   margin: 0 5px;
-}
-
-/* Footer */
-.home-countdown-footer {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 30px;
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
-}
-
-.home-event-details {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  margin-bottom: 25px;
-  flex-wrap: wrap;
-}
-
-.home-event-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 1rem;
-}
-
-.home-event-icon {
-  font-size: 1.2rem;
-  opacity: 0.9;
+  align-self: flex-start;
+  padding-top: 8px;
 }
 
 /* CTA Button */
+.home-countdown-cta {
+  margin-top: 20px;
+}
+
 .home-cta-button {
-  background: #c17b3c;
+  background: var(--home-darkest-green);
   color: white;
-  border: none;
-  padding: 14px 40px;
-  font-size: 1rem;
-  font-weight: 500;
-  border-radius: 4px;
+  border: 2px solid transparent;
+  padding: 12px 32px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 25px;
   cursor: pointer;
   transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .home-cta-button:hover {
-  background: #a5672f;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  background: transparent;
+  border-color: white;
+  transform: translateY(-1px);
 }
 
-/* Responsive */
+/* Responsive Design */
 @media (max-width: 768px) {
   .home-countdown {
-    padding: 60px 0;
+    padding: 30px 0;
   }
 
   .home-countdown-title {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
   }
 
   .home-countdown-subtitle {
-    font-size: 1rem;
+    font-size: 0.85rem;
   }
 
-  .home-time-card {
-    padding: 20px 15px;
-    min-width: 90px;
-  }
-
-  .home-time-number {
-    font-size: 2.2rem;
-  }
-
-  .home-time-separator {
-    font-size: 2rem;
-  }
-
-  .home-event-details {
-    flex-direction: column;
+  .home-timer-grid {
     gap: 15px;
   }
 
+  .home-time-number {
+    font-size: 1.8rem;
+  }
+
+  .home-time-separator {
+    font-size: 1.5rem;
+  }
+
   .home-cta-button {
-    width: 100%;
-    max-width: 280px;
+    padding: 10px 28px;
+    font-size: 0.9rem;
   }
 }
 
 @media (max-width: 576px) {
-  .home-timer-grid {
-    gap: 5px;
+  .home-countdown {
+    padding: 25px 0;
   }
 
-  .home-time-card {
-    padding: 15px 10px;
-    min-width: 70px;
+  .home-countdown-title {
+    font-size: 1.3rem;
+  }
+
+  .home-timer-grid {
+    gap: 10px;
+  }
+
+  .home-time-unit {
+    min-width: 60px;
   }
 
   .home-time-number {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
 
   .home-time-label {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
   }
 
   .home-time-separator {
-    display: none;
+    font-size: 1.3rem;
+    margin: 0 3px;
   }
+}
 
-  .home-countdown-footer {
-    padding: 20px;
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .home-cta-button {
+    transition: none;
+    transform: none;
   }
 }

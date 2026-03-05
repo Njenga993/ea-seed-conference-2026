@@ -36,7 +36,6 @@ const Countdown = () => {
     return () => clearInterval(timer);
   }, []);
 
-  // Add leading zeros
   const formatNumber = (num: number): string => {
     return num < 10 ? `0${num}` : num.toString();
   };
@@ -46,72 +45,44 @@ const Countdown = () => {
       <div className="home-countdown-container">
         <div className="home-countdown-content">
           <div className="home-countdown-header">
-            <span className="home-countdown-tag">Don't Miss Out</span>
             <h2 className="home-countdown-title">Conference Begins In</h2>
             <p className="home-countdown-subtitle">
-              Join us for the 1st Eastern Africa Indigenous Seed Conference 2026
+              17th – 20th November 2026 • Nairobi, Kenya
             </p>
           </div>
 
           <div className="home-countdown-timer">
             <div className="home-timer-grid">
               <div className="home-time-unit">
-                <div className="home-time-card">
-                  <span className="home-time-number">{formatNumber(timeLeft.days)}</span>
-                  <span className="home-time-label">Days</span>
-                </div>
+                <span className="home-time-number">{formatNumber(timeLeft.days)}</span>
+                <span className="home-time-label">Days</span>
               </div>
 
-              <div className="home-time-separator">
-                <span>:</span>
-              </div>
+              <span className="home-time-separator">:</span>
 
               <div className="home-time-unit">
-                <div className="home-time-card">
-                  <span className="home-time-number">{formatNumber(timeLeft.hours)}</span>
-                  <span className="home-time-label">Hours</span>
-                </div>
+                <span className="home-time-number">{formatNumber(timeLeft.hours)}</span>
+                <span className="home-time-label">Hours</span>
               </div>
 
-              <div className="home-time-separator">
-                <span>:</span>
-              </div>
+              <span className="home-time-separator">:</span>
 
               <div className="home-time-unit">
-                <div className="home-time-card">
-                  <span className="home-time-number">{formatNumber(timeLeft.minutes)}</span>
-                  <span className="home-time-label">Minutes</span>
-                </div>
+                <span className="home-time-number">{formatNumber(timeLeft.minutes)}</span>
+                <span className="home-time-label">Minutes</span>
               </div>
 
-              <div className="home-time-separator">
-                <span>:</span>
-              </div>
+              <span className="home-time-separator">:</span>
 
               <div className="home-time-unit">
-                <div className="home-time-card">
-                  <span className="home-time-number">{formatNumber(timeLeft.seconds)}</span>
-                  <span className="home-time-label">Seconds</span>
-                </div>
+                <span className="home-time-number">{formatNumber(timeLeft.seconds)}</span>
+                <span className="home-time-label">Seconds</span>
               </div>
             </div>
           </div>
 
-          <div className="home-countdown-footer">
-            <div className="home-event-details">
-              <div className="home-event-item">
-                <span className="home-event-icon"></span>
-                <span className="home-event-text">17th – 20th November 2026</span>
-              </div>
-              <div className="home-event-item">
-                <span className="home-event-icon"></span>
-                <span className="home-event-text">Nairobi, Kenya</span>
-              </div>
-            </div>
-            
-            <div className="home-countdown-cta">
-              <button className="home-cta-button">Register Now</button>
-            </div>
+          <div className="home-countdown-cta">
+            <button className="home-cta-button">Register Now</button>
           </div>
         </div>
       </div>

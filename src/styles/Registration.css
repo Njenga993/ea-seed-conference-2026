@@ -1,225 +1,329 @@
-/* registration.css - Simple and clean */
+/* styles/Registration.css - Updated with brown color palette */
+
+/* CSS Variables - Theme Colors */
+:root {
+  --home-primary-green: #72BF44;
+  --home-secondary-green: #5DAE35;
+  --home-dark-green: #4F9E2C;
+  --home-darkest-green: #1E4D11;
+  --home-light-bg: #f5f1eb;
+  --home-text-primary: #9a6230;
+  --home-text-secondary: #8b6941;
+  --home-text-muted: #a67c52;
+  --home-border: #d4a574;
+  --home-white: #ffffff;
+  --home-primary-brown: #c17b3c;
+  --home-dark-brown: #9a6230;
+  --home-light-brown: #d4a574;
+  --home-lightest-brown: #f5e6d9;
+}
 
 /* Base Section */
 .home-registration {
-  background-color: #f5f1eb;
+  background: var(--home-light-bg);
   padding: 80px 0;
   text-align: center;
 }
 
 .home-registration-container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 0 24px;
 }
 
 /* Header */
 .home-registration-header {
-  margin-bottom: 50px;
+  margin-bottom: 60px;
 }
 
 .home-registration-tag {
   display: inline-block;
-  background: #e8f0f7;
-  color: #1e4a6b;
-  padding: 6px 16px;
+  background: rgba(193, 123, 60, 0.1);
+  color: var(--home-dark-brown);
+  padding: 8px 20px;
   border-radius: 30px;
   font-size: 0.85rem;
-  font-weight: 500;
-  margin-bottom: 15px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .home-registration-title {
-  font-size: 2.2rem;
-  font-weight: 600;
-  color: #1e4a6b;
-  margin-bottom: 15px;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--home-text-primary);
+  margin-bottom: 20px;
+  line-height: 1.2;
 }
 
 .home-registration-intro {
   font-size: 1.1rem;
-  color: #475569;
+  color: var(--home-text-secondary);
   line-height: 1.6;
-  max-width: 650px;
+  max-width: 700px;
   margin: 0 auto;
 }
 
-/* Pricing Grid */
+/* Pricing Grid - 4 Cards */
 .home-pricing-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 25px;
-  margin-bottom: 40px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  margin-bottom: 50px;
 }
 
 /* Pricing Card */
 .home-pricing-card {
-  background: white;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  padding: 35px 25px;
+  background: var(--home-white);
+  border: 2px solid var(--home-border);
+  border-radius: 16px;
+  padding: 40px 30px;
   position: relative;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .home-pricing-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(193, 123, 60, 0.15);
+  border-color: var(--home-primary-brown);
 }
 
-.home-pricing-card.popular {
-  border: 2px solid #c17b3c;
-  box-shadow: 0 5px 15px rgba(193, 123, 60, 0.1);
+/* Featured Card */
+.home-pricing-card.featured {
+  border-color: var(--home-primary-brown);
+  background: linear-gradient(135deg, rgba(193, 123, 60, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
 }
 
-.home-popular-badge {
+.home-pricing-card.featured::before {
+  content: 'RECOMMENDED';
   position: absolute;
   top: -12px;
-  right: 20px;
-  background: #c17b3c;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--home-primary-brown);
   color: white;
-  padding: 5px 15px;
-  font-size: 0.75rem;
-  font-weight: 600;
+  padding: 6px 20px;
+  font-size: 0.7rem;
+  font-weight: 700;
   border-radius: 20px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
+}
+
+/* Card Icon */
+.home-card-icon {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  display: block;
 }
 
 /* Pricing Content */
 .home-pricing-name {
   font-size: 1.4rem;
-  font-weight: 600;
-  color: #1e4a6b;
-  margin-bottom: 15px;
+  font-weight: 700;
+  color: var(--home-text-primary);
+  margin-bottom: 20px;
+  line-height: 1.3;
 }
 
 .home-pricing-price {
-  margin-bottom: 25px;
-  padding-bottom: 20px;
-  border-bottom: 2px solid #e8f0f7;
+  margin-bottom: 30px;
+  padding-bottom: 25px;
+  border-bottom: 2px solid var(--home-border);
 }
 
 .home-price-amount {
-  font-size: 2.2rem;
-  font-weight: 700;
-  color: #1e4a6b;
-}
-
-.home-price-period {
-  font-size: 0.9rem;
-  color: #64748b;
-  margin-left: 5px;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--home-primary-green);
+  display: block;
 }
 
 /* Features List */
 .home-pricing-features {
   list-style: none;
   padding: 0;
-  margin: 0 0 30px 0;
+  margin: 0 0 35px 0;
   text-align: left;
+  flex-grow: 1;
 }
 
 .home-feature-item {
   display: flex;
   align-items: flex-start;
-  gap: 10px;
-  margin-bottom: 12px;
+  gap: 12px;
+  margin-bottom: 16px;
   font-size: 0.95rem;
-  color: #475569;
+  color: var(--home-text-secondary);
   line-height: 1.5;
 }
 
-.home-feature-item:last-child {
-  margin-bottom: 0;
+.home-feature-icon {
+  color: var(--home-primary-green);
+  font-weight: bold;
+  min-width: 20px;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.home-feature-icon {
-  color: #c17b3c;
-  font-weight: bold;
-  min-width: 18px;
-  font-size: 1rem;
+/* Add-ons Card */
+.home-pricing-card.add-ons {
+  background: linear-gradient(135deg, rgba(193, 123, 60, 0.08) 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+.home-addons-list {
+  margin: 25px 0;
+  flex-grow: 1;
+}
+
+.home-addon-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: var(--home-white);
+  border: 1px solid var(--home-border);
+  border-radius: 12px;
+  margin-bottom: 15px;
+  transition: all 0.2s ease;
+}
+
+.home-addon-item:hover {
+  border-color: var(--home-primary-brown);
+  transform: translateX(5px);
+}
+
+.home-addon-info {
+  text-align: left;
+}
+
+.home-addon-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--home-text-primary);
+  margin: 0 0 5px 0;
+}
+
+.home-addon-desc {
+  font-size: 0.85rem;
+  color: var(--home-text-muted);
+  margin: 0;
+}
+
+.home-addon-price {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--home-primary-green);
 }
 
 /* Register Button */
 .home-register-btn {
-  background: #1e4a6b;
+  background: var(--home-dark-brown);
   color: white;
   border: none;
   width: 100%;
-  padding: 12px 20px;
+  padding: 16px 24px;
   font-size: 1rem;
-  font-weight: 500;
-  border-radius: 4px;
+  font-weight: 600;
+  border-radius: 12px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: auto;
 }
 
 .home-register-btn:hover {
-  background: #0f2c3f;
+  background: var(--home-text-primary);
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(30, 74, 107, 0.2);
+  box-shadow: 0 10px 25px rgba(154, 98, 48, 0.25);
 }
 
-.home-pricing-card.popular .home-register-btn {
-  background: #c17b3c;
+.home-pricing-card.featured .home-register-btn {
+  background: var(--home-primary-brown);
 }
 
-.home-pricing-card.popular .home-register-btn:hover {
-  background: #a5672f;
+.home-pricing-card.featured .home-register-btn:hover {
+  background: var(--home-dark-brown);
+}
+
+.addon-btn {
+  background: var(--home-text-primary);
+}
+
+.addon-btn:hover {
+  background: var(--home-primary-brown);
 }
 
 /* Footer */
 .home-registration-footer {
-  margin-top: 40px;
-  padding-top: 30px;
-  border-top: 1px solid #e2e8f0;
+  margin-top: 60px;
+  padding: 30px;
+  background: var(--home-white);
+  border-radius: 16px;
+  border: 1px solid var(--home-border);
+}
+
+.home-footer-info {
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .home-registration-note {
-  font-size: 0.95rem;
-  color: #64748b;
-  margin-bottom: 10px;
+  font-size: 1rem;
+  color: var(--home-text-secondary);
+  margin-bottom: 15px;
+  line-height: 1.6;
 }
 
 .home-registration-support {
-  font-size: 0.9rem;
-  color: #475569;
+  font-size: 0.95rem;
+  color: var(--home-text-muted);
   margin: 0;
 }
 
 .home-registration-support a {
-  color: #1e4a6b;
+  color: var(--home-primary-brown);
   text-decoration: none;
-  font-weight: 500;
-  transition: color 0.2s ease;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  margin-left: 5px;
 }
 
 .home-registration-support a:hover {
-  color: #c17b3c;
+  color: var(--home-dark-brown);
   text-decoration: underline;
 }
 
 /* Responsive Design */
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
   .home-pricing-grid {
-    gap: 20px;
+    gap: 25px;
   }
   
-  .home-pricing-name {
-    font-size: 1.3rem;
-  }
-  
-  .home-price-amount {
-    font-size: 2rem;
+  .home-pricing-card {
+    padding: 35px 25px;
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .home-pricing-grid {
     grid-template-columns: repeat(2, 1fr);
-    max-width: 700px;
-    margin: 0 auto 40px;
+    gap: 30px;
+  }
+  
+  .home-registration-title {
+    font-size: 2.2rem;
+  }
+  
+  .home-price-amount {
+    font-size: 2.2rem;
   }
 }
 
@@ -238,30 +342,38 @@
   
   .home-pricing-grid {
     grid-template-columns: 1fr;
-    max-width: 400px;
+    gap: 25px;
+    max-width: 450px;
+    margin: 0 auto 50px;
   }
   
   .home-pricing-card {
-    padding: 30px 20px;
+    padding: 30px 25px;
   }
   
   .home-pricing-name {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
   }
   
   .home-price-amount {
-    font-size: 1.8rem;
+    font-size: 2rem;
   }
   
-  .home-feature-item {
-    font-size: 0.9rem;
+  .home-addon-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .home-addon-price {
+    align-self: flex-end;
   }
 }
 
 @media (max-width: 576px) {
   .home-registration-tag {
     font-size: 0.75rem;
-    padding: 4px 12px;
+    padding: 6px 16px;
   }
   
   .home-registration-title {
@@ -272,40 +384,50 @@
     padding: 25px 20px;
   }
   
-  .home-popular-badge {
-    right: 15px;
-    padding: 4px 12px;
-    font-size: 0.7rem;
+  .home-pricing-card.featured::before {
+    font-size: 0.6rem;
+    padding: 5px 15px;
+  }
+  
+  .home-price-amount {
+    font-size: 1.8rem;
+  }
+  
+  .home-registration-footer {
+    padding: 25px 20px;
+  }
+}
+
+/* Small phones */
+@media (max-width: 400px) {
+  .home-pricing-card {
+    padding: 20px 15px;
+  }
+  
+  .home-pricing-name {
+    font-size: 1.2rem;
   }
   
   .home-price-amount {
     font-size: 1.6rem;
   }
   
-  .home-registration-support {
-    font-size: 0.85rem;
+  .home-feature-item {
+    font-size: 0.9rem;
+  }
+  
+  .home-register-btn {
+    padding: 14px 20px;
+    font-size: 0.9rem;
   }
 }
 
-/* Small phones */
-@media (max-width: 380px) {
-  .home-pricing-card {
-    padding: 20px 15px;
-  }
-  
-  .home-pricing-name {
-    font-size: 1.1rem;
-  }
-  
-  .home-price-amount {
-    font-size: 1.5rem;
-  }
-  
-  .home-price-period {
-    font-size: 0.8rem;
-  }
-  
-  .home-feature-item {
-    font-size: 0.85rem;
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .home-pricing-card,
+  .home-register-btn,
+  .home-addon-item {
+    transition: none;
+    transform: none;
   }
 }

@@ -1,314 +1,571 @@
-/* callForAbstracts.css - Simple and clean */
+/* styles/CallForAbstracts.css - Modern Professional Design */
+
+/* CSS Variables */
+:root {
+  --home-primary-brown: #c17b3c;
+  --home-dark-brown: #9a6230;
+  --home-light-brown: #d4a574;
+  --home-lightest-brown: #f5e6d9;
+  --home-primary-green: #72BF44;
+  --home-secondary-green: #5DAE35;
+  --home-dark-green: #4F9E2C;
+  --home-text-primary: #9a6230;
+  --home-text-secondary: #8b6941;
+  --home-text-muted: #a67c52;
+  --home-border: #d4a574;
+  --home-white: #ffffff;
+  --home-light-bg: #f5f1eb;
+  --home-shadow: rgba(154, 98, 48, 0.1);
+  --home-shadow-hover: rgba(154, 98, 48, 0.2);
+}
 
 /* Base Section */
 .home-abstracts {
-  background: #ffffff;
-  padding: 80px 0;
+  background: linear-gradient(135deg, var(--home-light-bg) 0%, var(--home-white) 100%);
+  padding: 100px 0;
+  position: relative;
+}
+
+.home-abstracts::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--home-primary-brown), var(--home-primary-green));
 }
 
 .home-abstracts-container {
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 0 24px;
 }
 
 .home-abstracts-content {
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  padding: 50px;
+  background: var(--home-white);
+  border-radius: 20px;
+  box-shadow: 0 10px 40px var(--home-shadow);
+  overflow: hidden;
 }
 
 /* Header */
 .home-abstracts-header {
   text-align: center;
-  margin-bottom: 40px;
+  padding: 60px 50px 40px;
+  background: linear-gradient(135deg, rgba(193, 123, 60, 0.03) 0%, rgba(255, 255, 255, 0) 100%);
+  border-bottom: 1px solid var(--home-border);
 }
 
 .home-abstracts-tag {
-  display: inline-block;
-  background: #e8f0f7;
-  color: #1e4a6b;
-  padding: 6px 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(193, 123, 60, 0.1);
+  color: var(--home-dark-brown);
+  padding: 10px 24px;
   border-radius: 30px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  margin-bottom: 15px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 25px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .home-abstracts-title {
-  font-size: 2.2rem;
-  font-weight: 600;
-  color: #1e4a6b;
-  margin-bottom: 15px;
-}
-
-.home-abstracts-intro {
-  font-size: 1.1rem;
-  color: #475569;
-  line-height: 1.7;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-/* Deadline Card */
-.home-deadline-card {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  background: #1e4a6b;
-  color: white;
-  padding: 25px 30px;
-  border-radius: 8px;
-  margin-bottom: 30px;
-}
-
-.home-deadline-icon {
-  font-size: 2.5rem;
-  line-height: 1;
-}
-
-.home-deadline-text {
-  flex: 1;
-}
-
-.home-deadline-text span {
-  display: block;
-  font-size: 0.95rem;
-  opacity: 0.9;
-  margin-bottom: 4px;
-}
-
-.home-deadline-text strong {
-  display: block;
-  font-size: 1.8rem;
-  font-weight: 600;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--home-text-primary);
+  margin-bottom: 20px;
   line-height: 1.2;
 }
 
-/* Guidelines Card */
+.home-abstracts-intro {
+  font-size: 1.2rem;
+  color: var(--home-text-secondary);
+  line-height: 1.7;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Deadline Section */
+.home-deadline-section {
+  padding: 40px 50px;
+  background: var(--home-white);
+}
+
+.home-deadline-card {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  background: linear-gradient(135deg, var(--home-primary-brown), var(--home-dark-brown));
+  color: white;
+  padding: 35px 40px;
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(193, 123, 60, 0.3);
+}
+
+.home-deadline-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 200px;
+  height: 200px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+}
+
+.home-deadline-icon {
+  font-size: 3.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.home-deadline-content {
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.home-deadline-label {
+  display: block;
+  font-size: 1rem;
+  opacity: 0.9;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.home-deadline-date {
+  display: flex;
+  align-items: baseline;
+  gap: 15px;
+}
+
+.home-deadline-date strong {
+  display: block;
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.home-deadline-days {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* Guidelines Section */
+.home-guidelines-section {
+  padding: 0 50px 40px;
+}
+
 .home-guidelines-card {
-  background: white;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  padding: 30px;
-  margin-bottom: 30px;
+  background: var(--home-lightest-brown);
+  border-radius: 16px;
+  padding: 40px;
+  border: 1px solid var(--home-border);
+}
+
+.home-guidelines-header {
+  text-align: center;
+  margin-bottom: 40px;
 }
 
 .home-guidelines-title {
-  font-size: 1.2rem;
+  font-size: 1.8rem;
   font-weight: 600;
-  color: #1e4a6b;
-  margin-bottom: 20px;
-  padding-bottom: 12px;
-  border-bottom: 2px solid #e8f0f7;
+  color: var(--home-text-primary);
+  margin-bottom: 10px;
 }
 
-.home-guidelines-list {
-  list-style: none;
-  padding: 0;
+.home-guidelines-subtitle {
+  font-size: 1rem;
+  color: var(--home-text-muted);
   margin: 0;
+}
+
+.home-guidelines-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
 }
 
 .home-guideline-item {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
-  margin-bottom: 15px;
-  font-size: 1rem;
-  color: #1e293b;
-  line-height: 1.5;
+  gap: 20px;
+  background: var(--home-white);
+  padding: 25px;
+  border-radius: 12px;
+  border: 1px solid var(--home-border);
+  transition: all 0.3s ease;
 }
 
-.home-guideline-item:last-child {
-  margin-bottom: 0;
+.home-guideline-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px var(--home-shadow-hover);
+  border-color: var(--home-primary-brown);
 }
 
 .home-guideline-icon {
-  color: #c17b3c;
-  font-weight: bold;
-  min-width: 20px;
-  font-size: 1.1rem;
-}
-
-/* Submission Actions */
-.home-submission-actions {
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-.home-email-btn {
-  display: inline-flex;
+  font-size: 2rem;
+  min-width: 50px;
+  height: 50px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  background: #c17b3c;
-  color: white;
-  padding: 14px 40px;
-  font-size: 1rem;
-  font-weight: 500;
-  text-decoration: none;
-  border-radius: 4px;
-  transition: all 0.2s ease;
-  margin-bottom: 15px;
-  border: none;
-  cursor: pointer;
+  background: rgba(193, 123, 60, 0.1);
+  border-radius: 12px;
 }
 
-.home-email-btn:hover {
-  background: #a5672f;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(193, 123, 60, 0.2);
+.home-guideline-content strong {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--home-text-primary);
+  margin-bottom: 5px;
 }
 
-.home-btn-icon {
-  font-size: 1.2rem;
-}
-
-.home-submission-note {
-  font-size: 0.9rem;
-  color: #64748b;
+.home-guideline-content p {
+  font-size: 0.95rem;
+  color: var(--home-text-secondary);
   margin: 0;
+  line-height: 1.5;
+}
+
+/* Submission Section */
+.home-submission-section {
+  padding: 0 50px 40px;
+}
+
+.home-submission-card {
+  background: var(--home-white);
+  border: 2px solid var(--home-border);
+  border-radius: 16px;
+  padding: 40px;
+}
+
+.home-submission-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--home-text-primary);
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.home-submission-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.home-submission-option {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 30px;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.home-submission-option.primary {
+  background: linear-gradient(135deg, var(--home-primary-brown), var(--home-dark-brown));
+  color: white;
+}
+
+.home-submission-option.secondary {
+  background: var(--home-white);
+  border: 2px solid var(--home-border);
+  color: var(--home-text-primary);
+}
+
+.home-submission-option:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px var(--home-shadow-hover);
+}
+
+.home-submission-option.primary:hover {
+  box-shadow: 0 15px 35px rgba(193, 123, 60, 0.4);
+}
+
+.home-submission-option.secondary:hover {
+  border-color: var(--home-primary-brown);
+  background: var(--home-lightest-brown);
+}
+
+.home-option-icon {
+  font-size: 2.5rem;
+  min-width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+}
+
+.home-submission-option.secondary .home-option-icon {
+  background: rgba(193, 123, 60, 0.1);
+}
+
+.home-option-content {
+  flex: 1;
+}
+
+.home-option-content strong {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.home-option-content p {
+  font-size: 0.95rem;
+  opacity: 0.9;
+  margin: 0;
+}
+
+.home-option-arrow {
+  font-size: 1.5rem;
+  font-weight: bold;
+  transition: transform 0.3s ease;
+}
+
+.home-submission-option:hover .home-option-arrow {
+  transform: translateX(5px);
 }
 
 /* Footer */
 .home-abstracts-footer {
-  text-align: center;
-  padding-top: 20px;
-  border-top: 1px solid #e2e8f0;
+  padding: 40px 50px;
+  background: linear-gradient(135deg, rgba(114, 191, 68, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+  border-top: 1px solid var(--home-border);
 }
 
-.home-notification-text {
-  display: inline-flex;
+.home-notification-card {
+  display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 0.95rem;
-  color: #475569;
-  background: #e8f0f7;
-  padding: 10px 20px;
-  border-radius: 30px;
-  margin: 0;
+  gap: 25px;
+  background: var(--home-white);
+  border: 1px solid var(--home-border);
+  border-radius: 12px;
+  padding: 30px;
 }
 
 .home-notification-icon {
-  font-size: 1rem;
+  font-size: 2.5rem;
+  min-width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(114, 191, 68, 0.1);
+  border-radius: 12px;
+}
+
+.home-notification-content {
+  flex: 1;
+}
+
+.home-notification-text {
+  font-size: 1.1rem;
+  color: var(--home-text-primary);
+  margin: 0 0 8px 0;
+  line-height: 1.5;
 }
 
 .home-notification-text strong {
-  color: #1e4a6b;
+  color: var(--home-primary-green);
   font-weight: 600;
 }
 
+.home-notification-subtitle {
+  font-size: 0.9rem;
+  color: var(--home-text-muted);
+  margin: 0;
+}
+
 /* Responsive Design */
-@media (max-width: 768px) {
-  .home-abstracts {
-    padding: 60px 0;
-  }
-
-  .home-abstracts-content {
-    padding: 30px;
-  }
-
+@media (max-width: 1024px) {
   .home-abstracts-title {
+    font-size: 2.5rem;
+  }
+  
+  .home-deadline-date strong {
     font-size: 2rem;
   }
-
-  .home-abstracts-intro {
-    font-size: 1rem;
+  
+  .home-guidelines-grid,
+  .home-submission-options {
+    grid-template-columns: 1fr;
   }
+}
 
+@media (max-width: 768px) {
+  .home-abstracts {
+    padding: 80px 0;
+  }
+  
+  .home-abstracts-header {
+    padding: 40px 30px 30px;
+  }
+  
+  .home-abstracts-title {
+    font-size: 2.2rem;
+  }
+  
+  .home-abstracts-intro {
+    font-size: 1.1rem;
+  }
+  
+  .home-deadline-section,
+  .home-guidelines-section,
+  .home-submission-section,
+  .home-abstracts-footer {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  
   .home-deadline-card {
     flex-direction: column;
     text-align: center;
+    gap: 20px;
+    padding: 30px 25px;
+  }
+  
+  .home-deadline-icon {
+    font-size: 3rem;
+  }
+  
+  .home-deadline-date {
+    flex-direction: column;
     gap: 10px;
+  }
+  
+  .home-deadline-date strong {
+    font-size: 1.8rem;
+  }
+  
+  .home-guidelines-card {
+    padding: 30px 25px;
+  }
+  
+  .home-guideline-item {
     padding: 20px;
   }
-
-  .home-deadline-icon {
-    font-size: 2rem;
+  
+  .home-submission-card {
+    padding: 30px 25px;
   }
-
-  .home-deadline-text strong {
-    font-size: 1.5rem;
+  
+  .home-submission-option {
+    padding: 25px 20px;
   }
-
-  .home-guidelines-card {
-    padding: 25px;
-  }
-
-  .home-guideline-item {
-    font-size: 0.95rem;
-  }
-
-  .home-email-btn {
-    width: 100%;
-    max-width: 300px;
-    padding: 12px 30px;
+  
+  .home-notification-card {
+    padding: 25px 20px;
   }
 }
 
 @media (max-width: 576px) {
-  .home-abstracts-content {
+  .home-abstracts-header {
+    padding: 30px 20px 25px;
+  }
+  
+  .home-abstracts-tag {
+    font-size: 0.8rem;
+    padding: 8px 20px;
+  }
+  
+  .home-abstracts-title {
+    font-size: 1.9rem;
+  }
+  
+  .home-deadline-section,
+  .home-guidelines-section,
+  .home-submission-section,
+  .home-abstracts-footer {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  
+  .home-deadline-card {
     padding: 25px 20px;
   }
-
-  .home-abstracts-tag {
-    font-size: 0.75rem;
-    padding: 4px 12px;
+  
+  .home-deadline-date strong {
+    font-size: 1.6rem;
   }
-
-  .home-abstracts-title {
-    font-size: 1.8rem;
+  
+  .home-guidelines-card,
+  .home-submission-card {
+    padding: 25px 20px;
   }
-
-  .home-deadline-text strong {
-    font-size: 1.3rem;
-  }
-
-  .home-guidelines-title {
-    font-size: 1.1rem;
-  }
-
+  
   .home-guideline-item {
-    gap: 10px;
-  }
-
-  .home-notification-text {
     flex-direction: column;
-    gap: 5px;
     text-align: center;
-    padding: 15px;
-    width: 100%;
+    gap: 15px;
+  }
+  
+  .home-submission-option {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+  }
+  
+  .home-notification-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
   }
 }
 
-/* Small phones */
-@media (max-width: 380px) {
-  .home-abstracts-content {
-    padding: 20px 15px;
-  }
-
+@media (max-width: 400px) {
   .home-abstracts-title {
-    font-size: 1.6rem;
+    font-size: 1.7rem;
   }
-
+  
   .home-deadline-card {
-    padding: 15px;
-  }
-
-  .home-deadline-icon {
-    font-size: 1.8rem;
-  }
-
-  .home-deadline-text strong {
-    font-size: 1.2rem;
-  }
-
-  .home-guidelines-card {
     padding: 20px 15px;
   }
+  
+  .home-deadline-date strong {
+    font-size: 1.4rem;
+  }
+  
+  .home-guidelines-card,
+  .home-submission-card {
+    padding: 20px 15px;
+  }
+  
+  .home-guideline-item,
+  .home-submission-option {
+    padding: 20px 15px;
+  }
+  
+  .home-notification-card {
+    padding: 20px 15px;
+  }
+}
 
-  .home-guideline-item {
-    font-size: 0.9rem;
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .home-guideline-item,
+  .home-submission-option,
+  .home-deadline-card {
+    transition: none;
+    transform: none;
   }
 }
