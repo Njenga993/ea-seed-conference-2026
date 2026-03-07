@@ -1,4 +1,4 @@
-/* styles/Registration.css - Updated with brown color palette */
+/* styles/Registration.css - Elevated Version - No Gradients */
 
 /* CSS Variables - Theme Colors */
 :root {
@@ -16,6 +16,9 @@
   --home-dark-brown: #9a6230;
   --home-light-brown: #d4a574;
   --home-lightest-brown: #f5e6d9;
+  --home-gray-light: #f1f5f9;
+  --home-gray: #e2e8f0;
+  --home-gray-dark: #cbd5e1;
 }
 
 /* Base Section */
@@ -23,12 +26,43 @@
   background: var(--home-light-bg);
   padding: 80px 0;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle pattern overlay */
+.home-registration::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(var(--home-gray-dark) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.1;
+  pointer-events: none;
 }
 
 .home-registration-container {
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 24px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Animation Base Classes */
+.home-reg-stagger-item {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.home-reg-stagger-item.home-reg-item-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Header */
@@ -38,7 +72,7 @@
 
 .home-registration-tag {
   display: inline-block;
-  background: rgba(193, 123, 60, 0.1);
+  background: var(--home-gray-light);
   color: var(--home-dark-brown);
   padding: 8px 20px;
   border-radius: 30px;
@@ -47,6 +81,15 @@
   margin-bottom: 20px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.home-registration-tag:hover {
+  background: var(--home-white);
+  border-color: var(--home-primary-brown);
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(193, 123, 60, 0.15);
 }
 
 .home-registration-title {
@@ -55,6 +98,11 @@
   color: var(--home-text-primary);
   margin-bottom: 20px;
   line-height: 1.2;
+  transition: all 0.3s ease;
+}
+
+.home-registration-title:hover {
+  transform: translateY(-2px);
 }
 
 .home-registration-intro {
@@ -63,6 +111,7 @@
   line-height: 1.6;
   max-width: 700px;
   margin: 0 auto;
+  transition: all 0.3s ease;
 }
 
 /* Pricing Grid - 4 Cards */
@@ -78,28 +127,54 @@
   background: var(--home-white);
   border: 2px solid var(--home-border);
   border-radius: 16px;
-  padding: 40px 30px;
+  padding: 30px 25px;
   position: relative;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   height: 100%;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-.home-pricing-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(193, 123, 60, 0.15);
-  border-color: var(--home-primary-brown);
+/* Card Header with Icon */
+.home-card-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
-/* Featured Card */
-.home-pricing-card.featured {
-  border-color: var(--home-primary-brown);
-  background: linear-gradient(135deg, rgba(193, 123, 60, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+.home-card-icon-wrapper {
+  width: 70px;
+  height: 70px;
+  background: var(--home-gray-light);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
 }
 
-.home-pricing-card.featured::before {
-  content: 'RECOMMENDED';
+.home-pricing-card:hover .home-card-icon-wrapper {
+  background: var(--home-primary-brown);
+  border-color: var(--home-white);
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 10px 20px rgba(193, 123, 60, 0.2);
+}
+
+.home-card-icon {
+  font-size: 2rem;
+  transition: transform 0.3s ease;
+}
+
+.home-pricing-card:hover .home-card-icon {
+  transform: scale(1.1);
+}
+
+/* Card Badge */
+.home-card-badge {
   position: absolute;
   top: -12px;
   left: 50%;
@@ -112,42 +187,77 @@
   border-radius: 20px;
   text-transform: uppercase;
   letter-spacing: 1px;
+  box-shadow: 0 4px 10px rgba(193, 123, 60, 0.3);
+  white-space: nowrap;
+  animation: badgePulse 2s ease-in-out infinite;
 }
 
-/* Card Icon */
-.home-card-icon {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
-  display: block;
+@keyframes badgePulse {
+  0%, 100% { transform: translateX(-50%) scale(1); }
+  50% { transform: translateX(-50%) scale(1.05); }
+}
+
+/* Card Hover Effects */
+.home-pricing-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 25px 40px -15px rgba(154, 98, 48, 0.3);
+  border-color: var(--home-primary-brown);
 }
 
 /* Pricing Content */
 .home-pricing-name {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: 700;
   color: var(--home-text-primary);
-  margin-bottom: 20px;
+  margin: 0;
   line-height: 1.3;
+  transition: all 0.3s ease;
+}
+
+.home-pricing-card:hover .home-pricing-name {
+  color: var(--home-primary-brown);
 }
 
 .home-pricing-price {
-  margin-bottom: 30px;
-  padding-bottom: 25px;
+  margin-bottom: 25px;
+  padding-bottom: 20px;
   border-bottom: 2px solid var(--home-border);
+  position: relative;
+}
+
+.home-pricing-price::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--home-primary-green);
+  transition: width 0.4s ease;
+}
+
+.home-pricing-card:hover .home-pricing-price::after {
+  width: 100%;
 }
 
 .home-price-amount {
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   font-weight: 800;
   color: var(--home-primary-green);
   display: block;
+  transition: all 0.3s ease;
+}
+
+.home-pricing-card:hover .home-price-amount {
+  transform: scale(1.1);
+  color: var(--home-secondary-green);
 }
 
 /* Features List */
 .home-pricing-features {
   list-style: none;
   padding: 0;
-  margin: 0 0 35px 0;
+  margin: 0 0 30px 0;
   text-align: left;
   flex-grow: 1;
 }
@@ -156,10 +266,17 @@
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   font-size: 0.95rem;
   color: var(--home-text-secondary);
   line-height: 1.5;
+  transition: all 0.3s ease;
+  transform: translateX(0);
+}
+
+.home-feature-item:hover {
+  transform: translateX(8px);
+  color: var(--home-text-primary);
 }
 
 .home-feature-icon {
@@ -170,15 +287,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.home-feature-item:hover .home-feature-icon {
+  transform: scale(1.2);
+  color: var(--home-secondary-green);
 }
 
 /* Add-ons Card */
 .home-pricing-card.add-ons {
-  background: linear-gradient(135deg, rgba(193, 123, 60, 0.08) 0%, rgba(255, 255, 255, 0) 100%);
+  background: var(--home-white);
 }
 
 .home-addons-list {
-  margin: 25px 0;
+  margin: 20px 0;
   flex-grow: 1;
 }
 
@@ -186,17 +309,37 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
-  background: var(--home-white);
+  padding: 18px;
+  background: var(--home-gray-light);
   border: 1px solid var(--home-border);
   border-radius: 12px;
-  margin-bottom: 15px;
-  transition: all 0.2s ease;
+  margin-bottom: 12px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .home-addon-item:hover {
   border-color: var(--home-primary-brown);
-  transform: translateX(5px);
+  transform: translateX(5px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(193, 123, 60, 0.15);
+  background: var(--home-white);
+}
+
+.home-addon-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 3px;
+  background: var(--home-primary-green);
+  transform: scaleY(0);
+  transition: transform 0.3s ease;
+}
+
+.home-addon-item:hover::before {
+  transform: scaleY(1);
 }
 
 .home-addon-info {
@@ -204,45 +347,95 @@
 }
 
 .home-addon-name {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--home-text-primary);
-  margin: 0 0 5px 0;
+  margin: 0 0 4px 0;
+  transition: all 0.3s ease;
+}
+
+.home-addon-item:hover .home-addon-name {
+  color: var(--home-primary-brown);
+  transform: translateX(3px);
 }
 
 .home-addon-desc {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--home-text-muted);
   margin: 0;
+  transition: all 0.3s ease;
 }
 
 .home-addon-price {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: 700;
   color: var(--home-primary-green);
+  transition: all 0.3s ease;
+}
+
+.home-addon-item:hover .home-addon-price {
+  transform: scale(1.1);
+  color: var(--home-secondary-green);
 }
 
 /* Register Button */
 .home-register-btn {
   background: var(--home-dark-brown);
   color: white;
-  border: none;
+  border: 2px solid transparent;
   width: 100%;
-  padding: 16px 24px;
+  padding: 16px 20px;
   font-size: 1rem;
   font-weight: 600;
   border-radius: 12px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.home-btn-arrow {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+  display: inline-block;
 }
 
 .home-register-btn:hover {
-  background: var(--home-text-primary);
-  transform: translateY(-2px);
+  background: transparent;
+  border-color: var(--home-primary-brown);
+  color: var(--home-primary-brown);
+  transform: translateY(-3px);
   box-shadow: 0 10px 25px rgba(154, 98, 48, 0.25);
+}
+
+.home-register-btn:hover .home-btn-arrow {
+  transform: translateX(5px);
+}
+
+.home-register-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+  z-index: 0;
+}
+
+.home-register-btn:hover::before {
+  width: 300px;
+  height: 300px;
 }
 
 .home-pricing-card.featured .home-register-btn {
@@ -250,7 +443,9 @@
 }
 
 .home-pricing-card.featured .home-register-btn:hover {
-  background: var(--home-dark-brown);
+  background: transparent;
+  border-color: var(--home-primary-brown);
+  color: var(--home-primary-brown);
 }
 
 .addon-btn {
@@ -258,7 +453,9 @@
 }
 
 .addon-btn:hover {
-  background: var(--home-primary-brown);
+  background: transparent;
+  border-color: var(--home-text-primary);
+  color: var(--home-text-primary);
 }
 
 /* Footer */
@@ -268,6 +465,14 @@
   background: var(--home-white);
   border-radius: 16px;
   border: 1px solid var(--home-border);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.home-registration-footer:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 30px -10px rgba(193, 123, 60, 0.15);
+  border-color: var(--home-primary-brown);
 }
 
 .home-footer-info {
@@ -280,6 +485,11 @@
   color: var(--home-text-secondary);
   margin-bottom: 15px;
   line-height: 1.6;
+  transition: all 0.3s ease;
+}
+
+.home-registration-footer:hover .home-registration-note {
+  color: var(--home-text-primary);
 }
 
 .home-registration-support {
@@ -292,13 +502,30 @@
   color: var(--home-primary-brown);
   text-decoration: none;
   font-weight: 600;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   margin-left: 5px;
+  position: relative;
+  display: inline-block;
+}
+
+.home-registration-support a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--home-primary-brown);
+  transition: width 0.3s ease;
+}
+
+.home-registration-support a:hover::after {
+  width: 100%;
 }
 
 .home-registration-support a:hover {
   color: var(--home-dark-brown);
-  text-decoration: underline;
+  transform: translateX(3px);
 }
 
 /* Responsive Design */
@@ -308,14 +535,14 @@
   }
   
   .home-pricing-card {
-    padding: 35px 25px;
+    padding: 30px 20px;
   }
 }
 
 @media (max-width: 1024px) {
   .home-pricing-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
+    gap: 25px;
   }
   
   .home-registration-title {
@@ -323,7 +550,7 @@
   }
   
   .home-price-amount {
-    font-size: 2.2rem;
+    font-size: 2rem;
   }
 }
 
@@ -344,19 +571,19 @@
     grid-template-columns: 1fr;
     gap: 25px;
     max-width: 450px;
-    margin: 0 auto 50px;
+    margin: 0 auto 40px;
   }
   
   .home-pricing-card {
-    padding: 30px 25px;
+    padding: 25px 20px;
   }
   
   .home-pricing-name {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
   
   .home-price-amount {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
   
   .home-addon-item {
@@ -380,10 +607,6 @@
     font-size: 1.8rem;
   }
   
-  .home-pricing-card {
-    padding: 25px 20px;
-  }
-  
   .home-pricing-card.featured::before {
     font-size: 0.6rem;
     padding: 5px 15px;
@@ -396,6 +619,15 @@
   .home-registration-footer {
     padding: 25px 20px;
   }
+  
+  .home-card-icon-wrapper {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .home-card-icon {
+    font-size: 1.8rem;
+  }
 }
 
 /* Small phones */
@@ -405,7 +637,7 @@
   }
   
   .home-pricing-name {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
   
   .home-price-amount {
@@ -413,21 +645,45 @@
   }
   
   .home-feature-item {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
   
   .home-register-btn {
-    padding: 14px 20px;
+    padding: 14px 18px;
     font-size: 0.9rem;
   }
 }
 
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
+  .home-registration::before,
+  .home-reg-stagger-item,
   .home-pricing-card,
   .home-register-btn,
-  .home-addon-item {
+  .home-addon-item,
+  .home-registration-footer,
+  .home-pricing-card::after,
+  .home-pricing-price::after,
+  .home-register-btn::before,
+  .home-feature-item,
+  .home-card-icon-wrapper,
+  .home-registration-support a::after {
+    animation: none;
     transition: none;
+  }
+  
+  .home-reg-stagger-item {
+    opacity: 1;
     transform: none;
+  }
+  
+  .home-pricing-card:hover,
+  .home-register-btn:hover,
+  .home-addon-item:hover {
+    transform: none;
+  }
+  
+  .home-card-badge {
+    animation: none;
   }
 }

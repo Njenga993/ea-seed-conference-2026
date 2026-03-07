@@ -1,4 +1,4 @@
-
+import { useEffect, useRef } from "react";
 import "../styles/schedule.css";
 
 const scheduleData = [
@@ -39,10 +39,37 @@ const scheduleData = [
 ];
 
 const ConferenceSchedule = () => {
+  const sectionRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const elements = document.querySelectorAll(
+      ".conf-animate, .conf-session-card"
+    );
+
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("conf-visible");
+            obs.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.15
+      }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="conf-schedule-section">
+    <section ref={sectionRef} className="conf-schedule-section">
       <div className="conf-schedule-container">
-        <header className="conf-schedule-header">
+
+        <header className="conf-schedule-header conf-animate">
           <span className="conf-schedule-tag">Conference Program</span>
           <h2 className="conf-schedule-title">Program & Schedule</h2>
           <p className="conf-schedule-subtitle">
@@ -53,23 +80,41 @@ const ConferenceSchedule = () => {
 
         <div className="conf-schedule-cards">
           {scheduleData.map((day, index) => (
-            <div key={index} className="conf-day-card">
+            <div
+              key={index}
+              className="conf-day-card conf-animate"
+              style={{
+                transitionDelay: `${index * 120}ms`
+              }}
+            >
               <div className="conf-day-header">
                 <h3 className="conf-day-title">{day.day}</h3>
+
                 <div className="conf-day-indicator">
-                  <span className="conf-day-number">Day {index + 1}</span>
+                  <span className="conf-day-number">
+                    Day {index + 1}
+                  </span>
                 </div>
               </div>
-              
+
               <div className="conf-sessions-container">
                 {day.sessions.map((session, i) => (
-                  <div key={i} className="conf-session-card">
+                  <div
+                    key={i}
+                    className="conf-session-card"
+                    style={{
+                      transitionDelay: `${300 + i * 120}ms`
+                    }}
+                  >
                     <div className="conf-session-time">
                       <span className="conf-time-icon"></span>
                       {session.time}
                     </div>
+
                     <div className="conf-session-content">
-                      <h4 className="conf-session-title">{session.title}</h4>
+                      <h4 className="conf-session-title">
+                        {session.title}
+                      </h4>
                     </div>
                   </div>
                 ))}
@@ -78,12 +123,13 @@ const ConferenceSchedule = () => {
           ))}
         </div>
 
-        <div className="conf-schedule-note">
+        <div className="conf-schedule-note conf-animate">
           <div className="conf-note-icon"></div>
           <p>
             Schedule subject to minor changes. Final program will be shared with registered participants.
           </p>
         </div>
+
       </div>
     </section>
   );

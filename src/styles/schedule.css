@@ -1,7 +1,3 @@
-/* Conference Schedule Component Styles */
-/* Using conf- prefix to avoid CSS collisions */
-
-/* CSS Variables */
 :root {
   --conf-primary: #72BF44;
   --conf-secondary: #5DAE35;
@@ -15,332 +11,220 @@
   --conf-light-gray: #f8fafc;
 }
 
-/* Base Section */
-.conf-schedule-section {
-  background-color: var(--conf-light-brown);
-  padding: 80px 0;
-  position: relative;
-}
+/* SECTION */
 
-.conf-schedule-section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 5px;
-  background: linear-gradient(90deg, var(--conf-primary), var(--conf-secondary));
+.conf-schedule-section {
+  background: var(--conf-light-brown);
+  padding: 90px 0;
+  overflow: hidden;
 }
 
 .conf-schedule-container {
   max-width: 1200px;
-  margin: 0 auto;
+  margin: auto;
   padding: 0 24px;
 }
 
-/* Header */
+/* HEADER */
+
 .conf-schedule-header {
   text-align: center;
-  max-width: 800px;
-  margin: 0 auto 60px;
+  max-width: 760px;
+  margin: auto;
+  margin-bottom: 70px;
 }
 
 .conf-schedule-tag {
   display: inline-block;
   background: var(--conf-light-gray);
-  color: var(--conf-dark);
-  padding: 8px 20px;
+  padding: 7px 18px;
   border-radius: 30px;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  margin-bottom: 20px;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
+  margin-bottom: 18px;
 }
 
 .conf-schedule-title {
   font-size: 2.5rem;
   font-weight: 700;
   color: var(--conf-darkest);
-  margin-bottom: 20px;
-  position: relative;
-}
-
-.conf-schedule-title::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 3px;
-  background: var(--conf-brown);
 }
 
 .conf-schedule-subtitle {
-  font-size: 1.1rem;
+  margin-top: 16px;
   color: var(--conf-text-muted);
   line-height: 1.6;
-  margin-top: 20px;
 }
 
-/* Schedule Cards */
+/* GRID */
+
 .conf-schedule-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
   gap: 30px;
-  margin-bottom: 40px;
 }
+
+/* DAY CARD */
 
 .conf-day-card {
   background: var(--conf-white);
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  transition: transform .4s ease, box-shadow .4s ease;
+  will-change: transform;
 }
 
 .conf-day-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.12);
 }
 
 .conf-day-header {
   background: var(--conf-dark);
-  color: var(--conf-white);
+  color: white;
   padding: 20px;
   position: relative;
 }
 
 .conf-day-title {
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   font-weight: 600;
-  margin: 0;
-  padding-right: 80px;
 }
 
 .conf-day-indicator {
   position: absolute;
-  top: 20px;
   right: 20px;
+  top: 20px;
 }
 
 .conf-day-number {
-  display: block;
   background: var(--conf-brown);
-  color: var(--conf-white);
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.8rem;
+  align-items:center;
+  justify-content:center;
+  font-size: .8rem;
   font-weight: 600;
 }
 
+/* SESSIONS */
+
 .conf-sessions-container {
-  padding: 20px;
+  padding: 18px 20px;
 }
 
 .conf-session-card {
   display: flex;
-  padding: 16px 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+
+  transform: translate3d(-20px,0,0);
+  opacity:0;
+
+  transition:
+    transform .5s cubic-bezier(.2,.8,.2,1),
+    opacity .5s ease;
 }
 
 .conf-session-card:last-child {
-  border-bottom: none;
+  border-bottom:none;
 }
 
 .conf-session-time {
-  min-width: 120px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--conf-brown);
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  min-width:120px;
+  font-size:.9rem;
+  font-weight:600;
+  color:var(--conf-brown);
+  display:flex;
+  align-items:center;
+  gap:8px;
 }
 
 .conf-time-icon {
-  width: 16px;
-  height: 16px;
-  background-color: var(--conf-brown);
-  border-radius: 50%;
-  position: relative;
-  flex-shrink: 0;
-}
-
-.conf-time-icon::before {
-  content: '';
-  position: absolute;
-  top: 3px;
-  left: 7px;
-  width: 2px;
-  height: 6px;
-  background-color: white;
-}
-
-.conf-time-icon::after {
-  content: '';
-  position: absolute;
-  top: 7px;
-  left: 3px;
-  width: 6px;
-  height: 2px;
-  background-color: white;
+  width:14px;
+  height:14px;
+  border-radius:50%;
+  background:var(--conf-brown);
 }
 
 .conf-session-content {
-  flex: 1;
-  padding-left: 15px;
+  padding-left:14px;
 }
 
 .conf-session-title {
-  font-size: 1rem;
-  color: var(--conf-text-dark);
-  line-height: 1.5;
-  margin: 0;
-  font-weight: 500;
+  font-size:.96rem;
+  color:var(--conf-text-dark);
 }
 
-/* Note */
+/* NOTE */
+
 .conf-schedule-note {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-  padding: 20px 30px;
-  background: var(--conf-white);
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  max-width: 800px;
-  margin: 0 auto;
+  margin:60px auto 0;
+  max-width:720px;
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  align-items:center;
+  background:white;
+  padding:20px;
+  border-radius:8px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.08);
 }
 
 .conf-note-icon {
-  width: 24px;
-  height: 24px;
-  background-color: var(--conf-brown);
-  border-radius: 50%;
-  position: relative;
-  flex-shrink: 0;
+  width:22px;
+  height:22px;
+  border-radius:50%;
+  background:var(--conf-brown);
 }
 
-.conf-note-icon::before {
-  content: '!';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-  font-weight: bold;
-  font-size: 14px;
+/* =========================================
+   PREMIUM SCROLL ANIMATIONS
+========================================= */
+
+.conf-animate {
+  opacity:0;
+  transform: translate3d(0,40px,0);
+  transition:
+    opacity .7s ease,
+    transform .7s cubic-bezier(.2,.8,.2,1);
+  will-change: transform, opacity;
 }
 
-.conf-schedule-note p {
-  font-size: 0.95rem;
-  color: var(--conf-text-muted);
-  margin: 0;
-  line-height: 1.5;
+.conf-visible.conf-animate {
+  opacity:1;
+  transform: translate3d(0,0,0);
 }
 
-/* Responsive Design */
-@media (max-width: 992px) {
-  .conf-schedule-cards {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 25px;
-  }
+/* DIAGONAL CASCADE */
+
+.conf-day-card.conf-animate {
+  transform: translate3d(-40px,40px,0) scale(.96);
 }
 
-@media (max-width: 768px) {
-  .conf-schedule-section {
-    padding: 60px 0;
-  }
-
-  .conf-schedule-title {
-    font-size: 2.2rem;
-  }
-
-  .conf-schedule-subtitle {
-    font-size: 1rem;
-  }
-
-  .conf-schedule-cards {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  .conf-session-card {
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .conf-session-time {
-    min-width: auto;
-  }
-
-  .conf-session-content {
-    padding-left: 0;
-  }
-
-  .conf-schedule-note {
-    flex-direction: column;
-    text-align: center;
-    padding: 20px;
-  }
+.conf-visible.conf-day-card {
+  transform: translate3d(0,0,0) scale(1);
 }
 
-@media (max-width: 576px) {
-  .conf-schedule-section {
-    padding: 40px 0;
-  }
+/* SESSION REVEAL */
 
-  .conf-schedule-tag {
-    font-size: 0.75rem;
-    padding: 6px 16px;
-  }
-
-  .conf-schedule-title {
-    font-size: 1.8rem;
-  }
-
-  .conf-day-title {
-    font-size: 1.1rem;
-  }
-
-  .conf-session-card {
-    padding: 12px 0;
-  }
-
-  .conf-schedule-note p {
-    font-size: 0.9rem;
-  }
+.conf-visible .conf-session-card {
+  opacity:1;
+  transform: translate3d(0,0,0);
 }
 
-/* Small phones */
-@media (max-width: 380px) {
-  .conf-schedule-container {
-    padding: 0 16px;
-  }
+/* REDUCED MOTION */
 
-  .conf-sessions-container {
-    padding: 15px;
-  }
-
-  .conf-day-header {
-    padding: 15px;
-  }
-}
-
-/* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
-  .conf-day-card {
-    transition: none;
+
+  .conf-animate,
+  .conf-session-card {
+    opacity:1 !important;
+    transform:none !important;
+    transition:none !important;
   }
-  
-  .conf-day-card:hover {
-    transform: none;
-  }
+
 }

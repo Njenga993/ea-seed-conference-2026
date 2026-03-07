@@ -1,4 +1,4 @@
-/* Conference Countdown Component Styles */
+/* Conference Countdown Component Styles - Elevated Version */
 /* Using conf- prefix to avoid CSS collisions */
 
 /* CSS Variables */
@@ -7,22 +7,59 @@
   --conf-secondary: #5DAE35;
   --conf-dark: #4F9E2C;
   --conf-darkest: #1E4D11;
-  --conf-text-light: rgba(255, 255, 255, 0.9);
-  --conf-text-muted: rgba(255, 255, 255, 0.7);
+  --conf-text-light: rgba(255, 255, 255, 0.95);
+  --conf-text-muted: rgba(255, 255, 255, 0.8);
 }
 
 /* Base Section */
 .conf-countdown-section {
   background: var(--conf-dark);
   color: white;
-  padding: 40px 0;
+  padding: 50px 0;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle background pattern */
+.conf-countdown-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 30px 30px;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Animated line at top */
+.conf-countdown-section::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: white;
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: countdownLineAppear 1s ease forwards;
+  animation-delay: 0.5s;
+}
+
+@keyframes countdownLineAppear {
+  to { transform: scaleX(1); }
 }
 
 .conf-countdown-wrapper {
   max-width: 1000px;
   margin: 0 auto;
   padding: 0 20px;
+  position: relative;
+  z-index: 2;
 }
 
 /* Header */
@@ -35,17 +72,43 @@
   font-weight: 600;
   margin-bottom: 8px;
   color: white;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.conf-countdown-title.countdown-title-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .conf-countdown-subtitle {
   font-size: 0.95rem;
   color: var(--conf-text-muted);
   margin: 0;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition-delay: 0.2s;
+}
+
+.conf-countdown-subtitle.countdown-subtitle-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Timer Grid */
 .conf-countdown-timer {
   margin-bottom: 30px;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition-delay: 0.4s;
+}
+
+.conf-countdown-timer.countdown-timer-visible {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .conf-timer-grid {
@@ -60,16 +123,49 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 70px;
+  min-width: 80px;
+  position: relative;
+}
+
+/* Add subtle background to timer units */
+.conf-timer-unit::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.conf-timer-unit:hover::before {
+  opacity: 1;
 }
 
 .conf-timer-value {
   display: block;
-  font-size: 2.2rem;
+  font-size: 2.5rem;
   font-weight: 700;
   line-height: 1;
   color: white;
   font-family: 'Courier New', monospace;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+/* Pulse animation when numbers change */
+.conf-timer-pulse {
+  animation: numberPulse 0.3s ease;
+}
+
+@keyframes numberPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); color: var(--conf-primary); }
+  100% { transform: scale(1); }
 }
 
 .conf-timer-label {
@@ -78,82 +174,143 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   color: var(--conf-text-muted);
-  margin-top: 4px;
+  margin-top: 6px;
+  transition: color 0.3s ease;
+}
+
+.conf-timer-unit:hover .conf-timer-label {
+  color: white;
 }
 
 .conf-timer-separator {
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 300;
   color: var(--conf-text-muted);
   margin: 0 5px;
   align-self: flex-start;
   padding-top: 8px;
+  animation: separatorPulse 2s ease infinite;
+}
+
+@keyframes separatorPulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
 }
 
 /* CTA Button */
 .conf-countdown-action {
   margin-top: 20px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition-delay: 0.6s;
+}
+
+.conf-countdown-action.countdown-button-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .conf-action-btn {
   background: var(--conf-darkest);
   color: white;
   border: 2px solid transparent;
-  padding: 12px 32px;
-  font-size: 0.95rem;
+  padding: 14px 40px;
+  font-size: 1rem;
   font-weight: 600;
-  border-radius: 25px;
+  border-radius: 30px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.conf-btn-arrow {
+  transition: transform 0.3s ease;
+  font-size: 1.2rem;
+}
+
+.conf-action-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+}
+
+.conf-action-btn:hover::before {
+  width: 300px;
+  height: 300px;
 }
 
 .conf-action-btn:hover {
   background: transparent;
   border-color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.conf-action-btn:hover .conf-btn-arrow {
+  transform: translateX(5px);
+}
+
+.conf-action-btn:active {
   transform: translateY(-1px);
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
   .conf-countdown-section {
-    padding: 30px 0;
+    padding: 40px 0;
   }
 
   .conf-countdown-title {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
   }
 
   .conf-countdown-subtitle {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
   }
 
   .conf-timer-grid {
     gap: 15px;
   }
 
+  .conf-timer-unit {
+    min-width: 70px;
+  }
+
   .conf-timer-value {
-    font-size: 1.8rem;
+    font-size: 2.2rem;
   }
 
   .conf-timer-separator {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
   }
 
   .conf-action-btn {
-    padding: 10px 28px;
-    font-size: 0.9rem;
+    padding: 12px 35px;
+    font-size: 0.95rem;
   }
 }
 
 @media (max-width: 576px) {
   .conf-countdown-section {
-    padding: 25px 0;
+    padding: 30px 0;
   }
 
   .conf-countdown-title {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
   }
 
   .conf-timer-grid {
@@ -165,23 +322,68 @@
   }
 
   .conf-timer-value {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
   }
 
   .conf-timer-label {
     font-size: 0.7rem;
+    letter-spacing: 0.5px;
   }
 
   .conf-timer-separator {
-    font-size: 1.3rem;
-    margin: 0 3px;
+    font-size: 1.5rem;
+    margin: 0 2px;
+    padding-top: 4px;
+  }
+  
+  .conf-action-btn {
+    padding: 10px 30px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .conf-timer-unit {
+    min-width: 50px;
+  }
+
+  .conf-timer-value {
+    font-size: 1.5rem;
+  }
+
+  .conf-timer-label {
+    font-size: 0.65rem;
   }
 }
 
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
-  .conf-action-btn {
+  .conf-countdown-section::after,
+  .conf-countdown-title,
+  .conf-countdown-subtitle,
+  .conf-countdown-timer,
+  .conf-countdown-action,
+  .conf-timer-pulse,
+  .conf-timer-separator,
+  .conf-action-btn,
+  .conf-action-btn::before,
+  .conf-btn-arrow {
+    animation: none;
     transition: none;
     transform: none;
+  }
+  
+  .conf-countdown-title,
+  .conf-countdown-subtitle,
+  .conf-countdown-timer,
+  .conf-countdown-action {
+    opacity: 1;
+    transform: none;
+  }
+  
+  .conf-action-btn:hover {
+    transform: none;
+    background: var(--conf-darkest);
+    border-color: transparent;
   }
 }

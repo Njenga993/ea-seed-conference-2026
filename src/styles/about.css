@@ -1,6 +1,4 @@
-/* styles/about.css - Homepage about section only */
-
-/* CSS Variables */
+/* styles/about.css - Updated with scroll-triggered animations */
 :root {
   --home-primary: #1e4a6b;
   --home-primary-light: #e8f0f7;
@@ -14,7 +12,7 @@
   --home-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
   --home-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.05);
   --home-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.05);
-  --home-transition: all 0.3s ease;
+  --home-transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Base Section */
@@ -28,12 +26,20 @@
 .home-about::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 30% 40%, rgba(255, 255, 255, 0.15) 0%, transparent 60%);
+  animation: homeBackgroundShift 20s ease-in-out infinite;
   pointer-events: none;
+}
+
+@keyframes homeBackgroundShift {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(5%, 5%); }
+  50% { transform: translate(-5%, -5%); }
+  75% { transform: translate(-5%, 5%); }
 }
 
 .home-about-container {
@@ -52,20 +58,58 @@
   z-index: 2;
 }
 
-/* Content Side */
-.home-about-content {
-  animation: homeSlideInLeft 0.8s ease forwards;
+/* Animation Base Classes */
+.home-fade-up,
+.home-scale-in {
   opacity: 0;
-  transform: translateX(-30px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@keyframes homeSlideInLeft {
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+.home-fade-up {
+  transform: translateY(40px);
 }
 
+.home-scale-in {
+  transform: scale(0.9);
+}
+
+/* Visible States */
+.home-visible.home-fade-up {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.home-visible.home-scale-in {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Delay Classes - Different timing for each element */
+.home-delay-1.home-visible {
+  transition-delay: 0.1s;
+}
+
+.home-delay-2.home-visible {
+  transition-delay: 0.2s;
+}
+
+.home-delay-3.home-visible {
+  transition-delay: 0.3s;
+}
+
+.home-delay-4.home-visible {
+  transition-delay: 0.4s;
+}
+
+.home-delay-5.home-visible {
+  transition-delay: 0.5s;
+}
+
+.home-delay-6.home-visible {
+  transition-delay: 0.6s;
+}
+
+/* Content Side */
 .home-about-header {
   margin-bottom: 20px;
 }
@@ -81,6 +125,17 @@
   letter-spacing: 0.5px;
   margin-bottom: 15px;
   backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.home-about-tag.home-visible {
+  animation: homeTagPulse 3s ease-in-out infinite;
+}
+
+@keyframes homeTagPulse {
+  0%, 100% { background: rgba(255, 255, 255, 0.2); }
+  50% { background: rgba(255, 255, 255, 0.3); }
 }
 
 .home-about-title {
@@ -92,6 +147,15 @@
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
+.home-about-title.home-visible {
+  animation: homeTitleGlow 4s ease-in-out infinite;
+}
+
+@keyframes homeTitleGlow {
+  0%, 100% { text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); }
+  50% { text-shadow: 0 4px 20px rgba(255, 255, 255, 0.3); }
+}
+
 .home-about-text {
   margin-bottom: 30px;
 }
@@ -101,6 +165,12 @@
   font-size: 1rem;
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.9);
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.home-about-paragraph:hover {
+  color: white;
+  transform: translateX(5px);
 }
 
 .home-about-paragraph strong {
@@ -127,11 +197,32 @@
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   transition: var(--home-transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.home-learn-more::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+}
+
+.home-learn-more:hover::before {
+  width: 300px;
+  height: 300px;
 }
 
 .home-learn-more:hover {
   background: rgba(255, 255, 255, 0.25);
   transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
 .home-cta-arrow {
@@ -140,23 +231,10 @@
 }
 
 .home-learn-more:hover .home-cta-arrow {
-  transform: translateX(4px);
+  transform: translateX(8px) scale(1.2);
 }
 
 /* Photo Collage Side */
-.home-about-visual {
-  animation: homeSlideInRight 0.8s ease forwards;
-  opacity: 0;
-  transform: translateX(30px);
-}
-
-@keyframes homeSlideInRight {
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
 .home-photo-collage {
   position: relative;
   height: 450px;
@@ -168,7 +246,8 @@
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-  transition: var(--home-transition);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
 }
 
 .home-photo img {
@@ -176,9 +255,21 @@
   height: 100%;
   object-fit: cover;
   display: block;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Photo 1 - Main photo */
+.home-photo-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+/* Photo positions */
 .home-photo-1 {
   width: 85%;
   height: 70%;
@@ -188,7 +279,6 @@
   border: 4px solid white;
 }
 
-/* Photo 2 - Top left */
 .home-photo-2 {
   width: 65%;
   height: 50%;
@@ -199,7 +289,6 @@
   transform: rotate(-3deg);
 }
 
-/* Photo 3 - Bottom */
 .home-photo-3 {
   width: 70%;
   height: 45%;
@@ -210,11 +299,47 @@
   transform: rotate(2deg);
 }
 
+/* Floating animations only after visible */
+.home-photo-1.home-visible {
+  animation: homeFloat1 6s ease-in-out infinite;
+}
+
+.home-photo-2.home-visible {
+  animation: homeFloat2 7s ease-in-out infinite;
+}
+
+.home-photo-3.home-visible {
+  animation: homeFloat3 5s ease-in-out infinite;
+}
+
+@keyframes homeFloat1 {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(1deg); }
+}
+
+@keyframes homeFloat2 {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50% { transform: translateY(-15px) rotate(-2deg); }
+}
+
+@keyframes homeFloat3 {
+  0%, 100% { transform: translateY(0) rotate(2deg); }
+  50% { transform: translateY(-5px) rotate(3deg); }
+}
+
 /* Hover effects */
 .home-photo:hover {
-  transform: scale(1.05) rotate(0deg) !important;
+  transform: scale(1.08) rotate(0deg) !important;
   z-index: 10;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
+}
+
+.home-photo:hover img {
+  transform: scale(1.1);
+}
+
+.home-photo:hover .home-photo-overlay {
+  transform: translateX(100%);
 }
 
 /* Responsive Design */
@@ -232,18 +357,6 @@
   .home-about-grid {
     grid-template-columns: 1fr;
     gap: 30px;
-  }
-
-  .home-about-content,
-  .home-about-visual {
-    animation: homeFadeIn 0.8s ease forwards;
-    transform: none;
-  }
-
-  @keyframes homeFadeIn {
-    to {
-      opacity: 1;
-    }
   }
 
   .home-photo-collage {
@@ -307,12 +420,21 @@
 
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
-  .home-about-content,
-  .home-about-visual,
-  .home-photo {
+  .home-about::before,
+  .home-about-tag.home-visible,
+  .home-about-title.home-visible,
+  .home-photo.home-visible,
+  .home-learn-more::before {
     animation: none;
+  }
+  
+  .home-fade-up,
+  .home-scale-in {
     transition: none;
-    transform: none;
+  }
+  
+  .home-visible {
     opacity: 1;
+    transform: none;
   }
 }

@@ -1,3 +1,4 @@
+// components/Navbar.tsx
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "../styles/navbar.css";
@@ -13,12 +14,12 @@ const Navbar = () => {
   // Detect scroll
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      setScrolled(window.scrollY > 30);
 
       if (location.pathname !== "/") return;
 
       const sections = ["home", "about", "program", "speakers", "contact"];
-      const scrollPosition = window.scrollY + 100;
+      const scrollPosition = window.scrollY + 120;
 
       for (const section of sections) {
         const element = document.getElementById(section);
@@ -56,13 +57,12 @@ const Navbar = () => {
     };
   }, [mobileMenuOpen]);
 
-  // FIX: Added type annotation for sectionId parameter
   const handleNavigation = (sectionId: string) => {
     if (location.pathname === "/") {
       const element = document.getElementById(sectionId);
       if (element) {
         window.scrollTo({
-          top: element.offsetTop - 80,
+          top: element.offsetTop - 100,
           behavior: "smooth",
         });
       }
@@ -72,7 +72,6 @@ const Navbar = () => {
     setMobileMenuOpen(false);
   };
 
-  // FIX: Added type annotation for path parameter
   const isActive = (path: string): boolean => {
     if (path === "/") {
       return location.pathname === "/" && activeSection === "home";
@@ -84,13 +83,15 @@ const Navbar = () => {
     <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
       <div className="nav-container">
         <Link to="/" className="nav-logo">
-          EA-ISC 2026
+          <span className="logo-text">EA-ISC</span>
+          <span className="logo-year">2026</span>
         </Link>
 
         <button
           className={`mobile-toggle ${mobileMenuOpen ? "active" : ""}`}
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label="Toggle menu"
+          aria-expanded={mobileMenuOpen}
         >
           <span></span>
           <span></span>
@@ -117,24 +118,6 @@ const Navbar = () => {
               </Link>
             </li>
 
-            {/*<li className="nav-item">
-              <Link
-                to="/program"
-                className={`nav-link ${location.pathname === "/program" ? "active" : ""}`}
-              >
-                Program
-              </Link>
-            </li>
-
-            <li className="nav-item">
-              <Link
-                to="/speakers"
-                className={`nav-link ${location.pathname === "/speakers" ? "active" : ""}`}
-              >
-                Speakers
-              </Link>
-            </li>*/}
-
             <li className="nav-item">
               <Link
                 to="/registration-abstract"
@@ -158,10 +141,26 @@ const Navbar = () => {
                 onClick={() => handleNavigation("registration")}
                 className="nav-cta"
               >
-                Register Now
+                <span>Register Now</span>
+                <svg className="cta-arrow" viewBox="0 0 24 24" width="16" height="16">
+                  <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round"/>
+                </svg>
               </button>
             </li>
           </ul>
+
+          {/* Mobile menu footer - only visible on mobile */}
+          <div className="mobile-footer">
+            <div className="mobile-contact">
+              <a href="mailto:info@eaindigenousseedsconference.org">info@eaindigenousseedsconference.org</a>
+              <a href="tel:+256712451777">+256 712 451 777</a>
+            </div>
+            <div className="mobile-social">
+              <a href="#" aria-label="LinkedIn">in</a>
+              <a href="#" aria-label="Twitter">𝕏</a>
+              <a href="#" aria-label="Facebook">f</a>
+            </div>
+          </div>
         </div>
       </div>
     </nav>

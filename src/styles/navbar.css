@@ -1,24 +1,28 @@
 /* =========================================
-   EA-ISC 2026 – Professional Navbar System
-   Clean | Premium | Responsive
+   EA-ISC 2026 – Elevated Navbar System
+   Clean | Premium | Responsive | Height Increased
 ========================================= */
 
 /* ========= CSS VARIABLES ========= */
 :root {
   --nav-white: #ffffff;
   --nav-gold: #C59849;
-  --nav-dark: #1f2937;
-  --nav-muted: #6b7280;
+  --nav-gold-dark: #9a6230;
+  --nav-dark: #1e293b;
+  --nav-muted: #64748b;
+  --nav-border: #e2e8f0;
+  --nav-bg-light: rgba(255, 255, 255, 0.95);
+  --nav-bg-dark: rgba(30, 41, 59, 0.98);
 
-  --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.06);
-  --shadow-medium: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --shadow-light: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.12);
 
   --transition-fast: 0.2s ease;
-  --transition-smooth: 0.35s cubic-bezier(.4,0,.2,1);
+  --transition-smooth: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* =========================================
-   BASE NAVBAR
+   BASE NAVBAR - INCREASED HEIGHT
 ========================================= */
 
 .navbar {
@@ -28,17 +32,18 @@
   width: 100%;
   z-index: 1000;
 
-  padding: 1.2rem 0;
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(12px);
+  padding: 1.6rem 0;
+  background: transparent;
   transition: var(--transition-smooth);
 }
 
 /* When user scrolls */
 .navbar.scrolled {
-  background: var(--nav-white);
+  background: var(--nav-bg-light);
+  backdrop-filter: blur(12px);
   box-shadow: var(--shadow-light);
-  padding: 0.7rem 0;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--nav-border);
 }
 
 /* =========================================
@@ -56,26 +61,43 @@
 }
 
 /* =========================================
-   LOGO
+   LOGO - ENHANCED
 ========================================= */
 
 .nav-logo {
-  font-size: 1.3rem;
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  text-decoration: none;
+  transition: var(--transition-fast);
+}
+
+.logo-text {
+  font-size: 1.5rem;
   font-weight: 700;
   letter-spacing: -0.02em;
-  text-decoration: none;
-
   color: var(--nav-white);
   transition: var(--transition-fast);
 }
 
+.logo-year {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+  transition: var(--transition-fast);
+}
+
 /* Change color when scrolled */
-.navbar.scrolled .nav-logo {
+.navbar.scrolled .logo-text {
   color: var(--nav-dark);
 }
 
+.navbar.scrolled .logo-year {
+  color: var(--nav-gold);
+}
+
 /* =========================================
-   NAV MENU
+   NAV MENU - HIDDEN ON LARGE SCREENS
 ========================================= */
 
 .nav-menu {
@@ -86,7 +108,7 @@
 .nav-list {
   display: flex;
   align-items: center;
-  gap: 2.2rem;
+  gap: 2.5rem;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -97,7 +119,7 @@
 }
 
 /* =========================================
-   LINKS
+   LINKS - ENHANCED WITH CONSISTENT UNDERLINE
 ========================================= */
 
 .nav-link {
@@ -106,13 +128,14 @@
   cursor: pointer;
   text-decoration: none;
 
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 500;
   letter-spacing: 0.02em;
 
   color: var(--nav-white);
   position: relative;
   transition: var(--transition-fast);
+  padding: 0.5rem 0;
 }
 
 /* Link color when scrolled */
@@ -120,18 +143,18 @@
   color: var(--nav-dark);
 }
 
-/* Elegant underline animation */
+/* Elegant underline animation - consistent for all screens */
 .nav-link::after {
   content: "";
   position: absolute;
   left: 0;
-  bottom: -6px;
+  bottom: 0;
 
   width: 0;
   height: 2px;
-  background: currentColor;
+  background: var(--nav-gold);
 
-  transition: var(--transition-fast);
+  transition: var(--transition-smooth);
 }
 
 .nav-link:hover::after,
@@ -141,41 +164,71 @@
 
 .nav-link.active {
   font-weight: 600;
+  color: var(--nav-gold);
+}
+
+.navbar.scrolled .nav-link.active {
+  color: var(--nav-gold-dark);
+}
+
+.navbar.scrolled .nav-link.active::after {
+  background: var(--nav-gold-dark);
 }
 
 /* =========================================
-   CTA BUTTON
+   CTA BUTTON - ENHANCED
 ========================================= */
 
 .nav-cta {
-  background: var(--nav-white);
-  color: var(--nav-gold);
+  background: var(--nav-gold);
+  color: var(--nav-white);
   border: none;
 
-  padding: 0.65rem 1.4rem;
+  padding: 0.75rem 1.8rem;
   border-radius: 40px;
 
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
 
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
   transition: var(--transition-smooth);
-  box-shadow: var(--shadow-light);
+  box-shadow: 0 4px 12px rgba(197, 152, 73, 0.3);
+  border: 1px solid transparent;
 }
 
 /* CTA when navbar is scrolled */
 .navbar.scrolled .nav-cta {
-  background: var(--nav-gold);
-  color: var(--nav-white);
+  background: var(--nav-white);
+  color: var(--nav-gold);
+  border-color: var(--nav-gold);
+  box-shadow: var(--shadow-light);
+}
+
+.cta-arrow {
+  transition: transform 0.3s ease;
 }
 
 .nav-cta:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-medium);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(197, 152, 73, 0.4);
+}
+
+.navbar.scrolled .nav-cta:hover {
+  background: var(--nav-gold);
+  color: var(--nav-white);
+  border-color: var(--nav-gold);
+}
+
+.nav-cta:hover .cta-arrow {
+  transform: translateX(4px);
 }
 
 /* =========================================
-   MOBILE TOGGLE
+   MOBILE TOGGLE - HIDDEN ON LARGE SCREENS
 ========================================= */
 
 .mobile-toggle {
@@ -183,8 +236,8 @@
   flex-direction: column;
   justify-content: space-between;
 
-  width: 26px;
-  height: 18px;
+  width: 28px;
+  height: 20px;
 
   background: transparent;
   border: none;
@@ -199,27 +252,36 @@
   width: 100%;
   background: var(--nav-white);
   transition: var(--transition-smooth);
+  border-radius: 2px;
 }
 
 .navbar.scrolled .mobile-toggle span {
   background: var(--nav-dark);
 }
 
-/* Animate to X */
+/* Animate to X - refined */
 .mobile-toggle.active span:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
+  transform: rotate(45deg) translate(5px, 6px);
+  width: 24px;
 }
 
 .mobile-toggle.active span:nth-child(2) {
   opacity: 0;
+  transform: translateX(-10px);
 }
 
 .mobile-toggle.active span:nth-child(3) {
-  transform: rotate(-45deg) translate(6px, -6px);
+  transform: rotate(-45deg) translate(6px, -8px);
+  width: 24px;
+}
+
+/* Mobile footer - hidden on large screens */
+.mobile-footer {
+  display: none;
 }
 
 /* =========================================
-   MOBILE MENU
+   MOBILE MENU - ONLY ACTIVE ON SMALL SCREENS
 ========================================= */
 
 @media (max-width: 768px) {
@@ -232,8 +294,8 @@
     position: fixed;
     top: 0;
     right: -100%;
-    width: 80%;
-    max-width: 380px;
+    width: 85%;
+    max-width: 400px;
     height: 100vh;
 
     background: var(--nav-white);
@@ -242,6 +304,9 @@
     padding: 6rem 2rem 2rem;
 
     transition: var(--transition-smooth);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   .nav-menu.active {
@@ -252,21 +317,87 @@
     flex-direction: column;
     gap: 2rem;
     align-items: flex-start;
+    width: 100%;
+  }
+
+  .nav-item {
+    width: 100%;
   }
 
   .nav-link {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     color: var(--nav-dark);
+    display: block;
+    width: 100%;
+    padding: 0.5rem 0;
   }
 
   .nav-link::after {
+    bottom: 0;
     background: var(--nav-gold);
+  }
+
+  .nav-link.active {
+    color: var(--nav-gold);
   }
 
   .nav-cta {
     background: var(--nav-gold);
     color: var(--nav-white);
+    width: 100%;
+    justify-content: center;
     margin-top: 1rem;
+    padding: 1rem;
+  }
+
+  /* Mobile footer - visible only on mobile */
+  .mobile-footer {
+    display: block;
+    border-top: 1px solid var(--nav-border);
+    padding-top: 2rem;
+    margin-top: 2rem;
+  }
+
+  .mobile-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .mobile-contact a {
+    color: var(--nav-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: var(--transition-fast);
+  }
+
+  .mobile-contact a:hover {
+    color: var(--nav-gold);
+  }
+
+  .mobile-social {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .mobile-social a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: var(--nav-border);
+    color: var(--nav-dark);
+    text-decoration: none;
+    border-radius: 50%;
+    transition: var(--transition-fast);
+  }
+
+  .mobile-social a:hover {
+    background: var(--nav-gold);
+    color: var(--nav-white);
+    transform: translateY(-2px);
   }
 }
 
@@ -276,7 +407,15 @@
 
 @media (min-width: 769px) and (max-width: 1024px) {
   .nav-list {
-    gap: 1.5rem;
+    gap: 1.8rem;
+  }
+  
+  .logo-text {
+    font-size: 1.4rem;
+  }
+  
+  .nav-cta {
+    padding: 0.7rem 1.5rem;
   }
 }
 
@@ -291,8 +430,27 @@
   outline-offset: 3px;
 }
 
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
 @media (prefers-reduced-motion: reduce) {
-  * {
+  .navbar,
+  .nav-link::after,
+  .nav-cta,
+  .cta-arrow,
+  .mobile-toggle span,
+  .nav-menu {
     transition: none !important;
+  }
+}
+
+/* =========================================
+   HIGH-DPI SCREENS
+========================================= */
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .navbar.scrolled {
+    border-bottom-width: 0.5px;
   }
 }

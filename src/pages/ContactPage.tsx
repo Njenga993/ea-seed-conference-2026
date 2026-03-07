@@ -1,5 +1,6 @@
+// pages/ContactPage.tsx
 import { useState, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { 
   Mail, 
   Phone, 
@@ -11,46 +12,22 @@ import {
   User, 
   Building, 
   MessageSquare,
-  ChevronDown,
-  ChevronUp,
   Paperclip,
   X,
-  Loader2,
-  Award,
-  HelpCircle,
-  Zap,
-  FileText,
-  Download,
-  ExternalLink
+  Loader2
 } from "lucide-react";
+import Venue from "../components/Venue"; // Import Venue component
 import "../styles/contactPage.css";
-
-interface TeamMember {
-  name: string;
-  role: string;
-  email: string;
-  phone: string;
-  avatar: string;
-  department: string;
-  available: boolean;
-}
 
 interface FormData {
   fullName: string;
   email: string;
   institution: string;
   category: string;
-  priority: string;
   subject: string;
   message: string;
   attachment: File | null;
   consent: boolean;
-}
-
-interface FAQ {
-  question: string;
-  answer: string;
-  category: string;
 }
 
 const ContactPage = () => {
@@ -59,7 +36,6 @@ const ContactPage = () => {
     email: "",
     institution: "",
     category: "general",
-    priority: "standard",
     subject: "",
     message: "",
     attachment: null,
@@ -70,104 +46,8 @@ const ContactPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState("");
-  const [expandedFAQ, setExpandedFAQ] = useState<number | null>(null);
-  const [activeDepartment, setActiveDepartment] = useState("all");
-  const [showChat, setShowChat] = useState(false);
-  const [chatMessages, setChatMessages] = useState<Array<{text: string, sender: 'user' | 'bot'}>>([]);
-  const [chatInput, setChatInput] = useState("");
-  const [isTyping, setIsTyping] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [charCount, setCharCount] = useState(0);
-
-  const teamMembers: TeamMember[] = [
-    {
-      name: "Dr. Sarah Kimani",
-      role: "Conference Chair",
-      email: "chair@eaisc2026.org",
-      phone: "+254 700 123 001",
-      avatar: "SK",
-      department: "leadership",
-      available: true
-    },
-    {
-      name: "Prof. Michael Ochieng",
-      role: "Program Committee Chair",
-      email: "program@eaisc2026.org",
-      phone: "+254 700 123 002",
-      avatar: "MO",
-      department: "program",
-      available: false
-    },
-    {
-      name: "Grace Wanjiru",
-      role: "Registration Manager",
-      email: "registration@eaisc2026.org",
-      phone: "+254 700 123 003",
-      avatar: "GW",
-      department: "registration",
-      available: true
-    },
-    {
-      name: "James Muriuki",
-      role: "Sponsorship Coordinator",
-      email: "sponsors@eaisc2026.org",
-      phone: "+254 700 123 004",
-      avatar: "JM",
-      department: "sponsorship",
-      available: true
-    },
-    {
-      name: "Aisha Hassan",
-      role: "Abstract Submission Lead",
-      email: "abstracts@eaisc2026.org",
-      phone: "+254 700 123 005",
-      avatar: "AH",
-      department: "abstracts",
-      available: false
-    },
-    {
-      name: "David Njoroge",
-      role: "Technical Support",
-      email: "support@eaisc2026.org",
-      phone: "+254 700 123 006",
-      avatar: "DN",
-      department: "technical",
-      available: true
-    }
-  ];
-
-  const faqs: FAQ[] = [
-    {
-      question: "When is the abstract submission deadline?",
-      answer: "The abstract submission deadline is March 15, 2026, at 23:59 UTC. Late submissions may be considered until March 22, 2026, with an additional fee.",
-      category: "abstracts"
-    },
-    {
-      question: "How do I modify my registration?",
-      answer: "You can modify your registration by logging into your account on our portal. Go to 'My Registration' and click 'Edit Changes'. Modifications are free until May 1, 2026.",
-      category: "registration"
-    },
-    {
-      question: "Are travel grants available?",
-      answer: "Yes, we offer limited travel grants for students and researchers from developing countries. Applications open January 15, 2026, and close February 28, 2026.",
-      category: "general"
-    },
-    {
-      question: "Will certificates be issued?",
-      answer: "All registered participants will receive digital certificates of attendance. Presenters will receive additional presentation certificates. Certificates will be emailed within 7 days after the conference.",
-      category: "general"
-    },
-    {
-      question: "What is the cancellation policy?",
-      answer: "Full refund available until April 30, 2026. 50% refund until May 31, 2026. No refunds after June 1, 2026. All refund requests must be submitted in writing.",
-      category: "registration"
-    },
-    {
-      question: "How can I become a sponsor?",
-      answer: "Please review our sponsorship packages on the website or contact our sponsorship coordinator at sponsors@eaisc2026.org. We offer various tiers from $500 to $50,000.",
-      category: "sponsorship"
-    }
-  ];
 
   const officeHours = {
     weekdays: "9:00 AM - 6:00 PM EAT",
@@ -201,9 +81,8 @@ const ContactPage = () => {
     } else if (formData.message.length > 1000) {
       newErrors.message = "Message must not exceed 1000 characters";
     }
-    if (!formData.consent) {
-  newErrors.consent = "You must agree to the privacy policy" as any; // Quick fix
-}
+    
+    
     
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -267,30 +146,6 @@ const ContactPage = () => {
     }
   };
 
-  const handleChatSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!chatInput.trim()) return;
-    
-    const userMessage = chatInput.trim();
-    setChatMessages(prev => [...prev, { text: userMessage, sender: 'user' }]);
-    setChatInput("");
-    setIsTyping(true);
-    
-    // Simulate bot response
-    setTimeout(() => {
-      const botResponses = [
-        "Thank you for your message. How can I help you today?",
-        "I'm here to assist you with conference-related inquiries.",
-        "For detailed information, please check our FAQ section or contact the relevant department.",
-        "Our team typically responds within 24 hours. Is there anything specific I can help you with?"
-      ];
-      
-      const randomResponse = botResponses[Math.floor(Math.random() * botResponses.length)];
-      setChatMessages(prev => [...prev, { text: randomResponse, sender: 'bot' }]);
-      setIsTyping(false);
-    }, 1500);
-  };
-
   const isOfficeHours = () => {
     const now = new Date();
     const hour = now.getHours();
@@ -304,10 +159,6 @@ const ContactPage = () => {
     // Weekday hours
     return hour >= 9 && hour < 18;
   };
-
-  const filteredTeam = activeDepartment === 'all' 
-    ? teamMembers 
-    : teamMembers.filter(member => member.department === activeDepartment);
 
   if (submitted) {
     return (
@@ -332,7 +183,7 @@ const ContactPage = () => {
             <button onClick={() => setSubmitted(false)} className="btn-secondary">
               Send Another Message
             </button>
-            <button className="btn-primary">
+            <button className="btn-primary" onClick={() => window.location.href = '/'}>
               Return to Homepage
             </button>
           </div>
@@ -343,7 +194,7 @@ const ContactPage = () => {
 
   return (
     <div className="contact-page">
-      {/* Compact Hero Section */}
+      {/* Hero Section */}
       <section className="contact-hero">
         <div className="hero-container">
           <div className="hero-breadcrumb">
@@ -367,16 +218,12 @@ const ContactPage = () => {
                   <span className="stat-value">2-4h</span>
                   <span className="stat-label">Response</span>
                 </div>
-                <div className="stat">
-                  <span className="stat-value">6+</span>
-                  <span className="stat-label">Departments</span>
-                </div>
               </div>
             </div>
             <div className="hero-right">
               <div className="contact-badge">
                 <Mail size={18} />
-                <span>info@eaisc2026.org</span>
+                <span>info@eaindeigenousseedsconference.org</span>
               </div>
               <div className={`contact-badge ${isOfficeHours() ? 'online' : 'offline'}`}>
                 <div className={`status-dot ${isOfficeHours() ? 'online' : 'offline'}`}></div>
@@ -386,6 +233,8 @@ const ContactPage = () => {
           </div>
         </div>
       </section>
+
+      < Venue />
 
       {/* Quick Contact Cards */}
       <section className="quick-contact">
@@ -397,7 +246,7 @@ const ContactPage = () => {
               </div>
               <div className="card-content">
                 <h3>Email Us</h3>
-                <p>info@eaisc2026.org</p>
+                <p>info@eaindeigenousseedsconference.org</p>
                 <span className="card-meta">2-4 hour response</span>
               </div>
             </div>
@@ -408,7 +257,7 @@ const ContactPage = () => {
               </div>
               <div className="card-content">
                 <h3>Call Us</h3>
-                <p>+254 700 123 456</p>
+                <p>+254 712 451 777</p>
                 <span className="card-meta">Mon-Fri, 9AM-6PM</span>
               </div>
             </div>
@@ -419,19 +268,19 @@ const ContactPage = () => {
               </div>
               <div className="card-content">
                 <h3>Visit Us</h3>
-                <p>Nairobi, Kenya</p>
+                <p>GILGIL, Kenya</p>
                 <span className="card-meta">By appointment</span>
               </div>
             </div>
 
-            <div className="quick-card chat-card" onClick={() => setShowChat(true)}>
+            <div className="quick-card">
               <div className="card-icon">
                 <MessageSquare size={20} />
               </div>
               <div className="card-content">
-                <h3>Live Chat</h3>
-                <p>Start conversation</p>
-                <span className="card-meta online">Online now</span>
+                <h3>Contact Form</h3>
+                <p>Send a message</p>
+                <span className="card-meta">Quick response</span>
               </div>
             </div>
           </div>
@@ -505,41 +354,23 @@ const ContactPage = () => {
                   />
                 </div>
 
-                <div className="form-row">
-                  <div className="form-group">
-                    <label>
-                      <HelpCircle size={16} />
-                      Category
-                    </label>
-                    <select 
-                      name="category"
-                      value={formData.category}
-                      onChange={handleInputChange}
-                    >
-                      <option value="general">General Inquiry</option>
-                      <option value="registration">Registration</option>
-                      <option value="abstracts">Abstract Submission</option>
-                      <option value="sponsorship">Sponsorship</option>
-                      <option value="program">Program & Schedule</option>
-                      <option value="technical">Technical Support</option>
-                    </select>
-                  </div>
-
-                  <div className="form-group">
-                    <label>
-                      <Zap size={16} />
-                      Priority
-                    </label>
-                    <select 
-                      name="priority"
-                      value={formData.priority}
-                      onChange={handleInputChange}
-                    >
-                      <option value="standard">Standard</option>
-                      <option value="high">High Priority</option>
-                      <option value="urgent">Urgent</option>
-                    </select>
-                  </div>
+                <div className="form-group">
+                  <label>
+                    <MessageSquare size={16} />
+                    Category
+                  </label>
+                  <select 
+                    name="category"
+                    value={formData.category}
+                    onChange={handleInputChange}
+                  >
+                    <option value="general">General Inquiry</option>
+                    <option value="registration">Registration</option>
+                    <option value="abstracts">Abstract Submission</option>
+                    <option value="sponsorship">Sponsorship</option>
+                    <option value="program">Program & Schedule</option>
+                    <option value="technical">Technical Support</option>
+                  </select>
                 </div>
 
                 <div className="form-group">
@@ -662,7 +493,7 @@ const ContactPage = () => {
                     <MapPin size={18} />
                     <div>
                       <h4>Address</h4>
-                      <p>United Nations Avenue, Gigiri<br />Nairobi, Kenya</p>
+                      <p>TBC<br />Nairobi, Kenya</p>
                     </div>
                   </div>
                   <div className="detail-item">
@@ -677,13 +508,13 @@ const ContactPage = () => {
                     <Phone size={18} />
                     <div>
                       <h4>Emergency Contact</h4>
-                      <p>+254 700 999 000 (24/7)</p>
+                      <p>+254 712 451 777 (24/7)</p>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Quick Resources */}
+              {/* Quick Resources 
               <div className="info-card resources-card">
                 <h3>Quick Resources</h3>
                 <div className="resources-list">
@@ -693,7 +524,7 @@ const ContactPage = () => {
                     <Download size={14} className="resource-icon-right" />
                   </a>
                   <a href="/sponsorship-brochure" className="resource-item">
-                    <Award size={18} />
+                    <FileText size={18} />
                     <span>Sponsorship Brochure</span>
                     <Download size={14} className="resource-icon-right" />
                   </a>
@@ -703,14 +534,14 @@ const ContactPage = () => {
                     <ExternalLink size={14} className="resource-icon-right" />
                   </a>
                   <a href="/faq" className="resource-item">
-                    <HelpCircle size={18} />
+                    <MessageSquare size={18} />
                     <span>FAQ</span>
                     <ExternalLink size={14} className="resource-icon-right" />
                   </a>
                 </div>
-              </div>
+              </div>*/}
 
-              {/* Social Links */}
+              {/* Social Links 
               <div className="info-card social-card">
                 <h3>Connect With Us</h3>
                 <div className="social-links">
@@ -719,186 +550,12 @@ const ContactPage = () => {
                   <a href="#" className="social-link">Facebook</a>
                   <a href="#" className="social-link">YouTube</a>
                 </div>
-              </div>
+              </div>*/}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Team Section */}
-      <section className="team-section">
-        <div className="container">
-          <div className="section-header">
-            <h2>Meet Our Team</h2>
-            <p>Connect with the right department for faster response</p>
-          </div>
-          
-          <div className="department-filter">
-            <button 
-              className={`filter-btn ${activeDepartment === 'all' ? 'active' : ''}`}
-              onClick={() => setActiveDepartment('all')}
-            >
-              All
-            </button>
-            <button 
-              className={`filter-btn ${activeDepartment === 'leadership' ? 'active' : ''}`}
-              onClick={() => setActiveDepartment('leadership')}
-            >
-              Leadership
-            </button>
-            <button 
-              className={`filter-btn ${activeDepartment === 'registration' ? 'active' : ''}`}
-              onClick={() => setActiveDepartment('registration')}
-            >
-              Registration
-            </button>
-            <button 
-              className={`filter-btn ${activeDepartment === 'program' ? 'active' : ''}`}
-              onClick={() => setActiveDepartment('program')}
-            >
-              Program
-            </button>
-            <button 
-              className={`filter-btn ${activeDepartment === 'sponsorship' ? 'active' : ''}`}
-              onClick={() => setActiveDepartment('sponsorship')}
-            >
-              Sponsorship
-            </button>
-          </div>
-
-          <div className="team-grid">
-            {filteredTeam.map((member, index) => (
-              <div key={index} className="team-card">
-                <div className="team-avatar">
-                  <span>{member.avatar}</span>
-                  <div className={`availability-dot ${member.available ? 'available' : 'busy'}`}></div>
-                </div>
-                <h3>{member.name}</h3>
-                <p className="team-role">{member.role}</p>
-                <div className="team-contact">
-                  <a href={`mailto:${member.email}`}>
-                    <Mail size={14} />
-                    {member.email}
-                  </a>
-                  <a href={`tel:${member.phone}`}>
-                    <Phone size={14} />
-                    {member.phone}
-                  </a>
-                </div>
-                <div className="team-status">
-                  <span className={`status-badge ${member.available ? 'online' : 'offline'}`}>
-                    {member.available ? 'Available' : 'In meeting'}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section className="faq-section">
-        <div className="container">
-          <div className="section-header">
-            <h2>Frequently Asked Questions</h2>
-            <p>Quick answers to common questions</p>
-          </div>
-          
-          <div className="faq-list">
-            {faqs.map((faq, index) => (
-              <div key={index} className="faq-item">
-                <div 
-                  className="faq-question"
-                  onClick={() => setExpandedFAQ(expandedFAQ === index ? null : index)}
-                >
-                  <h3>{faq.question}</h3>
-                  <span className="faq-icon">
-                    {expandedFAQ === index ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
-                  </span>
-                </div>
-                <AnimatePresence>
-                  {expandedFAQ === index && (
-                    <motion.div 
-                      className="faq-answer"
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <p>{faq.answer}</p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Chat Widget */}
-      <AnimatePresence>
-        {showChat && (
-          <motion.div 
-            className="chat-widget"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 }}
-            transition={{ duration: 0.2 }}
-          >
-            <div className="chat-header">
-              <h3>Live Chat</h3>
-              <button onClick={() => setShowChat(false)}>
-                <X size={16} />
-              </button>
-            </div>
-            
-            <div className="chat-messages">
-              {chatMessages.length === 0 && (
-                <div className="welcome-message">
-                  <p>Hello! How can we help you today?</p>
-                </div>
-              )}
-              
-              {chatMessages.map((msg, index) => (
-                <div key={index} className={`message ${msg.sender}`}>
-                  <p>{msg.text}</p>
-                </div>
-              ))}
-              
-              {isTyping && (
-                <div className="message bot typing">
-                  <div className="typing-indicator">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                  </div>
-                </div>
-              )}
-            </div>
-            
-            <form onSubmit={handleChatSubmit} className="chat-input">
-              <input 
-                type="text" 
-                value={chatInput}
-                onChange={(e) => setChatInput(e.target.value)}
-                placeholder="Type your message..."
-              />
-              <button type="submit">
-                <Send size={16} />
-              </button>
-            </form>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Floating Chat Button */}
-      <button 
-        className="floating-chat-btn"
-        onClick={() => setShowChat(true)}
-      >
-        <MessageSquare size={20} />
-        <span className="chat-badge"></span>
-      </button>
     </div>
   );
 };

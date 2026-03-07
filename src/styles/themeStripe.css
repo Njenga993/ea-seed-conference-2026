@@ -1,14 +1,13 @@
 /* ===================================================== */
-/* THEME STRIPE – STICKY UNDER NAVBAR VERSION */
-/* Works with Improved EA-ISC Navbar */
+/* THEME STRIPE – ELEVATED VERSION */
 /* ===================================================== */
 
-/* IMPORTANT:
-   This must match navbar height.
-   Adjust only if you change navbar padding.
-*/
 :root {
   --navbar-height: 80px;
+  --stripe-primary: #72BF44;
+  --stripe-secondary: #5DAE35;
+  --stripe-dark: #4F9E2C;
+  --stripe-darkest: #1E4D11;
 }
 
 /* ============================= */
@@ -17,32 +16,45 @@
 
 .theme-stripe {
   position: relative;
-  margin-top: -80px; /* FIXED */
+  margin-top: -80px;
   margin-bottom: 60px;
   background: linear-gradient(
     135deg,
-    #72BF44 0%,
-    #5DAE35 50%,
-    #4F9E2C 100%
+    var(--stripe-primary) 0%,
+    var(--stripe-secondary) 50%,
+    var(--stripe-dark) 100%
   );
   padding: 70px 0 50px;
   overflow: hidden;
   isolation: isolate;
   z-index: 1;
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+}
+
+/* Subtle pattern overlay */
+.theme-stripe-pattern {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 30px 30px;
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: 1;
 }
 
 /* ============================= */
-/* Sticky Behavior (Fixed) */
+/* Sticky Behaviour */
 /* ============================= */
 
 .sticky-stripe {
   position: relative;
-  top: var(--navbar-height); /* FIXED */
-  z-index: 900; /* below navbar (1000) */
+  top: var(--navbar-height);
+  z-index: 900;
 }
 
 /* ============================= */
-/* Subtle Top Border (Separation) */
+/* Top Separator with Animation */
 /* ============================= */
 
 .theme-stripe::before {
@@ -51,27 +63,54 @@
   top: 0;
   left: 0;
   width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255,255,255,0.5) 50%, 
+    transparent 100%
+  );
+  z-index: 2;
+  transform: translateX(-100%);
+  animation: stripeTopLine 1.2s ease forwards;
+  animation-delay: 0.3s;
+}
+
+@keyframes stripeTopLine {
+  to { transform: translateX(100%); }
+}
+
+/* Bottom accent line */
+.theme-stripe::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   height: 1px;
-  background: rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.2);
   z-index: 2;
 }
 
 /* ============================= */
-/* Mouse Radial Highlight */
+/* Mouse Highlight */
 /* ============================= */
 
 .theme-stripe-gradient {
   position: absolute;
   inset: 0;
   background: radial-gradient(
-    circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-    rgba(255, 255, 255, 0.12),
-    transparent 60%
+    circle at var(--mouse-x) var(--mouse-y),
+    rgba(255,255,255,0.15) 0%,
+    transparent 70%
   );
-  opacity: 0.5;
+  opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
   z-index: 1;
+}
+
+.theme-stripe:hover .theme-stripe-gradient {
+  opacity: 0.7;
 }
 
 /* ============================= */
@@ -83,7 +122,7 @@
   margin: 0 auto;
   padding: 0 32px;
   position: relative;
-  z-index: 2;
+  z-index: 3;
 }
 
 .theme-stripe-content {
@@ -92,62 +131,87 @@
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 28px;
-
-  background: rgba(0, 0, 0, 0.15);
+  background: rgba(0,0,0,0.15);
   backdrop-filter: blur(8px);
-
   border-radius: 20px;
   padding: 36px 40px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-
-  /* Scroll Reveal */
+  border: 1px solid rgba(255,255,255,0.15);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  
+  /* Entrance animation */
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.4,0,0.2,1);
 }
 
-/* Scroll Reveal Active */
+/* Reveal */
 .stripe-visible .theme-stripe-content {
   opacity: 1;
   transform: translateY(0);
 }
 
 /* ============================= */
-/* Items */
+/* Stagger Items */
+/* ============================= */
+
+.theme-stagger-item {
+  opacity: 0;
+  transform: translateY(20px);
+  filter: blur(2px);
+  transition: opacity 0.6s cubic-bezier(0.4,0,0.2,1),
+              transform 0.6s cubic-bezier(0.4,0,0.2,1),
+              filter 0.6s ease;
+}
+
+.theme-stagger-item.stripe-item-visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* Individual delays handled in JS */
+
+/* ============================= */
+/* Items with Icons */
 /* ============================= */
 
 .theme-stripe-item {
   display: flex;
-  align-items: center;
-  gap: 18px;
+  align-items: flex-start;
+  gap: 16px;
   flex: 1;
   min-width: 220px;
-  padding: 10px 0;
-  transition: transform 0.25s ease;
+  padding: 8px 0;
+  transition: all 0.3s ease;
+  position: relative;
 }
 
 .theme-stripe-item:hover {
   transform: translateY(-3px);
 }
 
-/* ============================= */
-/* Icons */
-/* ============================= */
-
-.theme-stripe-icon {
-  width: 48px;
-  height: 48px;
-  min-width: 48px;
-
-  background: rgba(0, 0, 0, 0.25);
+.theme-item-icon {
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 12px;
-
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 1.3rem;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
 
-  font-size: 20px;
-  color: #ffffff;
+.theme-stripe-item:hover .theme-item-icon {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1) rotate(5deg);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.theme-item-content {
+  flex: 1;
 }
 
 /* ============================= */
@@ -155,13 +219,19 @@
 /* ============================= */
 
 .theme-stripe-label {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255,255,255,0.8);
   margin-bottom: 6px;
   display: block;
+  transition: color 0.3s ease;
+}
+
+.theme-stripe-item:hover .theme-stripe-label {
+  color: rgba(255,255,255,1);
+  letter-spacing: 2px;
 }
 
 .theme-stripe-value {
@@ -169,23 +239,73 @@
   font-weight: 700;
   color: #ffffff;
   margin: 0;
-  line-height: 1.2;
+  line-height: 1.3;
+  transition: transform 0.3s ease;
+}
+
+.theme-stripe-item:hover .theme-stripe-value {
+  transform: translateX(4px);
 }
 
 .theme-stripe-subtitle {
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.85);
-  margin-top: 4px;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.8);
+  margin-top: 6px;
+  font-weight: 400;
+  transition: color 0.3s ease;
+}
+
+.theme-stripe-item:hover .theme-stripe-subtitle {
+  color: rgba(255,255,255,1);
 }
 
 /* ============================= */
-/* Divider */
+/* Divider with Animation */
 /* ============================= */
 
 .theme-stripe-divider {
   width: 1px;
   height: 60px;
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(255,255,255,0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-stripe-divider::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,0.5);
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
+}
+
+.theme-stripe:hover .theme-stripe-divider::after {
+  transform: translateY(100%);
+}
+
+/* Divider entrance animation */
+.stripe-visible .theme-stripe-divider {
+  animation: stripeDividerGrow 0.8s ease forwards;
+  transform-origin: center;
+}
+
+@keyframes stripeDividerGrow {
+  0% {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scaleY(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
 }
 
 /* ============================= */
@@ -196,36 +316,97 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 8px;
+  gap: 10px;
+  min-width: 180px;
 }
 
 .theme-stripe-cta {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-
-  padding: 16px 34px;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 28px;
   border-radius: 50px;
-
-  background: #1E4D11;
+  background: var(--stripe-darkest);
   color: #ffffff;
   text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  border: 2px solid transparent;
+}
 
-  font-weight: 700;
-  font-size: 1rem;
+.theme-cta-arrow {
+  transition: transform 0.3s ease;
+  font-size: 1.2rem;
+}
 
-  transition: all 0.3s ease;
+/* Hover ripple effect */
+.theme-stripe-cta::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+}
+
+.theme-stripe-cta:hover::before {
+  width: 300px;
+  height: 300px;
 }
 
 .theme-stripe-cta:hover {
-  background: #15390C;
-  transform: translateY(-2px);
+  background: transparent;
+  border-color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.theme-stripe-cta:hover .theme-cta-arrow {
+  transform: translateX(5px);
+}
+
+.theme-stripe-cta:active {
+  transform: translateY(-1px);
+}
+
+/* CTA entrance animation */
+.theme-stagger-item.stripe-item-visible .theme-stripe-cta {
+  animation: stripeCtaReveal 0.7s cubic-bezier(0.4,0,0.2,1) forwards;
+}
+
+@keyframes stripeCtaReveal {
+  0% {
+    transform: translateY(20px) scale(0.9);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(-2px) scale(1.03);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
 }
 
 .theme-stripe-cta-note {
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.8);
   margin: 0;
+  padding-left: 8px;
+  transition: color 0.3s ease;
+}
+
+.theme-stripe-cta-wrapper:hover .theme-stripe-cta-note {
+  color: white;
 }
 
 /* ============================= */
@@ -235,7 +416,8 @@
 @media (max-width: 1024px) {
   .theme-stripe-content {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
+    gap: 20px;
   }
 
   .theme-stripe-divider {
@@ -243,7 +425,13 @@
   }
 
   .theme-stripe-cta-wrapper {
-    margin-top: 16px;
+    margin-top: 8px;
+    width: 100%;
+  }
+
+  .theme-stripe-item {
+    width: 100%;
+    padding: 12px 0;
   }
 }
 
@@ -261,17 +449,45 @@
   }
 
   .theme-stripe-content {
-    padding: 28px;
+    padding: 28px 24px;
   }
 
-  .theme-stripe-item {
-    flex-direction: column;
-    align-items: flex-start;
+  .theme-stripe-value {
+    font-size: 1.1rem;
   }
 
   .theme-stripe-cta {
     width: 100%;
     justify-content: center;
+    padding: 14px 24px;
+  }
+  
+  .theme-item-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .theme-stripe-item {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .theme-stripe-value {
+    font-size: 1rem;
+  }
+  
+  .theme-item-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+  
+  .theme-stripe-label {
+    font-size: 0.65rem;
   }
 }
 
@@ -280,18 +496,33 @@
 /* ============================= */
 
 @media (prefers-reduced-motion: reduce) {
-  .theme-stripe-content {
+  .theme-stripe::before,
+  .theme-stripe-content,
+  .theme-stagger-item,
+  .theme-stripe-divider,
+  .theme-stripe-divider::after,
+  .theme-stripe-cta::before,
+  .theme-cta-arrow,
+  .theme-stripe-gradient {
     transition: none;
-    opacity: 1;
+    animation: none;
     transform: none;
   }
 
-  .theme-stripe-item:hover,
-  .theme-stripe-cta:hover {
+  .theme-stagger-item {
+    opacity: 1;
     transform: none;
+    filter: none;
   }
 
   .theme-stripe-gradient {
     display: none;
+  }
+  
+  .theme-stripe-cta:hover {
+    background: var(--stripe-darkest);
+    border-color: transparent;
+    transform: none;
+    box-shadow: none;
   }
 }

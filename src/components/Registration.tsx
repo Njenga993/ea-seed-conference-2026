@@ -1,19 +1,99 @@
 // components/HomeRegistration.tsx
+import { useEffect, useRef } from "react";
 import "../styles/Registration.css";
 
 const Registration = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const tagRef = useRef<HTMLSpanElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const introRef = useRef<HTMLParagraphElement>(null);
+  const card1Ref = useRef<HTMLDivElement>(null);
+  const card2Ref = useRef<HTMLDivElement>(null);
+  const card3Ref = useRef<HTMLDivElement>(null);
+  const card4Ref = useRef<HTMLDivElement>(null);
+  const footerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Animate header elements
+            setTimeout(() => {
+              tagRef.current?.classList.add("home-reg-item-visible");
+            }, 200);
+            
+            setTimeout(() => {
+              titleRef.current?.classList.add("home-reg-item-visible");
+            }, 350);
+            
+            setTimeout(() => {
+              introRef.current?.classList.add("home-reg-item-visible");
+            }, 500);
+
+            // Animate cards with staggered delays
+            setTimeout(() => {
+              card1Ref.current?.classList.add("home-reg-item-visible");
+            }, 650);
+            
+            setTimeout(() => {
+              card2Ref.current?.classList.add("home-reg-item-visible");
+            }, 800);
+            
+            setTimeout(() => {
+              card3Ref.current?.classList.add("home-reg-item-visible");
+            }, 950);
+            
+            setTimeout(() => {
+              card4Ref.current?.classList.add("home-reg-item-visible");
+            }, 1100);
+
+            // Animate footer
+            setTimeout(() => {
+              footerRef.current?.classList.add("home-reg-item-visible");
+            }, 1250);
+
+            observer.disconnect();
+          }
+        });
+      },
+      {
+        threshold: 0.2,
+        rootMargin: "0px 0px -50px 0px",
+      }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   const handleRegister = (type: string) => {
-    // Handle registration logic
     console.log(`Registering for: ${type}`);
   };
 
   return (
-    <section className="home-registration">
+    <section className="home-registration" ref={sectionRef}>
       <div className="home-registration-container">
         <div className="home-registration-header">
-          <span className="home-registration-tag">Registration Options</span>
-          <h2 className="home-registration-title">Choose Your Participation</h2>
-          <p className="home-registration-intro">
+          <span 
+            ref={tagRef} 
+            className="home-registration-tag home-reg-stagger-item"
+          >
+            Registration Options
+          </span>
+          <h2 
+            ref={titleRef} 
+            className="home-registration-title home-reg-stagger-item"
+          >
+            Choose Your Participation
+          </h2>
+          <p 
+            ref={introRef} 
+            className="home-registration-intro home-reg-stagger-item"
+          >
             Select the registration type that best suits your needs. Early registration 
             is encouraged due to limited capacity.
           </p>
@@ -21,8 +101,14 @@ const Registration = () => {
 
         <div className="home-pricing-grid">
           {/* Card 1: African & International Delegates */}
-          <div className="home-pricing-card featured">
-            <h3 className="home-pricing-name">African & International Delegates</h3>
+          <div 
+            ref={card1Ref} 
+            className="home-pricing-card featured home-reg-stagger-item"
+          >
+            <span className="home-card-badge">RECOMMENDED</span>
+            <div className="home-card-header">
+              <h3 className="home-pricing-name">African & International Delegates</h3>
+            </div>
             <div className="home-pricing-price">
               <span className="home-price-amount">$200</span>
             </div>
@@ -52,13 +138,19 @@ const Registration = () => {
               className="home-register-btn"
               onClick={() => handleRegister('Delegates')}
             >
-              Register Now
+              <span>Register Now</span>
+              <span className="home-btn-arrow">→</span>
             </button>
           </div>
 
           {/* Card 2: Farmers */}
-          <div className="home-pricing-card">
-            <h3 className="home-pricing-name">Farmers</h3>
+          <div 
+            ref={card2Ref} 
+            className="home-pricing-card home-reg-stagger-item"
+          >
+            <div className="home-card-header">
+              <h3 className="home-pricing-name">Farmers</h3>
+            </div>
             <div className="home-pricing-price">
               <span className="home-price-amount">$150</span>
             </div>
@@ -88,13 +180,19 @@ const Registration = () => {
               className="home-register-btn"
               onClick={() => handleRegister('Farmers')}
             >
-              Register Now
+              <span>Register Now</span>
+              <span className="home-btn-arrow">→</span>
             </button>
           </div>
 
           {/* Card 3: Virtual Participants */}
-          <div className="home-pricing-card">
-            <h3 className="home-pricing-name">Virtual Participants</h3>
+          <div 
+            ref={card3Ref} 
+            className="home-pricing-card home-reg-stagger-item"
+          >
+            <div className="home-card-header">
+              <h3 className="home-pricing-name">Virtual Participants</h3>
+            </div>
             <div className="home-pricing-price">
               <span className="home-price-amount">$100</span>
             </div>
@@ -124,13 +222,19 @@ const Registration = () => {
               className="home-register-btn"
               onClick={() => handleRegister('Virtual')}
             >
-              Register Now
+              <span>Register Now</span>
+              <span className="home-btn-arrow">→</span>
             </button>
           </div>
 
           {/* Card 4: Add-ons */}
-          <div className="home-pricing-card add-ons">
-            <h3 className="home-pricing-name">Add-ons</h3>
+          <div 
+            ref={card4Ref} 
+            className="home-pricing-card add-ons home-reg-stagger-item"
+          >
+            <div className="home-card-header">
+              <h3 className="home-pricing-name">Add-ons</h3>
+            </div>
             <div className="home-pricing-price">
               <span className="home-price-amount">Optional</span>
             </div>
@@ -154,15 +258,19 @@ const Registration = () => {
               className="home-register-btn addon-btn"
               onClick={() => handleRegister('Add-ons')}
             >
-              Add to Registration
+              <span>Add to Registration</span>
+              <span className="home-btn-arrow">→</span>
             </button>
           </div>
         </div>
 
-        <div className="home-registration-footer">
+        <div 
+          ref={footerRef} 
+          className="home-registration-footer home-reg-stagger-item"
+        >
           <div className="home-footer-info">
             <p className="home-registration-note">
-              <strong>Note:</strong> The Registarion Buttons are not active! Add-ons can only be purchased with a main registration type.
+              <strong>Note:</strong> The Registration Buttons are not active! Add-ons can only be purchased with a main registration type.
             </p>
             <p className="home-registration-support">
               Need help with registration? 
