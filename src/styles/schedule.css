@@ -1,238 +1,346 @@
-/* schedule.css - Simple and clean */
+/* Conference Schedule Component Styles */
+/* Using conf- prefix to avoid CSS collisions */
 
-/* Base Section */
-.home-schedule {
-  background-color: #f5f1eb;
-  padding: 80px 0;
+/* CSS Variables */
+:root {
+  --conf-primary: #72BF44;
+  --conf-secondary: #5DAE35;
+  --conf-dark: #4F9E2C;
+  --conf-darkest: #1E4D11;
+  --conf-brown: #c17b3c;
+  --conf-light-brown: #f5f1eb;
+  --conf-text-dark: #1e293b;
+  --conf-text-muted: #475569;
+  --conf-white: #ffffff;
+  --conf-light-gray: #f8fafc;
 }
 
-.home-schedule-container {
-  max-width: 800px;
+/* Base Section */
+.conf-schedule-section {
+  background-color: var(--conf-light-brown);
+  padding: 80px 0;
+  position: relative;
+}
+
+.conf-schedule-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, var(--conf-primary), var(--conf-secondary));
+}
+
+.conf-schedule-container {
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
 }
 
 /* Header */
-.home-schedule-header {
+.conf-schedule-header {
   text-align: center;
-  max-width: 700px;
-  margin: 0 auto 50px;
+  max-width: 800px;
+  margin: 0 auto 60px;
 }
 
-.home-schedule-tag {
+.conf-schedule-tag {
   display: inline-block;
-  background: #e8f0f7;
-  color: #1e4a6b;
-  padding: 6px 16px;
+  background: var(--conf-light-gray);
+  color: var(--conf-dark);
+  padding: 8px 20px;
   border-radius: 30px;
   font-size: 0.85rem;
-  font-weight: 500;
-  margin-bottom: 15px;
-}
-
-.home-schedule-title {
-  font-size: 2.2rem;
   font-weight: 600;
-  color: #1e4a6b;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
-.home-schedule-subtitle {
-  font-size: 1.05rem;
-  color: #475569;
-  line-height: 1.6;
+.conf-schedule-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--conf-darkest);
+  margin-bottom: 20px;
+  position: relative;
 }
 
-/* Accordion */
-.home-schedule-accordion {
-  margin-bottom: 30px;
+.conf-schedule-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: var(--conf-brown);
 }
 
-.home-accordion-item {
-  margin-bottom: 12px;
-  border: 1px solid #e2e8f0;
-  border-radius: 6px;
-  overflow: hidden;
-  background: white;
-}
-
-.home-accordion-button {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 18px 20px;
-  background: white;
-  border: none;
-  cursor: pointer;
-  text-align: left;
-  transition: all 0.2s ease;
-}
-
-.home-accordion-button:hover {
-  background: #f8fafc;
-}
-
-.home-accordion-button.active {
-  background: #1e4a6b;
-  color: white;
-}
-
-.home-accordion-day {
+.conf-schedule-subtitle {
   font-size: 1.1rem;
+  color: var(--conf-text-muted);
+  line-height: 1.6;
+  margin-top: 20px;
+}
+
+/* Schedule Cards */
+.conf-schedule-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.conf-day-card {
+  background: var(--conf-white);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.conf-day-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.conf-day-header {
+  background: var(--conf-dark);
+  color: var(--conf-white);
+  padding: 20px;
+  position: relative;
+}
+
+.conf-day-title {
+  font-size: 1.2rem;
   font-weight: 600;
-  color: #1e4a6b;
+  margin: 0;
+  padding-right: 80px;
 }
 
-.home-accordion-button.active .home-accordion-day {
-  color: white;
+.conf-day-indicator {
+  position: absolute;
+  top: 20px;
+  right: 20px;
 }
 
-.home-accordion-icon {
-  font-size: 1.5rem;
-  font-weight: 300;
-  color: #1e4a6b;
-  width: 24px;
-  height: 24px;
+.conf-day-number {
+  display: block;
+  background: var(--conf-brown);
+  color: var(--conf-white);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 600;
 }
 
-.home-accordion-button.active .home-accordion-icon {
-  color: white;
-}
-
-/* Accordion Content */
-.home-accordion-content {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease;
-  background: #f8fafc;
-}
-
-.home-accordion-content.open {
-  max-height: 500px;
-}
-
-.home-sessions-list {
+.conf-sessions-container {
   padding: 20px;
-  border-top: 1px solid #e2e8f0;
 }
 
-.home-session-item {
+.conf-session-card {
   display: flex;
-  gap: 20px;
-  padding: 10px 0;
-  border-bottom: 1px dashed #e2e8f0;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
-.home-session-item:last-child {
+.conf-session-card:last-child {
   border-bottom: none;
 }
 
-.home-session-time {
+.conf-session-time {
   min-width: 120px;
   font-size: 0.9rem;
   font-weight: 600;
-  color: #c17b3c;
+  color: var(--conf-brown);
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.home-session-title {
-  font-size: 0.98rem;
-  color: #1e293b;
-  line-height: 1.5;
+.conf-time-icon {
+  width: 16px;
+  height: 16px;
+  background-color: var(--conf-brown);
+  border-radius: 50%;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.conf-time-icon::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 7px;
+  width: 2px;
+  height: 6px;
+  background-color: white;
+}
+
+.conf-time-icon::after {
+  content: '';
+  position: absolute;
+  top: 7px;
+  left: 3px;
+  width: 6px;
+  height: 2px;
+  background-color: white;
+}
+
+.conf-session-content {
   flex: 1;
+  padding-left: 15px;
+}
+
+.conf-session-title {
+  font-size: 1rem;
+  color: var(--conf-text-dark);
+  line-height: 1.5;
+  margin: 0;
+  font-weight: 500;
 }
 
 /* Note */
-.home-schedule-note {
-  text-align: center;
-  padding: 20px;
-  background: white;
-  border: 1px solid #e2e8f0;
-  border-radius: 6px;
-}
-
-.home-schedule-note p {
-  font-size: 0.9rem;
-  color: #475569;
+.conf-schedule-note {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  margin: 0;
+  gap: 15px;
+  padding: 20px 30px;
+  background: var(--conf-white);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-.home-note-icon {
-  font-size: 1rem;
+.conf-note-icon {
+  width: 24px;
+  height: 24px;
+  background-color: var(--conf-brown);
+  border-radius: 50%;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.conf-note-icon::before {
+  content: '!';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.conf-schedule-note p {
+  font-size: 0.95rem;
+  color: var(--conf-text-muted);
+  margin: 0;
+  line-height: 1.5;
 }
 
 /* Responsive Design */
+@media (max-width: 992px) {
+  .conf-schedule-cards {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+  }
+}
+
 @media (max-width: 768px) {
-  .home-schedule {
+  .conf-schedule-section {
     padding: 60px 0;
   }
 
-  .home-schedule-title {
-    font-size: 1.8rem;
+  .conf-schedule-title {
+    font-size: 2.2rem;
   }
 
-  .home-schedule-subtitle {
+  .conf-schedule-subtitle {
     font-size: 1rem;
   }
 
-  .home-accordion-day {
-    font-size: 1rem;
+  .conf-schedule-cards {
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
 
-  .home-accordion-button {
-    padding: 15px;
-  }
-
-  .home-session-item {
+  .conf-session-card {
     flex-direction: column;
-    gap: 5px;
+    gap: 8px;
   }
 
-  .home-session-time {
+  .conf-session-time {
     min-width: auto;
-    font-size: 0.85rem;
   }
 
-  .home-session-title {
-    font-size: 0.95rem;
+  .conf-session-content {
+    padding-left: 0;
+  }
+
+  .conf-schedule-note {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
   }
 }
 
 @media (max-width: 576px) {
-  .home-schedule-tag {
+  .conf-schedule-section {
+    padding: 40px 0;
+  }
+
+  .conf-schedule-tag {
     font-size: 0.75rem;
-    padding: 4px 12px;
+    padding: 6px 16px;
   }
 
-  .home-schedule-title {
-    font-size: 1.6rem;
+  .conf-schedule-title {
+    font-size: 1.8rem;
   }
 
-  .home-schedule-note p {
-    flex-direction: column;
-    gap: 5px;
-    text-align: center;
+  .conf-day-title {
+    font-size: 1.1rem;
   }
 
-  .home-session-item {
-    padding: 8px 0;
+  .conf-session-card {
+    padding: 12px 0;
+  }
+
+  .conf-schedule-note p {
+    font-size: 0.9rem;
   }
 }
 
 /* Small phones */
 @media (max-width: 380px) {
-  .home-accordion-day {
-    font-size: 0.95rem;
+  .conf-schedule-container {
+    padding: 0 16px;
   }
 
-  .home-accordion-icon {
-    font-size: 1.2rem;
+  .conf-sessions-container {
+    padding: 15px;
+  }
+
+  .conf-day-header {
+    padding: 15px;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .conf-day-card {
+    transition: none;
+  }
+  
+  .conf-day-card:hover {
+    transform: none;
   }
 }

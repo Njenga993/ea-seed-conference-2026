@@ -1,5 +1,4 @@
-// components/HomeSchedule.tsx
-import { useState } from "react";
+
 import "../styles/schedule.css";
 
 const scheduleData = [
@@ -39,61 +38,49 @@ const scheduleData = [
   }
 ];
 
-const Schedule = () => {
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
-
-  const toggleAccordion = (index: number) => {
-    setActiveIndex(activeIndex === index ? null : index);
-  };
-
+const ConferenceSchedule = () => {
   return (
-    <section className="home-schedule">
-      <div className="home-schedule-container">
-        <div className="home-schedule-header">
-          <span className="home-schedule-tag">Conference Program</span>
-          <h2 className="home-schedule-title">Program & Schedule</h2>
-          <p className="home-schedule-subtitle">
+    <section className="conf-schedule-section">
+      <div className="conf-schedule-container">
+        <header className="conf-schedule-header">
+          <span className="conf-schedule-tag">Conference Program</span>
+          <h2 className="conf-schedule-title">Program & Schedule</h2>
+          <p className="conf-schedule-subtitle">
             A four-day structured program combining dialogue, learning,
             field experiences, and collaborative strategy development.
           </p>
-        </div>
+        </header>
 
-        <div className="home-schedule-accordion">
-          {scheduleData.map((item, index) => (
-            <div key={index} className="home-accordion-item">
-              <button
-                className={`home-accordion-button ${
-                  activeIndex === index ? "active" : ""
-                }`}
-                onClick={() => toggleAccordion(index)}
-              >
-                <span className="home-accordion-day">{item.day}</span>
-                <span className="home-accordion-icon">
-                  {activeIndex === index ? "−" : "+"}
-                </span>
-              </button>
-
-              <div
-                className={`home-accordion-content ${
-                  activeIndex === index ? "open" : ""
-                }`}
-              >
-                <div className="home-sessions-list">
-                  {item.sessions.map((session, i) => (
-                    <div key={i} className="home-session-item">
-                      <span className="home-session-time">{session.time}</span>
-                      <span className="home-session-title">{session.title}</span>
-                    </div>
-                  ))}
+        <div className="conf-schedule-cards">
+          {scheduleData.map((day, index) => (
+            <div key={index} className="conf-day-card">
+              <div className="conf-day-header">
+                <h3 className="conf-day-title">{day.day}</h3>
+                <div className="conf-day-indicator">
+                  <span className="conf-day-number">Day {index + 1}</span>
                 </div>
+              </div>
+              
+              <div className="conf-sessions-container">
+                {day.sessions.map((session, i) => (
+                  <div key={i} className="conf-session-card">
+                    <div className="conf-session-time">
+                      <span className="conf-time-icon"></span>
+                      {session.time}
+                    </div>
+                    <div className="conf-session-content">
+                      <h4 className="conf-session-title">{session.title}</h4>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           ))}
         </div>
 
-        <div className="home-schedule-note">
+        <div className="conf-schedule-note">
+          <div className="conf-note-icon"></div>
           <p>
-            <span className="home-note-icon"></span>
             Schedule subject to minor changes. Final program will be shared with registered participants.
           </p>
         </div>
@@ -102,4 +89,4 @@ const Schedule = () => {
   );
 };
 
-export default Schedule;
+export default ConferenceSchedule;

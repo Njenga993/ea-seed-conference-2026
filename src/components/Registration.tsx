@@ -162,7 +162,7 @@ const Registration = () => {
         <div className="home-registration-footer">
           <div className="home-footer-info">
             <p className="home-registration-note">
-              <strong>Note:</strong> Add-ons can only be purchased with a main registration type.
+              <strong>Note:</strong> The Registarion Buttons are not active! Add-ons can only be purchased with a main registration type.
             </p>
             <p className="home-registration-support">
               Need help with registration? 

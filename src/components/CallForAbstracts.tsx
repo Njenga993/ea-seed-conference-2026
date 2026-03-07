@@ -68,7 +68,7 @@ const CallForAbstracts = () => {
 
           <div className="home-submission-section">
             <div className="home-submission-card">
-              <h3 className="home-submission-title">Choose Your Submission Method</h3>
+              <h3 className="home-submission-title">Submission Method</h3>
               
               <div className="home-submission-options">
                 <a
@@ -81,17 +81,7 @@ const CallForAbstracts = () => {
                   </div>
                   <div className="home-option-arrow">→</div>
                 </a>
-                
-                <a
-                  href="#"
-                  className="home-submission-option secondary"
-                >
-                  <div className="home-option-content">
-                    <strong>Online Portal</strong>
-                    <p>Use our secure submission system</p>
-                  </div>
-                  <div className="home-option-arrow">→</div>
-                </a>
+              
               </div>
             </div>
           </div>

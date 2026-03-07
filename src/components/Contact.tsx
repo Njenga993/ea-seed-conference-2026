@@ -102,7 +102,7 @@ const Contact = () => {
                 <span className="home-info-icon"></span>
                 <div>
                   <span className="home-info-label">Email</span>
-                  <a href="mailto:info@eaisc2026.org">info@eaisc2026.org</a>
+                  <a href="mailto:info@eaisc2026.org">info@eaindeigenousseedsconference.org</a>
                 </div>
               </div>
               <div className="home-info-item">

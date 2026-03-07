@@ -1,230 +1,439 @@
-/* venue.css - Simple and clean */
+/* Conference Venue Component Styles */
+/* Using conf- prefix to avoid CSS collisions */
 
-/* Base Section */
-.home-venue {
-  background-color: #ffffff;
-  padding: 80px 0;
+/* CSS Variables */
+:root {
+  --conf-primary: #72BF44;
+  --conf-secondary: #5DAE35;
+  --conf-dark: #4F9E2C;
+  --conf-darkest: #1E4D11;
+  --conf-brown: #c17b3c;
+  --conf-light-brown: #f5f1eb;
+  --conf-text-dark: #1e293b;
+  --conf-text-muted: #475569;
+  --conf-white: #ffffff;
+  --conf-light-gray: #f8fafc;
+  --conf-border: #e2e8f0;
 }
 
-.home-venue-container {
+/* Base Section */
+.conf-venue-section {
+  background-color: var(--conf-white);
+  padding: 80px 0;
+  position: relative;
+}
+
+.conf-venue-section::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, var(--conf-primary), var(--conf-secondary));
+}
+
+.conf-venue-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
 }
 
-.home-venue-grid {
+.conf-venue-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 50px;
+  gap: 60px;
   align-items: center;
 }
 
 /* Content Side */
-.home-venue-content {
-  padding-right: 20px;
+.conf-venue-content {
+  padding-right: 30px;
 }
 
-.home-venue-header {
-  margin-bottom: 25px;
-}
-
-.home-venue-tag {
-  display: inline-block;
-  background: #e8f0f7;
-  color: #C59849;
-  padding: 6px 16px;
-  border-radius: 30px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  margin-bottom: 15px;
-}
-
-.home-venue-title {
-  font-size: 2.2rem;
-  font-weight: 600;
-  color: #C59849;
-  line-height: 1.2;
-}
-
-.home-venue-description {
-  font-size: 1.1rem;
-  color: #475569;
-  line-height: 1.7;
+.conf-venue-header {
   margin-bottom: 30px;
 }
 
-/* Details */
-.home-venue-details {
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  padding: 25px;
-  margin-bottom: 25px;
+.conf-venue-tag {
+  display: inline-block;
+  background: var(--conf-light-brown);
+  color: var(--conf-brown);
+  padding: 8px 20px;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
-.home-detail-item {
+.conf-venue-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--conf-darkest);
+  line-height: 1.2;
+  margin: 0;
+  position: relative;
+}
+
+.conf-venue-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: var(--conf-brown);
+}
+
+.conf-venue-description {
+  font-size: 1.1rem;
+  color: var(--conf-text-muted);
+  line-height: 1.7;
+  margin: 30px 0 35px;
+}
+
+/* Details Card */
+.conf-venue-details {
+  background: var(--conf-light-gray);
+  border: 1px solid var(--conf-border);
+  border-radius: 12px;
+  padding: 30px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+}
+
+.conf-detail-item {
   display: flex;
-  align-items: flex-start;
-  gap: 15px;
-  padding: 12px 0;
-  border-bottom: 1px solid #e2e8f0;
+  align-items: center;
+  gap: 20px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--conf-border);
+  transition: transform 0.2s ease;
 }
 
-.home-detail-item:last-child {
+.conf-detail-item:last-child {
   border-bottom: none;
 }
 
-.home-detail-icon {
-  font-size: 1.2rem;
-  min-width: 28px;
+.conf-detail-item:hover {
+  transform: translateX(5px);
 }
 
-.home-detail-item div {
+.conf-detail-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  background: var(--conf-primary);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.conf-detail-item:hover .conf-detail-icon-wrapper {
+  background: var(--conf-dark);
+  transform: scale(1.05);
+}
+
+/* Custom Icons */
+.conf-icon-building,
+.conf-icon-university,
+.conf-icon-location,
+.conf-icon-calendar {
+  width: 24px;
+  height: 24px;
+  position: relative;
+}
+
+.conf-icon-building::before {
+  content: '🏢';
+  font-size: 20px;
+}
+
+.conf-icon-university::before {
+  content: '🎓';
+  font-size: 20px;
+}
+
+.conf-icon-location::before {
+  content: '📍';
+  font-size: 20px;
+}
+
+.conf-icon-calendar::before {
+  content: '📅';
+  font-size: 20px;
+}
+
+.conf-detail-content {
   flex: 1;
 }
 
-.home-detail-label {
+.conf-detail-label {
   font-size: 0.9rem;
-  color: #64748b;
+  color: var(--conf-text-muted);
   display: block;
-  margin-bottom: 2px;
+  margin-bottom: 4px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.home-detail-value {
-  font-size: 1rem;
-  font-weight: 500;
-  color: #C59849;
+.conf-detail-value {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--conf-darkest);
   display: block;
 }
 
 /* Actions */
-.home-venue-actions {
+.conf-venue-actions {
   display: flex;
   align-items: center;
-  gap: 20px;
-  margin-bottom: 25px;
+  gap: 25px;
+  margin-bottom: 30px;
   flex-wrap: wrap;
 }
 
-.home-map-btn {
+.conf-map-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--conf-primary);
+  color: var(--conf-white);
+  padding: 14px 28px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(114, 191, 68, 0.2);
+}
+
+.conf-map-btn:hover {
+  background: var(--conf-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(114, 191, 68, 0.3);
+}
+
+.conf-btn-icon-map {
+  width: 20px;
+  height: 20px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z'/%3E%3C/svg%3E") no-repeat center;
+  background-size: contain;
+}
+
+.conf-accommodation-link {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: #C59849;
-  color: black;
-  padding: 12px 24px;
-  font-size: 1rem;
-  font-weight: 500;
-  text-decoration: none;
-  border-radius: 4px;
-  transition: all 0.2s ease;
-}
-
-.home-map-btn:hover {
-  background: wheat;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(30, 74, 107, 0.2);
-}
-
-.home-btn-icon {
-  font-size: 1.1rem;
-}
-
-.home-accommodation-link {
-  color: #C59849;
+  color: var(--conf-brown);
   text-decoration: none;
   font-size: 1rem;
-  font-weight: 500;
-  transition: all 0.2s ease;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  position: relative;
 }
 
-.home-accommodation-link:hover {
-  color: #c17b3c;
+.conf-accommodation-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--conf-brown);
+  transition: width 0.3s ease;
+}
+
+.conf-accommodation-link:hover {
+  color: var(--conf-dark);
+}
+
+.conf-accommodation-link:hover::after {
+  width: 100%;
+}
+
+.conf-arrow-icon {
+  width: 16px;
+  height: 16px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23c17b3c'%3E%3Cpath d='M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z'/%3E%3C/svg%3E") no-repeat center;
+  background-size: contain;
+  transition: transform 0.3s ease;
+}
+
+.conf-accommodation-link:hover .conf-arrow-icon {
   transform: translateX(3px);
 }
 
 /* Note */
-.home-venue-note {
-  background: #f8fafc;
-  border-left: 4px solid #c17b3c;
-  padding: 15px 20px;
-  border-radius: 0 4px 4px 0;
+.conf-venue-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  background: var(--conf-light-brown);
+  border-left: 4px solid var(--conf-brown);
+  padding: 20px 25px;
+  border-radius: 0 8px 8px 0;
 }
 
-.home-venue-note p {
+.conf-note-icon-wrapper {
+  width: 32px;
+  height: 32px;
+  background: var(--conf-brown);
+  border-radius: 50%;
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 0.95rem;
-  color: #475569;
-  margin: 0;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
-.home-note-icon {
-  font-size: 1rem;
-}
-
-/* Image Side */
-.home-venue-image-wrapper {
+.conf-note-icon {
+  width: 16px;
+  height: 16px;
   position: relative;
 }
 
-.home-venue-image-card {
+.conf-note-icon::before {
+  content: '!';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.conf-venue-note p {
+  font-size: 0.95rem;
+  color: var(--conf-text-dark);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Image Side */
+.conf-venue-image-wrapper {
+  position: relative;
+}
+
+.conf-venue-image-card {
   background: white;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.conf-venue-image-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+
+.conf-image-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.conf-venue-image {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.conf-venue-image-card:hover .conf-venue-image {
+  transform: scale(1.05);
+}
+
+.conf-image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(30, 77, 17, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.conf-venue-image-card:hover .conf-image-overlay {
+  opacity: 1;
+}
+
+.conf-overlay-icon {
+  width: 60px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(0.8);
   transition: transform 0.3s ease;
 }
 
-.home-venue-image-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+.conf-overlay-icon::before {
+  content: '🔍';
+  font-size: 28px;
 }
 
-.home-venue-image {
-  width: 100%;
-  height: 350px;
-  object-fit: cover;
-  display: block;
+.conf-venue-image-card:hover .conf-overlay-icon {
+  transform: scale(1);
 }
 
-.home-image-caption {
-  padding: 15px 20px;
+.conf-image-caption {
+  padding: 25px;
   background: white;
-  font-size: 0.9rem;
-  color: #C59849;
-  font-weight: 500;
-  border-top: 1px solid #e2e8f0;
+}
+
+.conf-image-caption h4 {
+  font-size: 1.2rem;
+  color: var(--conf-darkest);
+  margin: 0 0 8px;
+  font-weight: 600;
+}
+
+.conf-image-caption p {
+  font-size: 0.95rem;
+  color: var(--conf-text-muted);
+  margin: 0;
+  line-height: 1.5;
 }
 
 /* Responsive Design */
 @media (max-width: 1024px) {
-  .home-venue-grid {
-    gap: 40px;
+  .conf-venue-grid {
+    gap: 50px;
   }
   
-  .home-venue-title {
-    font-size: 2rem;
+  .conf-venue-title {
+    font-size: 2.2rem;
   }
   
-  .home-venue-image {
-    height: 320px;
+  .conf-venue-image {
+    height: 340px;
   }
 }
 
 @media (max-width: 900px) {
-  .home-venue-grid {
+  .conf-venue-grid {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 50px;
   }
   
-  .home-venue-content {
+  .conf-venue-content {
     padding-right: 0;
   }
   
-  .home-venue-image-wrapper {
+  .conf-venue-image-wrapper {
     max-width: 600px;
     margin: 0 auto;
     width: 100%;
@@ -232,101 +441,136 @@
 }
 
 @media (max-width: 768px) {
-  .home-venue {
+  .conf-venue-section {
     padding: 60px 0;
   }
   
-  .home-venue-title {
-    font-size: 1.8rem;
+  .conf-venue-title {
+    font-size: 2rem;
   }
   
-  .home-venue-description {
+  .conf-venue-description {
     font-size: 1rem;
   }
   
-  .home-venue-details {
-    padding: 20px;
+  .conf-venue-details {
+    padding: 25px;
   }
   
-  .home-detail-item {
-    padding: 10px 0;
+  .conf-detail-item {
+    padding: 14px 0;
   }
   
-  .home-detail-value {
-    font-size: 0.95rem;
-  }
-  
-  .home-venue-actions {
+  .conf-venue-actions {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     gap: 15px;
   }
   
-  .home-map-btn {
-    width: 100%;
+  .conf-map-btn {
     justify-content: center;
   }
   
-  .home-venue-image {
-    height: 280px;
+  .conf-accommodation-link {
+    justify-content: center;
+  }
+  
+  .conf-venue-image {
+    height: 300px;
   }
 }
 
 @media (max-width: 576px) {
-  .home-venue-tag {
+  .conf-venue-tag {
     font-size: 0.75rem;
-    padding: 4px 12px;
+    padding: 6px 16px;
   }
   
-  .home-venue-title {
-    font-size: 1.6rem;
+  .conf-venue-title {
+    font-size: 1.8rem;
   }
   
-  .home-venue-description {
+  .conf-venue-description {
     font-size: 0.95rem;
   }
   
-  .home-detail-icon {
+  .conf-venue-details {
+    padding: 20px;
+  }
+  
+  .conf-detail-item {
+    gap: 15px;
+    padding: 12px 0;
+  }
+  
+  .conf-detail-icon-wrapper {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .conf-icon-building::before,
+  .conf-icon-university::before,
+  .conf-icon-location::before,
+  .conf-icon-calendar::before {
+    font-size: 18px;
+  }
+  
+  .conf-detail-value {
     font-size: 1rem;
-    min-width: 24px;
   }
   
-  .home-detail-label {
-    font-size: 0.85rem;
-  }
-  
-  .home-detail-value {
-    font-size: 0.9rem;
-  }
-  
-  .home-venue-note p {
-    font-size: 0.85rem;
+  .conf-venue-note {
     flex-direction: column;
     text-align: center;
-    gap: 5px;
+    padding: 20px;
   }
   
-  .home-venue-image {
-    height: 220px;
+  .conf-venue-image {
+    height: 250px;
   }
   
-  .home-image-caption {
-    padding: 12px 15px;
-    font-size: 0.85rem;
+  .conf-image-caption {
+    padding: 20px;
   }
 }
 
 /* Small phones */
 @media (max-width: 380px) {
-  .home-venue-title {
-    font-size: 1.4rem;
+  .conf-venue-section {
+    padding: 40px 0;
   }
   
-  .home-venue-image {
-    height: 180px;
+  .conf-venue-title {
+    font-size: 1.6rem;
   }
   
-  .home-detail-item {
+  .conf-venue-image {
+    height: 200px;
+  }
+  
+  .conf-detail-item {
     flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .conf-venue-image-card,
+  .conf-venue-image,
+  .conf-overlay-icon,
+  .conf-map-btn,
+  .conf-detail-item,
+  .conf-detail-icon-wrapper {
+    transition: none;
+  }
+  
+  .conf-venue-image-card:hover {
+    transform: none;
+  }
+  
+  .conf-venue-image-card:hover .conf-venue-image {
+    transform: none;
   }
 }

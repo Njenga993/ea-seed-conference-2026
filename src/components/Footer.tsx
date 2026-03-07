@@ -49,19 +49,19 @@ const Footer = () => {
             <ul className="footer-contact">
               <li>
                 <span className="contact-icon"></span>
-                <a href="mailto:info@eaisc2026.org">info@eaisc2026.org</a>
+                <a href="mailto:info@eaisc2026.org">info@eaindeigenousseedsconference.org</a>
               </li>
               <li>
                 <span className="contact-icon"></span>
-                <a href="tel:+256700123456">+256 700 123 456</a>
+                <a href="tel:+256700123456">+256 712 451 777</a>
               </li>
               <li>
                 <span className="contact-icon"></span>
-                <span>Kampala, Uganda</span>
+                <span>Nairobi, Kenya</span>
               </li>
               <li>
                 <span className="contact-icon"></span>
-                <span>12–14 September 2026</span>
+                <span>17–20 November 2026</span>
               </li>
             </ul>
           </div>

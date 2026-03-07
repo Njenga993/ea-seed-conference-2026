@@ -1,4 +1,3 @@
-// components/HomeCountdown.tsx
 import { useEffect, useState } from "react";
 import "../styles/countdown.css";
 
@@ -41,48 +40,48 @@ const Countdown = () => {
   };
 
   return (
-    <section className="home-countdown">
-      <div className="home-countdown-container">
-        <div className="home-countdown-content">
-          <div className="home-countdown-header">
-            <h2 className="home-countdown-title">Conference Begins In</h2>
-            <p className="home-countdown-subtitle">
+    <section className="conf-countdown-section">
+      <div className="conf-countdown-wrapper">
+        <div className="conf-countdown-inner">
+          <header className="conf-countdown-header">
+            <h2 className="conf-countdown-title">Conference Begins In</h2>
+            <p className="conf-countdown-subtitle">
               17th – 20th November 2026 • Nairobi, Kenya
             </p>
-          </div>
+          </header>
 
-          <div className="home-countdown-timer">
-            <div className="home-timer-grid">
-              <div className="home-time-unit">
-                <span className="home-time-number">{formatNumber(timeLeft.days)}</span>
-                <span className="home-time-label">Days</span>
+          <div className="conf-countdown-timer">
+            <div className="conf-timer-grid">
+              <div className="conf-timer-unit">
+                <span className="conf-timer-value">{formatNumber(timeLeft.days)}</span>
+                <span className="conf-timer-label">Days</span>
               </div>
 
-              <span className="home-time-separator">:</span>
+              <span className="conf-timer-separator">:</span>
 
-              <div className="home-time-unit">
-                <span className="home-time-number">{formatNumber(timeLeft.hours)}</span>
-                <span className="home-time-label">Hours</span>
+              <div className="conf-timer-unit">
+                <span className="conf-timer-value">{formatNumber(timeLeft.hours)}</span>
+                <span className="conf-timer-label">Hours</span>
               </div>
 
-              <span className="home-time-separator">:</span>
+              <span className="conf-timer-separator">:</span>
 
-              <div className="home-time-unit">
-                <span className="home-time-number">{formatNumber(timeLeft.minutes)}</span>
-                <span className="home-time-label">Minutes</span>
+              <div className="conf-timer-unit">
+                <span className="conf-timer-value">{formatNumber(timeLeft.minutes)}</span>
+                <span className="conf-timer-label">Minutes</span>
               </div>
 
-              <span className="home-time-separator">:</span>
+              <span className="conf-timer-separator">:</span>
 
-              <div className="home-time-unit">
-                <span className="home-time-number">{formatNumber(timeLeft.seconds)}</span>
-                <span className="home-time-label">Seconds</span>
+              <div className="conf-timer-unit">
+                <span className="conf-timer-value">{formatNumber(timeLeft.seconds)}</span>
+                <span className="conf-timer-label">Seconds</span>
               </div>
             </div>
           </div>
 
-          <div className="home-countdown-cta">
-            <button className="home-cta-button">Register Now</button>
+          <div className="conf-countdown-action">
+            <button className="conf-action-btn">Register Now</button>
           </div>
         </div>
       </div>

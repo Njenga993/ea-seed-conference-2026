@@ -1,6 +1,8 @@
 // components/HomeAbout.tsx
 import "../styles/about.css";
-import heroImage from "../assets/conference-room.webp";
+import heroImage from "../assets/fair.webp";
+import heroImage1 from "../assets/maize.webp";
+import heroImage2 from "../assets/seeds.webp";
 
 const About = () => {
   return (
@@ -43,10 +45,10 @@ const About = () => {
                 <img src={heroImage} alt="Conference participants" />
               </div>
               <div className="home-photo home-photo-2">
-                <img src={heroImage}alt="Indigenous seed display" />
+                <img src={heroImage1}alt="Indigenous seed display" />
               </div>
               <div className="home-photo home-photo-3">
-                <img src={heroImage} alt="Farmers with seeds" />
+                <img src={heroImage2} alt="Farmers with seeds" />
               </div>
             </div>
           </div>

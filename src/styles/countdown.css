@@ -1,53 +1,54 @@
-/* styles/countdown.css - Minimal countdown with theme colors */
+/* Conference Countdown Component Styles */
+/* Using conf- prefix to avoid CSS collisions */
 
 /* CSS Variables */
 :root {
-  --home-primary-green: #72BF44;
-  --home-secondary-green: #5DAE35;
-  --home-dark-green: #4F9E2C;
-  --home-darkest-green: #1E4D11;
-  --home-text-light: rgba(255, 255, 255, 0.9);
-  --home-text-muted: rgba(255, 255, 255, 0.7);
+  --conf-primary: #72BF44;
+  --conf-secondary: #5DAE35;
+  --conf-dark: #4F9E2C;
+  --conf-darkest: #1E4D11;
+  --conf-text-light: rgba(255, 255, 255, 0.9);
+  --conf-text-muted: rgba(255, 255, 255, 0.7);
 }
 
 /* Base Section */
-.home-countdown {
-  background: var(--home-dark-green);
+.conf-countdown-section {
+  background: var(--conf-dark);
   color: white;
   padding: 40px 0;
   text-align: center;
 }
 
-.home-countdown-container {
+.conf-countdown-wrapper {
   max-width: 1000px;
   margin: 0 auto;
   padding: 0 20px;
 }
 
 /* Header */
-.home-countdown-header {
+.conf-countdown-header {
   margin-bottom: 30px;
 }
 
-.home-countdown-title {
+.conf-countdown-title {
   font-size: 1.8rem;
   font-weight: 600;
   margin-bottom: 8px;
   color: white;
 }
 
-.home-countdown-subtitle {
+.conf-countdown-subtitle {
   font-size: 0.95rem;
-  color: var(--home-text-muted);
+  color: var(--conf-text-muted);
   margin: 0;
 }
 
 /* Timer Grid */
-.home-countdown-timer {
+.conf-countdown-timer {
   margin-bottom: 30px;
 }
 
-.home-timer-grid {
+.conf-timer-grid {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -55,14 +56,14 @@
   flex-wrap: wrap;
 }
 
-.home-time-unit {
+.conf-timer-unit {
   display: flex;
   flex-direction: column;
   align-items: center;
   min-width: 70px;
 }
 
-.home-time-number {
+.conf-timer-value {
   display: block;
   font-size: 2.2rem;
   font-weight: 700;
@@ -71,31 +72,31 @@
   font-family: 'Courier New', monospace;
 }
 
-.home-time-label {
+.conf-timer-label {
   display: block;
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: var(--home-text-muted);
+  color: var(--conf-text-muted);
   margin-top: 4px;
 }
 
-.home-time-separator {
+.conf-timer-separator {
   font-size: 1.8rem;
   font-weight: 300;
-  color: var(--home-text-muted);
+  color: var(--conf-text-muted);
   margin: 0 5px;
   align-self: flex-start;
   padding-top: 8px;
 }
 
 /* CTA Button */
-.home-countdown-cta {
+.conf-countdown-action {
   margin-top: 20px;
 }
 
-.home-cta-button {
-  background: var(--home-darkest-green);
+.conf-action-btn {
+  background: var(--conf-darkest);
   color: white;
   border: 2px solid transparent;
   padding: 12px 32px;
@@ -108,7 +109,7 @@
   letter-spacing: 0.5px;
 }
 
-.home-cta-button:hover {
+.conf-action-btn:hover {
   background: transparent;
   border-color: white;
   transform: translateY(-1px);
@@ -116,62 +117,62 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .home-countdown {
+  .conf-countdown-section {
     padding: 30px 0;
   }
 
-  .home-countdown-title {
+  .conf-countdown-title {
     font-size: 1.5rem;
   }
 
-  .home-countdown-subtitle {
+  .conf-countdown-subtitle {
     font-size: 0.85rem;
   }
 
-  .home-timer-grid {
+  .conf-timer-grid {
     gap: 15px;
   }
 
-  .home-time-number {
+  .conf-timer-value {
     font-size: 1.8rem;
   }
 
-  .home-time-separator {
+  .conf-timer-separator {
     font-size: 1.5rem;
   }
 
-  .home-cta-button {
+  .conf-action-btn {
     padding: 10px 28px;
     font-size: 0.9rem;
   }
 }
 
 @media (max-width: 576px) {
-  .home-countdown {
+  .conf-countdown-section {
     padding: 25px 0;
   }
 
-  .home-countdown-title {
+  .conf-countdown-title {
     font-size: 1.3rem;
   }
 
-  .home-timer-grid {
+  .conf-timer-grid {
     gap: 10px;
   }
 
-  .home-time-unit {
+  .conf-timer-unit {
     min-width: 60px;
   }
 
-  .home-time-number {
+  .conf-timer-value {
     font-size: 1.6rem;
   }
 
-  .home-time-label {
+  .conf-timer-label {
     font-size: 0.7rem;
   }
 
-  .home-time-separator {
+  .conf-timer-separator {
     font-size: 1.3rem;
     margin: 0 3px;
   }
@@ -179,7 +180,7 @@
 
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
-  .home-cta-button {
+  .conf-action-btn {
     transition: none;
     transform: none;
   }
