@@ -105,12 +105,6 @@ const FocusAreas = () => {
               Submit your abstract and join the conversation on seed sovereignty in Eastern Africa.
             </p>
           </div>
-          <a href="/registration-abstract" className="focus-cta-button">
-            Submit Abstract
-            <svg className="button-arrow" viewBox="0 0 24 24" width="18" height="18">
-              <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" fill="none"/>
-            </svg>
-          </a>
         </div>
 
       </div>

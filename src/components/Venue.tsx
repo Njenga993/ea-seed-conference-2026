@@ -29,7 +29,7 @@ const Venue = () => {
               <div className="conf-detail-item">
                 <div className="conf-detail-content">
                   <span className="conf-detail-label">Institution</span>
-                  <span className="conf-detail-value">University</span>
+                  <span className="conf-detail-value">To be confirmed</span>
                 </div>
               </div>
 
@@ -50,7 +50,7 @@ const Venue = () => {
 
             <div className="conf-venue-actions">
               <a
-                href="https://maps.google.com"
+                href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.6953880279502!2d36.2701122!3d-0.44977490000000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1829a149b3e5b3e5%3A0xcde1f0a37810fe6e!2sSeed%20Savers%20Network%20Training%20and%20Stay!5e0!3m2!1sen!2ske!4v1772998318014!5m2!1sen!2ske"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="conf-map-btn"

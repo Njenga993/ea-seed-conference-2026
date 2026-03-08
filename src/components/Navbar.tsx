@@ -82,10 +82,8 @@ const Navbar = () => {
   return (
     <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
       <div className="nav-container">
-        <Link to="/" className="nav-logo">
-          <span className="logo-text">EA-ISC</span>
-          <span className="logo-year">2026</span>
-        </Link>
+        {/* Logo removed - now empty */}
+        <div className="nav-logo-placeholder"></div>
 
         <button
           className={`mobile-toggle ${mobileMenuOpen ? "active" : ""}`}

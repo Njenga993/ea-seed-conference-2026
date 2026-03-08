@@ -479,8 +479,8 @@ const ContactPage = () => {
                 </div>
                 <div className="card-content">
                   <h3>Visit Us</h3>
-                  <p>Nairobi, Kenya</p>
-                  <span className="card-meta">By appointment</span>
+                  <p>Seed Savers Network , Kenya</p>
+                  
                 </div>
               </div>
 
@@ -712,17 +712,11 @@ const ContactPage = () => {
                 <div className="info-card location-card" itemScope itemType="https://schema.org/Place">
                   <h3><span itemProp="name">Conference Secretariat</span></h3>
                   <div className="map-placeholder">
-                    <img 
-                      src="https://images.unsplash.com/photo-1577086664693-894d8405334a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
-                      alt="Nairobi skyline - venue location for EA-ISC 2026"
-                      loading="lazy"
-                      width="400"
-                      height="150"
-                    />
+                    
                     <div className="map-overlay">
                       <MapPin size={24} aria-hidden="true" />
                       <span itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
-                        <span itemProp="addressLocality">Nairobi</span>, <span itemProp="addressCountry">Kenya</span>
+                        <span itemProp="addressLocality">Seed Savers Network</span>, <span itemProp="addressCountry">Kenya</span>
                       </span>
                     </div>
                   </div>
@@ -731,15 +725,14 @@ const ContactPage = () => {
                       <MapPin size={18} aria-hidden="true" />
                       <div>
                         <h4>Address</h4>
-                        <p itemProp="address">TBC, Nairobi, Kenya</p>
+                        <p itemProp="address">Seed Saver Network , Kenya</p>
                       </div>
                     </div>
                     <div className="detail-item" itemProp="openingHoursSpecification" itemScope itemType="https://schema.org/OpeningHoursSpecification">
                       <Clock size={18} aria-hidden="true" />
                       <div>
                         <h4>Office Hours</h4>
-                        <p>Weekdays: <time itemProp="opens" content="09:00">9:00 AM</time> - <time itemProp="closes" content="18:00">6:00 PM</time> EAT</p>
-                        <p>Weekends: <time itemProp="opens" content="10:00">10:00 AM</time> - <time itemProp="closes" content="14:00">2:00 PM</time> EAT</p>
+                        <p>Weekdays: <time itemProp="opens" content="09:00">8:00 AM</time> - <time itemProp="closes" content="18:00">6:00 PM</time> EAT</p>
                         <meta itemProp="dayOfWeek" content="https://schema.org/Monday" />
                         <meta itemProp="dayOfWeek" content="https://schema.org/Tuesday" />
                         <meta itemProp="dayOfWeek" content="https://schema.org/Wednesday" />

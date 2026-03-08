@@ -239,7 +239,7 @@ const Contact = () => {
                 </span>
                 <div>
                   <span className="home-info-label">Address</span>
-                  <span>Nairobi, Kenya</span>
+                  <span>Seed Savers Network, Kenya</span>
                 </div>
               </div>
               
@@ -291,17 +291,9 @@ const Contact = () => {
           {/* Map Side */}
           <div className="home-contact-map-wrapper animate-on-scroll">
             <div className="home-map-card">
-              <div className="map-overlay">
-                <button className="map-expand-btn">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
-                  </svg>
-                  Expand Map
-                </button>
-              </div>
               <iframe
                 title="Conference Location"
-                src="https://www.google.com/maps?q=nairobi,kenya&output=embed"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.6953880279502!2d36.2701122!3d-0.44977490000000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1829a149b3e5b3e5%3A0xcde1f0a37810fe6e!2sSeed%20Savers%20Network%20Training%20and%20Stay!5e0!3m2!1sen!2ske!4v1772998318014!5m2!1sen!2ske"
                 loading="lazy"
                 className="home-map-iframe"
               ></iframe>
@@ -312,7 +304,7 @@ const Contact = () => {
                     <circle cx="12" cy="10" r="3"></circle>
                   </svg>
                 </span>
-                <span>Conference Venue</span>
+                <span>Seed Savers Network, Nairobi, Kenya</span>
               </div>
             </div>
           </div>

@@ -1,6 +1,5 @@
 /* =========================================
-   EA-ISC 2026 – Elevated Navbar System
-   Clean | Premium | Responsive | Height Increased
+   EA-ISC 2026 – Updated Navbar with Centered Links
 ========================================= */
 
 /* ========= CSS VARIABLES ========= */
@@ -49,7 +48,7 @@
 }
 
 /* =========================================
-   CONTAINER
+   CONTAINER - UPDATED FOR CENTERED LINKS
 ========================================= */
 
 .nav-container {
@@ -59,52 +58,24 @@
 
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center; /* Changed from space-between to center */
+  position: relative;
+}
+
+/* Logo placeholder - keeps balance on left */
+.nav-logo-placeholder {
+  width: 0;
+  height: 0;
 }
 
 /* =========================================
-   LOGO - ENHANCED
-========================================= */
-
-.nav-logo {
-  display: flex;
-  align-items: baseline;
-  gap: 4px;
-  text-decoration: none;
-  transition: var(--transition-fast);
-}
-
-.logo-text {
-  font-size: 1.5rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  color: var(--nav-white);
-  transition: var(--transition-fast);
-}
-
-.logo-year {
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.8);
-  transition: var(--transition-fast);
-}
-
-/* Change color when scrolled */
-.navbar.scrolled .logo-text {
-  color: var(--nav-dark);
-}
-
-.navbar.scrolled .logo-year {
-  color: var(--nav-gold);
-}
-
-/* =========================================
-   NAV MENU - HIDDEN ON LARGE SCREENS
+   NAV MENU - CENTERED
 ========================================= */
 
 .nav-menu {
   display: flex;
   align-items: center;
+  margin: 0 auto; /* Ensures centering */
 }
 
 .nav-list {
@@ -252,7 +223,7 @@
 }
 
 /* =========================================
-   MOBILE TOGGLE - HIDDEN ON LARGE SCREENS
+   MOBILE TOGGLE - REPOSITIONED
 ========================================= */
 
 .mobile-toggle {
@@ -268,6 +239,8 @@
   cursor: pointer;
   padding: 0;
   z-index: 1100;
+  position: absolute; /* Position absolutely on mobile */
+  right: 2rem;
 }
 
 .mobile-toggle span {
@@ -445,10 +418,6 @@
 @media (min-width: 769px) and (max-width: 1024px) {
   .nav-list {
     gap: 1.8rem;
-  }
-  
-  .logo-text {
-    font-size: 1.4rem;
   }
   
   .nav-cta {

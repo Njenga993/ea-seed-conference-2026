@@ -118,7 +118,7 @@ const About = () => {
       {/* Helmet for About section meta tags */}
       <Helmet>
         {/* Primary Meta Tags */}
-        <title>About EA-ISC 2026 | Eastern Africa Indigenous Seed Conference</title>
+        <title>1st Eastern Africa Indigenous Seed Conference 2026 | EAISC Nairobi</title>
         <meta name="description" content="Learn about the 1st Eastern Africa Indigenous Seed Conference 2026 - a landmark gathering bringing together farmers, policymakers, researchers, and seed advocates to champion seed sovereignty and strengthen farmer-managed seed systems across Eastern Africa." />
         <meta name="keywords" content="about indigenous seed conference, Eastern Africa seed sovereignty, farmer-managed seed systems, seed advocates Eastern Africa, agricultural biodiversity conservation, indigenous seed protection, food security Eastern Africa, climate resilience agriculture" />
         <meta name="author" content="Eastern Africa Indigenous Seed Council" />
