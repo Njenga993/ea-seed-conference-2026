@@ -8,91 +8,111 @@ const FocusAreas = () => {
       title: "Seed Sovereignty",
       description: "Advancing the rights of farmers to save, exchange, and manage indigenous seed systems without external restrictions.",
       icon: "",
-      color: "#1e4a6b"
+      category: "Rights & Governance"
     },
     {
       id: 2,
       title: "Farmer-Managed Seed Systems",
       description: "Strengthening community-based seed production, conservation, and local knowledge systems.",
       icon: "",
-      color: "#c17b3c"
+      category: "Community Practice"
     },
     {
       id: 3,
       title: "Climate Resilience",
       description: "Promoting indigenous seed diversity as a strategy for adapting to climate variability and ecological challenges.",
       icon: "",
-      color: "#1e4a6b"
+      category: "Environment"
     },
     {
       id: 4,
       title: "Policy & Advocacy",
       description: "Creating enabling policy environments that protect traditional seed systems and farmer rights.",
       icon: "",
-      color: "#c17b3c"
+      category: "Governance"
     },
     {
       id: 5,
       title: "Regional Community of Practice",
       description: "Building collaborative platforms for knowledge exchange, partnerships, and sustained regional engagement.",
       icon: "",
-      color: "#1e4a6b"
+      category: "Collaboration"
     },
     {
       id: 6,
       title: "Indigenous Knowledge",
       description: "Documenting and preserving traditional farming practices and seed conservation methods.",
       icon: "",
-      color: "#c17b3c"
+      category: "Heritage"
     }
   ];
 
   return (
-    <section className="home-focus">
-      <div className="home-focus-container">
-        <div className="home-focus-header">
-          <span className="home-focus-tag">Conference Themes</span>
-          <h2 className="home-focus-title">Theme & Focus Areas</h2>
-          <p className="home-focus-subtitle">
+    <section className="focus-section">
+      <div className="focus-container">
+        
+        {/* Section Header - WordPress style */}
+        <div className="focus-header">
+          <span className="focus-header-tag">Conference Themes</span>
+          <h2 className="focus-header-title">Theme & Focus Areas</h2>
+          <div className="focus-header-decoration">
+            <span className="decoration-line"></span>
+            <span className="decoration-dot"></span>
+            <span className="decoration-line"></span>
+          </div>
+          <p className="focus-header-description">
             The conference will explore key thematic areas that strengthen
             indigenous seed systems and advance seed sovereignty across
             Eastern Africa.
           </p>
         </div>
 
-        <div className="home-focus-grid">
-          {focusAreas.map((area) => (
-            <div 
-              key={area.id} 
-              className="home-focus-card"
-              style={{ '--card-accent': area.color } as React.CSSProperties}
-            >
-              <div className="home-card-icon">{area.icon}</div>
-              <h3 className="home-card-title">{area.title}</h3>
-              <p className="home-card-description">{area.description}</p>
-              <div className="home-card-footer">
-                <span className="home-card-link">Learn more →</span>
+        {/* Featured Cards - WordPress block style */}
+        <div className="focus-grid">
+          {focusAreas.slice(0, 2).map((area) => (
+            <article key={area.id} className="focus-card featured">
+              <div className="focus-card-media">
+                <span className="focus-card-icon">{area.icon}</span>
               </div>
-            </div>
+              <div className="focus-card-content">
+                <span className="focus-card-category">{area.category}</span>
+                <h3 className="focus-card-title">{area.title}</h3>
+                <p className="focus-card-description">{area.description}</p>
+              </div>
+            </article>
           ))}
         </div>
 
-        <div className="home-focus-stats">
-          <div className="home-stats-row">
-            <div className="home-stat-block">
-              <span className="home-block-number">6</span>
-              <span className="home-block-label">Focus Areas</span>
-            </div>
-            <div className="home-stat-block">
-              <span className="home-block-number">15+</span>
-              <span className="home-block-label">Expert Sessions</span>
-            </div>
-            <div className="home-stat-block">
-              <span className="home-block-number">20+</span>
-              <span className="home-block-label">Case Studies</span>
-            </div>
-          </div>
+        {/* Regular Cards Grid - WordPress grid style */}
+        <div className="focus-grid-secondary">
+          {focusAreas.slice(2).map((area) => (
+            <article key={area.id} className="focus-card">
+              <div className="focus-card-header">
+                <span className="focus-card-icon-small">{area.icon}</span>
+                <span className="focus-card-category-small">{area.category}</span>
+              </div>
+              <h3 className="focus-card-title-small">{area.title}</h3>
+              <p className="focus-card-description-small">{area.description}</p>
+            </article>
+          ))}
         </div>
+
+        {/* Call to Action - WordPress CTA block */}
+        <div className="focus-cta">
+          <div className="focus-cta-content">
+            <h3 className="focus-cta-title">Want to present in one of these themes?</h3>
+            <p className="focus-cta-description">
+              Submit your abstract and join the conversation on seed sovereignty in Eastern Africa.
+            </p>
+          </div>
+          <a href="/registration-abstract" className="focus-cta-button">
+            Submit Abstract
+            <svg className="button-arrow" viewBox="0 0 24 24" width="18" height="18">
+              <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" fill="none"/>
+            </svg>
+          </a>
+        </div>
+
       </div>
     </section>
   );

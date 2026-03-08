@@ -8,6 +8,8 @@
   --nav-white: #ffffff;
   --nav-gold: #C59849;
   --nav-gold-dark: #9a6230;
+  --nav-green: #72BF44;
+  --nav-green-dark: #5DAE35;
   --nav-dark: #1e293b;
   --nav-muted: #64748b;
   --nav-border: #e2e8f0;
@@ -119,7 +121,7 @@
 }
 
 /* =========================================
-   LINKS - ENHANCED WITH CONSISTENT UNDERLINE
+   LINKS - ENHANCED WITH GREEN HOVER EFFECT
 ========================================= */
 
 .nav-link {
@@ -143,7 +145,7 @@
   color: var(--nav-dark);
 }
 
-/* Elegant underline animation - consistent for all screens */
+/* Underline animation - gold by default */
 .nav-link::after {
   content: "";
   position: absolute;
@@ -157,22 +159,42 @@
   transition: var(--transition-smooth);
 }
 
-.nav-link:hover::after,
-.nav-link.active::after {
+/* Green hover effect on all links */
+.nav-link:hover {
+  color: var(--nav-green);
+}
+
+.nav-link:hover::after {
+  background: var(--nav-green);
   width: 100%;
 }
 
+/* Active state - green color and underline */
 .nav-link.active {
   font-weight: 600;
-  color: var(--nav-gold);
+  color: var(--nav-green);
+}
+
+.nav-link.active::after {
+  background: var(--nav-green);
+  width: 100%;
+}
+
+/* Scrolled state adjustments */
+.navbar.scrolled .nav-link:hover {
+  color: var(--nav-green-dark);
+}
+
+.navbar.scrolled .nav-link:hover::after {
+  background: var(--nav-green-dark);
 }
 
 .navbar.scrolled .nav-link.active {
-  color: var(--nav-gold-dark);
+  color: var(--nav-green-dark);
 }
 
 .navbar.scrolled .nav-link.active::after {
-  background: var(--nav-gold-dark);
+  background: var(--nav-green-dark);
 }
 
 /* =========================================
@@ -215,12 +237,14 @@
 .nav-cta:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 20px rgba(197, 152, 73, 0.4);
+  background: var(--nav-green);
+  border-color: var(--nav-green);
 }
 
 .navbar.scrolled .nav-cta:hover {
-  background: var(--nav-gold);
+  background: var(--nav-green);
   color: var(--nav-white);
-  border-color: var(--nav-gold);
+  border-color: var(--nav-green);
 }
 
 .nav-cta:hover .cta-arrow {
@@ -332,13 +356,22 @@
     padding: 0.5rem 0;
   }
 
+  /* Mobile menu link hover effects */
+  .nav-link:hover {
+    color: var(--nav-green);
+  }
+
   .nav-link::after {
     bottom: 0;
-    background: var(--nav-gold);
+    background: var(--nav-green);
   }
 
   .nav-link.active {
-    color: var(--nav-gold);
+    color: var(--nav-green);
+  }
+
+  .nav-link.active::after {
+    background: var(--nav-green);
   }
 
   .nav-cta {
@@ -348,6 +381,10 @@
     justify-content: center;
     margin-top: 1rem;
     padding: 1rem;
+  }
+
+  .nav-cta:hover {
+    background: var(--nav-green);
   }
 
   /* Mobile footer - visible only on mobile */
@@ -373,7 +410,7 @@
   }
 
   .mobile-contact a:hover {
-    color: var(--nav-gold);
+    color: var(--nav-green);
   }
 
   .mobile-social {
@@ -395,7 +432,7 @@
   }
 
   .mobile-social a:hover {
-    background: var(--nav-gold);
+    background: var(--nav-green);
     color: var(--nav-white);
     transform: translateY(-2px);
   }
@@ -426,7 +463,7 @@
 .nav-link:focus-visible,
 .nav-cta:focus-visible,
 .mobile-toggle:focus-visible {
-  outline: 2px solid var(--nav-gold);
+  outline: 2px solid var(--nav-green);
   outline-offset: 3px;
 }
 
