@@ -2,7 +2,11 @@
 .reg-page {
   background: #f8fafc;
 }
-
+.reg-page-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
 /* Hero Section */
 .reg-page-hero {
   background: #C59849;
@@ -54,6 +58,7 @@
   font-weight: 700;
   margin-bottom: 20px;
   line-height: 1.2;
+  color: #f8fafc;
 }
 
 .reg-page-hero-subtitle {

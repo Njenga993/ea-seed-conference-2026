@@ -140,9 +140,7 @@ const Footer = () => {
             ))}
           </div>
           
-          <div className="footer-faq-footer">
-            <p>Have more questions? <a href="/contact">Contact our team</a> for assistance.</p>
-          </div>
+          
         </div>
 
         {/* Footer Bottom */}

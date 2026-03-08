@@ -1,0 +1,47 @@
+# robots.txt for EA-ISC 2026
+
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /private/
+Disallow: /temp/
+Disallow: /drafts/
+Disallow: /api/
+Disallow: /_next/static/development/
+Disallow: /_next/development/
+
+# Allow specific crawlers
+User-agent: Googlebot
+Allow: /
+Allow: /*.js
+Allow: /*.css
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.webp
+Allow: /*.svg
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+Allow: /*.jpg
+Allow: /*.png
+Allow: /*.webp
+
+User-agent: FacebookExternalHit
+Allow: /
+Allow: /*.jpg
+Allow: /*.png
+Allow: /*.webp
+
+# Crawl delay for slower bots
+User-agent: *
+Crawl-delay: 2
+
+# Sitemap location
+Sitemap: https://eaindigenousseedsconference.org/sitemap.xml
+Host: https://eaindigenousseedsconference.org

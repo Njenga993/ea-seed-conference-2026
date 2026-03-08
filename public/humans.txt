@@ -1,0 +1,13 @@
+/* TEAM */
+Developer: Kelvin Njenga Kamau
+Contact: kamaukelvin077@gmail.com
+Twitter: @EAISC2026
+
+/* SITE */
+Last update: 2026
+Language: English
+Doctype: React TypeScript
+Components: Conference website for Eastern Africa Indigenous Seed Conference
+
+/* THANKS */
+Thanks to all farmers, researchers, and advocates working to protect indigenous seed systems in Eastern Africa.
