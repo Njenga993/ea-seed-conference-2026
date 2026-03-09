@@ -1,8 +1,10 @@
 // components/HomeRegistration.tsx
 import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom"; // Add this import
 import "../styles/Registration.css";
 
 const Registration = () => {
+  const navigate = useNavigate(); // Add this
   const sectionRef = useRef<HTMLElement>(null);
   const tagRef = useRef<HTMLSpanElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -71,7 +73,9 @@ const Registration = () => {
   }, []);
 
   const handleRegister = (type: string) => {
-    console.log(`Registering for: ${type}`);
+    navigate('/register', { 
+      state: { type: type.toLowerCase() } 
+    });
   };
 
   return (
@@ -136,7 +140,7 @@ const Registration = () => {
             </ul>
             <button 
               className="home-register-btn"
-              onClick={() => handleRegister('Delegates')}
+              onClick={() => handleRegister('delegate')}
             >
               <span>Register Now</span>
               <span className="home-btn-arrow">→</span>
@@ -178,7 +182,7 @@ const Registration = () => {
             </ul>
             <button 
               className="home-register-btn"
-              onClick={() => handleRegister('Farmers')}
+              onClick={() => handleRegister('farmer')}
             >
               <span>Register Now</span>
               <span className="home-btn-arrow">→</span>
@@ -220,7 +224,7 @@ const Registration = () => {
             </ul>
             <button 
               className="home-register-btn"
-              onClick={() => handleRegister('Virtual')}
+              onClick={() => handleRegister('virtual')}
             >
               <span>Register Now</span>
               <span className="home-btn-arrow">→</span>
@@ -256,7 +260,7 @@ const Registration = () => {
             </div>
             <button 
               className="home-register-btn addon-btn"
-              onClick={() => handleRegister('Add-ons')}
+              onClick={() => handleRegister('addons')}
             >
               <span>Add to Registration</span>
               <span className="home-btn-arrow">→</span>
@@ -270,11 +274,11 @@ const Registration = () => {
         >
           <div className="home-footer-info">
             <p className="home-registration-note">
-              <strong>Note:</strong> The Registration Buttons are not active! Add-ons can only be purchased with a main registration type.
+              <strong>Note:</strong>  Add-ons can only be purchased with a main registration type.
             </p>
             <p className="home-registration-support">
               Need help with registration? 
-              <a href="mailto:registration@eaisc2026.org">Contact Support</a>
+              <a href=" mailto:registration@eaindigenousseedsconference.org">Contact Support</a>
             </p>
           </div>
         </div>

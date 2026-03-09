@@ -1,0 +1,523 @@
+/* styles/RegistrationForm.css */
+
+.registration-form-page {
+    margin-top: -4rem;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fafc 0%, #e9f0f5 100%);
+  padding: 40px 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.registration-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 24px;
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+/* Header */
+.registration-header {
+  background: linear-gradient(135deg, #1e4a6b 0%, #2d5a7b 100%);
+  color: white;
+  padding: 40px;
+  text-align: center;
+}
+
+.registration-header h1 {
+    margin-top: 4rem;
+  font-size: 2.5rem;
+  font-weight: 400;
+  margin-bottom: 10px;
+  letter-spacing: -0.5px;
+}
+
+.registration-header p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin-bottom: 30px;
+}
+
+/* Progress Steps */
+.registration-progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+
+.progress-step.active {
+  opacity: 1;
+}
+
+.progress-step.completed .step-number {
+  background: #4caf50;
+  border-color: #4caf50;
+}
+
+.step-number {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.active .step-number {
+  background: white;
+  border-color: white;
+  color: #1e4a6b;
+}
+
+.step-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.progress-line {
+  width: 60px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.progress-line.active {
+  background: white;
+}
+
+/* Form */
+.registration-form {
+  padding: 40px;
+}
+
+.form-step {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.form-step h2 {
+  font-size: 1.8rem;
+  color: #1e4a6b;
+  margin-bottom: 30px;
+  font-weight: 400;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 15px;
+}
+
+/* Form Groups */
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  color: #475569;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #c17b3c;
+  box-shadow: 0 0 0 3px rgba(193, 123, 60, 0.1);
+}
+
+input.error, select.error, textarea.error {
+  border-color: #dc2626;
+  background: #fef2f2;
+}
+
+.error-text {
+  display: block;
+  margin-top: 5px;
+  color: #dc2626;
+  font-size: 0.85rem;
+}
+
+/* Registration Options */
+.registration-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.registration-option {
+  position: relative;
+  cursor: pointer;
+}
+
+.registration-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+}
+
+.option-content {
+  border: 2px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 25px 20px;
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.registration-option.selected .option-content {
+  border-color: #c17b3c;
+  background: #fff8f0;
+  box-shadow: 0 10px 20px -5px rgba(193, 123, 60, 0.2);
+}
+
+.option-content h3 {
+  color: #1e4a6b;
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+.option-price {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #c17b3c;
+  margin-bottom: 15px;
+}
+
+.option-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.option-content li {
+  color: #64748b;
+  padding: 5px 0;
+  font-size: 0.9rem;
+  position: relative;
+  padding-left: 20px;
+}
+
+.option-content li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #c17b3c;
+  font-weight: bold;
+}
+
+.option-content li.note {
+  color: #c17b3c;
+  font-style: italic;
+  font-size: 0.85rem;
+  margin-top: 8px;
+}
+
+/* Add-ons Grid */
+.addons-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.addon-card {
+  position: relative;
+  cursor: pointer;
+}
+
+.addon-card input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+}
+
+.addon-content {
+  border: 2px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 25px;
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.addon-card.selected .addon-content {
+  border-color: #c17b3c;
+  background: #fff8f0;
+  box-shadow: 0 10px 20px -5px rgba(193, 123, 60, 0.2);
+}
+
+.addon-content h3 {
+  color: #1e4a6b;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.addon-price {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #c17b3c;
+  margin-bottom: 15px;
+}
+
+.addon-description {
+  color: #64748b;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* Price Summary */
+.price-summary {
+  background: #f8fafc;
+  border-radius: 16px;
+  padding: 25px;
+  margin: 30px 0;
+}
+
+.price-summary h3 {
+  color: #1e4a6b;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  color: #475569;
+  border-bottom: 1px dashed #e2e8f0;
+}
+
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 0 0;
+  margin-top: 10px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1e4a6b;
+  border-top: 2px solid #e2e8f0;
+}
+
+.total-price {
+  color: #c17b3c;
+  font-size: 1.5rem;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+/* Form Navigation */
+.form-navigation {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.btn-prev, .btn-next, .btn-submit {
+  padding: 14px 28px;
+  border: none;
+  border-radius: 40px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-prev {
+  background: #e2e8f0;
+  color: #475569;
+}
+
+.btn-prev:hover {
+  background: #cbd5e1;
+  transform: translateX(-3px);
+}
+
+.btn-next {
+  background: #1e4a6b;
+  color: white;
+  margin-left: auto;
+}
+
+.btn-next:hover {
+  background: #2d5a7b;
+  transform: translateX(3px);
+}
+
+.btn-submit {
+  background: #c17b3c;
+  color: white;
+  font-size: 1.1rem;
+  padding: 16px 36px;
+  margin-left: auto;
+}
+
+.btn-submit:hover:not(:disabled) {
+  background: #d18b4c;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -5px rgba(193, 123, 60, 0.4);
+}
+
+.btn-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Checkbox */
+.checkbox {
+  margin: 20px 0;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+}
+
+.checkbox-text {
+  color: #475569;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.checkbox-text a {
+  color: #c17b3c;
+  text-decoration: none;
+  margin: 0 3px;
+}
+
+.checkbox-text a:hover {
+  text-decoration: underline;
+}
+
+/* Submit Messages */
+.submit-message {
+  padding: 16px 20px;
+  border-radius: 12px;
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1rem;
+}
+
+.submit-message.success {
+  background: #f0fdf4;
+  color: #166534;
+  border: 1px solid #86efac;
+}
+
+.submit-message.error {
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+/* Spinner */
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .registration-header h1 {
+    font-size: 2rem;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  
+  .registration-options,
+  .addons-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .registration-progress {
+    flex-wrap: wrap;
+  }
+  
+  .progress-line {
+    width: 30px;
+  }
+  
+  .form-navigation {
+    flex-direction: column;
+  }
+  
+  .btn-prev, .btn-next, .btn-submit {
+    width: 100%;
+    justify-content: center;
+    margin: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .registration-form {
+    padding: 20px;
+  }
+  
+  .step-label {
+    font-size: 0.7rem;
+  }
+  
+  .step-number {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+}

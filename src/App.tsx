@@ -7,6 +7,8 @@ import Footer from "./components/Footer";
 /*import ProgramPage from "./pages/ProgramPage";
 import SpeakersPage from "./pages/SpeakersPage";*/
 import RegistrationAbstractPage from "./pages/RegistrationAbstractPage";
+import RegistrationForm from "./components/RegistrationForm";
+import RegistrationSuccess from "./pages/RegistrationSuccess";
 import ContactPage from "./pages/ContactPage";
 
 function App() {
@@ -20,7 +22,10 @@ function App() {
       {/*<Route path="/program" element={<ProgramPage />} />
       <Route path="/speakers" element={<SpeakersPage />} />*/}
       <Route path="/registration-abstract" element={<RegistrationAbstractPage />} />
+      <Route path="/register" element={<RegistrationForm />} />
+      <Route path="/registration-success" element={<RegistrationSuccess />} />
       <Route path="/contact" element={<ContactPage />} />
+
     </Routes>
     <Footer />
     </BrowserRouter>

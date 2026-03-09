@@ -1,8 +1,14 @@
-// components/HomeContact.tsx
 import { useState, useRef, useEffect } from "react";
+import emailjs from "@emailjs/browser";
 import "../styles/Contact.css";
 
 const Contact = () => {
+
+  const SERVICE_ID = "service_co7ixti";
+  const TEMPLATE_ADMIN = "template_xy3vj5d";
+  const TEMPLATE_AUTOREPLY = "template_r8zhnrs";
+  const PUBLIC_KEY = "DkwMskdWx5M6v7hfY";
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -10,66 +16,115 @@ const Contact = () => {
     message: "",
     phone: ""
   });
+
   const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [formMessage, setFormMessage] = useState("");
   const [activeTab, setActiveTab] = useState<'form' | 'info'>('form');
   const formRef = useRef<HTMLFormElement>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
+
     e.preventDefault();
-    setFormStatus('submitting');
-    
+
+    if (!formRef.current) return;
+
+    setFormStatus("submitting");
+
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      // In a real app, you would send the data to your backend
-      console.log("Form submitted:", formData);
-      
-      setFormStatus('success');
-      setFormMessage("Thank you for your message. We'll get back to you soon.");
-      setFormData({ name: "", email: "", subject: "", message: "", phone: "" });
+
+      const templateParams = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        subject: formData.subject,
+        message: formData.message
+      };
+
+      // Send message to admin
+      await emailjs.send(
+        SERVICE_ID,
+        TEMPLATE_ADMIN,
+        templateParams,
+        PUBLIC_KEY
+      );
+
+      // Send auto reply to sender
+      await emailjs.send(
+        SERVICE_ID,
+        TEMPLATE_AUTOREPLY,
+        templateParams,
+        PUBLIC_KEY
+      );
+
+      setFormStatus("success");
+      setFormMessage("Thank you for contacting us. A confirmation email has been sent.");
+
+      setFormData({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+        phone: ""
+      });
+
     } catch (error) {
-      setFormStatus('error');
-      setFormMessage("Something went wrong. Please try again later.");
+
+      console.error("EmailJS error:", error);
+
+      setFormStatus("error");
+      setFormMessage("Something went wrong while sending your message. Please try again.");
     }
-    
-    // Reset status after 5 seconds
+
     setTimeout(() => {
-      setFormStatus('idle');
+      setFormStatus("idle");
       setFormMessage("");
     }, 5000);
   };
 
-  // Add animation on scroll
   useEffect(() => {
+
     const observer = new IntersectionObserver(
+
       (entries) => {
+
         entries.forEach((entry) => {
+
           if (entry.isIntersecting) {
-            entry.target.classList.add('animate-in');
+            entry.target.classList.add("animate-in");
           }
+
         });
+
       },
+
       { threshold: 0.1 }
+
     );
 
-    const elements = document.querySelectorAll('.animate-on-scroll');
+    const elements = document.querySelectorAll(".animate-on-scroll");
+
     elements.forEach((el) => observer.observe(el));
 
     return () => {
       elements.forEach((el) => observer.unobserve(el));
     };
+
   }, []);
 
   return (
     <section className="home-contact">
       <div className="home-contact-container">
+        {/* Everything below remains EXACTLY the same */}
         <div className="home-contact-header animate-on-scroll">
           <span className="home-contact-tag">Get in Touch</span>
           <h2 className="home-contact-title">Contact Us</h2>

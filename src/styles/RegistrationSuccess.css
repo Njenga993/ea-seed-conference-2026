@@ -1,0 +1,162 @@
+/* styles/RegistrationSuccess.css */
+
+.registration-success {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #f8fafc 0%, #e9f0f5 100%);
+}
+
+.success-card {
+  max-width: 600px;
+  background: white;
+  border-radius: 24px;
+  padding: 50px;
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.success-icon {
+  color: #4caf50;
+  margin-bottom: 30px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.success-card h1 {
+  color: #1e4a6b;
+  font-size: 2.5rem;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+.success-message {
+  color: #475569;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.success-details {
+  background: #f8fafc;
+  border-radius: 16px;
+  padding: 25px;
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.success-details p {
+  color: #1e4a6b;
+  margin: 10px 0;
+  font-size: 1.1rem;
+}
+
+.success-details strong {
+  color: #c17b3c;
+  width: 120px;
+  display: inline-block;
+}
+
+.info-text {
+  color: #64748b;
+  font-style: italic;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: #fff8f0;
+  border-radius: 12px;
+  border-left: 4px solid #c17b3c;
+}
+
+.next-steps {
+  text-align: left;
+  margin-bottom: 40px;
+}
+
+.next-steps h3 {
+  color: #1e4a6b;
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+}
+
+.next-steps ul {
+  list-style: none;
+  padding: 0;
+}
+
+.next-steps li {
+  color: #475569;
+  padding: 10px 0;
+  font-size: 1rem;
+  border-bottom: 1px dashed #e2e8f0;
+}
+
+.success-actions {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.btn-home, .btn-program {
+  padding: 14px 28px;
+  border: none;
+  border-radius: 40px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-home {
+  background: #e2e8f0;
+  color: #475569;
+}
+
+.btn-home:hover {
+  background: #cbd5e1;
+  transform: translateY(-2px);
+}
+
+.btn-program {
+  background: #c17b3c;
+  color: white;
+}
+
+.btn-program:hover {
+  background: #d18b4c;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -5px rgba(193, 123, 60, 0.4);
+}
+
+@media (max-width: 768px) {
+  .success-card {
+    padding: 30px 20px;
+  }
+  
+  .success-card h1 {
+    font-size: 2rem;
+  }
+  
+  .success-details p {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .success-details strong {
+    width: auto;
+    margin-bottom: 5px;
+  }
+  
+  .success-actions {
+    flex-direction: column;
+  }
+  
+  .btn-home, .btn-program {
+    width: 100%;
+  }
+}

@@ -17,6 +17,7 @@ import {
   X,
   Loader2
 } from "lucide-react";
+import emailjs from "@emailjs/browser";
 import Venue from "../components/Venue";
 import "../styles/contactPage.css";
 
@@ -39,6 +40,12 @@ interface FormData {
 }
 
 const ContactPage = () => {
+  // EmailJS configuration
+  const SERVICE_ID = "service_co7ixti";
+  const TEMPLATE_ADMIN = "template_xy3vj5d";
+  const TEMPLATE_AUTOREPLY = "template_r8zhnrs";
+  const PUBLIC_KEY = "DkwMskdWx5M6v7hfY";
+
   const [formData, setFormData] = useState<FormData>({
     fullName: "",
     email: "",
@@ -54,10 +61,10 @@ const ContactPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  const [formMessage, setFormMessage] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [charCount, setCharCount] = useState(0);
-
-  
+  const formRef = useRef<HTMLFormElement>(null);
 
   // Generate FAQ structured data for contact page
   const contactFaqData = {
@@ -220,13 +227,42 @@ const ContactPage = () => {
     e.preventDefault();
     
     if (!validateForm()) return;
+    if (!formRef.current) return;
     
     setIsSubmitting(true);
     setSubmitError("");
+    setFormMessage("");
     
     try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Prepare template parameters for EmailJS
+      const templateParams = {
+        name: formData.fullName,
+        email: formData.email,
+        institution: formData.institution || "Not provided",
+        category: formData.category,
+        subject: formData.subject,
+        message: formData.message,
+        phone: "Not provided" // Adding phone field as it might be in your template
+      };
+
+      // Send message to admin
+      await emailjs.send(
+        SERVICE_ID,
+        TEMPLATE_ADMIN,
+        templateParams,
+        PUBLIC_KEY
+      );
+
+      // Send auto reply to sender
+      await emailjs.send(
+        SERVICE_ID,
+        TEMPLATE_AUTOREPLY,
+        templateParams,
+        PUBLIC_KEY
+      );
+
       setSubmitted(true);
+      setFormMessage("Thank you for contacting us. A confirmation email has been sent.");
       
       // Safely track form submission in analytics if gtag exists
       if (typeof window !== 'undefined' && window.gtag) {
@@ -236,7 +272,9 @@ const ContactPage = () => {
         });
       }
     } catch (error) {
+      console.error("EmailJS error:", error);
       setSubmitError("Failed to send message. Please try again.");
+      setFormMessage("Something went wrong while sending your message. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -291,6 +329,24 @@ const ContactPage = () => {
     return hour >= 9 && hour < 18;
   };
 
+  const resetForm = () => {
+    setSubmitted(false);
+    setFormData({
+      fullName: "",
+      email: "",
+      institution: "",
+      category: "general",
+      subject: "",
+      message: "",
+      attachment: null,
+      consent: false
+    });
+    setCharCount(0);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
   if (submitted) {
     return (
       <motion.div 
@@ -308,14 +364,14 @@ const ContactPage = () => {
             <CheckCircle size={60} />
           </div>
           <h1>Message Sent Successfully!</h1>
-          <p>Thank you for contacting EA-ISC 2026. Our team will respond within 24 hours.</p>
+          <p>{formMessage || "Thank you for contacting EA-ISC 2026. Our team will respond within 24 hours."}</p>
           <div className="success-details">
             <p><strong>Reference ID:</strong> #EAISC{Date.now()}</p>
             <p><strong>Response Time:</strong> Within 24 hours</p>
             <p><strong>Follow-up Email:</strong> {formData.email}</p>
           </div>
           <div className="success-actions">
-            <button onClick={() => setSubmitted(false)} className="btn-secondary">
+            <button onClick={resetForm} className="btn-secondary">
               Send Another Message
             </button>
             <button className="btn-primary" onClick={() => window.location.href = '/'}>
@@ -479,8 +535,7 @@ const ContactPage = () => {
                 </div>
                 <div className="card-content">
                   <h3>Visit Us</h3>
-                  <p>Seed Savers Network , Kenya</p>
-                  
+                  <p>Seed Savers Network, Kenya</p>
                 </div>
               </div>
 
@@ -516,7 +571,7 @@ const ContactPage = () => {
                   </div>
                 )}
 
-                <form onSubmit={handleSubmit} className="contact-form" aria-label="Contact form">
+                <form ref={formRef} onSubmit={handleSubmit} className="contact-form" aria-label="Contact form">
                   <div className="form-row">
                     <div className="form-group">
                       <label htmlFor="fullName">
@@ -712,7 +767,6 @@ const ContactPage = () => {
                 <div className="info-card location-card" itemScope itemType="https://schema.org/Place">
                   <h3><span itemProp="name">Conference Secretariat</span></h3>
                   <div className="map-placeholder">
-                    
                     <div className="map-overlay">
                       <MapPin size={24} aria-hidden="true" />
                       <span itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
@@ -725,21 +779,19 @@ const ContactPage = () => {
                       <MapPin size={18} aria-hidden="true" />
                       <div>
                         <h4>Address</h4>
-                        <p itemProp="address">Seed Saver Network , Kenya</p>
+                        <p itemProp="address">Seed Savers Network, Kenya</p>
                       </div>
                     </div>
                     <div className="detail-item" itemProp="openingHoursSpecification" itemScope itemType="https://schema.org/OpeningHoursSpecification">
                       <Clock size={18} aria-hidden="true" />
                       <div>
                         <h4>Office Hours</h4>
-                        <p>Weekdays: <time itemProp="opens" content="09:00">8:00 AM</time> - <time itemProp="closes" content="18:00">6:00 PM</time> EAT</p>
+                        <p>Weekdays: <time itemProp="opens" content="09:00">9:00 AM</time> - <time itemProp="closes" content="18:00">6:00 PM</time> EAT</p>
                         <meta itemProp="dayOfWeek" content="https://schema.org/Monday" />
                         <meta itemProp="dayOfWeek" content="https://schema.org/Tuesday" />
                         <meta itemProp="dayOfWeek" content="https://schema.org/Wednesday" />
                         <meta itemProp="dayOfWeek" content="https://schema.org/Thursday" />
                         <meta itemProp="dayOfWeek" content="https://schema.org/Friday" />
-                        <meta itemProp="dayOfWeek" content="https://schema.org/Saturday" />
-                        <meta itemProp="dayOfWeek" content="https://schema.org/Sunday" />
                       </div>
                     </div>
                     <div className="detail-item">

@@ -512,7 +512,7 @@ const AboutPage = () => {
         </section>
 
         {/* 7. Organizing Partners */}
-        <section className="content-section bg-light" aria-labelledby="partners-heading">
+        {/*<section className="content-section bg-light" aria-labelledby="partners-heading">
           <div className="container narrow">
             <h2 id="partners-heading" className="text-center">Organizing Partners</h2>
             <div className="partners-list" itemScope itemType="https://schema.org/ItemList">
@@ -533,7 +533,7 @@ const AboutPage = () => {
               ))}
             </div>
           </div>
-        </section>
+        </section>*/}
 
         {/* 8. Call to Action */}
         <section className="cta-section" aria-label="Call to Action">

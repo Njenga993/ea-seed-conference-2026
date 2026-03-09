@@ -72,6 +72,12 @@ const Navbar = () => {
     setMobileMenuOpen(false);
   };
 
+  // New function to handle registration button click
+  const handleRegisterClick = () => {
+    navigate('/register');
+    setMobileMenuOpen(false);
+  };
+
   const isActive = (path: string): boolean => {
     if (path === "/") {
       return location.pathname === "/" && activeSection === "home";
@@ -136,7 +142,7 @@ const Navbar = () => {
 
             <li className="nav-item">
               <button
-                onClick={() => handleNavigation("registration")}
+                onClick={handleRegisterClick}
                 className="nav-cta"
               >
                 <span>Register Now</span>
