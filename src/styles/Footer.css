@@ -301,9 +301,6 @@
   text-align: left;
 }
 
-.footer-faq-header:hover {
-  background: var(--primary-soft);
-}
 
 .faq-header-left {
   flex: 1;

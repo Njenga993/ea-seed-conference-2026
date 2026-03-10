@@ -4,8 +4,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import "../styles/navbar.css";
 
 // Import logos (update these paths to match your actual logo files)
-import leftLogo from "../assets/ea.jpeg"; // Your left side logo
-import rightLogo from "../assets/ssklogo.png"; // Your right side logo
+import leftLogo from "../assets/ea.webp"; // Your left side logo
+import rightLogo from "../assets/ssklogo.webp"; // Your right side logo
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
