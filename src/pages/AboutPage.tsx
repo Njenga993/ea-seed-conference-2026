@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet-async";
 import "../styles/AboutPage.css";
 
 // Import background images
-import heroBackground from "../assets/about_us_.png"; // Your hero background image
+import heroBackground from "../assets/about_us_.webp"; // Your hero background image
 
 
 const AboutPage = () => {

@@ -6,7 +6,7 @@ import emailjs from "@emailjs/browser";
 import "../styles/RegistrationForm.css";
 
 // Import hero background image
-import heroBackground from "../assets/form.png"; // Add your hero image to assets
+import heroBackground from "../assets/form.webp"; // Add your hero image to assets
 
 // EmailJS Configuration
 const REGISTRATION_SERVICE_ID = "service_p8vs3dj";

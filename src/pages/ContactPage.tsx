@@ -22,7 +22,7 @@ import Venue from "../components/Venue";
 import "../styles/contactPage.css";
 
 // Import background images and textures
-import heroBackground from "../assets/contact.png"; // Your hero background image
+import heroBackground from "../assets/contact.webp"; // Your hero background image
 
 
 // Declare global gtag for TypeScript

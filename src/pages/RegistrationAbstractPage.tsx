@@ -5,7 +5,7 @@ import AbstractSubmission from "../components/CallForAbstracts";
 import "../styles/registrationAbstract.css";
 
 // Import background images and textures
-import heroBackground from "../assets/registration.png"; // Your hero background image
+import heroBackground from "../assets/registration.webp"; // Your hero background image
 
 
 const RegistrationPage = () => {

@@ -1,7 +1,7 @@
 // components/HomeHero.tsx
 import { Helmet } from "react-helmet-async";
 import "../styles/hero.css";
-import heroImage from "../assets/_MG_0937.jpg";
+import heroImage from "../assets/_MG_0937.webp";
 
 interface HomeHeroProps {
   // Optional props if you want to make it dynamic
