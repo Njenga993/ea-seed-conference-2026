@@ -4,6 +4,10 @@ import Registration from "../components/Registration";
 import AbstractSubmission from "../components/CallForAbstracts";
 import "../styles/registrationAbstract.css";
 
+// Import background images and textures
+import heroBackground from "../assets/registration.png"; // Your hero background image
+
+
 const RegistrationPage = () => {
   // Generate structured data for registration page
   const registrationStructuredData = {
@@ -255,8 +259,10 @@ const RegistrationPage = () => {
         <meta itemProp="name" content="Registration & Abstract Submission - 1st Eastern Africa Indigenous Seed Conference 2026" />
         <meta itemProp="description" content="Register for the premier conference on seed sovereignty in Eastern Africa. Choose your participation type and submit your abstract." />
         
-        {/* Hero Section */}
-        <section className="reg-page-hero" aria-label="Registration Hero Section">
+        {/* Hero Section with Background Image */}
+        <section className="reg-page-hero" aria-label="Registration Hero Section" style={{ backgroundImage: `url(${heroBackground})` }}>
+          <div className="reg-page-hero-overlay"></div>
+          <div className="reg-page-hero-pattern" aria-hidden="true"></div>
           <div className="reg-page-hero-container">
             <nav className="reg-page-breadcrumb" aria-label="Breadcrumb" itemScope itemType="https://schema.org/BreadcrumbList">
               <span itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
@@ -288,9 +294,13 @@ const RegistrationPage = () => {
           </div>
         </section>
 
-        {/* Import your existing components with enhanced semantics */}
-        <div itemProp="mainContentOfPage">
+        {/* Registration Component with Paper Texture Overlay */}
+        <div className="reg-section-wrapper paper-texture" itemProp="mainContentOfPage">
           <Registration />
+        </div>
+
+        {/* Abstract Submission Component with Dot Pattern Overlay */}
+        <div className="abstract-section-wrapper pattern-dots" itemProp="mainContentOfPage">
           <AbstractSubmission />
         </div>
 

@@ -1,4 +1,4 @@
-/* AboutPage.css - Clean, professional styling - No gradients, no emojis */
+/* AboutPage.css - With background image and texture overlays - No gradients, no emojis */
 
 /* CSS Variables */
 :root {
@@ -26,6 +26,7 @@
   line-height: 1.6;
   background: var(--bg-white);
   overflow-x: hidden;
+  position: relative;
 }
 
 .container {
@@ -34,6 +35,8 @@
   padding: 0 24px;
   width: 100%;
   box-sizing: border-box;
+  position: relative;
+  z-index: 2;
 }
 
 .narrow {
@@ -101,12 +104,25 @@ h4 {
   line-height: 1.7;
 }
 
-/* Compact Hero Section */
+/* ===== HERO SECTION WITH BACKGROUND IMAGE ===== */
 .about-hero {
-  background: var(--primary);
-  padding: 80px 0 60px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 100px 0 80px;
   color: white;
   width: 100%;
+  position: relative;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7); /* Dark overlay for text readability */
+  z-index: 1;
 }
 
 .hero-container {
@@ -115,6 +131,8 @@ h4 {
   padding: 0 24px;
   width: 100%;
   box-sizing: border-box;
+  position: relative;
+  z-index: 2;
 }
 
 .hero-breadcrumb {
@@ -124,6 +142,18 @@ h4 {
   opacity: 0.8;
   margin-bottom: 40px;
   flex-wrap: wrap;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.breadcrumb-link {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.breadcrumb-link:hover {
+  color: white;
+  text-decoration: underline;
 }
 
 .hero-breadcrumb .current {
@@ -138,14 +168,17 @@ h4 {
 .hero-left h1 {
   color: white;
   margin-bottom: 20px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 .hero-description {
-  font-size: 1.1rem;
-  opacity: 0.9;
+  font-size: 1.2rem;
+  opacity: 0.95;
   max-width: 700px;
   margin-bottom: 30px;
   line-height: 1.6;
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .hero-meta {
@@ -157,22 +190,105 @@ h4 {
 .hero-date,
 .hero-location {
   display: inline-block;
-  padding: 6px 18px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 8px 20px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 30px;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-weight: 500;
+  color: white;
+  backdrop-filter: blur(5px);
+}
+
+/* ===== TEXTURE & PATTERN OVERLAYS ===== */
+
+/* Subtle dot pattern */
+.pattern-dots {
+  position: relative;
+  background-color: var(--bg-white);
+}
+
+.pattern-dots::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets/pattern-dots.webp');
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  opacity: 0.03;
+  pointer-events: none;
+}
+
+/* Paper texture */
+.paper-texture {
+  position: relative;
+}
+
+.paper-texture::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets/paper-texture-light.webp');
+  background-repeat: repeat;
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+/* Light paper texture */
+.paper-texture-light {
+  position: relative;
+  background-color: var(--bg-white);
+}
+
+.paper-texture-light::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets/paper-texture-light.webp');
+  background-repeat: repeat;
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+/* Line pattern */
+.pattern-lines {
+  position: relative;
+}
+
+.pattern-lines::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets/pattern-lines.webp');
+  background-repeat: repeat;
+  background-size: 100px 100px;
+  opacity: 0.03;
+  pointer-events: none;
 }
 
 /* Content Sections */
 .content-section {
   padding: 80px 0;
   width: 100%;
+  position: relative;
+  z-index: 1;
 }
 
 .content-section.bg-light {
   background: var(--bg-light);
+  position: relative;
 }
 
 .content-section p {
@@ -180,6 +296,8 @@ h4 {
   margin-bottom: 1.5rem;
   font-size: 1rem;
   line-height: 1.7;
+  position: relative;
+  z-index: 2;
 }
 
 /* Themes Grid */
@@ -189,6 +307,8 @@ h4 {
   gap: 25px;
   margin-top: 20px;
   width: 100%;
+  position: relative;
+  z-index: 2;
 }
 
 .theme-card {
@@ -199,6 +319,20 @@ h4 {
   transition: var(--transition);
   text-align: center;
   box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets/paper-texture-light.webp');
+  opacity: 0.03;
+  pointer-events: none;
 }
 
 .theme-card:hover {
@@ -243,6 +377,8 @@ h4 {
 .tabs-container {
   margin-top: 30px;
   width: 100%;
+  position: relative;
+  z-index: 2;
 }
 
 .tabs-header {
@@ -297,6 +433,20 @@ h4 {
   padding: 30px;
   border: 1px solid var(--border);
   border-radius: 0 4px 4px 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.tabs-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets/paper-texture-light.webp');
+  opacity: 0.02;
+  pointer-events: none;
 }
 
 .tab-pane h3 {
@@ -318,6 +468,8 @@ h4 {
 .points-list {
   margin-top: 30px;
   width: 100%;
+  position: relative;
+  z-index: 2;
 }
 
 .point-item {
@@ -365,6 +517,8 @@ h4 {
   gap: 25px;
   margin-top: 30px;
   width: 100%;
+  position: relative;
+  z-index: 2;
 }
 
 .attendee-card {
@@ -375,6 +529,20 @@ h4 {
   transition: var(--transition);
   text-align: center;
   box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.attendee-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets/paper-texture-light.webp');
+  opacity: 0.03;
+  pointer-events: none;
 }
 
 .attendee-card:hover {
@@ -415,55 +583,6 @@ h4 {
   line-height: 1.5;
 }
 
-/* Partners List */
-.partners-list {
-  margin-top: 30px;
-  width: 100%;
-}
-
-.partner-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 15px;
-  padding: 20px;
-  background: var(--bg-white);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  margin-bottom: 12px;
-  transition: var(--transition);
-}
-
-.partner-item:hover {
-  border-color: var(--primary);
-  box-shadow: var(--shadow-sm);
-  transform: translateX(4px);
-}
-
-.partner-dot {
-  width: 12px;
-  height: 12px;
-  background: var(--primary);
-  border-radius: 50%;
-  margin-top: 6px;
-  flex-shrink: 0;
-}
-
-.partner-content {
-  flex: 1;
-}
-
-.partner-content h4 {
-  font-size: 1rem;
-  color: var(--primary-dark);
-  margin-bottom: 4px;
-}
-
-.partner-content p {
-  font-size: 0.9rem;
-  color: var(--text-light);
-  margin: 0;
-}
-
 /* CTA Section */
 .cta-section {
   padding: 80px 0;
@@ -471,6 +590,26 @@ h4 {
   color: white;
   text-align: center;
   width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-pattern-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets/pattern-lines.webp');
+  background-repeat: repeat;
+  background-size: 100px 100px;
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+.cta-section .container {
+  position: relative;
+  z-index: 2;
 }
 
 .cta-section h2 {
@@ -562,6 +701,10 @@ h4 {
 }
 
 @media (max-width: 768px) {
+  .about-hero {
+    padding: 80px 0 60px;
+  }
+  
   .content-section {
     padding: 60px 0;
   }
@@ -626,10 +769,6 @@ h4 {
   .tabs-content {
     border-radius: 4px;
     padding: 20px;
-  }
-  
-  .partner-item {
-    padding: 15px;
   }
   
   .cta-buttons {
@@ -717,17 +856,7 @@ h4 {
   .hero-date,
   .hero-location {
     font-size: 0.85rem;
-    padding: 5px 14px;
-  }
-  
-  .partner-item {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .partner-dot {
-    margin-top: 0;
-    margin-bottom: 8px;
+    padding: 6px 16px;
   }
 }
 
@@ -738,12 +867,21 @@ h4 {
     color: black;
   }
   
+  .hero-overlay {
+    display: none;
+  }
+  
   .cta-section {
     background: none;
     color: black;
   }
   
-  .btn {
+  .btn,
+  .pattern-dots::before,
+  .paper-texture::before,
+  .paper-texture-light::before,
+  .pattern-lines::before,
+  .cta-pattern-overlay {
     display: none;
   }
 }

@@ -1,7 +1,7 @@
 // components/HomeHero.tsx
 import { Helmet } from "react-helmet-async";
 import "../styles/hero.css";
-import heroImage from "../assets/conference-room.webp";
+import heroImage from "../assets/_MG_0937.jpg";
 
 interface HomeHeroProps {
   // Optional props if you want to make it dynamic
@@ -255,11 +255,11 @@ const HomeHero = ({
               1st Eastern Africa Indigenous Seed Conference
             </h1>
             <h2 className="home-hero-title-highlight" aria-label="EAISC 2026 - Eastern Africa Indigenous Seed Conference 2026">
-              EAISC 2026
+              EA-ISC 2026
             </h2>
 
             <p className="home-hero-theme" itemProp="description">
-              Building farmer managed seed system community of practice (COP) For a Resilient EAST AFRICA Region.
+              Building farmer managed seed system community of practice (COP) For a Resilient EASTERN AFRICA Region.
             </p>
 
             <div className="home-hero-meta" aria-label="Event details">

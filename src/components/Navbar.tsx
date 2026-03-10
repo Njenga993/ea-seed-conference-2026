@@ -3,6 +3,10 @@ import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "../styles/navbar.css";
 
+// Import logos (update these paths to match your actual logo files)
+import leftLogo from "../assets/ea.jpeg"; // Your left side logo
+import rightLogo from "../assets/ssklogo.png"; // Your right side logo
+
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -72,7 +76,6 @@ const Navbar = () => {
     setMobileMenuOpen(false);
   };
 
-  // New function to handle registration button click
   const handleRegisterClick = () => {
     navigate('/register');
     setMobileMenuOpen(false);
@@ -88,9 +91,17 @@ const Navbar = () => {
   return (
     <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
       <div className="nav-container">
-        {/* Logo removed - now empty */}
-        <div className="nav-logo-placeholder"></div>
+        
+        {/* LEFT LOGO */}
+        <Link to="/" className="nav-logo-left">
+          <img 
+            src={leftLogo} 
+            alt="Eastern Africa Indigenous Seed Conference" 
+            className="nav-logo-image"
+          />
+        </Link>
 
+        {/* Mobile toggle - positioned relative to container */}
         <button
           className={`mobile-toggle ${mobileMenuOpen ? "active" : ""}`}
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -102,6 +113,7 @@ const Navbar = () => {
           <span></span>
         </button>
 
+        {/* Navigation Menu */}
         <div className={`nav-menu ${mobileMenuOpen ? "active" : ""}`}>
           <ul className="nav-list">
             <li className="nav-item">
@@ -153,7 +165,7 @@ const Navbar = () => {
             </li>
           </ul>
 
-          {/* Mobile menu footer - only visible on mobile */}
+          {/* Mobile menu footer */}
           <div className="mobile-footer">
             <div className="mobile-contact">
               <a href="mailto:info@eaindigenousseedsconference.org">info@eaindigenousseedsconference.org</a>
@@ -166,6 +178,15 @@ const Navbar = () => {
             </div>
           </div>
         </div>
+
+        {/* RIGHT LOGO */}
+        <Link to="/" className="nav-logo-right">
+          <img 
+            src={rightLogo} 
+            alt="Partner Organization" 
+            className="nav-logo-image"
+          />
+        </Link>
       </div>
     </nav>
   );

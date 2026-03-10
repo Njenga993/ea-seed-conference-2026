@@ -4,7 +4,8 @@ import "../styles/Footer.css";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
+  const [faqExpanded, setFaqExpanded] = useState(false);
+  const [expandedQuestion, setExpandedQuestion] = useState<number | null>(null);
 
   const faqs = [
     {
@@ -33,8 +34,12 @@ const Footer = () => {
     }
   ];
 
-  const toggleFaq = (index: number) => {
-    setExpandedFaq(expandedFaq === index ? null : index);
+  const toggleFaqSection = () => {
+    setFaqExpanded(!faqExpanded);
+  };
+
+  const toggleQuestion = (index: number) => {
+    setExpandedQuestion(expandedQuestion === index ? null : index);
   };
 
   return (
@@ -44,7 +49,7 @@ const Footer = () => {
         {/* Main Footer Content */}
         <div className="footer-main">
           <div className="footer-section about">
-            <h3>EA-ISC 2026</h3>
+            <h3>1st Eastern Africa Indigenous Seed Conference 2026</h3>
             <p className="footer-description">
               The 1st Eastern Africa Indigenous Seed Conference brings together farmers, 
               researchers, policymakers, and seed advocates to champion seed sovereignty 
@@ -70,8 +75,6 @@ const Footer = () => {
             <h4>Quick Links</h4>
             <ul className="footer-links">
               <li><a href="/about">About the Conference</a></li>
-              <li><a href="/program">Program & Schedule</a></li>
-              <li><a href="/speakers">Keynote Speakers</a></li>
               <li><a href="/registration-abstract">Registration</a></li>
               <li><a href="/contact">Contact Us</a></li>
             </ul>
@@ -111,39 +114,67 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* FAQ Section - Expandable */}
-        <div className="footer-faq-section">
-          <div className="footer-faq-header">
-            <h4>Frequently Asked Questions</h4>
-            <p className="footer-faq-subtitle">Quick answers to common questions about the conference</p>
-          </div>
-          
-          <div className="footer-faq-grid">
-            {faqs.map((faq, index) => (
-              <div key={index} className="footer-faq-item">
-                <button 
-                  className={`footer-faq-question ${expandedFaq === index ? 'active' : ''}`}
-                  onClick={() => toggleFaq(index)}
-                  aria-expanded={expandedFaq === index}
-                >
-                  <span className="faq-question-text">{faq.question}</span>
-                  <span className="faq-question-icon">
-                    {expandedFaq === index ? '−' : '+'}
-                  </span>
-                </button>
-                <div className={`footer-faq-answer ${expandedFaq === index ? 'expanded' : ''}`}>
-                  <div className="footer-faq-answer-content">
-                    {faq.answer}
+        {/* Collapsible FAQ Section */}
+        <div className="footer-faq-container">
+          <button 
+            className={`footer-faq-header ${faqExpanded ? 'expanded' : ''}`}
+            onClick={toggleFaqSection}
+            aria-expanded={faqExpanded}
+          >
+            <div className="faq-header-left">
+              <span className="faq-section-badge">Got Questions?</span>
+              <h4>Frequently Asked Questions</h4>
+              <p className="footer-faq-subtitle">Quick answers to common questions about the conference</p>
+            </div>
+            <div className="faq-header-right">
+              <span className="faq-header-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  {faqExpanded ? (
+                    <path d="M18 12H6" strokeLinecap="round" />
+                  ) : (
+                    <path d="M12 6v12M6 12h12" strokeLinecap="round" />
+                  )}
+                </svg>
+              </span>
+            </div>
+          </button>
+
+          <div className={`footer-faq-content ${faqExpanded ? 'expanded' : ''}`}>
+            <div className="footer-faq-grid">
+              {faqs.map((faq, index) => (
+                <div key={index} className="footer-faq-item">
+                  <button 
+                    className={`footer-faq-question ${expandedQuestion === index ? 'active' : ''}`}
+                    onClick={() => toggleQuestion(index)}
+                    aria-expanded={expandedQuestion === index}
+                  >
+                    <span className="faq-question-text">{faq.question}</span>
+                    <span className="faq-question-icon">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        {expandedQuestion === index ? (
+                          <path d="M18 12H6" strokeLinecap="round" />
+                        ) : (
+                          <path d="M12 6v12M6 12h12" strokeLinecap="round" />
+                        )}
+                      </svg>
+                    </span>
+                  </button>
+                  <div className={`footer-faq-answer ${expandedQuestion === index ? 'expanded' : ''}`}>
+                    <div className="footer-faq-answer-content">
+                      {faq.answer}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+            
+            <div className="footer-faq-footer">
+              <p>Still have questions? <a href="/contact">Contact our support team</a></p>
+            </div>
           </div>
-          
-          
         </div>
 
-        {/* Footer Bottom */}
+        {/* Footer Bottom with Powered by KSPACE */}
         <div className="footer-bottom">
           <div className="footer-bottom-content">
             <p className="copyright">
@@ -158,6 +189,23 @@ const Footer = () => {
               <span className="separator">•</span>
               <a href="/accessibility">Accessibility</a>
             </div>
+          </div>
+          
+          {/* Powered by KSPACE */}
+          <div className="footer-powered-wrapper">
+            <div className="footer-powered">
+              <span className="powered-text">Powered by </span>
+              <a 
+                href="https://njenga993.github.io/kspace/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="powered-link"
+              >
+                <span className="powered-link-text">KSPACE</span>
+                <span className="powered-link-arrow">→</span>
+              </a>
+            </div>
+            <div className="powered-decoration"></div>
           </div>
         </div>
       </div>

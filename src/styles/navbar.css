@@ -1,5 +1,5 @@
 /* =========================================
-   EA-ISC 2026 – Updated Navbar with Centered Links
+   EA-ISC 2026 – Navbar with Dual Logos
 ========================================= */
 
 /* ========= CSS VARIABLES ========= */
@@ -20,6 +20,12 @@
 
   --transition-fast: 0.2s ease;
   --transition-smooth: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Navbar height variables */
+  --nav-height: 90px;
+  --nav-height-scrolled: 70px;
+  --nav-logo-size: 60px;
+  --nav-logo-size-scrolled: 45px;
 }
 
 /* =========================================
@@ -33,9 +39,11 @@
   width: 100%;
   z-index: 1000;
 
-  padding: 1.6rem 0;
+  height: var(--nav-height);
   background: transparent;
   transition: var(--transition-smooth);
+  display: flex;
+  align-items: center;
 }
 
 /* When user scrolls */
@@ -43,39 +51,72 @@
   background: var(--nav-bg-light);
   backdrop-filter: blur(12px);
   box-shadow: var(--shadow-light);
-  padding: 0.9rem 0;
+  height: var(--nav-height-scrolled);
   border-bottom: 1px solid var(--nav-border);
 }
 
 /* =========================================
-   CONTAINER - UPDATED FOR CENTERED LINKS
+   CONTAINER - UPDATED FOR LOGOS ON BOTH ENDS
 ========================================= */
 
 .nav-container {
-  max-width: 1200px;
+  max-width: 1400px; /* Increased for more space */
+  width: 100%;
   margin: 0 auto;
   padding: 0 2rem;
 
   display: flex;
   align-items: center;
-  justify-content: center; /* Changed from space-between to center */
+  justify-content: space-between; /* Changed to space-between for logos */
   position: relative;
-}
-
-/* Logo placeholder - keeps balance on left */
-.nav-logo-placeholder {
-  width: 0;
-  height: 0;
+  height: 100%;
 }
 
 /* =========================================
-   NAV MENU - CENTERED
+   LOGOS - BOTH SIDES
+========================================= */
+
+.nav-logo-left,
+.nav-logo-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  height: 100%;
+  z-index: 1001; /* Above mobile menu */
+  transition: var(--transition-smooth);
+}
+
+.nav-logo-image {
+  height: var(--nav-logo-size);
+  width: auto;
+  max-width: 150px;
+  object-fit: contain;
+  transition: var(--transition-smooth);
+}
+
+/* Logo hover effect */
+.nav-logo-left:hover,
+.nav-logo-right:hover {
+  opacity: 0.9;
+  transform: scale(1.02);
+}
+
+/* Scrolled state logos */
+.navbar.scrolled .nav-logo-image {
+  height: var(--nav-logo-size-scrolled);
+}
+
+/* =========================================
+   NAV MENU - POSITIONED IN THE CENTER
 ========================================= */
 
 .nav-menu {
   display: flex;
   align-items: center;
-  margin: 0 auto; /* Ensures centering */
+  height: 100%;
+  flex: 1; /* Takes available space */
+  justify-content: center; /* Centers the nav items */
 }
 
 .nav-list {
@@ -191,6 +232,7 @@
   transition: var(--transition-smooth);
   box-shadow: 0 4px 12px rgba(197, 152, 73, 0.3);
   border: 1px solid transparent;
+  white-space: nowrap; /* Prevents text wrapping */
 }
 
 /* CTA when navbar is scrolled */
@@ -223,7 +265,7 @@
 }
 
 /* =========================================
-   MOBILE TOGGLE - REPOSITIONED
+   MOBILE TOGGLE - POSITIONED NEXT TO RIGHT LOGO
 ========================================= */
 
 .mobile-toggle {
@@ -239,8 +281,7 @@
   cursor: pointer;
   padding: 0;
   z-index: 1100;
-  position: absolute; /* Position absolutely on mobile */
-  right: 2rem;
+  margin-left: 1rem; /* Space from right logo */
 }
 
 .mobile-toggle span {
@@ -278,13 +319,51 @@
 }
 
 /* =========================================
-   MOBILE MENU - ONLY ACTIVE ON SMALL SCREENS
+   DESKTOP LAYOUT - LOGOS VISIBLE
+========================================= */
+
+@media (min-width: 769px) {
+  /* Both logos visible on desktop */
+  .nav-logo-left,
+  .nav-logo-right {
+    display: flex;
+  }
+}
+
+/* =========================================
+   MOBILE MENU - LOGOS ADJUSTMENT
 ========================================= */
 
 @media (max-width: 768px) {
+  /* Adjust navbar height for mobile */
+  .navbar {
+    height: 70px;
+  }
+  
+  .navbar.scrolled {
+    height: 60px;
+  }
+  
+  .nav-logo-image {
+    height: 45px;
+  }
+  
+  .navbar.scrolled .nav-logo-image {
+    height: 35px;
+  }
 
   .mobile-toggle {
     display: flex;
+    order: 3; /* Places toggle after right logo */
+  }
+
+  /* Logo order on mobile */
+  .nav-logo-left {
+    order: 1;
+  }
+  
+  .nav-logo-right {
+    order: 2;
   }
 
   .nav-menu {
@@ -304,6 +383,8 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: flex-start;
+    z-index: 1000;
   }
 
   .nav-menu.active {
@@ -366,6 +447,7 @@
     border-top: 1px solid var(--nav-border);
     padding-top: 2rem;
     margin-top: 2rem;
+    width: 100%;
   }
 
   .mobile-contact {
@@ -423,6 +505,10 @@
   .nav-cta {
     padding: 0.7rem 1.5rem;
   }
+  
+  .nav-logo-image {
+    max-width: 120px;
+  }
 }
 
 /* =========================================
@@ -446,7 +532,10 @@
   .nav-cta,
   .cta-arrow,
   .mobile-toggle span,
-  .nav-menu {
+  .nav-menu,
+  .nav-logo-left,
+  .nav-logo-right,
+  .nav-logo-image {
     transition: none !important;
   }
 }

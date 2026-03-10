@@ -3,6 +3,10 @@ import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import "../styles/AboutPage.css";
 
+// Import background images
+import heroBackground from "../assets/about_us_.png"; // Your hero background image
+
+
 const AboutPage = () => {
   const [activeTab, setActiveTab] = useState("history");
   const [faqSchema, setFaqSchema] = useState({});
@@ -248,8 +252,9 @@ const AboutPage = () => {
         <meta itemProp="name" content="About the 1st Eastern Africa Indigenous Seed Conference 2026" />
         <meta itemProp="description" content="Learn about the landmark gathering championing seed sovereignty and strengthening farmer-managed seed systems across Eastern Africa." />
         
-        {/* 1. Compact Hero Section */}
-        <section className="about-hero" aria-label="About Hero Section">
+        {/* 1. Compact Hero Section with Background Image */}
+        <section className="about-hero" aria-label="About Hero Section" style={{ backgroundImage: `url(${heroBackground})` }}>
+          <div className="hero-overlay"></div>
           <div className="hero-container">
             <nav className="hero-breadcrumb" aria-label="Breadcrumb" itemScope itemType="https://schema.org/BreadcrumbList">
               <span itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
@@ -289,8 +294,8 @@ const AboutPage = () => {
           </div>
         </section>
 
-        {/* 2. Conference Overview */}
-        <section className="content-section" aria-labelledby="overview-heading">
+        {/* 2. Conference Overview - with subtle pattern */}
+        <section className="content-section pattern-dots" aria-labelledby="overview-heading">
           <div className="container narrow">
             <h2 id="overview-heading">About the Conference</h2>
             <p className="lead-text">
@@ -314,8 +319,8 @@ const AboutPage = () => {
           </div>
         </section>
 
-        {/* 3. Key Themes */}
-        <section className="content-section bg-light" aria-labelledby="themes-heading">
+        {/* 3. Key Themes - with paper texture */}
+        <section className="content-section bg-light paper-texture" aria-labelledby="themes-heading">
           <div className="container">
             <h2 id="themes-heading" className="text-center">Conference Themes</h2>
             <div className="themes-grid">
@@ -337,7 +342,7 @@ const AboutPage = () => {
           </div>
         </section>
 
-        {/* 4. History Tabs */}
+        {/* 4. History Tabs - clean white with subtle border texture */}
         <section className="content-section" aria-labelledby="story-heading">
           <div className="container narrow">
             <h2 id="story-heading">Our Story</h2>
@@ -459,8 +464,8 @@ const AboutPage = () => {
           </div>
         </section>
 
-        {/* 5. Why It Matters */}
-        <section className="content-section bg-light" aria-labelledby="importance-heading">
+        {/* 5. Why It Matters - with subtle line pattern */}
+        <section className="content-section bg-light pattern-lines" aria-labelledby="importance-heading">
           <div className="container narrow">
             <h2 id="importance-heading">Why Seed Sovereignty Matters</h2>
             <p className="lead-text">
@@ -486,8 +491,8 @@ const AboutPage = () => {
           </div>
         </section>
 
-        {/* 6. Who Should Attend */}
-        <section className="content-section" aria-labelledby="attendees-heading">
+        {/* 6. Who Should Attend - clean with subtle background texture */}
+        <section className="content-section paper-texture-light" aria-labelledby="attendees-heading">
           <div className="container">
             <h2 id="attendees-heading" className="text-center">Who Should Attend</h2>
             <div className="attendees-grid">
@@ -511,32 +516,9 @@ const AboutPage = () => {
           </div>
         </section>
 
-        {/* 7. Organizing Partners */}
-        {/*<section className="content-section bg-light" aria-labelledby="partners-heading">
-          <div className="container narrow">
-            <h2 id="partners-heading" className="text-center">Organizing Partners</h2>
-            <div className="partners-list" itemScope itemType="https://schema.org/ItemList">
-              {[
-                { name: "Eastern Africa Indigenous Seed Council (EA-ISC)", role: "Lead organizer and convener of the conference" },
-                { name: "African Biodiversity Network", role: "Supporting farmer engagement and knowledge sharing" },
-                { name: "Participatory Ecological Land Use Management (PELUM) Kenya", role: "Coordinating farmer participation and field visits" },
-                { name: "Seed Savers Network Kenya", role: "Documenting indigenous seed knowledge and practices" },
-                { name: "University of Nairobi, Department of Plant Science", role: "Providing technical and research support" }
-              ].map((partner, index) => (
-                <div key={index} className="partner-item" itemProp="itemListElement" itemScope itemType="https://schema.org/Organization">
-                  <span className="partner-dot" aria-hidden="true"></span>
-                  <div className="partner-content">
-                    <h4 itemProp="name">{partner.name}</h4>
-                    <p itemProp="description">{partner.role}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>*/}
-
-        {/* 8. Call to Action */}
+        {/* 7. CTA Section - with overlay pattern */}
         <section className="cta-section" aria-label="Call to Action">
+          <div className="cta-pattern-overlay"></div>
           <div className="container">
             <h2>Join the Movement</h2>
             <p className="cta-text">
@@ -544,10 +526,10 @@ const AboutPage = () => {
               Together, we can protect indigenous seeds for generations to come.
             </p>
             <div className="cta-buttons">
-              <a href="/registration" className="btn btn-primary" aria-label="Register for the conference">
+              <a href="/registration-abstract" className="btn btn-primary" aria-label="Register for the conference">
                 Register Now
               </a>
-              <a href="/abstract-submission" className="btn btn-secondary" aria-label="Submit your abstract">
+              <a href="/registration-abstract" className="btn btn-secondary" aria-label="Submit your abstract">
                 Submit Abstract
               </a>
             </div>

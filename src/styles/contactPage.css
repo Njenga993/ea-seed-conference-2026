@@ -1115,3 +1115,236 @@
     image-rendering: -webkit-optimize-contrast;
   }
 }
+
+/* Add these styles to your existing contactPage.css */
+
+/* ===== TEXTURE & PATTERN OVERLAYS ===== */
+
+/* Paper texture overlay */
+.paper-texture {
+  position: relative;
+  background-color: var(--bg-white);
+}
+
+.paper-texture::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets/paper-texture-light.webp');
+  background-repeat: repeat;
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Dot pattern overlay */
+.pattern-dots {
+  position: relative;
+  background-color: var(--bg-light);
+}
+
+.pattern-dots::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets/pattern-dots.webp');
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Line pattern overlay */
+.pattern-lines {
+  position: relative;
+  background-color: var(--bg-white);
+}
+
+.pattern-lines::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets/pattern-lines.webp');
+  background-repeat: repeat;
+  background-size: 100px 100px;
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ===== HERO SECTION WITH BACKGROUND IMAGE ===== */
+.contact-hero {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 80px 0 50px;
+  color: white;
+  width: 100%;
+  position: relative;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+.hero-pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets/pattern-dots.webp');
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  opacity: 0.05;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.hero-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 3;
+}
+
+/* Update breadcrumb links for hero */
+.breadcrumb-link {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.breadcrumb-link:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+/* ===== SECTION WRAPPERS ===== */
+.venue-wrapper {
+  position: relative;
+  z-index: 2;
+  background: var(--bg-white);
+}
+
+/* Ensure child components sit above textures */
+.venue-wrapper > *,
+.quick-contact > *,
+.contact-main > * {
+  position: relative;
+  z-index: 3;
+}
+
+/* Update quick contact cards to have white background */
+.quick-card {
+  background: var(--bg-white);
+  position: relative;
+  z-index: 3;
+}
+
+/* Update contact form container */
+.contact-form-container {
+  background: var(--bg-white);
+  position: relative;
+  z-index: 3;
+}
+
+/* Update info cards */
+.info-card {
+  background: var(--bg-white);
+  position: relative;
+  z-index: 3;
+}
+
+/* ===== HERO TEXT ENHANCEMENTS ===== */
+.hero-left h1 {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero-description {
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.contact-badge {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.contact-badge.online {
+  background: rgba(22, 163, 74, 0.3);
+}
+
+/* ===== RESPONSIVE ADJUSTMENTS ===== */
+@media (max-width: 768px) {
+  .contact-hero {
+    padding: 60px 0 40px;
+  }
+  
+  .hero-left h1 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .contact-hero {
+    padding: 50px 0 35px;
+  }
+  
+  .hero-left h1 {
+    font-size: 1.8rem;
+  }
+  
+  .hero-breadcrumb {
+    font-size: 0.8rem;
+    margin-bottom: 20px;
+  }
+}
+
+/* ===== PRINT STYLES ===== */
+@media print {
+  .contact-hero {
+    background: var(--primary) !important;
+    color: black;
+    padding: 40px 0;
+  }
+  
+  .hero-overlay,
+  .hero-pattern,
+  .paper-texture::before,
+  .pattern-dots::before,
+  .pattern-lines::before {
+    display: none;
+  }
+  
+  .hero-left h1,
+  .hero-description {
+    color: black;
+    text-shadow: none;
+  }
+  
+  .contact-badge {
+    background: #f0f0f0;
+    color: black;
+    border: 1px solid #ccc;
+  }
+}

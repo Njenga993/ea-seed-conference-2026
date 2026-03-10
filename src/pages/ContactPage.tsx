@@ -21,6 +21,10 @@ import emailjs from "@emailjs/browser";
 import Venue from "../components/Venue";
 import "../styles/contactPage.css";
 
+// Import background images and textures
+import heroBackground from "../assets/contact.png"; // Your hero background image
+
+
 // Declare global gtag for TypeScript
 declare global {
   interface Window {
@@ -447,8 +451,14 @@ const ContactPage = () => {
         <meta itemProp="name" content="Contact EA-ISC 2026 - Eastern Africa Indigenous Seed Conference" />
         <meta itemProp="description" content="Contact the organizers of the 1st Eastern Africa Indigenous Seed Conference for inquiries about registration, abstract submission, sponsorship, and venue information." />
         
-        {/* Hero Section */}
-        <section className="contact-hero" aria-label="Contact Hero Section">
+        {/* Hero Section with Background Image */}
+        <section 
+          className="contact-hero" 
+          aria-label="Contact Hero Section"
+          style={{ backgroundImage: `url(${heroBackground})` }}
+        >
+          <div className="hero-overlay"></div>
+          <div className="hero-pattern" aria-hidden="true"></div>
           <div className="hero-container">
             <nav className="hero-breadcrumb" aria-label="Breadcrumb" itemScope itemType="https://schema.org/BreadcrumbList">
               <span itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
@@ -499,10 +509,13 @@ const ContactPage = () => {
           </div>
         </section>
 
-        <Venue />
+        {/* Venue Component with Paper Texture */}
+        <div className="venue-wrapper paper-texture">
+          <Venue />
+        </div>
 
-        {/* Quick Contact Cards */}
-        <section className="quick-contact" aria-label="Quick Contact Options">
+        {/* Quick Contact Cards with Dot Pattern */}
+        <section className="quick-contact pattern-dots" aria-label="Quick Contact Options">
           <div className="container">
             <div className="quick-contact-grid">
               <div className="quick-card" itemProp="contactPoint" itemScope itemType="https://schema.org/ContactPoint">
@@ -553,8 +566,8 @@ const ContactPage = () => {
           </div>
         </section>
 
-        {/* Main Contact Area */}
-        <section className="contact-main" aria-labelledby="contact-form-heading">
+        {/* Main Contact Area with Line Pattern */}
+        <section className="contact-main pattern-lines" aria-labelledby="contact-form-heading">
           <div className="container">
             <div className="contact-grid">
               {/* Contact Form */}

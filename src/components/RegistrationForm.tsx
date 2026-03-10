@@ -5,6 +5,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import emailjs from "@emailjs/browser";
 import "../styles/RegistrationForm.css";
 
+// Import hero background image
+import heroBackground from "../assets/form.png"; // Add your hero image to assets
+
 // EmailJS Configuration
 const REGISTRATION_SERVICE_ID = "service_p8vs3dj";
 const REGISTRATION_TEMPLATE_ADMIN = "template_a4hphj7"; // Admin notification
@@ -238,19 +241,19 @@ const RegistrationForm = () => {
         REGISTRATION_TEMPLATE_ADMIN,
         templateParams,
         REGISTRATION_PUBLIC_KEY
-         );
+      );
 
       // Send confirmation to registrant
       await emailjs.send(
-         REGISTRATION_SERVICE_ID,
-         REGISTRATION_TEMPLATE_CONFIRMATION,
-       {
-         ...templateParams,
-         to_email: formData.email,
-        to_name: formData.fullName
+        REGISTRATION_SERVICE_ID,
+        REGISTRATION_TEMPLATE_CONFIRMATION,
+        {
+          ...templateParams,
+          to_email: formData.email,
+          to_name: formData.fullName
         },
         REGISTRATION_PUBLIC_KEY
-        );
+      );
 
       setSubmitStatus('success');
       setSubmitMessage('Registration successful! A confirmation email has been sent.');
@@ -290,31 +293,38 @@ const RegistrationForm = () => {
       exit={{ opacity: 0 }}
     >
       <div className="registration-container">
-        {/* Header */}
-        <div className="registration-header">
-          <h1>Conference Registration</h1>
-          <p>Complete your registration for the Eastern Africa Indigenous Seed Conference 2026</p>
-          
-          {/* Progress Steps */}
-          <div className="registration-progress">
-            <div className={`progress-step ${currentStep >= 1 ? 'active' : ''} ${currentStep > 1 ? 'completed' : ''}`}>
-              <span className="step-number">1</span>
-              <span className="step-label">Personal Info</span>
-            </div>
-            <div className={`progress-line ${currentStep >= 2 ? 'active' : ''}`}></div>
-            <div className={`progress-step ${currentStep >= 2 ? 'active' : ''} ${currentStep > 2 ? 'completed' : ''}`}>
-              <span className="step-number">2</span>
-              <span className="step-label">Registration</span>
-            </div>
-            <div className={`progress-line ${currentStep >= 3 ? 'active' : ''}`}></div>
-            <div className={`progress-step ${currentStep >= 3 ? 'active' : ''} ${currentStep > 3 ? 'completed' : ''}`}>
-              <span className="step-number">3</span>
-              <span className="step-label">Add-ons</span>
-            </div>
-            <div className={`progress-line ${currentStep >= 4 ? 'active' : ''}`}></div>
-            <div className={`progress-step ${currentStep >= 4 ? 'active' : ''}`}>
-              <span className="step-number">4</span>
-              <span className="step-label">Questions</span>
+        {/* Header with Background Image */}
+        <div 
+          className="registration-header"
+          style={{ backgroundImage: `url(${heroBackground})` }}
+        >
+          <div className="header-overlay"></div>
+          <div className="header-pattern" aria-hidden="true"></div>
+          <div className="header-content">
+            <h1>Conference Registration</h1>
+            <p>Complete your registration for the Eastern Africa Indigenous Seed Conference 2026</p>
+            
+            {/* Progress Steps */}
+            <div className="registration-progress">
+              <div className={`progress-step ${currentStep >= 1 ? 'active' : ''} ${currentStep > 1 ? 'completed' : ''}`}>
+                <span className="step-number">1</span>
+                <span className="step-label">Personal Info</span>
+              </div>
+              <div className={`progress-line ${currentStep >= 2 ? 'active' : ''}`}></div>
+              <div className={`progress-step ${currentStep >= 2 ? 'active' : ''} ${currentStep > 2 ? 'completed' : ''}`}>
+                <span className="step-number">2</span>
+                <span className="step-label">Registration</span>
+              </div>
+              <div className={`progress-line ${currentStep >= 3 ? 'active' : ''}`}></div>
+              <div className={`progress-step ${currentStep >= 3 ? 'active' : ''} ${currentStep > 3 ? 'completed' : ''}`}>
+                <span className="step-number">3</span>
+                <span className="step-label">Add-ons</span>
+              </div>
+              <div className={`progress-line ${currentStep >= 4 ? 'active' : ''}`}></div>
+              <div className={`progress-step ${currentStep >= 4 ? 'active' : ''}`}>
+                <span className="step-number">4</span>
+                <span className="step-label">Questions</span>
+              </div>
             </div>
           </div>
         </div>
