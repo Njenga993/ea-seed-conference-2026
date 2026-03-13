@@ -1,18 +1,18 @@
 // components/RegistrationForm.tsx
-import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useLocation,  } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import emailjs from "@emailjs/browser";
+//import emailjs from "@emailjs/browser";
 import "../styles/RegistrationForm.css";
 
 // Import hero background image
 import heroBackground from "../assets/form.webp"; // Add your hero image to assets
 
 // EmailJS Configuration
-const REGISTRATION_SERVICE_ID = "service_p8vs3dj";
-const REGISTRATION_TEMPLATE_ADMIN = "template_a4hphj7"; // Admin notification
-const REGISTRATION_TEMPLATE_CONFIRMATION = "template_a5iz32i"; // Auto-reply
-const REGISTRATION_PUBLIC_KEY = "tILAy3Y5MQ-2eEa0_";
+//const REGISTRATION_SERVICE_ID = "service_p8vs3dj";
+//const REGISTRATION_TEMPLATE_ADMIN = "template_a4hphj7"; // Admin notification
+//const REGISTRATION_TEMPLATE_CONFIRMATION = "template_a5iz32i"; // Auto-reply
+//const REGISTRATION_PUBLIC_KEY = "tILAy3Y5MQ-2eEa0_";
 
 interface FormData {
   // Personal Information
@@ -24,7 +24,7 @@ interface FormData {
   // Professional Information
   organization: string;
   position: string;
-  category: string; // Delegate, Farmer, Virtual, Student
+  category: string;
   
   // Registration Type
   registrationType: 'delegate' | 'farmer' | 'virtual' | 'student' | '';
@@ -62,9 +62,40 @@ interface Pricing {
   galaDinner: number;
 }
 
+// Popular currencies for international users
+const POPULAR_CURRENCIES = [
+  { code: 'USD', name: 'US Dollar' },
+  { code: 'EUR', name: 'Euro' },
+  { code: 'GBP', name: 'British Pound' },
+  { code: 'JPY', name: 'Japanese Yen' },
+  { code: 'CAD', name: 'Canadian Dollar' },
+  { code: 'AUD', name: 'Australian Dollar' },
+  { code: 'CHF', name: 'Swiss Franc' },
+  { code: 'CNY', name: 'Chinese Yuan' },
+  { code: 'INR', name: 'Indian Rupee' },
+  { code: 'BRL', name: 'Brazilian Real' },
+  { code: 'ZAR', name: 'South African Rand' },
+  { code: 'NGN', name: 'Nigerian Naira' },
+  { code: 'KES', name: 'Kenyan Shilling' },
+  { code: 'EGP', name: 'Egyptian Pound' },
+  { code: 'GHS', name: 'Ghanaian Cedi' },
+  { code: 'TZS', name: 'Tanzanian Shilling' },
+  { code: 'UGX', name: 'Ugandan Shilling' },
+  { code: 'RWF', name: 'Rwandan Franc' },
+  { code: 'MXN', name: 'Mexican Peso' },
+  { code: 'SGD', name: 'Singapore Dollar' },
+  { code: 'HKD', name: 'Hong Kong Dollar' },
+  { code: 'NZD', name: 'New Zealand Dollar' },
+  { code: 'KRW', name: 'South Korean Won' },
+  { code: 'RUB', name: 'Russian Ruble' },
+  { code: 'TRY', name: 'Turkish Lira' },
+  { code: 'AED', name: 'UAE Dirham' },
+  { code: 'SAR', name: 'Saudi Riyal' }
+];
+
 const RegistrationForm = () => {
   const location = useLocation();
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   
   // Pricing configuration
   const PRICING: Pricing = {
@@ -111,6 +142,13 @@ const RegistrationForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [submitMessage, setSubmitMessage] = useState('');
+  
+  // Currency converter states
+  const [selectedCurrency, setSelectedCurrency] = useState('USD');
+  const [convertedAmount, setConvertedAmount] = useState<number | null>(null);
+  const [isConverting, setIsConverting] = useState(false);
+  const [exchangeRate, setExchangeRate] = useState<number | null>(null);
+  const [lastUpdated, setLastUpdated] = useState('');
 
   // Calculate total
   const calculateTotal = (): number => {
@@ -128,9 +166,92 @@ const RegistrationForm = () => {
     return total;
   };
 
-  const formatCurrency = (amount: number): string => {
-    return `$${amount}`;
+  // Format USD currency
+  const formatUSD = (amount: number): string => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(amount);
   };
+
+  // Format converted currency
+  const formatConverted = (amount: number, currencyCode: string): string => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: currencyCode,
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(amount);
+  };
+
+  // Fetch exchange rate from API
+  const fetchExchangeRate = async (fromCurrency: string, toCurrency: string, amount: number) => {
+    if (toCurrency === 'USD') {
+      setConvertedAmount(amount);
+      setExchangeRate(1);
+      setLastUpdated(new Date().toLocaleTimeString());
+      return;
+    }
+
+    setIsConverting(true);
+    try {
+      // Using free exchangerate.host API (no key required)
+      const response = await fetch(
+        `https://api.exchangerate.host/convert?from=${fromCurrency}&to=${toCurrency}&amount=${amount}`
+      );
+      
+      if (!response.ok) {
+        throw new Error('Conversion failed');
+      }
+      
+      const data = await response.json();
+      
+      if (data.result) {
+        setConvertedAmount(data.result);
+        setExchangeRate(data.info?.rate || null);
+        setLastUpdated(new Date().toLocaleTimeString());
+      } else {
+        throw new Error('Invalid response');
+      }
+    } catch (error) {
+      console.error('Currency conversion error:', error);
+      // Fallback to approximate rates
+      const fallbackRates: { [key: string]: number } = {
+        'EUR': 0.92, 'GBP': 0.79, 'JPY': 150.5, 'CAD': 1.35, 
+        'AUD': 1.52, 'CHF': 0.88, 'CNY': 7.19, 'INR': 83.5,
+        'BRL': 5.05, 'ZAR': 18.8, 'NGN': 1500, 'KES': 140.5,
+        'EGP': 47.5, 'GHS': 13.2, 'TZS': 2600, 'UGX': 3850,
+        'RWF': 1300, 'MXN': 17.1, 'SGD': 1.35, 'HKD': 7.82,
+        'NZD': 1.65, 'KRW': 1350, 'RUB': 92.5, 'TRY': 32.2,
+        'AED': 3.67, 'SAR': 3.75
+      };
+      
+      const rate = fallbackRates[toCurrency] || 1;
+      setConvertedAmount(amount * rate);
+      setExchangeRate(rate);
+      setLastUpdated(new Date().toLocaleTimeString() + ' (estimated)');
+    } finally {
+      setIsConverting(false);
+    }
+  };
+
+  // Handle currency change
+  const handleCurrencyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newCurrency = e.target.value;
+    setSelectedCurrency(newCurrency);
+    if (calculateTotal() > 0) {
+      fetchExchangeRate('USD', newCurrency, calculateTotal());
+    }
+  };
+
+  // Update conversion when total changes
+  useEffect(() => {
+    if (selectedCurrency !== 'USD' && calculateTotal() > 0) {
+      fetchExchangeRate('USD', selectedCurrency, calculateTotal());
+    }
+  }, [formData.registrationType, formData.excursion, formData.galaDinner]);
 
   // Handle input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -190,93 +311,64 @@ const RegistrationForm = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Handle form submission
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!validateStep(4)) return;
-    
-    setIsSubmitting(true);
-    setSubmitStatus('idle');
-    
-    try {
-      const totalAmount = calculateTotal();
-      
-      const templateParams = {
-        // Personal Info
-        fullName: formData.fullName,
-        email: formData.email,
+ const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  if (!validateStep(4)) return;
+
+  setIsSubmitting(true);
+
+  try {
+
+    const totalAmount = calculateTotal();
+
+    const paymentData = {
+      email: formData.email,
+      name: formData.fullName,
+      amount: totalAmount,
+      metadata: {
         phone: formData.phone,
         country: formData.country,
-        
-        // Professional Info
-        organization: formData.organization || 'Not provided',
-        position: formData.position || 'Not provided',
-        category: formData.category || 'Not specified',
-        
-        // Registration Details
+        organization: formData.organization,
         registrationType: formData.registrationType,
-        registrationFee: formatCurrency(PRICING[formData.registrationType as keyof Pricing] || 0),
-        
-        // Add-ons
-        excursion: formData.excursion ? 'Yes (+$50)' : 'No',
-        galaDinner: formData.galaDinner ? 'Yes (+$100)' : 'No',
-        
-        // Questions
-        hearAbout: formData.hearAbout || 'Not specified',
-        dietaryRestrictions: formData.dietaryRestrictions || 'None',
-        accommodation: formData.accommodation || 'Not specified',
-        specialNeeds: formData.specialNeeds || 'None',
-        
-        // Total
-        totalAmount: formatCurrency(totalAmount),
-        
-        // Timestamp
-        registrationDate: new Date().toLocaleString()
-      };
+        excursion: formData.excursion,
+        galaDinner: formData.galaDinner
+      }
+    };
 
-      // Send registration to admin
-      await emailjs.send(
-        REGISTRATION_SERVICE_ID,
-        REGISTRATION_TEMPLATE_ADMIN,
-        templateParams,
-        REGISTRATION_PUBLIC_KEY
-      );
+    const response = await fetch("http://localhost:5000/initialize-payment", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(paymentData)
+    });
 
-      // Send confirmation to registrant
-      await emailjs.send(
-        REGISTRATION_SERVICE_ID,
-        REGISTRATION_TEMPLATE_CONFIRMATION,
-        {
-          ...templateParams,
-          to_email: formData.email,
-          to_name: formData.fullName
-        },
-        REGISTRATION_PUBLIC_KEY
-      );
+    const data = await response.json();
 
-      setSubmitStatus('success');
-      setSubmitMessage('Registration successful! A confirmation email has been sent.');
-      
-      // Redirect after success
-      setTimeout(() => {
-        navigate('/registration-success', {
-          state: {
-            name: formData.fullName,
-            email: formData.email,
-            total: formatCurrency(totalAmount)
-          }
-        });
-      }, 3000);
-      
-    } catch (error) {
-      console.error('Registration error:', error);
-      setSubmitStatus('error');
-      setSubmitMessage('Something went wrong. Please try again or contact support.');
-    } finally {
-      setIsSubmitting(false);
+    if (data.authorization_url) {
+
+      window.location.href = data.authorization_url;
+
+    } else {
+
+      throw new Error("Payment initialization failed");
+
     }
-  };
+
+  } catch (error) {
+
+    console.error(error);
+
+    setSubmitStatus("error");
+    setSubmitMessage("Payment initialization failed. Please try again.");
+
+  } finally {
+
+    setIsSubmitting(false);
+
+  }
+};
 
   // Animation variants
   const stepVariants = {
@@ -481,7 +573,7 @@ const RegistrationForm = () => {
                     />
                     <div className="option-content">
                       <h3>Delegate</h3>
-                      <p className="option-price">{formatCurrency(PRICING.delegate)}</p>
+                      <p className="option-price">{formatUSD(PRICING.delegate)}</p>
                       <ul>
                         <li>Access to all conference sessions</li>
                         <li>Conference materials & resources</li>
@@ -501,7 +593,7 @@ const RegistrationForm = () => {
                     />
                     <div className="option-content">
                       <h3>Farmer</h3>
-                      <p className="option-price">{formatCurrency(PRICING.farmer)}</p>
+                      <p className="option-price">{formatUSD(PRICING.farmer)}</p>
                       <ul>
                         <li>Access to all conference sessions</li>
                         <li>Farm-focused workshops</li>
@@ -521,7 +613,7 @@ const RegistrationForm = () => {
                     />
                     <div className="option-content">
                       <h3>Virtual Participant</h3>
-                      <p className="option-price">{formatCurrency(PRICING.virtual)}</p>
+                      <p className="option-price">{formatUSD(PRICING.virtual)}</p>
                       <ul>
                         <li>Live streaming of all sessions</li>
                         <li>Virtual networking rooms</li>
@@ -530,27 +622,6 @@ const RegistrationForm = () => {
                       </ul>
                     </div>
                   </label>
-
-                  {/*<label className={`registration-option ${formData.registrationType === 'student' ? 'selected' : ''}`}>
-                    <input
-                      type="radio"
-                      name="registrationType"
-                      value="student"
-                      checked={formData.registrationType === 'student'}
-                      onChange={handleChange}
-                    />
-                    <div className="option-content">
-                      <h3>Student</h3>
-                      <p className="option-price">{formatCurrency(PRICING.student)}</p>
-                      <ul>
-                        <li>Access to all conference sessions</li>
-                        <li>Student networking events</li>
-                        <li>Conference materials</li>
-                        <li>Certificate of participation</li>
-                        <li><em>Valid student ID required</em></li>
-                      </ul>
-                    </div>
-                  </label>*/}
                 </div>
                 
                 {errors.registrationType && <span className="error-text">{errors.registrationType}</span>}
@@ -589,7 +660,7 @@ const RegistrationForm = () => {
                     />
                     <div className="addon-content">
                       <h3>Field Excursion</h3>
-                      <p className="addon-price">{formatCurrency(PRICING.excursion)}</p>
+                      <p className="addon-price">{formatUSD(PRICING.excursion)}</p>
                       <p className="addon-description">
                         Visit local agricultural projects and indigenous seed banks. 
                         Includes transportation and lunch.
@@ -606,7 +677,7 @@ const RegistrationForm = () => {
                     />
                     <div className="addon-content">
                       <h3>Gala Dinner</h3>
-                      <p className="addon-price">{formatCurrency(PRICING.galaDinner)}</p>
+                      <p className="addon-price">{formatUSD(PRICING.galaDinner)}</p>
                       <p className="addon-description">
                         Formal networking dinner with speakers and delegates. 
                         Includes dinner and drinks.
@@ -620,23 +691,23 @@ const RegistrationForm = () => {
                   <h3>Registration Summary</h3>
                   <div className="summary-item">
                     <span>Registration Fee:</span>
-                    <span>{formatCurrency(PRICING[formData.registrationType as keyof Pricing] || 0)}</span>
+                    <span>{formatUSD(PRICING[formData.registrationType as keyof Pricing] || 0)}</span>
                   </div>
                   {formData.excursion && (
                     <div className="summary-item">
                       <span>Field Excursion:</span>
-                      <span>{formatCurrency(PRICING.excursion)}</span>
+                      <span>{formatUSD(PRICING.excursion)}</span>
                     </div>
                   )}
                   {formData.galaDinner && (
                     <div className="summary-item">
                       <span>Gala Dinner:</span>
-                      <span>{formatCurrency(PRICING.galaDinner)}</span>
+                      <span>{formatUSD(PRICING.galaDinner)}</span>
                     </div>
                   )}
                   <div className="summary-total">
                     <span>Total Amount:</span>
-                    <span className="total-price">{formatCurrency(calculateTotal())}</span>
+                    <span className="total-price">{formatUSD(calculateTotal())}</span>
                   </div>
                 </div>
 
@@ -651,7 +722,7 @@ const RegistrationForm = () => {
               </motion.div>
             )}
 
-            {/* Step 4: Questions & Submit */}
+            {/* Step 4: Questions, Currency Converter & Submit */}
             {currentStep === 4 && (
               <motion.div
                 key="step4"
@@ -722,6 +793,65 @@ const RegistrationForm = () => {
                   />
                 </div>
 
+                {/* Currency Converter Section */}
+                <div className="currency-converter-section">
+                  <h3>🌍 See the Total in Your Local Currency</h3>
+                  
+                  <div className="converter-controls">
+                    <select 
+                      value={selectedCurrency} 
+                      onChange={handleCurrencyChange}
+                      className="currency-select"
+                      disabled={calculateTotal() === 0}
+                    >
+                      {POPULAR_CURRENCIES.map(currency => (
+                        <option key={currency.code} value={currency.code}>
+                          {currency.code} - {currency.name}
+                        </option>
+                      ))}
+                    </select>
+                    
+                    {isConverting && (
+                      <div className="conversion-status">
+                        <span className="rate-spinner"></span>
+                        <span>Getting latest exchange rate...</span>
+                      </div>
+                    )}
+                  </div>
+                  
+                  {convertedAmount !== null && selectedCurrency !== 'USD' && !isConverting && (
+                    <div className="converted-amount-display">
+                      <div className="conversion-rate-info">
+                        {exchangeRate && (
+                          <span className="rate-info">
+                            1 USD = {exchangeRate.toFixed(4)} {selectedCurrency}
+                          </span>
+                        )}
+                        {lastUpdated && (
+                          <span className="last-updated">Updated: {lastUpdated}</span>
+                        )}
+                      </div>
+                      
+                      <div className="converted-amount">
+                        <span className="approx-label">≈</span>
+                        <span className="converted-price">
+                          {formatConverted(convertedAmount, selectedCurrency)}
+                        </span>
+                      </div>
+                      
+                      <p className="conversion-note">
+                        * Exchange rates are for reference only. Final payment will be in USD.
+                      </p>
+                    </div>
+                  )}
+                  
+                  {selectedCurrency === 'USD' && (
+                    <div className="usd-note">
+                      <p>Showing prices in USD (default currency)</p>
+                    </div>
+                  )}
+                </div>
+
                 {/* Final Price Summary */}
                 <div className="price-summary final">
                   <h3>Registration Summary</h3>
@@ -730,25 +860,34 @@ const RegistrationForm = () => {
                     <span className="capitalize">{formData.registrationType || 'Not selected'}</span>
                   </div>
                   <div className="summary-item">
-                    <span>Base Fee:</span>
-                    <span>{formatCurrency(PRICING[formData.registrationType as keyof Pricing] || 0)}</span>
+                    <span>Base Fee (USD):</span>
+                    <span>{formatUSD(PRICING[formData.registrationType as keyof Pricing] || 0)}</span>
                   </div>
                   {formData.excursion && (
                     <div className="summary-item">
                       <span>+ Field Excursion:</span>
-                      <span>{formatCurrency(PRICING.excursion)}</span>
+                      <span>{formatUSD(PRICING.excursion)}</span>
                     </div>
                   )}
                   {formData.galaDinner && (
                     <div className="summary-item">
                       <span>+ Gala Dinner:</span>
-                      <span>{formatCurrency(PRICING.galaDinner)}</span>
+                      <span>{formatUSD(PRICING.galaDinner)}</span>
                     </div>
                   )}
                   <div className="summary-total">
-                    <span>Total to Pay:</span>
-                    <span className="total-price">{formatCurrency(calculateTotal())}</span>
+                    <span>Total in USD:</span>
+                    <span className="total-price">{formatUSD(calculateTotal())}</span>
                   </div>
+                  
+                  {convertedAmount !== null && selectedCurrency !== 'USD' && (
+                    <div className="summary-converted">
+                      <span>Approx. in {selectedCurrency}:</span>
+                      <span className="converted-total">
+                        {formatConverted(convertedAmount, selectedCurrency)}
+                      </span>
+                    </div>
+                  )}
                 </div>
 
                 <div className="form-group checkbox">

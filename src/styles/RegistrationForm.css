@@ -1,7 +1,7 @@
 /* styles/RegistrationForm.css */
 
 .registration-form-page {
-    margin-top: -4rem;
+  margin-top: -4rem;
   min-height: 100vh;
   background: linear-gradient(135deg, #f8fafc 0%, #e9f0f5 100%);
   padding: 40px 20px;
@@ -19,24 +19,64 @@
 
 /* Header */
 .registration-header {
-  background: linear-gradient(135deg, #1e4a6b 0%, #2d5a7b 100%);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
   color: white;
-  padding: 40px;
+  padding: 0;
+  overflow: hidden;
+  margin-top: 2rem;
+  min-height: fit-content;
+}
+
+.header-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1;
+}
+
+.header-pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets/pattern-dots.webp');
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  opacity: 0.05;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.header-content {
+  position: relative;
+  z-index: 3;
+  padding: 60px 40px 40px;
   text-align: center;
 }
 
-.registration-header h1 {
-    margin-top: 4rem;
+.header-content h1 {
+  margin-top: 4rem;
   font-size: 2.5rem;
   font-weight: 400;
   margin-bottom: 10px;
   letter-spacing: -0.5px;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.registration-header p {
+.header-content p {
   font-size: 1.1rem;
-  opacity: 0.9;
+  opacity: 0.95;
   margin-bottom: 30px;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 /* Progress Steps */
@@ -46,6 +86,8 @@
   justify-content: center;
   gap: 10px;
   margin-top: 30px;
+  position: relative;
+  z-index: 3;
 }
 
 .progress-step {
@@ -78,6 +120,7 @@
   font-weight: 600;
   font-size: 1.2rem;
   transition: all 0.3s ease;
+  color: white;
 }
 
 .active .step-number {
@@ -91,6 +134,7 @@
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  color: white;
 }
 
 .progress-line {
@@ -237,13 +281,6 @@ input.error, select.error, textarea.error {
   font-weight: bold;
 }
 
-.option-content li.note {
-  color: #c17b3c;
-  font-style: italic;
-  font-size: 0.85rem;
-  margin-top: 8px;
-}
-
 /* Add-ons Grid */
 .addons-grid {
   display: grid;
@@ -336,6 +373,194 @@ input.error, select.error, textarea.error {
 
 .capitalize {
   text-transform: capitalize;
+}
+
+/* Currency Converter Styles */
+.currency-converter-section {
+  background: linear-gradient(135deg, #f8fafc 0%, #eef2f6 100%);
+  border-radius: 20px;
+  padding: 25px;
+  margin: 30px 0;
+  border: 2px solid #c17b3c;
+  box-shadow: 0 10px 25px -5px rgba(193, 123, 60, 0.2);
+}
+
+.currency-converter-section h3 {
+  color: #1e4a6b;
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.converter-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.currency-select {
+  width: 100%;
+  padding: 14px 18px;
+  border: 2px solid #e2e8f0;
+  border-radius: 40px;
+  font-size: 1rem;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 15px;
+}
+
+.currency-select:hover,
+.currency-select:focus {
+  border-color: #c17b3c;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(193, 123, 60, 0.1);
+}
+
+.currency-select:disabled {
+  background-color: #f1f5f9;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.conversion-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px;
+  background: white;
+  border-radius: 40px;
+  justify-content: center;
+  color: #1e4a6b;
+  font-weight: 500;
+  margin-top: 10px;
+}
+
+.rate-spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid #e2e8f0;
+  border-radius: 50%;
+  border-top-color: #c17b3c;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.converted-amount-display {
+  margin-top: 20px;
+  padding: 20px;
+  background: white;
+  border-radius: 16px;
+  border: 2px solid #c17b3c;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.conversion-rate-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 15px;
+  border-bottom: 1px dashed #e2e8f0;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+  color: #64748b;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.rate-info {
+  background: #e6f0fa;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-weight: 500;
+  color: #1e4a6b;
+}
+
+.last-updated {
+  font-style: italic;
+  font-size: 0.85rem;
+}
+
+.converted-amount {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  margin: 15px 0;
+}
+
+.approx-label {
+  font-size: 1.5rem;
+  color: #64748b;
+  font-weight: 300;
+}
+
+.converted-price {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #c17b3c;
+  line-height: 1.2;
+  word-break: break-word;
+}
+
+.conversion-note {
+  text-align: center;
+  color: #64748b;
+  font-size: 0.8rem;
+  margin-top: 10px;
+  font-style: italic;
+}
+
+.usd-note {
+  margin-top: 15px;
+  padding: 12px;
+  background: white;
+  border-radius: 40px;
+  text-align: center;
+  color: #1e4a6b;
+  font-weight: 500;
+  border: 1px solid #e2e8f0;
+}
+
+/* Summary converted amount */
+.summary-converted {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0 5px;
+  margin-top: 15px;
+  font-size: 1.1rem;
+  color: #1e4a6b;
+  border-top: 2px solid #c17b3c;
+  font-weight: 600;
+}
+
+.converted-total {
+  color: #c17b3c;
+  font-size: 1.3rem;
+  font-weight: 700;
 }
 
 /* Form Navigation */
@@ -467,14 +692,11 @@ input.error, select.error, textarea.error {
   display: inline-block;
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
 /* Responsive */
 @media (max-width: 768px) {
   .registration-header h1 {
     font-size: 2rem;
+    margin-top: 2rem;
   }
   
   .form-row {
@@ -504,187 +726,32 @@ input.error, select.error, textarea.error {
     justify-content: center;
     margin: 0;
   }
-}
-
-@media (max-width: 480px) {
-  .registration-form {
+  
+  .currency-converter-section {
     padding: 20px;
   }
   
-  .step-label {
-    font-size: 0.7rem;
+  .converted-price {
+    font-size: 1.8rem;
   }
   
-  .step-number {
-    width: 32px;
-    height: 32px;
-    font-size: 1rem;
-  }
-}
-
-/* Add these styles to your existing RegistrationForm.css */
-
-/* ===== HEADER WITH BACKGROUND IMAGE ===== */
-.registration-header {
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  position: relative;
-  color: white;
-  padding: 0;
-  overflow: hidden;
-  margin-top: 2rem;
-  min-height: fit-content;
-}
-
-.header-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  z-index: 1;
-}
-
-.header-pattern {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('../assets/pattern-dots.webp'); /* Reuse your pattern */
-  background-repeat: repeat;
-  background-size: 200px 200px;
-  opacity: 0.05;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.header-content {
-  position: relative;
-  z-index: 3;
-  padding: 60px 40px 40px;
-  text-align: center;
-}
-
-/* Update header text for better visibility */
-.header-content h1 {
-  margin-top: 0;
-  font-size: 2.5rem;
-  font-weight: 400;
-  margin-bottom: 10px;
-  letter-spacing: -0.5px;
-  color: white;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-.header-content p {
-  font-size: 1.1rem;
-  opacity: 0.95;
-  margin-bottom: 30px;
-  color: rgba(255, 255, 255, 0.9);
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-}
-
-/* Progress steps remain visible */
-.registration-progress {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 30px;
-  position: relative;
-  z-index: 3;
-}
-
-.progress-step {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  opacity: 0.6;
-  transition: all 0.3s ease;
-}
-
-.progress-step.active {
-  opacity: 1;
-}
-
-.progress-step.completed .step-number {
-  background: #4caf50;
-  border-color: #4caf50;
-}
-
-.step-number {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-  border: 2px solid rgba(255, 255, 255, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-  font-size: 1.2rem;
-  transition: all 0.3s ease;
-  color: white;
-}
-
-.active .step-number {
-  background: white;
-  border-color: white;
-  color: #1e4a6b;
-}
-
-.step-label {
-  font-size: 0.85rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: white;
-}
-
-.progress-line {
-  width: 60px;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.3);
-  transition: all 0.3s ease;
-}
-
-.progress-line.active {
-  background: white;
-}
-
-/* ===== RESPONSIVE ADJUSTMENTS ===== */
-@media (max-width: 768px) {
-  .header-content {
-    padding: 50px 20px 30px;
+  .conversion-rate-info {
+    flex-direction: column;
+    align-items: flex-start;
   }
   
-  .header-content h1 {
-    font-size: 2rem;
-  }
-  
-  .progress-line {
-    width: 30px;
-  }
-  
-  .step-number {
-    width: 35px;
-    height: 35px;
-    font-size: 1rem;
-  }
-  
-  .step-label {
-    font-size: 0.75rem;
+  .summary-converted {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
   }
 }
 
 @media (max-width: 576px) {
-  .registration-header{
+  .registration-header {
     margin-top: 6rem;
   }  
+  
   .header-content {
     padding: 40px 15px 25px;
   }
@@ -719,6 +786,20 @@ input.error, select.error, textarea.error {
 }
 
 @media (max-width: 480px) {
+  .registration-form {
+    padding: 20px;
+  }
+  
+  .step-label {
+    font-size: 0.7rem;
+  }
+  
+  .step-number {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+  
   .header-content h1 {
     font-size: 1.6rem;
   }
@@ -741,9 +822,26 @@ input.error, select.error, textarea.error {
   .progress-step {
     width: 100%;
   }
+  
+  .converted-price {
+    font-size: 1.5rem;
+  }
+  
+  .converter-controls select {
+    font-size: 0.9rem;
+    padding: 12px 16px;
+  }
+  
+  .conversion-status {
+    font-size: 0.9rem;
+  }
+  
+  .summary-converted {
+    font-size: 1rem;
+  }
 }
 
-/* ===== PRINT STYLES ===== */
+/* Print styles */
 @media print {
   .registration-header {
     background: #1e4a6b !important;

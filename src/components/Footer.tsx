@@ -100,7 +100,7 @@ const Footer = () => {
               </li>
               <li>
                 <span className="contact-icon">📞</span>
-                <a href="tel:+256712451777">+256 712 451 777</a>
+                <a href="tel:+254712451777">+254 712 451 777</a>
               </li>
               <li>
                 <span className="contact-icon">📍</span>
