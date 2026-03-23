@@ -5,7 +5,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "https://conference-backend-m5hq.onrender.com";
 const TOKEN_KEY = "ea_conf_token";
 const ROLE_KEY  = "ea_conf_role";
 
