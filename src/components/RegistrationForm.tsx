@@ -1,45 +1,151 @@
 // components/RegistrationForm.tsx
-import { useState, useEffect } from "react";
-import { useLocation,  } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-//import emailjs from "@emailjs/browser";
 import "../styles/RegistrationForm.css";
+import heroBackground from "../assets/form.webp";
 
-// Import hero background image
-import heroBackground from "../assets/form.webp"; // Add your hero image to assets
+// ─────────────────────────────────────────────
+// COUNTRY LIST  (ISO 3166-1 alpha-2 + dial codes)
+// ─────────────────────────────────────────────
+const COUNTRIES = [
+  { name: "Afghanistan", code: "AF", dial: "+93" },
+  { name: "Albania", code: "AL", dial: "+355" },
+  { name: "Algeria", code: "DZ", dial: "+213" },
+  { name: "Angola", code: "AO", dial: "+244" },
+  { name: "Argentina", code: "AR", dial: "+54" },
+  { name: "Australia", code: "AU", dial: "+61" },
+  { name: "Austria", code: "AT", dial: "+43" },
+  { name: "Bangladesh", code: "BD", dial: "+880" },
+  { name: "Belgium", code: "BE", dial: "+32" },
+  { name: "Benin", code: "BJ", dial: "+229" },
+  { name: "Botswana", code: "BW", dial: "+267" },
+  { name: "Brazil", code: "BR", dial: "+55" },
+  { name: "Burkina Faso", code: "BF", dial: "+226" },
+  { name: "Burundi", code: "BI", dial: "+257" },
+  { name: "Cameroon", code: "CM", dial: "+237" },
+  { name: "Canada", code: "CA", dial: "+1" },
+  { name: "Central African Republic", code: "CF", dial: "+236" },
+  { name: "Chad", code: "TD", dial: "+235" },
+  { name: "China", code: "CN", dial: "+86" },
+  { name: "Colombia", code: "CO", dial: "+57" },
+  { name: "Comoros", code: "KM", dial: "+269" },
+  { name: "Congo (DRC)", code: "CD", dial: "+243" },
+  { name: "Congo (Republic)", code: "CG", dial: "+242" },
+  { name: "Côte d'Ivoire", code: "CI", dial: "+225" },
+  { name: "Denmark", code: "DK", dial: "+45" },
+  { name: "Djibouti", code: "DJ", dial: "+253" },
+  { name: "Egypt", code: "EG", dial: "+20" },
+  { name: "Eritrea", code: "ER", dial: "+291" },
+  { name: "Eswatini", code: "SZ", dial: "+268" },
+  { name: "Ethiopia", code: "ET", dial: "+251" },
+  { name: "Finland", code: "FI", dial: "+358" },
+  { name: "France", code: "FR", dial: "+33" },
+  { name: "Gabon", code: "GA", dial: "+241" },
+  { name: "Gambia", code: "GM", dial: "+220" },
+  { name: "Germany", code: "DE", dial: "+49" },
+  { name: "Ghana", code: "GH", dial: "+233" },
+  { name: "Guinea", code: "GN", dial: "+224" },
+  { name: "Guinea-Bissau", code: "GW", dial: "+245" },
+  { name: "India", code: "IN", dial: "+91" },
+  { name: "Indonesia", code: "ID", dial: "+62" },
+  { name: "Iran", code: "IR", dial: "+98" },
+  { name: "Iraq", code: "IQ", dial: "+964" },
+  { name: "Ireland", code: "IE", dial: "+353" },
+  { name: "Israel", code: "IL", dial: "+972" },
+  { name: "Italy", code: "IT", dial: "+39" },
+  { name: "Japan", code: "JP", dial: "+81" },
+  { name: "Jordan", code: "JO", dial: "+962" },
+  { name: "Kenya", code: "KE", dial: "+254" },
+  { name: "Lesotho", code: "LS", dial: "+266" },
+  { name: "Liberia", code: "LR", dial: "+231" },
+  { name: "Libya", code: "LY", dial: "+218" },
+  { name: "Madagascar", code: "MG", dial: "+261" },
+  { name: "Malawi", code: "MW", dial: "+265" },
+  { name: "Mali", code: "ML", dial: "+223" },
+  { name: "Mauritania", code: "MR", dial: "+222" },
+  { name: "Mauritius", code: "MU", dial: "+230" },
+  { name: "Mexico", code: "MX", dial: "+52" },
+  { name: "Morocco", code: "MA", dial: "+212" },
+  { name: "Mozambique", code: "MZ", dial: "+258" },
+  { name: "Namibia", code: "NA", dial: "+264" },
+  { name: "Netherlands", code: "NL", dial: "+31" },
+  { name: "New Zealand", code: "NZ", dial: "+64" },
+  { name: "Niger", code: "NE", dial: "+227" },
+  { name: "Nigeria", code: "NG", dial: "+234" },
+  { name: "Norway", code: "NO", dial: "+47" },
+  { name: "Pakistan", code: "PK", dial: "+92" },
+  { name: "Philippines", code: "PH", dial: "+63" },
+  { name: "Poland", code: "PL", dial: "+48" },
+  { name: "Portugal", code: "PT", dial: "+351" },
+  { name: "Rwanda", code: "RW", dial: "+250" },
+  { name: "Saudi Arabia", code: "SA", dial: "+966" },
+  { name: "Senegal", code: "SN", dial: "+221" },
+  { name: "Sierra Leone", code: "SL", dial: "+232" },
+  { name: "Somalia", code: "SO", dial: "+252" },
+  { name: "South Africa", code: "ZA", dial: "+27" },
+  { name: "South Korea", code: "KR", dial: "+82" },
+  { name: "South Sudan", code: "SS", dial: "+211" },
+  { name: "Spain", code: "ES", dial: "+34" },
+  { name: "Sudan", code: "SD", dial: "+249" },
+  { name: "Sweden", code: "SE", dial: "+46" },
+  { name: "Switzerland", code: "CH", dial: "+41" },
+  { name: "Tanzania", code: "TZ", dial: "+255" },
+  { name: "Togo", code: "TG", dial: "+228" },
+  { name: "Tunisia", code: "TN", dial: "+216" },
+  { name: "Turkey", code: "TR", dial: "+90" },
+  { name: "UAE", code: "AE", dial: "+971" },
+  { name: "Uganda", code: "UG", dial: "+256" },
+  { name: "United Kingdom", code: "GB", dial: "+44" },
+  { name: "United States", code: "US", dial: "+1" },
+  { name: "Zambia", code: "ZM", dial: "+260" },
+  { name: "Zimbabwe", code: "ZW", dial: "+263" },
+];
 
-// EmailJS Configuration
-//const REGISTRATION_SERVICE_ID = "service_p8vs3dj";
-//const REGISTRATION_TEMPLATE_ADMIN = "template_a4hphj7"; // Admin notification
-//const REGISTRATION_TEMPLATE_CONFIRMATION = "template_a5iz32i"; // Auto-reply
-//const REGISTRATION_PUBLIC_KEY = "tILAy3Y5MQ-2eEa0_";
+// ─────────────────────────────────────────────
+// CURRENCIES
+// ─────────────────────────────────────────────
+const POPULAR_CURRENCIES = [
+  { code: 'USD', name: 'US Dollar' },
+  { code: 'EUR', name: 'Euro' },
+  { code: 'GBP', name: 'British Pound' },
+  { code: 'KES', name: 'Kenyan Shilling' },
+  { code: 'UGX', name: 'Ugandan Shilling' },
+  { code: 'TZS', name: 'Tanzanian Shilling' },
+  { code: 'RWF', name: 'Rwandan Franc' },
+  { code: 'ETB', name: 'Ethiopian Birr' },
+  { code: 'NGN', name: 'Nigerian Naira' },
+  { code: 'ZAR', name: 'South African Rand' },
+  { code: 'GHS', name: 'Ghanaian Cedi' },
+  { code: 'EGP', name: 'Egyptian Pound' },
+  { code: 'CAD', name: 'Canadian Dollar' },
+  { code: 'AUD', name: 'Australian Dollar' },
+  { code: 'JPY', name: 'Japanese Yen' },
+  { code: 'CNY', name: 'Chinese Yuan' },
+  { code: 'INR', name: 'Indian Rupee' },
+  { code: 'AED', name: 'UAE Dirham' },
+  { code: 'SAR', name: 'Saudi Riyal' },
+];
 
+// ─────────────────────────────────────────────
+// TYPES
+// ─────────────────────────────────────────────
 interface FormData {
-  // Personal Information
   fullName: string;
   email: string;
-  phone: string;
+  dialCode: string;        // ✅ NEW: dial code stored separately
+  phone: string;           // just the number, no prefix
   country: string;
-  
-  // Professional Information
   organization: string;
   position: string;
   category: string;
-  
-  // Registration Type
   registrationType: 'delegate' | 'farmer' | 'virtual' | 'student' | '';
-  
-  // Add-ons
   excursion: boolean;
   galaDinner: boolean;
-  
-  // Simple Questions
   hearAbout: string;
   dietaryRestrictions: string;
   accommodation: string;
   specialNeeds: string;
-  
-  // Consent
   consent: boolean;
 }
 
@@ -62,886 +168,674 @@ interface Pricing {
   galaDinner: number;
 }
 
-// Popular currencies for international users
-const POPULAR_CURRENCIES = [
-  { code: 'USD', name: 'US Dollar' },
-  { code: 'EUR', name: 'Euro' },
-  { code: 'GBP', name: 'British Pound' },
-  { code: 'JPY', name: 'Japanese Yen' },
-  { code: 'CAD', name: 'Canadian Dollar' },
-  { code: 'AUD', name: 'Australian Dollar' },
-  { code: 'CHF', name: 'Swiss Franc' },
-  { code: 'CNY', name: 'Chinese Yuan' },
-  { code: 'INR', name: 'Indian Rupee' },
-  { code: 'BRL', name: 'Brazilian Real' },
-  { code: 'ZAR', name: 'South African Rand' },
-  { code: 'NGN', name: 'Nigerian Naira' },
-  { code: 'KES', name: 'Kenyan Shilling' },
-  { code: 'EGP', name: 'Egyptian Pound' },
-  { code: 'GHS', name: 'Ghanaian Cedi' },
-  { code: 'TZS', name: 'Tanzanian Shilling' },
-  { code: 'UGX', name: 'Ugandan Shilling' },
-  { code: 'RWF', name: 'Rwandan Franc' },
-  { code: 'MXN', name: 'Mexican Peso' },
-  { code: 'SGD', name: 'Singapore Dollar' },
-  { code: 'HKD', name: 'Hong Kong Dollar' },
-  { code: 'NZD', name: 'New Zealand Dollar' },
-  { code: 'KRW', name: 'South Korean Won' },
-  { code: 'RUB', name: 'Russian Ruble' },
-  { code: 'TRY', name: 'Turkish Lira' },
-  { code: 'AED', name: 'UAE Dirham' },
-  { code: 'SAR', name: 'Saudi Riyal' }
-];
+// ─────────────────────────────────────────────
+// LOCAL STORAGE KEY
+// ─────────────────────────────────────────────
+const STORAGE_KEY = "ea_seed_reg_form";
 
-const RegistrationForm = () => {
-  const location = useLocation();
-  //const navigate = useNavigate();
-  
-  // Pricing configuration
-  const PRICING: Pricing = {
-    delegate: 200,
-    farmer: 150,
-    virtual: 100,
-    student: 80,
-    excursion: 50,
-    galaDinner: 100
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+
+// ─────────────────────────────────────────────
+// COUNTRY SEARCH DROPDOWN COMPONENT
+// ─────────────────────────────────────────────
+interface CountryDropdownProps {
+  value: string;
+  onChange: (country: string) => void;
+  onDialCodeChange: (dial: string) => void;
+  hasError?: boolean;
+}
+
+const CountryDropdown = ({ value, onChange, onDialCodeChange, hasError }: CountryDropdownProps) => {
+  const [query, setQuery] = useState(value);
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  const filtered = query.trim()
+    ? COUNTRIES.filter(c => c.name.toLowerCase().includes(query.toLowerCase()))
+    : COUNTRIES;
+
+  // Close on outside click
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
+
+  // Sync query when value changes externally (e.g. on restore from localStorage)
+  useEffect(() => { setQuery(value); }, [value]);
+
+  const select = (country: typeof COUNTRIES[0]) => {
+    setQuery(country.name);
+    onChange(country.name);
+    onDialCodeChange(country.dial);
+    setOpen(false);
   };
 
-  // Get registration type from navigation state
+  return (
+    <div className="rfp__country-wrap" ref={ref}>
+      <input
+        type="text"
+        value={query}
+        className={hasError ? 'has-error' : ''}
+        placeholder="Search your country…"
+        autoComplete="off"
+        onChange={e => { setQuery(e.target.value); setOpen(true); onChange(''); }}
+        onFocus={() => setOpen(true)}
+      />
+      {open && filtered.length > 0 && (
+        <ul className="rfp__country-list">
+          {filtered.slice(0, 60).map(c => (
+            <li key={c.code} onMouseDown={() => select(c)}>
+              <span className="rfp__country-name">{c.name}</span>
+              <span className="rfp__country-dial">{c.dial}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
+
+// ─────────────────────────────────────────────
+// MAIN COMPONENT
+// ─────────────────────────────────────────────
+const RegistrationForm = () => {
+  const location = useLocation();
+
+  const PRICING: Pricing = {
+    delegate: 200, farmer: 150, virtual: 100,
+    student: 80, excursion: 50, galaDinner: 100,
+  };
+
   const getInitialType = (): '' | 'delegate' | 'farmer' | 'virtual' | 'student' => {
     const state = location.state as { type: string } | null;
     if (!state?.type) return '';
-    
     const type = state.type.toLowerCase();
     if (type.includes('delegate')) return 'delegate';
     if (type.includes('farmer')) return 'farmer';
     if (type.includes('virtual')) return 'virtual';
+    if (type.includes('student')) return 'student';
     return '';
   };
 
-  const [formData, setFormData] = useState<FormData>({
-    fullName: '',
-    email: '',
-    phone: '',
-    country: '',
-    organization: '',
-    position: '',
-    category: '',
-    registrationType: getInitialType(),
-    excursion: false,
-    galaDinner: false,
-    hearAbout: '',
-    dietaryRestrictions: '',
-    accommodation: '',
-    specialNeeds: '',
-    consent: false
-  });
+  // ✅ CHANGE 1: Restore from localStorage on mount, fall back to blank form
+  const getInitialFormData = (): FormData => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        // Always reset consent on restore — must re-tick every session
+        return { ...parsed, consent: false };
+      }
+    } catch { /* ignore corrupt storage */ }
+    return {
+      fullName: '', email: '', dialCode: '+254', phone: '', country: '',
+      organization: '', position: '', category: '',
+      registrationType: getInitialType(),
+      excursion: false, galaDinner: false,
+      hearAbout: '', dietaryRestrictions: '',
+      accommodation: '', specialNeeds: '', consent: false,
+    };
+  };
 
+  const [formData, setFormData] = useState<FormData>(getInitialFormData);
   const [currentStep, setCurrentStep] = useState(1);
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [submitMessage, setSubmitMessage] = useState('');
-  
-  // Currency converter states
   const [selectedCurrency, setSelectedCurrency] = useState('USD');
   const [convertedAmount, setConvertedAmount] = useState<number | null>(null);
   const [isConverting, setIsConverting] = useState(false);
   const [exchangeRate, setExchangeRate] = useState<number | null>(null);
   const [lastUpdated, setLastUpdated] = useState('');
 
-  // Calculate total
+  // ✅ CHANGE 1: Auto-save to localStorage whenever formData changes
+  // Excludes consent (must re-tick each session)
+  useEffect(() => {
+    try {
+      const { consent: _consent, ...rest } = formData;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(rest));
+    } catch { /* quota exceeded — fail silently */ }
+  }, [formData]);
+
+  const clearSavedForm = () => {
+    try { localStorage.removeItem(STORAGE_KEY); } catch { /* ignore */ }
+  };
+
   const calculateTotal = (): number => {
     let total = 0;
-    
-    // Add registration fee
-    if (formData.registrationType) {
-      total += PRICING[formData.registrationType as keyof Pricing] || 0;
-    }
-    
-    // Add add-ons
+    if (formData.registrationType) total += PRICING[formData.registrationType as keyof Pricing] || 0;
     if (formData.excursion) total += PRICING.excursion;
     if (formData.galaDinner) total += PRICING.galaDinner;
-    
     return total;
   };
 
-  // Format USD currency
-  const formatUSD = (amount: number): string => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(amount);
-  };
+  const formatUSD = (amount: number) =>
+    new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(amount);
 
-  // Format converted currency
-  const formatConverted = (amount: number, currencyCode: string): string => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: currencyCode,
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(amount);
-  };
+  const formatConverted = (amount: number, code: string) =>
+    new Intl.NumberFormat('en-US', { style: 'currency', currency: code, minimumFractionDigits: 0 }).format(amount);
 
-  // Fetch exchange rate from API
-  const fetchExchangeRate = async (fromCurrency: string, toCurrency: string, amount: number) => {
+  // ✅ CHANGE 3: Fixed currency API — frankfurter.app (free, no key, no deprecation)
+  const fetchExchangeRate = async (toCurrency: string, amount: number) => {
     if (toCurrency === 'USD') {
       setConvertedAmount(amount);
       setExchangeRate(1);
       setLastUpdated(new Date().toLocaleTimeString());
       return;
     }
-
     setIsConverting(true);
     try {
-      // Using free exchangerate.host API (no key required)
-      const response = await fetch(
-        `https://api.exchangerate.host/convert?from=${fromCurrency}&to=${toCurrency}&amount=${amount}`
+      const res = await fetch(
+        `https://api.frankfurter.app/latest?from=USD&to=${toCurrency}`
       );
-      
-      if (!response.ok) {
-        throw new Error('Conversion failed');
-      }
-      
-      const data = await response.json();
-      
-      if (data.result) {
-        setConvertedAmount(data.result);
-        setExchangeRate(data.info?.rate || null);
-        setLastUpdated(new Date().toLocaleTimeString());
-      } else {
-        throw new Error('Invalid response');
-      }
-    } catch (error) {
-      console.error('Currency conversion error:', error);
-      // Fallback to approximate rates
-      const fallbackRates: { [key: string]: number } = {
-        'EUR': 0.92, 'GBP': 0.79, 'JPY': 150.5, 'CAD': 1.35, 
-        'AUD': 1.52, 'CHF': 0.88, 'CNY': 7.19, 'INR': 83.5,
-        'BRL': 5.05, 'ZAR': 18.8, 'NGN': 1500, 'KES': 140.5,
-        'EGP': 47.5, 'GHS': 13.2, 'TZS': 2600, 'UGX': 3850,
-        'RWF': 1300, 'MXN': 17.1, 'SGD': 1.35, 'HKD': 7.82,
-        'NZD': 1.65, 'KRW': 1350, 'RUB': 92.5, 'TRY': 32.2,
-        'AED': 3.67, 'SAR': 3.75
-      };
-      
-      const rate = fallbackRates[toCurrency] || 1;
+      if (!res.ok) throw new Error("API error");
+      const data = await res.json();
+      const rate = data.rates?.[toCurrency];
+      if (!rate) throw new Error("Rate not found");
       setConvertedAmount(amount * rate);
       setExchangeRate(rate);
-      setLastUpdated(new Date().toLocaleTimeString() + ' (estimated)');
+      setLastUpdated(new Date().toLocaleTimeString());
+    } catch {
+      // Hardcoded fallback rates
+      const fallback: Record<string, number> = {
+        EUR: 0.92, GBP: 0.79, KES: 140.5, UGX: 3850, TZS: 2600,
+        RWF: 1300, ETB: 57, NGN: 1500, ZAR: 18.8, GHS: 13.2,
+        EGP: 47.5, CAD: 1.35, AUD: 1.52, JPY: 150.5, CNY: 7.19,
+        INR: 83.5, AED: 3.67, SAR: 3.75,
+      };
+      const rate = fallback[toCurrency] || 1;
+      setConvertedAmount(amount * rate);
+      setExchangeRate(rate);
+      setLastUpdated(new Date().toLocaleTimeString() + ' (est.)');
     } finally {
       setIsConverting(false);
     }
   };
 
-  // Handle currency change
-  const handleCurrencyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newCurrency = e.target.value;
-    setSelectedCurrency(newCurrency);
-    if (calculateTotal() > 0) {
-      fetchExchangeRate('USD', newCurrency, calculateTotal());
-    }
-  };
-
-  // Update conversion when total changes
   useEffect(() => {
-    if (selectedCurrency !== 'USD' && calculateTotal() > 0) {
-      fetchExchangeRate('USD', selectedCurrency, calculateTotal());
-    }
-  }, [formData.registrationType, formData.excursion, formData.galaDinner]);
+    if (calculateTotal() > 0) fetchExchangeRate(selectedCurrency, calculateTotal());
+  }, [formData.registrationType, formData.excursion, formData.galaDinner, selectedCurrency]);
 
-  // Handle input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
-    
-    if (type === 'checkbox') {
-      const checked = (e.target as HTMLInputElement).checked;
-      setFormData(prev => ({ ...prev, [name]: checked }));
-    } else {
-      setFormData(prev => ({ ...prev, [name]: value }));
-    }
-    
-    // Clear error for this field
-    if (errors[name]) {
-      setErrors(prev => ({ ...prev, [name]: undefined }));
-    }
+    const val = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
+    setFormData(prev => ({ ...prev, [name]: val }));
+    if (errors[name]) setErrors(prev => ({ ...prev, [name]: undefined }));
   };
 
-  // Validate current step
   const validateStep = (step: number): boolean => {
     const newErrors: FormErrors = {};
-    
     if (step === 1) {
       if (!formData.fullName.trim()) newErrors.fullName = 'Full name is required';
-      if (!formData.email.trim()) {
-        newErrors.email = 'Email is required';
-      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-        newErrors.email = 'Valid email is required';
-      }
+      if (!formData.email.trim()) newErrors.email = 'Email is required';
+      else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = 'Valid email required';
       if (!formData.phone.trim()) newErrors.phone = 'Phone number is required';
-      if (!formData.country.trim()) newErrors.country = 'Country is required';
+      if (!formData.country.trim()) newErrors.country = 'Please select your country';
     }
-    
-    if (step === 2) {
-      if (!formData.registrationType) newErrors.registrationType = 'Please select a registration type';
-    }
-    
-    if (step === 4) {
-      if (!formData.consent) newErrors.consent = 'You must agree to continue';
-    }
-    
+    if (step === 2 && !formData.registrationType) newErrors.registrationType = 'Please select a registration type';
+    if (step === 4 && !formData.consent) newErrors.consent = 'You must agree to continue';
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  // Handle next step
   const handleNext = () => {
     if (validateStep(currentStep)) {
-      setCurrentStep(prev => prev + 1);
+      setCurrentStep(p => p + 1);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
-  // Handle previous step
   const handlePrev = () => {
-    setCurrentStep(prev => prev - 1);
+    setCurrentStep(p => p - 1);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
- const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validateStep(4)) return;
+    setIsSubmitting(true);
+    try {
+      // ✅ Combine dial code + phone number before sending to backend
+      const fullPhone = formData.dialCode
+        ? formData.dialCode + " " + formData.phone.replace(/^0+/, "")
+        : formData.phone;
 
-  if (!validateStep(4)) return;
+      const res = await fetch(`${BACKEND_URL}/initialize-payment`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: formData.email,
+          name: formData.fullName,
+          amount: calculateTotal(),
+          metadata: {
+            phone: fullPhone,
+            country: formData.country,
+            organization: formData.organization,
+            registrationType: formData.registrationType,
+            excursion: formData.excursion,
+            galaDinner: formData.galaDinner,
+          },
+        }),
+      });
+      const data = await res.json();
 
-  setIsSubmitting(true);
-
-  try {
-
-    const totalAmount = calculateTotal();
-
-    const paymentData = {
-      email: formData.email,
-      name: formData.fullName,
-      amount: totalAmount,
-      metadata: {
-        phone: formData.phone,
-        country: formData.country,
-        organization: formData.organization,
-        registrationType: formData.registrationType,
-        excursion: formData.excursion,
-        galaDinner: formData.galaDinner
+      // ✅ Handle duplicate registration error from server
+      if (res.status === 409) {
+        setSubmitStatus("error");
+        setSubmitMessage("A registration already exists for this email and registration type. Please contact support if you believe this is an error.");
+        setIsSubmitting(false);
+        return;
       }
-    };
 
-    const response = await fetch("http://localhost:5000/initialize-payment", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(paymentData)
-    });
-
-    const data = await response.json();
-
-    if (data.authorization_url) {
-
-      window.location.href = data.authorization_url;
-
-    } else {
-
-      throw new Error("Payment initialization failed");
-
+      if (data.authorization_url) {
+        clearSavedForm(); // ✅ Clear localStorage once redirecting to payment
+        window.location.href = data.authorization_url;
+      } else {
+        throw new Error("No authorization URL returned");
+      }
+    } catch (err) {
+      setSubmitStatus("error");
+      setSubmitMessage("Payment initialization failed. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
+  };
 
-  } catch (error) {
+  const stepLabels = ['Personal Info', 'Registration', 'Add-ons', 'Review'];
 
-    console.error(error);
-
-    setSubmitStatus("error");
-    setSubmitMessage("Payment initialization failed. Please try again.");
-
-  } finally {
-
-    setIsSubmitting(false);
-
-  }
-};
-
-  // Animation variants
   const stepVariants = {
-    hidden: { opacity: 0, x: 50 },
-    visible: { opacity: 1, x: 0 },
-    exit: { opacity: 0, x: -50 }
+    hidden: { opacity: 0, x: 40 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.35, ease: "easeOut" as const } },
+    exit: { opacity: 0, x: -40, transition: { duration: 0.2 } },
   };
 
   return (
-    <motion.div 
-      className="registration-form-page"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    >
-      <div className="registration-container">
-        {/* Header with Background Image */}
-        <div 
-          className="registration-header"
-          style={{ backgroundImage: `url(${heroBackground})` }}
-        >
-          <div className="header-overlay"></div>
-          <div className="header-pattern" aria-hidden="true"></div>
-          <div className="header-content">
-            <h1>Conference Registration</h1>
-            <p>Complete your registration for the Eastern Africa Indigenous Seed Conference 2026</p>
-            
-            {/* Progress Steps */}
-            <div className="registration-progress">
-              <div className={`progress-step ${currentStep >= 1 ? 'active' : ''} ${currentStep > 1 ? 'completed' : ''}`}>
-                <span className="step-number">1</span>
-                <span className="step-label">Personal Info</span>
-              </div>
-              <div className={`progress-line ${currentStep >= 2 ? 'active' : ''}`}></div>
-              <div className={`progress-step ${currentStep >= 2 ? 'active' : ''} ${currentStep > 2 ? 'completed' : ''}`}>
-                <span className="step-number">2</span>
-                <span className="step-label">Registration</span>
-              </div>
-              <div className={`progress-line ${currentStep >= 3 ? 'active' : ''}`}></div>
-              <div className={`progress-step ${currentStep >= 3 ? 'active' : ''} ${currentStep > 3 ? 'completed' : ''}`}>
-                <span className="step-number">3</span>
-                <span className="step-label">Add-ons</span>
-              </div>
-              <div className={`progress-line ${currentStep >= 4 ? 'active' : ''}`}></div>
-              <div className={`progress-step ${currentStep >= 4 ? 'active' : ''}`}>
-                <span className="step-number">4</span>
-                <span className="step-label">Questions</span>
-              </div>
+    <motion.div className="rfp" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+      <div className="rfp__container">
+
+        {/* ── HEADER ─────────────────────────────────────── */}
+        <div className="rfp__hero" style={{ backgroundImage: `url(${heroBackground})` }}>
+          <div className="rfp__hero-overlay" />
+          <div className="rfp__hero-content">
+            <p className="rfp__hero-eyebrow">1st Eastern Africa</p>
+            <h1 className="rfp__hero-title">Indigenous Seed<br />Conference 2026</h1>
+            <p className="rfp__hero-sub">17–20 November · Nairobi, Kenya</p>
+
+            <div className="rfp__progress">
+              {stepLabels.map((label, idx) => {
+                const n = idx + 1;
+                const done = currentStep > n;
+                const active = currentStep === n;
+                return (
+                  <div key={n} className="rfp__progress-item">
+                    <div className={`rfp__step-dot ${active ? 'is-active' : ''} ${done ? 'is-done' : ''}`}>
+                      {done ? '✓' : n}
+                    </div>
+                    <span className={`rfp__step-label ${active || done ? 'is-visible' : ''}`}>{label}</span>
+                    {n < 4 && <div className={`rfp__progress-line ${currentStep > n ? 'is-filled' : ''}`} />}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
 
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="registration-form">
+        {/* ── FORM BODY ───────────────────────────────────── */}
+        <form onSubmit={handleSubmit} className="rfp__body">
           <AnimatePresence mode="wait">
-            {/* Step 1: Personal Information */}
+
+            {/* ── STEP 1 ── */}
             {currentStep === 1 && (
-              <motion.div
-                key="step1"
-                className="form-step"
-                variants={stepVariants}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                transition={{ duration: 0.3 }}
-              >
-                <h2>Personal Information</h2>
-                
-                <div className="form-group">
-                  <label htmlFor="fullName">Full Name *</label>
-                  <input
-                    type="text"
-                    id="fullName"
-                    name="fullName"
-                    value={formData.fullName}
-                    onChange={handleChange}
-                    className={errors.fullName ? 'error' : ''}
-                    placeholder="Enter your full name"
-                  />
-                  {errors.fullName && <span className="error-text">{errors.fullName}</span>}
+              <motion.div key="s1" className="rfp__step" variants={stepVariants} initial="hidden" animate="visible" exit="exit">
+                <div className="rfp__step-header">
+                  <span className="rfp__step-num">01</span>
+                  <h2>Personal Information</h2>
                 </div>
 
-                <div className="form-row">
-                  <div className="form-group">
-                    <label htmlFor="email">Email Address *</label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      className={errors.email ? 'error' : ''}
-                      placeholder="your@email.com"
-                    />
-                    {errors.email && <span className="error-text">{errors.email}</span>}
-                  </div>
+                {/* Restore banner */}
+                {(() => {
+                  try {
+                    const saved = localStorage.getItem(STORAGE_KEY);
+                    if (saved && JSON.parse(saved).fullName) {
+                      return (
+                        <div className="rfp__restore-banner">
+                          <span>✦ Your previous progress has been restored.</span>
+                          <button type="button" onClick={() => {
+                            clearSavedForm();
+                            setFormData({
+                              fullName: '', email: '', dialCode: '+254', phone: '', country: '',
+                              organization: '', position: '', category: '',
+                              registrationType: getInitialType(),
+                              excursion: false, galaDinner: false,
+                              hearAbout: '', dietaryRestrictions: '',
+                              accommodation: '', specialNeeds: '', consent: false,
+                            });
+                          }}>Start fresh</button>
+                        </div>
+                      );
+                    }
+                  } catch { /* ignore */ }
+                  return null;
+                })()}
 
-                  <div className="form-group">
-                    <label htmlFor="phone">Phone Number *</label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      className={errors.phone ? 'error' : ''}
-                      placeholder="+254 XXX XXX XXX"
-                    />
-                    {errors.phone && <span className="error-text">{errors.phone}</span>}
-                  </div>
+                <div className="rfp__field">
+                  <label htmlFor="fullName">Full Name <span className="req">*</span></label>
+                  <input id="fullName" name="fullName" type="text" value={formData.fullName}
+                    onChange={handleChange} className={errors.fullName ? 'has-error' : ''}
+                    placeholder="Your full name as it should appear on the ticket" />
+                  {errors.fullName && <span className="rfp__error">{errors.fullName}</span>}
                 </div>
 
-                <div className="form-group">
-                  <label htmlFor="country">Country *</label>
-                  <input
-                    type="text"
-                    id="country"
-                    name="country"
-                    value={formData.country}
-                    onChange={handleChange}
-                    className={errors.country ? 'error' : ''}
-                    placeholder="Your country"
-                  />
-                  {errors.country && <span className="error-text">{errors.country}</span>}
-                </div>
-
-                <div className="form-row">
-                  <div className="form-group">
-                    <label htmlFor="organization">Organization/Institution</label>
-                    <input
-                      type="text"
-                      id="organization"
-                      name="organization"
-                      value={formData.organization}
-                      onChange={handleChange}
-                      placeholder="Where do you work/study?"
-                    />
+                <div className="rfp__row">
+                  <div className="rfp__field">
+                    <label htmlFor="email">Email Address <span className="req">*</span></label>
+                    <input id="email" name="email" type="email" value={formData.email}
+                      onChange={handleChange} className={errors.email ? 'has-error' : ''}
+                      placeholder="your@email.com" />
+                    {errors.email && <span className="rfp__error">{errors.email}</span>}
                   </div>
 
-                  <div className="form-group">
-                    <label htmlFor="position">Position/Title</label>
-                    <input
-                      type="text"
-                      id="position"
-                      name="position"
-                      value={formData.position}
-                      onChange={handleChange}
-                      placeholder="Your role"
-                    />
+                  {/* ✅ CHANGE 4: Phone with dial code selector */}
+                  <div className="rfp__field">
+                    <label>Phone Number <span className="req">*</span></label>
+                    <div className={`rfp__phone-wrap ${errors.phone ? 'has-error' : ''}`}>
+                      <select
+                        className="rfp__dial-select"
+                        value={formData.dialCode}
+                        onChange={e => setFormData(prev => ({ ...prev, dialCode: e.target.value }))}
+                      >
+                        {COUNTRIES.map(c => (
+                          <option key={c.code} value={c.dial}>
+                            {c.code} {c.dial}
+                          </option>
+                        ))}
+                      </select>
+                      <input
+                        name="phone"
+                        type="tel"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        placeholder="700 000 000"
+                        className="rfp__phone-input"
+                      />
+                    </div>
+                    {errors.phone && <span className="rfp__error">{errors.phone}</span>}
                   </div>
                 </div>
 
-                <div className="form-group">
-                  <label htmlFor="category">Category</label>
-                  <select
-                    id="category"
-                    name="category"
-                    value={formData.category}
-                    onChange={handleChange}
-                  >
-                    <option value="">Select your category</option>
-                    <option value="researcher">Researcher/Academic</option>
-                    <option value="farmer">Farmer</option>
-                    <option value="student">Student</option>
-                    <option value="ngo">NGO Representative</option>
-                    <option value="government">Government Official</option>
-                    <option value="private">Private Sector</option>
-                    <option value="media">Media</option>
-                    <option value="other">Other</option>
-                  </select>
-                </div>
-
-                <div className="form-navigation">
-                  <button type="button" className="btn-next" onClick={handleNext}>
-                    Next Step →
-                  </button>
-                </div>
-              </motion.div>
-            )}
-
-            {/* Step 2: Registration Type */}
-            {currentStep === 2 && (
-              <motion.div
-                key="step2"
-                className="form-step"
-                variants={stepVariants}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                transition={{ duration: 0.3 }}
-              >
-                <h2>Select Registration Type</h2>
-                
-                <div className="registration-options">
-                  <label className={`registration-option ${formData.registrationType === 'delegate' ? 'selected' : ''}`}>
-                    <input
-                      type="radio"
-                      name="registrationType"
-                      value="delegate"
-                      checked={formData.registrationType === 'delegate'}
-                      onChange={handleChange}
+                <div className="rfp__row">
+                  {/* ✅ CHANGE 2: Country searchable dropdown */}
+                  <div className="rfp__field">
+                    <label>Country <span className="req">*</span></label>
+                    <CountryDropdown
+                      value={formData.country}
+                      hasError={!!errors.country}
+                      onChange={country => {
+                        setFormData(prev => ({ ...prev, country }));
+                        if (errors.country) setErrors(prev => ({ ...prev, country: undefined }));
+                      }}
+                      onDialCodeChange={dial =>
+                        setFormData(prev => ({ ...prev, dialCode: dial }))
+                      }
                     />
-                    <div className="option-content">
-                      <h3>Delegate</h3>
-                      <p className="option-price">{formatUSD(PRICING.delegate)}</p>
-                      <ul>
-                        <li>Access to all conference sessions</li>
-                        <li>Conference materials & resources</li>
-                        <li>Lunch & refreshments</li>
-                        <li>Certificate of participation</li>
-                      </ul>
-                    </div>
-                  </label>
-
-                  <label className={`registration-option ${formData.registrationType === 'farmer' ? 'selected' : ''}`}>
-                    <input
-                      type="radio"
-                      name="registrationType"
-                      value="farmer"
-                      checked={formData.registrationType === 'farmer'}
-                      onChange={handleChange}
-                    />
-                    <div className="option-content">
-                      <h3>Farmer</h3>
-                      <p className="option-price">{formatUSD(PRICING.farmer)}</p>
-                      <ul>
-                        <li>Access to all conference sessions</li>
-                        <li>Farm-focused workshops</li>
-                        <li>Conference materials</li>
-                        <li>Lunch & refreshments</li>
-                      </ul>
-                    </div>
-                  </label>
-
-                  <label className={`registration-option ${formData.registrationType === 'virtual' ? 'selected' : ''}`}>
-                    <input
-                      type="radio"
-                      name="registrationType"
-                      value="virtual"
-                      checked={formData.registrationType === 'virtual'}
-                      onChange={handleChange}
-                    />
-                    <div className="option-content">
-                      <h3>Virtual Participant</h3>
-                      <p className="option-price">{formatUSD(PRICING.virtual)}</p>
-                      <ul>
-                        <li>Live streaming of all sessions</li>
-                        <li>Virtual networking rooms</li>
-                        <li>Digital conference materials</li>
-                        <li>Digital certificate</li>
-                      </ul>
-                    </div>
-                  </label>
-                </div>
-                
-                {errors.registrationType && <span className="error-text">{errors.registrationType}</span>}
-
-                <div className="form-navigation">
-                  <button type="button" className="btn-prev" onClick={handlePrev}>
-                    ← Previous
-                  </button>
-                  <button type="button" className="btn-next" onClick={handleNext}>
-                    Next Step →
-                  </button>
-                </div>
-              </motion.div>
-            )}
-
-            {/* Step 3: Add-ons */}
-            {currentStep === 3 && (
-              <motion.div
-                key="step3"
-                className="form-step"
-                variants={stepVariants}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                transition={{ duration: 0.3 }}
-              >
-                <h2>Optional Add-ons</h2>
-                
-                <div className="addons-grid">
-                  <label className={`addon-card ${formData.excursion ? 'selected' : ''}`}>
-                    <input
-                      type="checkbox"
-                      name="excursion"
-                      checked={formData.excursion}
-                      onChange={handleChange}
-                    />
-                    <div className="addon-content">
-                      <h3>Field Excursion</h3>
-                      <p className="addon-price">{formatUSD(PRICING.excursion)}</p>
-                      <p className="addon-description">
-                        Visit local agricultural projects and indigenous seed banks. 
-                        Includes transportation and lunch.
-                      </p>
-                    </div>
-                  </label>
-
-                  <label className={`addon-card ${formData.galaDinner ? 'selected' : ''}`}>
-                    <input
-                      type="checkbox"
-                      name="galaDinner"
-                      checked={formData.galaDinner}
-                      onChange={handleChange}
-                    />
-                    <div className="addon-content">
-                      <h3>Gala Dinner</h3>
-                      <p className="addon-price">{formatUSD(PRICING.galaDinner)}</p>
-                      <p className="addon-description">
-                        Formal networking dinner with speakers and delegates. 
-                        Includes dinner and drinks.
-                      </p>
-                    </div>
-                  </label>
-                </div>
-
-                {/* Price Summary */}
-                <div className="price-summary">
-                  <h3>Registration Summary</h3>
-                  <div className="summary-item">
-                    <span>Registration Fee:</span>
-                    <span>{formatUSD(PRICING[formData.registrationType as keyof Pricing] || 0)}</span>
+                    {errors.country && <span className="rfp__error">{errors.country}</span>}
                   </div>
-                  {formData.excursion && (
-                    <div className="summary-item">
-                      <span>Field Excursion:</span>
-                      <span>{formatUSD(PRICING.excursion)}</span>
-                    </div>
-                  )}
-                  {formData.galaDinner && (
-                    <div className="summary-item">
-                      <span>Gala Dinner:</span>
-                      <span>{formatUSD(PRICING.galaDinner)}</span>
-                    </div>
-                  )}
-                  <div className="summary-total">
-                    <span>Total Amount:</span>
-                    <span className="total-price">{formatUSD(calculateTotal())}</span>
-                  </div>
-                </div>
 
-                <div className="form-navigation">
-                  <button type="button" className="btn-prev" onClick={handlePrev}>
-                    ← Previous
-                  </button>
-                  <button type="button" className="btn-next" onClick={handleNext}>
-                    Next Step →
-                  </button>
-                </div>
-              </motion.div>
-            )}
-
-            {/* Step 4: Questions, Currency Converter & Submit */}
-            {currentStep === 4 && (
-              <motion.div
-                key="step4"
-                className="form-step"
-                variants={stepVariants}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                transition={{ duration: 0.3 }}
-              >
-                <h2>Additional Information</h2>
-                
-                <div className="form-group">
-                  <label htmlFor="hearAbout">How did you hear about this conference?</label>
-                  <select
-                    id="hearAbout"
-                    name="hearAbout"
-                    value={formData.hearAbout}
-                    onChange={handleChange}
-                  >
-                    <option value="">Please select</option>
-                    <option value="website">Conference Website</option>
-                    <option value="social">Social Media</option>
-                    <option value="email">Email Newsletter</option>
-                    <option value="colleague">Colleague/Peer</option>
-                    <option value="organization">My Organization</option>
-                    <option value="previous">Previous Attendee</option>
-                    <option value="other">Other</option>
-                  </select>
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="dietaryRestrictions">Do you have any dietary restrictions?</label>
-                  <input
-                    type="text"
-                    id="dietaryRestrictions"
-                    name="dietaryRestrictions"
-                    value={formData.dietaryRestrictions}
-                    onChange={handleChange}
-                    placeholder="e.g., Vegetarian, Halal, Allergies, etc."
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="accommodation">Do you need accommodation assistance?</label>
-                  <select
-                    id="accommodation"
-                    name="accommodation"
-                    value={formData.accommodation}
-                    onChange={handleChange}
-                  >
-                    <option value="">Please select</option>
-                    <option value="yes">Yes, I need accommodation</option>
-                    <option value="no">No, I will arrange my own</option>
-                    <option value="info">Just need information</option>
-                  </select>
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="specialNeeds">Any special needs or accessibility requirements?</label>
-                  <textarea
-                    id="specialNeeds"
-                    name="specialNeeds"
-                    value={formData.specialNeeds}
-                    onChange={handleChange}
-                    rows={3}
-                    placeholder="Please let us know if you have any specific requirements"
-                  />
-                </div>
-
-                {/* Currency Converter Section */}
-                <div className="currency-converter-section">
-                  <h3>🌍 See the Total in Your Local Currency</h3>
-                  
-                  <div className="converter-controls">
-                    <select 
-                      value={selectedCurrency} 
-                      onChange={handleCurrencyChange}
-                      className="currency-select"
-                      disabled={calculateTotal() === 0}
-                    >
-                      {POPULAR_CURRENCIES.map(currency => (
-                        <option key={currency.code} value={currency.code}>
-                          {currency.code} - {currency.name}
-                        </option>
-                      ))}
+                  <div className="rfp__field">
+                    <label htmlFor="category">Category</label>
+                    <select id="category" name="category" value={formData.category} onChange={handleChange}>
+                      <option value="">Select your category</option>
+                      <option value="researcher">Researcher / Academic</option>
+                      <option value="farmer">Farmer</option>
+                      <option value="student">Student</option>
+                      <option value="ngo">NGO Representative</option>
+                      <option value="government">Government Official</option>
+                      <option value="private">Private Sector</option>
+                      <option value="media">Media</option>
+                      <option value="other">Other</option>
                     </select>
-                    
-                    {isConverting && (
-                      <div className="conversion-status">
-                        <span className="rate-spinner"></span>
-                        <span>Getting latest exchange rate...</span>
-                      </div>
-                    )}
                   </div>
-                  
-                  {convertedAmount !== null && selectedCurrency !== 'USD' && !isConverting && (
-                    <div className="converted-amount-display">
-                      <div className="conversion-rate-info">
-                        {exchangeRate && (
-                          <span className="rate-info">
-                            1 USD = {exchangeRate.toFixed(4)} {selectedCurrency}
-                          </span>
-                        )}
-                        {lastUpdated && (
-                          <span className="last-updated">Updated: {lastUpdated}</span>
-                        )}
-                      </div>
-                      
-                      <div className="converted-amount">
-                        <span className="approx-label">≈</span>
-                        <span className="converted-price">
-                          {formatConverted(convertedAmount, selectedCurrency)}
-                        </span>
-                      </div>
-                      
-                      <p className="conversion-note">
-                        * Exchange rates are for reference only. Final payment will be in USD.
-                      </p>
-                    </div>
-                  )}
-                  
-                  {selectedCurrency === 'USD' && (
-                    <div className="usd-note">
-                      <p>Showing prices in USD (default currency)</p>
-                    </div>
-                  )}
                 </div>
 
-                {/* Final Price Summary */}
-                <div className="price-summary final">
+                <div className="rfp__row">
+                  <div className="rfp__field">
+                    <label htmlFor="organization">Organisation / Institution</label>
+                    <input id="organization" name="organization" type="text" value={formData.organization}
+                      onChange={handleChange} placeholder="Where do you work or study?" />
+                  </div>
+                  <div className="rfp__field">
+                    <label htmlFor="position">Position / Title</label>
+                    <input id="position" name="position" type="text" value={formData.position}
+                      onChange={handleChange} placeholder="Your role or title" />
+                  </div>
+                </div>
+
+                <div className="rfp__nav">
+                  <button type="button" className="rfp__btn rfp__btn--next" onClick={handleNext}>
+                    Continue <span>→</span>
+                  </button>
+                </div>
+              </motion.div>
+            )}
+
+            {/* ── STEP 2 ── */}
+            {currentStep === 2 && (
+              <motion.div key="s2" className="rfp__step" variants={stepVariants} initial="hidden" animate="visible" exit="exit">
+                <div className="rfp__step-header">
+                  <span className="rfp__step-num">02</span>
+                  <h2>Select Registration Type</h2>
+                </div>
+
+                <div className="rfp__reg-grid">
+                  {([
+                    { value: 'delegate', label: 'Delegate', price: PRICING.delegate, perks: ['All conference sessions', 'Conference materials', 'Lunch & refreshments', 'Certificate of participation'] },
+                    { value: 'farmer', label: 'Farmer', price: PRICING.farmer, perks: ['All conference sessions', 'Farm-focused workshops', 'Conference materials', 'Lunch & refreshments'] },
+                    { value: 'virtual', label: 'Virtual Participant', price: PRICING.virtual, perks: ['Live streaming of all sessions', 'Virtual networking rooms', 'Digital conference materials', 'Digital certificate'] },
+                    { value: 'student', label: 'Student', price: PRICING.student, perks: ['All conference sessions', 'Student workshops', 'Conference materials', 'Certificate of participation'] },
+                  ] as const).map(opt => (
+                    <label key={opt.value} className={`rfp__reg-card ${formData.registrationType === opt.value ? 'is-selected' : ''}`}>
+                      <input type="radio" name="registrationType" value={opt.value}
+                        checked={formData.registrationType === opt.value} onChange={handleChange} />
+                      <div className="rfp__reg-card-inner">
+                        <div className="rfp__reg-check">{formData.registrationType === opt.value ? '✓' : ''}</div>
+                        <h3>{opt.label}</h3>
+                        <p className="rfp__reg-price">{formatUSD(opt.price)}<span>/person</span></p>
+                        <ul>{opt.perks.map(p => <li key={p}>{p}</li>)}</ul>
+                      </div>
+                    </label>
+                  ))}
+                </div>
+
+                {errors.registrationType && <span className="rfp__error rfp__error--center">{errors.registrationType}</span>}
+
+                <div className="rfp__nav rfp__nav--split">
+                  <button type="button" className="rfp__btn rfp__btn--back" onClick={handlePrev}>← Back</button>
+                  <button type="button" className="rfp__btn rfp__btn--next" onClick={handleNext}>Continue →</button>
+                </div>
+              </motion.div>
+            )}
+
+            {/* ── STEP 3 ── */}
+            {currentStep === 3 && (
+              <motion.div key="s3" className="rfp__step" variants={stepVariants} initial="hidden" animate="visible" exit="exit">
+                <div className="rfp__step-header">
+                  <span className="rfp__step-num">03</span>
+                  <h2>Optional Add-ons</h2>
+                </div>
+
+                <div className="rfp__addons">
+                  {([
+                    { name: 'excursion', label: 'Field Excursion', price: PRICING.excursion, desc: 'Visit local agricultural projects and indigenous seed banks. Includes guided transportation and lunch.', icon: '🌱' },
+                    { name: 'galaDinner', label: 'Gala Dinner', price: PRICING.galaDinner, desc: 'Formal networking dinner with keynote speakers and delegates. Includes dinner and welcome drinks.', icon: '🍽️' },
+                  ] as const).map(addon => (
+                    <label key={addon.name} className={`rfp__addon-card ${formData[addon.name] ? 'is-selected' : ''}`}>
+                      <input type="checkbox" name={addon.name} checked={formData[addon.name]} onChange={handleChange} />
+                      <div className="rfp__addon-inner">
+                        <div className="rfp__addon-icon">{addon.icon}</div>
+                        <div className="rfp__addon-body">
+                          <div className="rfp__addon-top">
+                            <h3>{addon.label}</h3>
+                            <p className="rfp__addon-price">{formatUSD(addon.price)}</p>
+                          </div>
+                          <p className="rfp__addon-desc">{addon.desc}</p>
+                        </div>
+                        <div className={`rfp__addon-check ${formData[addon.name] ? 'is-checked' : ''}`}>✓</div>
+                      </div>
+                    </label>
+                  ))}
+                </div>
+
+                <div className="rfp__summary">
                   <h3>Registration Summary</h3>
-                  <div className="summary-item">
-                    <span>Registration Type:</span>
-                    <span className="capitalize">{formData.registrationType || 'Not selected'}</span>
+                  <div className="rfp__summary-rows">
+                    <div className="rfp__summary-row">
+                      <span>{formData.registrationType ? formData.registrationType.charAt(0).toUpperCase() + formData.registrationType.slice(1) : 'No type selected'} Registration</span>
+                      <span>{formatUSD(PRICING[formData.registrationType as keyof Pricing] || 0)}</span>
+                    </div>
+                    {formData.excursion && <div className="rfp__summary-row"><span>Field Excursion</span><span>{formatUSD(PRICING.excursion)}</span></div>}
+                    {formData.galaDinner && <div className="rfp__summary-row"><span>Gala Dinner</span><span>{formatUSD(PRICING.galaDinner)}</span></div>}
                   </div>
-                  <div className="summary-item">
-                    <span>Base Fee (USD):</span>
-                    <span>{formatUSD(PRICING[formData.registrationType as keyof Pricing] || 0)}</span>
+                  <div className="rfp__summary-total">
+                    <span>Total</span>
+                    <span className="rfp__total-val">{formatUSD(calculateTotal())}</span>
                   </div>
-                  {formData.excursion && (
-                    <div className="summary-item">
-                      <span>+ Field Excursion:</span>
-                      <span>{formatUSD(PRICING.excursion)}</span>
+                </div>
+
+                <div className="rfp__nav rfp__nav--split">
+                  <button type="button" className="rfp__btn rfp__btn--back" onClick={handlePrev}>← Back</button>
+                  <button type="button" className="rfp__btn rfp__btn--next" onClick={handleNext}>Continue →</button>
+                </div>
+              </motion.div>
+            )}
+
+            {/* ── STEP 4 ── */}
+            {currentStep === 4 && (
+              <motion.div key="s4" className="rfp__step" variants={stepVariants} initial="hidden" animate="visible" exit="exit">
+                <div className="rfp__step-header">
+                  <span className="rfp__step-num">04</span>
+                  <h2>Additional Information</h2>
+                </div>
+
+                <div className="rfp__row">
+                  <div className="rfp__field">
+                    <label htmlFor="hearAbout">How did you hear about this conference?</label>
+                    <select id="hearAbout" name="hearAbout" value={formData.hearAbout} onChange={handleChange}>
+                      <option value="">Please select</option>
+                      <option value="website">Conference Website</option>
+                      <option value="social">Social Media</option>
+                      <option value="email">Email Newsletter</option>
+                      <option value="colleague">Colleague / Peer</option>
+                      <option value="organization">My Organisation</option>
+                      <option value="previous">Previous Attendee</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+                  <div className="rfp__field">
+                    <label htmlFor="accommodation">Accommodation assistance?</label>
+                    <select id="accommodation" name="accommodation" value={formData.accommodation} onChange={handleChange}>
+                      <option value="">Please select</option>
+                      <option value="yes">Yes, I need accommodation</option>
+                      <option value="no">No, I will arrange my own</option>
+                      <option value="info">Just need information</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="rfp__field">
+                  <label htmlFor="dietaryRestrictions">Dietary restrictions or allergies</label>
+                  <input id="dietaryRestrictions" name="dietaryRestrictions" type="text"
+                    value={formData.dietaryRestrictions} onChange={handleChange}
+                    placeholder="e.g. Vegetarian, Halal, nut allergy..." />
+                </div>
+
+                <div className="rfp__field">
+                  <label htmlFor="specialNeeds">Special needs or accessibility requirements</label>
+                  <textarea id="specialNeeds" name="specialNeeds" rows={3}
+                    value={formData.specialNeeds} onChange={handleChange}
+                    placeholder="Please let us know so we can make arrangements for you." />
+                </div>
+
+                {/* ✅ CHANGE 3: Currency converter using frankfurter.app */}
+                <div className="rfp__currency">
+                  <div className="rfp__currency-header">
+                    <span className="rfp__currency-globe">🌍</span>
+                    <div>
+                      <h3>See total in your local currency</h3>
+                      <p>For reference only — payment is processed in USD</p>
+                    </div>
+                  </div>
+                  <select className="rfp__currency-select" value={selectedCurrency}
+                    onChange={e => setSelectedCurrency(e.target.value)} disabled={calculateTotal() === 0}>
+                    {POPULAR_CURRENCIES.map(c => (
+                      <option key={c.code} value={c.code}>{c.code} — {c.name}</option>
+                    ))}
+                  </select>
+                  {isConverting && (
+                    <div className="rfp__currency-loading">
+                      <span className="rfp__spinner" /> Fetching live rate…
                     </div>
                   )}
-                  {formData.galaDinner && (
-                    <div className="summary-item">
-                      <span>+ Gala Dinner:</span>
-                      <span>{formatUSD(PRICING.galaDinner)}</span>
-                    </div>
-                  )}
-                  <div className="summary-total">
-                    <span>Total in USD:</span>
-                    <span className="total-price">{formatUSD(calculateTotal())}</span>
-                  </div>
-                  
-                  {convertedAmount !== null && selectedCurrency !== 'USD' && (
-                    <div className="summary-converted">
-                      <span>Approx. in {selectedCurrency}:</span>
-                      <span className="converted-total">
-                        {formatConverted(convertedAmount, selectedCurrency)}
-                      </span>
+                  {!isConverting && convertedAmount !== null && selectedCurrency !== 'USD' && (
+                    <div className="rfp__currency-result">
+                      <div className="rfp__currency-meta">
+                        {exchangeRate && <span>1 USD = {exchangeRate.toFixed(2)} {selectedCurrency}</span>}
+                        {lastUpdated && <span>Updated {lastUpdated}</span>}
+                      </div>
+                      <div className="rfp__currency-amount">
+                        ≈ <strong>{formatConverted(convertedAmount, selectedCurrency)}</strong>
+                      </div>
                     </div>
                   )}
                 </div>
 
-                <div className="form-group checkbox">
-                  <label className="checkbox-label">
-                    <input
-                      type="checkbox"
-                      name="consent"
-                      checked={formData.consent}
-                      onChange={handleChange}
-                    />
-                    <span className="checkbox-text">
-                      I confirm that the information provided is accurate and I agree to the 
-                      <a href="/terms"> Terms & Conditions</a> and 
-                      <a href="/privacy"> Privacy Policy</a>.
-                    </span>
-                  </label>
-                  {errors.consent && <span className="error-text">{errors.consent}</span>}
+                {/* FINAL SUMMARY */}
+                <div className="rfp__summary rfp__summary--final">
+                  <h3>Order Summary</h3>
+                  <div className="rfp__summary-rows">
+                    <div className="rfp__summary-row">
+                      <span>{formData.registrationType || 'No type'} registration</span>
+                      <span>{formatUSD(PRICING[formData.registrationType as keyof Pricing] || 0)}</span>
+                    </div>
+                    {formData.excursion && <div className="rfp__summary-row"><span>Field excursion</span><span>{formatUSD(PRICING.excursion)}</span></div>}
+                    {formData.galaDinner && <div className="rfp__summary-row"><span>Gala dinner</span><span>{formatUSD(PRICING.galaDinner)}</span></div>}
+                  </div>
+                  <div className="rfp__summary-total">
+                    <span>Total (USD)</span>
+                    <span className="rfp__total-val">{formatUSD(calculateTotal())}</span>
+                  </div>
+                  {convertedAmount !== null && selectedCurrency !== 'USD' && (
+                    <div className="rfp__summary-converted">
+                      <span>≈ {formatConverted(convertedAmount, selectedCurrency)}</span>
+                    </div>
+                  )}
                 </div>
+
+                <label className={`rfp__consent ${errors.consent ? 'has-error' : ''}`}>
+                  <input type="checkbox" name="consent" checked={formData.consent} onChange={handleChange} />
+                  <span>
+                    I confirm the information provided is accurate and I agree to the{' '}
+                    <a href="/terms">Terms & Conditions</a> and <a href="/privacy">Privacy Policy</a>.
+                  </span>
+                </label>
+                {errors.consent && <span className="rfp__error">{errors.consent}</span>}
 
                 {submitStatus === 'error' && (
-                  <div className="submit-message error">
-                    <span>⚠️</span>
-                    <span>{submitMessage}</span>
-                  </div>
+                  <div className="rfp__alert rfp__alert--error">⚠️ {submitMessage}</div>
                 )}
 
-                {submitStatus === 'success' && (
-                  <div className="submit-message success">
-                    <span>✅</span>
-                    <span>{submitMessage}</span>
-                  </div>
-                )}
-
-                <div className="form-navigation">
-                  <button type="button" className="btn-prev" onClick={handlePrev}>
-                    ← Previous
-                  </button>
-                  <button 
-                    type="submit" 
-                    className="btn-submit"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? (
-                      <>
-                        <span className="spinner"></span>
-                        Processing...
-                      </>
-                    ) : (
-                      'Complete Registration'
-                    )}
+                <div className="rfp__nav rfp__nav--split">
+                  <button type="button" className="rfp__btn rfp__btn--back" onClick={handlePrev}>← Back</button>
+                  <button type="submit" className="rfp__btn rfp__btn--submit" disabled={isSubmitting}>
+                    {isSubmitting ? <><span className="rfp__spinner rfp__spinner--white" /> Processing…</> : 'Pay & Register →'}
                   </button>
                 </div>
               </motion.div>
             )}
+
           </AnimatePresence>
         </form>
       </div>
