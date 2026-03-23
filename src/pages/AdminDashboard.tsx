@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useAuth } from "../hooks/useAuth";
 import "../styles/AdminDashboard.css";
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "https://conference-backend-m5hq.onrender.com";
 
 interface Stats {
   registrations: { total: number; paid: number; pending: number; failed: number; checkedIn: number };

@@ -4,7 +4,7 @@ import { Html5Qrcode } from "html5-qrcode";
 import { useAuth } from "../hooks/useAuth";
 import "../styles/CheckIn.css";
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "https://conference-backend-m5hq.onrender.com";
 
 interface Participant {
   id: string;
