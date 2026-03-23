@@ -10,6 +10,9 @@ import RegistrationAbstractPage from "./pages/RegistrationAbstractPage";
 import RegistrationForm from "./components/RegistrationForm";
 import RegistrationSuccess from "./pages/RegistrationSuccess";
 import ContactPage from "./pages/ContactPage";
+import PaymentSuccess from "./pages/PaymentSuccess";
+import CheckIn from "./pages/CheckIn";
+import AdminDashboard from "./pages/AdminDashboard";
 
 function App() {
   return (
@@ -24,6 +27,9 @@ function App() {
       <Route path="/registration-abstract" element={<RegistrationAbstractPage />} />
       <Route path="/register" element={<RegistrationForm />} />
       <Route path="/registration-success" element={<RegistrationSuccess />} />
+      <Route path="/payment-success" element={<PaymentSuccess />} />
+      <Route path="/checkin" element={<CheckIn />} />
+      <Route path="/admin" element={<AdminDashboard />} />
       <Route path="/contact" element={<ContactPage />} />
 
     </Routes>
