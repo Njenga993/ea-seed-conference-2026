@@ -173,7 +173,7 @@ interface Pricing {
 // ─────────────────────────────────────────────
 const STORAGE_KEY = "ea_seed_reg_form";
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "https://conference-backend-m5hq.onrender.com";
 
 // ─────────────────────────────────────────────
 // COUNTRY SEARCH DROPDOWN COMPONENT
@@ -256,7 +256,7 @@ const RegistrationForm = () => {
     if (type.includes('delegate')) return 'delegate';
     if (type.includes('farmer')) return 'farmer';
     if (type.includes('virtual')) return 'virtual';
-    if (type.includes('student')) return 'student';
+    
     return '';
   };
 
@@ -635,7 +635,7 @@ const RegistrationForm = () => {
                     { value: 'delegate', label: 'Delegate', price: PRICING.delegate, perks: ['All conference sessions', 'Conference materials', 'Lunch & refreshments', 'Certificate of participation'] },
                     { value: 'farmer', label: 'Farmer', price: PRICING.farmer, perks: ['All conference sessions', 'Farm-focused workshops', 'Conference materials', 'Lunch & refreshments'] },
                     { value: 'virtual', label: 'Virtual Participant', price: PRICING.virtual, perks: ['Live streaming of all sessions', 'Virtual networking rooms', 'Digital conference materials', 'Digital certificate'] },
-                    { value: 'student', label: 'Student', price: PRICING.student, perks: ['All conference sessions', 'Student workshops', 'Conference materials', 'Certificate of participation'] },
+      
                   ] as const).map(opt => (
                     <label key={opt.value} className={`rfp__reg-card ${formData.registrationType === opt.value ? 'is-selected' : ''}`}>
                       <input type="radio" name="registrationType" value={opt.value}
