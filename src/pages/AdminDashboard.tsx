@@ -13,28 +13,28 @@ interface Stats {
 
 interface Participant {
   id: string;
-  fullName: string;
+  fullname: string;              // was fullName
   email: string;
   phone: string;
-  dialCode: string;
+  dialcode: string;              // was dialCode
   country: string;
   organization: string;
   position: string;
   category: string;
-  registrationType: string;
+  registrationtype: string;      // was registrationType
   amount: number;
-  paymentStatus: string;
-  paymentReference: string;
-  checkedIn: number;
-  checkedInAt: string | null;
-  checkedInBy: string | null;
-  excursion: number;
-  galaDinner: number;
-  hearAbout: string;
-  dietaryRestrictions: string;
+  paymentstatus: string;         // was paymentStatus
+  paymentreference: string;      // was paymentReference
+  checkedin: number;             // was checkedIn (0 or 1)
+  checkedinat: string | null;    // was checkedInAt
+  checkedinby: string | null;    // was checkedInBy
+  excursion: number;             // 0 or 1
+  galadinner: number;            // was galaDinner (0 or 1)
+  hearabout: string;             // was hearAbout
+  dietaryrestrictions: string;   // was dietaryRestrictions
   accommodation: string;
-  specialNeeds: string;
-  createdAt: string;
+  specialneeds: string;          // was specialNeeds
+  createdat: string;             // was createdAt
 }
 
 const TYPE_COLORS: Record<string, string> = {
@@ -169,13 +169,18 @@ const AdminDashboard = () => {
     if (!searchQuery) return true;
     const q = searchQuery.toLowerCase();
     return (
-      p.fullName?.toLowerCase().includes(q) ||
+      p.fullname?.toLowerCase().includes(q) ||
       p.email?.toLowerCase().includes(q) ||
       p.country?.toLowerCase().includes(q) ||
       p.organization?.toLowerCase().includes(q) ||
       p.phone?.toLowerCase().includes(q)
     );
   });
+
+  // Helper to convert numeric boolean (0/1) to boolean
+  const isCheckedIn = (checkedin: number) => checkedin === 1;
+  const hasExcursion = (excursion: number) => excursion === 1;
+  const hasGalaDinner = (galadinner: number) => galadinner === 1;
 
   // ── LOADING ──────────────────────────────────────
   if (authLoading) {
@@ -362,8 +367,8 @@ const AdminDashboard = () => {
                   {filtered.map(p => (
                     <React.Fragment key={p.id}>
                       {/* MAIN ROW */}
-                      <tr className={p.checkedIn ? "adm__row--checkedin" : ""}>
-                        <td>
+                      <tr className={isCheckedIn(p.checkedin) ? "adm__row--checkedin" : ""}>
+                        <td className="adm__cell-name-cell">
                           <button
                             className="adm__expand-btn"
                             onClick={() => setExpandedId(expandedId === p.id ? null : p.id)}
@@ -371,31 +376,33 @@ const AdminDashboard = () => {
                           >
                             {expandedId === p.id ? "▼" : "▶"}
                           </button>
-                          <div className="adm__cell-name">{p.fullName}</div>
-                          <div className="adm__cell-email">{p.email}</div>
+                          <div className="adm__cell-name">
+                            <div className="adm__cell-name-text">{p.fullname}</div>
+                            <div className="adm__cell-email">{p.email}</div>
+                          </div>
                         </td>
                         <td>
-                          <span className="adm__badge" style={{ background: TYPE_COLORS[p.registrationType] || "#888" }}>
-                            {p.registrationType}
+                          <span className="adm__badge" style={{ background: TYPE_COLORS[p.registrationtype] || "#888" }}>
+                            {p.registrationtype}
                           </span>
                         </td>
                         <td>
                           <div className="adm__cell-muted">{p.country}</div>
-                          <div className="adm__cell-muted">{p.organization}</div>
+                          <div className="adm__cell-muted adm__cell-org">{p.organization}</div>
                         </td>
                         <td>
-                          <span className={`adm__status adm__status--${p.paymentStatus}`}>
-                            {p.paymentStatus}
+                          <span className={`adm__status adm__status--${p.paymentstatus}`}>
+                            {p.paymentstatus}
                           </span>
                         </td>
                         <td>
-                          {p.checkedIn ? (
+                          {isCheckedIn(p.checkedin) ? (
                             <div>
                               <span className="adm__status adm__status--checkedin">✓ In</span>
-                              {p.checkedInAt && (
+                              {p.checkedinat && (
                                 <div className="adm__cell-time">
-                                  {new Date(p.checkedInAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
-                                  {p.checkedInBy ? ` · ${p.checkedInBy}` : ""}
+                                  {new Date(p.checkedinat).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                                  {p.checkedinby ? ` · ${p.checkedinby}` : ""}
                                 </div>
                               )}
                             </div>
@@ -406,7 +413,7 @@ const AdminDashboard = () => {
                         <td className="adm__cell-amount">${p.amount}</td>
                         <td>
                           <div className="adm__actions">
-                            {p.paymentStatus === "paid" && (
+                            {p.paymentstatus === "paid" && (
                               <button 
                                 className="adm__action-btn adm__action-btn--resend"
                                 onClick={() => handleResend(p.id)} 
@@ -415,7 +422,7 @@ const AdminDashboard = () => {
                                 {resendingId === p.id ? "…" : "Resend"}
                               </button>
                             )}
-                            {p.paymentStatus === "paid" && (
+                            {p.paymentstatus === "paid" && (
                               <a 
                                 className="adm__action-btn adm__action-btn--view"
                                 href={`${BACKEND_URL}/ticket/${p.id}`} 
@@ -425,7 +432,7 @@ const AdminDashboard = () => {
                                 View
                               </a>
                             )}
-                            {p.checkedIn ? (
+                            {isCheckedIn(p.checkedin) ? (
                               <button 
                                 className="adm__action-btn adm__action-btn--undo"
                                 onClick={() => handleUndoCheckin(p.id)}
@@ -448,7 +455,7 @@ const AdminDashboard = () => {
                                   <h4 className="adm__detail-heading">📱 Contact</h4>
                                   <div className="adm__detail-item">
                                     <span className="adm__detail-label">Phone</span>
-                                    <span className="adm__detail-value">{p.dialCode || ""} {p.phone || "—"}</span>
+                                    <span className="adm__detail-value">{p.dialcode || ""} {p.phone || "—"}</span>
                                   </div>
                                   <div className="adm__detail-item">
                                     <span className="adm__detail-label">Email</span>
@@ -478,11 +485,11 @@ const AdminDashboard = () => {
                                   <h4 className="adm__detail-heading">🎯 Preferences</h4>
                                   <div className="adm__detail-item">
                                     <span className="adm__detail-label">Heard about us</span>
-                                    <span className="adm__detail-value">{p.hearAbout || "—"}</span>
+                                    <span className="adm__detail-value">{p.hearabout || "—"}</span>
                                   </div>
                                   <div className="adm__detail-item">
                                     <span className="adm__detail-label">Dietary restrictions</span>
-                                    <span className="adm__detail-value">{p.dietaryRestrictions || "—"}</span>
+                                    <span className="adm__detail-value">{p.dietaryrestrictions || "—"}</span>
                                   </div>
                                   <div className="adm__detail-item">
                                     <span className="adm__detail-label">Accommodation</span>
@@ -495,18 +502,18 @@ const AdminDashboard = () => {
                                   <h4 className="adm__detail-heading">💳 Payment</h4>
                                   <div className="adm__detail-item">
                                     <span className="adm__detail-label">Payment Status</span>
-                                    <span className={`adm__detail-value adm__detail-status adm__detail-status--${p.paymentStatus}`}>
-                                      {p.paymentStatus}
+                                    <span className={`adm__detail-value adm__detail-status adm__detail-status--${p.paymentstatus}`}>
+                                      {p.paymentstatus}
                                     </span>
                                   </div>
                                   <div className="adm__detail-item">
                                     <span className="adm__detail-label">Payment Ref</span>
-                                    <span className="adm__detail-value adm__mono">{p.paymentReference || "—"}</span>
+                                    <span className="adm__detail-value adm__mono">{p.paymentreference || "—"}</span>
                                   </div>
                                   <div className="adm__detail-item">
                                     <span className="adm__detail-label">Registered</span>
                                     <span className="adm__detail-value">
-                                      {p.createdAt ? new Date(p.createdAt).toLocaleDateString() : "—"}
+                                      {p.createdat ? new Date(p.createdat).toLocaleDateString() : "—"}
                                     </span>
                                   </div>
                                 </div>
@@ -516,18 +523,18 @@ const AdminDashboard = () => {
                                   <h4 className="adm__detail-heading">♿ Accessibility</h4>
                                   <div className="adm__detail-item">
                                     <span className="adm__detail-label">Special needs</span>
-                                    <span className="adm__detail-value">{p.specialNeeds || "—"}</span>
+                                    <span className="adm__detail-value">{p.specialneeds || "—"}</span>
                                   </div>
                                 </div>
                               </div>
 
                               {/* Add-ons Summary */}
-                              {(p.excursion || p.galaDinner) && (
+                              {(hasExcursion(p.excursion) || hasGalaDinner(p.galadinner)) && (
                                 <div className="adm__addons-summary">
                                   <h4 className="adm__detail-heading">✨ Add-ons</h4>
                                   <div className="adm__addon-list">
-                                    {p.excursion && <span className="adm__addon-tag">🌱 Field Excursion</span>}
-                                    {p.galaDinner && <span className="adm__addon-tag">🍽️ Gala Dinner</span>}
+                                    {hasExcursion(p.excursion) && <span className="adm__addon-tag">🌱 Field Excursion</span>}
+                                    {hasGalaDinner(p.galadinner) && <span className="adm__addon-tag">🍽️ Gala Dinner</span>}
                                   </div>
                                 </div>
                               )}
