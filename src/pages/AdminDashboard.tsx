@@ -1,4 +1,4 @@
-// pages/AdminDashboard.tsx
+// pages/AdminDashboard-UPDATED.tsx
 import { useState, useEffect, useCallback } from "react";
 import { useAuth } from "../hooks/useAuth";
 import "../styles/AdminDashboard.css";
@@ -16,16 +16,24 @@ interface Participant {
   fullName: string;
   email: string;
   phone: string;
+  dialCode: string;
   country: string;
   organization: string;
+  position: string;
+  category: string;
   registrationType: string;
   amount: number;
   paymentStatus: string;
+  paymentReference: string;
   checkedIn: number;
   checkedInAt: string | null;
   checkedInBy: string | null;
   excursion: number;
   galaDinner: number;
+  hearAbout: string;
+  dietaryRestrictions: string;
+  accommodation: string;
+  specialNeeds: string;
   createdAt: string;
 }
 
@@ -51,6 +59,9 @@ const AdminDashboard = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [resendingId, setResendingId] = useState<string | null>(null);
   const [toast, setToast] = useState("");
+  
+  // ✅ NEW: Track which participant is expanded for detailed view
+  const [expandedId, setExpandedId] = useState<string | null>(null);
 
   const showToast = (msg: string) => {
     setToast(msg);
@@ -131,9 +142,10 @@ const AdminDashboard = () => {
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = "participants.csv";
+      a.download = `participants-${new Date().toISOString().split('T')[0]}.csv`;
       a.click();
       URL.revokeObjectURL(url);
+      showToast("✅ CSV exported");
     } catch { showToast("❌ Export failed"); }
   };
 
@@ -144,7 +156,8 @@ const AdminDashboard = () => {
       p.fullName?.toLowerCase().includes(q) ||
       p.email?.toLowerCase().includes(q) ||
       p.country?.toLowerCase().includes(q) ||
-      p.organization?.toLowerCase().includes(q)
+      p.organization?.toLowerCase().includes(q) ||
+      p.phone?.toLowerCase().includes(q)
     );
   });
 
@@ -188,9 +201,6 @@ const AdminDashboard = () => {
           >
             {loginLoading ? <><span className="adm__spinner adm__spinner--sm" /> Signing in…</> : "Sign in"}
           </button>
-          <p className="adm__login-hint">
-            Staff members: use your staff password to access the check-in page at <strong>/checkin</strong>
-          </p>
         </div>
       </div>
     );
@@ -203,7 +213,6 @@ const AdminDashboard = () => {
         <div className="adm__role-error">
           <h2>Access restricted</h2>
           <p>You are logged in as <strong>{role}</strong>. The admin dashboard requires an admin account.</p>
-          <p>Staff members should use the <a href="/checkin">check-in page</a>.</p>
           <button className="adm__btn adm__btn--outline" onClick={logout}>Sign out</button>
         </div>
       </div>
@@ -281,7 +290,7 @@ const AdminDashboard = () => {
           <input
             className="adm__input adm__input--search"
             type="text"
-            placeholder="Search name, email, country…"
+            placeholder="Search name, email, country, phone…"
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
           />
@@ -299,7 +308,6 @@ const AdminDashboard = () => {
             <option value="farmer">Farmer</option>
             <option value="virtual">Virtual</option>
             <option value="student">Student</option>
-            <option value="vip">VIP</option>
           </select>
           <button className="adm__btn adm__btn--apply" onClick={loadData}>Apply</button>
         </div>
@@ -311,82 +319,182 @@ const AdminDashboard = () => {
           ) : filtered.length === 0 ? (
             <div className="adm__empty">No participants found.</div>
           ) : (
-            <table className="adm__table">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Type</th>
-                  <th>Country</th>
-                  <th>Status</th>
-                  <th>Check-in</th>
-                  <th>Amount</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filtered.map(p => (
-                  <tr key={p.id} className={p.checkedIn ? "adm__row--checkedin" : ""}>
-                    <td>
-                      <div className="adm__cell-name">{p.fullName}</div>
-                      <div className="adm__cell-email">{p.email}</div>
-                    </td>
-                    <td>
-                      <span className="adm__badge" style={{ background: TYPE_COLORS[p.registrationType] || "#888" }}>
-                        {p.registrationType}
-                      </span>
-                    </td>
-                    <td>
-                      <div className="adm__cell-muted">{p.country}</div>
-                      <div className="adm__cell-muted">{p.organization}</div>
-                    </td>
-                    <td>
-                      <span className={`adm__status adm__status--${p.paymentStatus}`}>{p.paymentStatus}</span>
-                    </td>
-                    <td>
-                      {p.checkedIn ? (
-                        <div>
-                          <span className="adm__status adm__status--checkedin">✓ In</span>
-                          {p.checkedInAt && (
-                            <div className="adm__cell-time">
-                              {new Date(p.checkedInAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
-                              {p.checkedInBy ? ` · ${p.checkedInBy}` : ""}
-                            </div>
-                          )}
-                        </div>
-                      ) : (
-                        <span className="adm__status adm__status--pending">Not yet</span>
-                      )}
-                    </td>
-                    <td className="adm__cell-amount">${p.amount}</td>
-                    <td>
-                      <div className="adm__actions">
-                        {p.paymentStatus === "paid" && (
-                          <button className="adm__action-btn adm__action-btn--resend"
-                            onClick={() => handleResend(p.id)} disabled={resendingId === p.id}>
-                            {resendingId === p.id ? "…" : "Resend"}
-                          </button>
-                        )}
-                        {p.paymentStatus === "paid" && (
-                          <a className="adm__action-btn adm__action-btn--view"
-                            href={`${BACKEND_URL}/ticket/${p.id}`} target="_blank" rel="noopener noreferrer">
-                            View
-                          </a>
-                        )}
-                        {p.checkedIn ? (
-                          <button className="adm__action-btn adm__action-btn--undo"
-                            onClick={() => handleUndoCheckin(p.id)}>
-                            Undo
-                          </button>
-                        ) : null}
-                      </div>
-                    </td>
+            <>
+              <table className="adm__table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Country</th>
+                    <th>Status</th>
+                    <th>Check-in</th>
+                    <th>Amount</th>
+                    <th>Actions</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {filtered.map(p => (
+                    <>
+                      {/* Main Row */}
+                      <tr key={p.id} className={p.checkedIn ? "adm__row--checkedin" : ""}>
+                        <td>
+                          <button
+                            className="adm__expand-btn"
+                            onClick={() => setExpandedId(expandedId === p.id ? null : p.id)}
+                            title="Click to expand details"
+                          >
+                            {expandedId === p.id ? "▼" : "▶"}
+                          </button>
+                          <div className="adm__cell-name">{p.fullName}</div>
+                          <div className="adm__cell-email">{p.email}</div>
+                        </td>
+                        <td>
+                          <span className="adm__badge" style={{ background: TYPE_COLORS[p.registrationType] || "#888" }}>
+                            {p.registrationType}
+                          </span>
+                        </td>
+                        <td>
+                          <div className="adm__cell-muted">{p.country}</div>
+                          <div className="adm__cell-muted">{p.organization}</div>
+                        </td>
+                        <td>
+                          <span className={`adm__status adm__status--${p.paymentStatus}`}>{p.paymentStatus}</span>
+                        </td>
+                        <td>
+                          {p.checkedIn ? (
+                            <div>
+                              <span className="adm__status adm__status--checkedin">✓ In</span>
+                              {p.checkedInAt && (
+                                <div className="adm__cell-time">
+                                  {new Date(p.checkedInAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                                  {p.checkedInBy ? ` · ${p.checkedInBy}` : ""}
+                                </div>
+                              )}
+                            </div>
+                          ) : (
+                            <span className="adm__status adm__status--pending">Not yet</span>
+                          )}
+                        </td>
+                        <td className="adm__cell-amount">${p.amount}</td>
+                        <td>
+                          <div className="adm__actions">
+                            {p.paymentStatus === "paid" && (
+                              <button className="adm__action-btn adm__action-btn--resend"
+                                onClick={() => handleResend(p.id)} disabled={resendingId === p.id}>
+                                {resendingId === p.id ? "…" : "Resend"}
+                              </button>
+                            )}
+                            {p.paymentStatus === "paid" && (
+                              <a className="adm__action-btn adm__action-btn--view"
+                                href={`${BACKEND_URL}/ticket/${p.id}`} target="_blank" rel="noopener noreferrer">
+                                View
+                              </a>
+                            )}
+                            {p.checkedIn ? (
+                              <button className="adm__action-btn adm__action-btn--undo"
+                                onClick={() => handleUndoCheckin(p.id)}>
+                                Undo
+                              </button>
+                            ) : null}
+                          </div>
+                        </td>
+                      </tr>
+
+                      {/* ✅ EXPANDED DETAILS ROW */}
+                      {expandedId === p.id && (
+                        <tr className="adm__expanded-row">
+                          <td colSpan={7}>
+                            <div className="adm__expanded-content">
+                              <div className="adm__detail-grid">
+                                {/* Column 1: Contact Info */}
+                                <div className="adm__detail-col">
+                                  <h4>Contact Information</h4>
+                                  <div className="adm__detail-item">
+                                    <span className="adm__detail-label">Phone</span>
+                                    <span className="adm__detail-value">{p.dialCode || ""} {p.phone || "—"}</span>
+                                  </div>
+                                  <div className="adm__detail-item">
+                                    <span className="adm__detail-label">Email</span>
+                                    <span className="adm__detail-value">{p.email}</span>
+                                  </div>
+                                </div>
+
+                                {/* Column 2: Professional Info */}
+                                <div className="adm__detail-col">
+                                  <h4>Professional</h4>
+                                  <div className="adm__detail-item">
+                                    <span className="adm__detail-label">Organization</span>
+                                    <span className="adm__detail-value">{p.organization || "—"}</span>
+                                  </div>
+                                  <div className="adm__detail-item">
+                                    <span className="adm__detail-label">Position</span>
+                                    <span className="adm__detail-value">{p.position || "—"}</span>
+                                  </div>
+                                  <div className="adm__detail-item">
+                                    <span className="adm__detail-label">Category</span>
+                                    <span className="adm__detail-value">{p.category || "—"}</span>
+                                  </div>
+                                </div>
+
+                                {/* Column 3: Preferences */}
+                                <div className="adm__detail-col">
+                                  <h4>Preferences</h4>
+                                  <div className="adm__detail-item">
+                                    <span className="adm__detail-label">Heard about us</span>
+                                    <span className="adm__detail-value">{p.hearAbout || "—"}</span>
+                                  </div>
+                                  <div className="adm__detail-item">
+                                    <span className="adm__detail-label">Dietary restrictions</span>
+                                    <span className="adm__detail-value">{p.dietaryRestrictions || "—"}</span>
+                                  </div>
+                                  <div className="adm__detail-item">
+                                    <span className="adm__detail-label">Accommodation</span>
+                                    <span className="adm__detail-value">{p.accommodation || "—"}</span>
+                                  </div>
+                                </div>
+
+                                {/* Column 4: Special Needs & Payment */}
+                                <div className="adm__detail-col">
+                                  <h4>Additional Info</h4>
+                                  <div className="adm__detail-item">
+                                    <span className="adm__detail-label">Special needs</span>
+                                    <span className="adm__detail-value">{p.specialNeeds || "—"}</span>
+                                  </div>
+                                  <div className="adm__detail-item">
+                                    <span className="adm__detail-label">Payment Ref</span>
+                                    <span className="adm__detail-value adm__mono">{p.paymentReference || "—"}</span>
+                                  </div>
+                                  <div className="adm__detail-item">
+                                    <span className="adm__detail-label">Registered</span>
+                                    <span className="adm__detail-value">
+                                      {p.createdAt ? new Date(p.createdAt).toLocaleDateString() : "—"}
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+
+                              {/* Add-ons Summary */}
+                              {(p.excursion || p.galaDinner) && (
+                                <div className="adm__addons-summary">
+                                  <h4>Add-ons</h4>
+                                  <div className="adm__addon-list">
+                                    {p.excursion && <span className="adm__addon-tag">🌱 Field Excursion</span>}
+                                    {p.galaDinner && <span className="adm__addon-tag">🍽️ Gala Dinner</span>}
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          </td>
+                        </tr>
+                      )}
+                    </>
+                  ))}
+                </tbody>
+              </table>
+              <p className="adm__count">Showing {filtered.length} of {participants.length} participants</p>
+            </>
           )}
         </div>
-        <p className="adm__count">Showing {filtered.length} of {participants.length} participants</p>
       </div>
     </div>
   );
