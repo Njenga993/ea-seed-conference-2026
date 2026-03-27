@@ -669,8 +669,8 @@ const RegistrationForm = () => {
 
                 <div className="rfp__addons">
                   {([
-                    { name: 'excursion', label: 'Field Excursion', price: PRICING.excursion, desc: 'Visit local agricultural projects and indigenous seed banks. Includes guided transportation and lunch.', icon: '🌱' },
-                    { name: 'galaDinner', label: 'Gala Dinner', price: PRICING.galaDinner, desc: 'Formal networking dinner with keynote speakers and delegates. Includes dinner and welcome drinks.', icon: '🍽️' },
+                    { name: 'excursion', label: 'Field Excursion', price: PRICING.excursion, desc: 'Visit local agricultural projects and indigenous seed banks. Includes guided transportation and lunch.', icon: '' },
+                    { name: 'galaDinner', label: 'Gala Dinner', price: PRICING.galaDinner, desc: 'Formal networking dinner with keynote speakers and delegates. Includes dinner and welcome drinks.', icon: '' },
                   ] as const).map(addon => (
                     <label key={addon.name} className={`rfp__addon-card ${formData[addon.name] ? 'is-selected' : ''}`}>
                       <input type="checkbox" name={addon.name} checked={formData[addon.name]} onChange={handleChange} />

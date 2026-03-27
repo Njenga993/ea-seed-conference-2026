@@ -1,5 +1,5 @@
 // pages/AdminDashboard.tsx
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useAuth } from "../hooks/useAuth";
 import "../styles/AdminDashboard.css";
 
@@ -61,9 +61,13 @@ const AdminDashboard = () => {
   const [typeFilter, setTypeFilter] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [resendingId, setResendingId] = useState<string | null>(null);
-  const [checkingInId, setCheckingInId] = useState<string | null>(null);
   const [toast, setToast] = useState("");
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  
+  // Track if this is the first load
+  const isFirstLoad = useRef(true);
+  // Track last check-in count to detect changes
+  const lastCheckedInCount = useRef<number>(0);
 
   const showToast = (msg: string) => {
     setToast(msg);
@@ -94,6 +98,17 @@ const AdminDashboard = () => {
         participantsRes.json(),
       ]);
 
+      // Check if check-in count changed (for silent toast notification)
+      if (!isFirstLoad.current && lastCheckedInCount.current !== 0 && statsData?.registrations?.checkedIn !== lastCheckedInCount.current) {
+        const change = statsData.registrations.checkedIn - lastCheckedInCount.current;
+        if (change > 0) {
+          showToast(`🔔 ${change} new participant${change > 1 ? 's' : ''} checked in!`);
+        }
+      }
+      
+      lastCheckedInCount.current = statsData?.registrations?.checkedIn || 0;
+      isFirstLoad.current = false;
+      
       setStats(statsData);
       setParticipants(participantsData);
     } catch {
@@ -103,8 +118,43 @@ const AdminDashboard = () => {
     }
   }, [token, role, statusFilter, typeFilter, authFetch]);
 
+  // Initial load and auto-refresh setup
   useEffect(() => {
-    if (token && role === "admin") loadData();
+    if (token && role === "admin") {
+      // Initial load
+      loadData();
+      
+      // Set up auto-refresh every 10 seconds to sync with check-in page
+      const intervalId = setInterval(() => {
+        loadData();
+      }, 10000); // Refresh every 10 seconds
+      
+      // Cleanup interval on component unmount
+      return () => clearInterval(intervalId);
+    }
+  }, [token, role, loadData]);
+
+  // Refresh when tab becomes visible (user comes back to dashboard)
+  useEffect(() => {
+    if (!token || role !== "admin") return;
+    
+    const handleVisibilityChange = () => {
+      if (!document.hidden) {
+        loadData();
+      }
+    };
+    
+    const handleFocus = () => {
+      loadData();
+    };
+    
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    window.addEventListener("focus", handleFocus);
+    
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      window.removeEventListener("focus", handleFocus);
+    };
   }, [token, role, loadData]);
 
   const handleLogin = async () => {
@@ -113,45 +163,6 @@ const AdminDashboard = () => {
     const ok = await login(passwordInput);
     setLoginLoading(false);
     if (!ok) setPasswordInput("");
-  };
-
-  const handleCheckIn = async (participantId: string) => {
-    setCheckingInId(participantId);
-    try {
-      const res = await authFetch(`${BACKEND_URL}/checkin/${participantId}`, { 
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ staffName: "admin" })
-      });
-      const data = await res.json();
-      if (res.ok) { 
-        showToast(`✅ ${data.message || "Checked in successfully"}`); 
-        loadData(); // Reload data to update UI
-      } else {
-        showToast("❌ " + data.error);
-      }
-    } catch { 
-      showToast("❌ Network error"); 
-    } finally { 
-      setCheckingInId(null); 
-    }
-  };
-
-  const handleUndoCheckin = async (participantId: string) => {
-    try {
-      const res = await authFetch(`${BACKEND_URL}/admin/undo-checkin/${participantId}`, { method: "PATCH" });
-      const data = await res.json();
-      if (res.ok) { 
-        showToast("✅ Check-in reversed"); 
-        loadData(); // Reload data to update UI
-      } else {
-        showToast("❌ " + data.error);
-      }
-    } catch { 
-      showToast("❌ Network error"); 
-    }
   };
 
   const handleResend = async (participantId: string) => {
@@ -164,6 +175,21 @@ const AdminDashboard = () => {
       showToast("❌ Network error"); 
     } finally { 
       setResendingId(null); 
+    }
+  };
+
+  const handleUndoCheckin = async (participantId: string) => {
+    try {
+      const res = await authFetch(`${BACKEND_URL}/admin/undo-checkin/${participantId}`, { method: "PATCH" });
+      const data = await res.json();
+      if (res.ok) { 
+        showToast("✅ Check-in reversed"); 
+        loadData(); 
+      } else {
+        showToast("❌ " + data.error);
+      }
+    } catch { 
+      showToast("❌ Network error"); 
     }
   };
 
@@ -280,6 +306,8 @@ const AdminDashboard = () => {
           <div>
             <p className="adm__eyebrow">Admin Panel</p>
             <h1 className="adm__heading">EA Seed Conference 2026</h1>
+            {/* Show auto-refresh indicator */}
+            <p className="adm__auto-refresh-indicator">Auto-refreshing every 10s</p>
           </div>
           <div className="adm__topbar-actions">
             <span className="adm__role-pill">admin</span>
@@ -440,22 +468,6 @@ const AdminDashboard = () => {
                           <div className="adm__actions">
                             {p.paymentstatus === "paid" && (
                               <>
-                                {!isCheckedIn(p.checkedin) ? (
-                                  <button 
-                                    className="adm__action-btn adm__action-btn--checkin"
-                                    onClick={() => handleCheckIn(p.id)} 
-                                    disabled={checkingInId === p.id}
-                                  >
-                                    {checkingInId === p.id ? "…" : "Check In"}
-                                  </button>
-                                ) : (
-                                  <button 
-                                    className="adm__action-btn adm__action-btn--undo"
-                                    onClick={() => handleUndoCheckin(p.id)}
-                                  >
-                                    Undo
-                                  </button>
-                                )}
                                 <button 
                                   className="adm__action-btn adm__action-btn--resend"
                                   onClick={() => handleResend(p.id)} 
@@ -471,6 +483,14 @@ const AdminDashboard = () => {
                                 >
                                   View
                                 </a>
+                                {isCheckedIn(p.checkedin) && (
+                                  <button 
+                                    className="adm__action-btn adm__action-btn--undo"
+                                    onClick={() => handleUndoCheckin(p.id)}
+                                  >
+                                    Undo
+                                  </button>
+                                )}
                               </>
                             )}
                           </div>
@@ -485,7 +505,7 @@ const AdminDashboard = () => {
                               <div className="adm__detail-grid">
                                 {/* Column 1: Contact Info */}
                                 <div className="adm__detail-col">
-                                  <h4 className="adm__detail-heading">📱 Contact</h4>
+                                  <h4 className="adm__detail-heading"> Contact</h4>
                                   <div className="adm__detail-item">
                                     <span className="adm__detail-label">Phone</span>
                                     <span className="adm__detail-value">{p.dialcode || ""} {p.phone || "—"}</span>
@@ -498,7 +518,7 @@ const AdminDashboard = () => {
 
                                 {/* Column 2: Professional Info */}
                                 <div className="adm__detail-col">
-                                  <h4 className="adm__detail-heading">💼 Professional</h4>
+                                  <h4 className="adm__detail-heading"> Professional</h4>
                                   <div className="adm__detail-item">
                                     <span className="adm__detail-label">Organization</span>
                                     <span className="adm__detail-value">{p.organization || "—"}</span>
@@ -515,7 +535,7 @@ const AdminDashboard = () => {
 
                                 {/* Column 3: Preferences */}
                                 <div className="adm__detail-col">
-                                  <h4 className="adm__detail-heading">🎯 Preferences</h4>
+                                  <h4 className="adm__detail-heading"> Preferences</h4>
                                   <div className="adm__detail-item">
                                     <span className="adm__detail-label">Heard about us</span>
                                     <span className="adm__detail-value">{p.hearabout || "—"}</span>
@@ -532,7 +552,7 @@ const AdminDashboard = () => {
 
                                 {/* Column 4: Payment & Registration */}
                                 <div className="adm__detail-col">
-                                  <h4 className="adm__detail-heading">💳 Payment</h4>
+                                  <h4 className="adm__detail-heading"> Payment</h4>
                                   <div className="adm__detail-item">
                                     <span className="adm__detail-label">Payment Status</span>
                                     <span className={`adm__detail-value adm__detail-status adm__detail-status--${p.paymentstatus}`}>
@@ -553,7 +573,7 @@ const AdminDashboard = () => {
 
                                 {/* Column 5: Special Needs */}
                                 <div className="adm__detail-col">
-                                  <h4 className="adm__detail-heading">♿ Accessibility</h4>
+                                  <h4 className="adm__detail-heading"> Accessibility</h4>
                                   <div className="adm__detail-item">
                                     <span className="adm__detail-label">Special needs</span>
                                     <span className="adm__detail-value">{p.specialneeds || "—"}</span>
@@ -564,7 +584,7 @@ const AdminDashboard = () => {
                               {/* Add-ons Summary */}
                               {(hasExcursion(p.excursion) || hasGalaDinner(p.galadinner)) && (
                                 <div className="adm__addons-summary">
-                                  <h4 className="adm__detail-heading">✨ Add-ons</h4>
+                                  <h4 className="adm__detail-heading"> Add-ons</h4>
                                   <div className="adm__addon-list">
                                     {hasExcursion(p.excursion) && <span className="adm__addon-tag">🌱 Field Excursion</span>}
                                     {hasGalaDinner(p.galadinner) && <span className="adm__addon-tag">🍽️ Gala Dinner</span>}
