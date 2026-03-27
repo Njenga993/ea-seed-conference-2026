@@ -1,5 +1,5 @@
-// pages/AdminDashboard-UPDATED.tsx
-import { useState, useEffect, useCallback } from "react";
+// pages/AdminDashboard.tsx
+import React, { useState, useEffect, useCallback } from "react";
 import { useAuth } from "../hooks/useAuth";
 import "../styles/AdminDashboard.css";
 
@@ -38,9 +38,12 @@ interface Participant {
 }
 
 const TYPE_COLORS: Record<string, string> = {
-  delegate: "#3182CE", farmer: "#38A169",
-  virtual: "#805AD5", student: "#DD6B20",
-  vip: "#C99A2E", speaker: "#B7791F",
+  delegate: "#3182CE", 
+  farmer: "#38A169",
+  virtual: "#805AD5", 
+  student: "#DD6B20",
+  vip: "#C99A2E", 
+  speaker: "#B7791F",
 };
 
 const AdminDashboard = () => {
@@ -59,8 +62,6 @@ const AdminDashboard = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [resendingId, setResendingId] = useState<string | null>(null);
   const [toast, setToast] = useState("");
-  
-  // ✅ NEW: Track which participant is expanded for detailed view
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
   const showToast = (msg: string) => {
@@ -88,7 +89,8 @@ const AdminDashboard = () => {
       }
 
       const [statsData, participantsData] = await Promise.all([
-        statsRes.json(), participantsRes.json(),
+        statsRes.json(), 
+        participantsRes.json(),
       ]);
 
       setStats(statsData);
@@ -118,17 +120,26 @@ const AdminDashboard = () => {
       const res = await authFetch(`${BACKEND_URL}/admin/resend-ticket/${participantId}`, { method: "POST" });
       const data = await res.json();
       showToast(res.ok ? "✅ Ticket resent" : "❌ " + data.error);
-    } catch { showToast("❌ Network error"); }
-    finally { setResendingId(null); }
+    } catch { 
+      showToast("❌ Network error"); 
+    } finally { 
+      setResendingId(null); 
+    }
   };
 
   const handleUndoCheckin = async (participantId: string) => {
     try {
       const res = await authFetch(`${BACKEND_URL}/admin/undo-checkin/${participantId}`, { method: "PATCH" });
       const data = await res.json();
-      if (res.ok) { showToast("✅ Check-in reversed"); loadData(); }
-      else showToast("❌ " + data.error);
-    } catch { showToast("❌ Network error"); }
+      if (res.ok) { 
+        showToast("✅ Check-in reversed"); 
+        loadData(); 
+      } else {
+        showToast("❌ " + data.error);
+      }
+    } catch { 
+      showToast("❌ Network error"); 
+    }
   };
 
   const handleExport = async () => {
@@ -137,7 +148,10 @@ const AdminDashboard = () => {
       if (statusFilter) params.set("status", statusFilter);
       if (typeFilter) params.set("type", typeFilter);
       const res = await authFetch(`${BACKEND_URL}/admin/export?${params}`);
-      if (!res.ok) { showToast("❌ Export failed"); return; }
+      if (!res.ok) { 
+        showToast("❌ Export failed"); 
+        return; 
+      }
       const blob = await res.blob();
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
@@ -146,7 +160,9 @@ const AdminDashboard = () => {
       a.click();
       URL.revokeObjectURL(url);
       showToast("✅ CSV exported");
-    } catch { showToast("❌ Export failed"); }
+    } catch { 
+      showToast("❌ Export failed"); 
+    }
   };
 
   const filtered = participants.filter(p => {
@@ -161,7 +177,7 @@ const AdminDashboard = () => {
     );
   });
 
-  // ── LOADING (checking stored token) ──────────────────
+  // ── LOADING ──────────────────────────────────────
   if (authLoading) {
     return (
       <div className="adm adm--center">
@@ -170,7 +186,7 @@ const AdminDashboard = () => {
     );
   }
 
-  // ── NOT LOGGED IN ─────────────────────────────────────
+  // ── LOGIN SCREEN ─────────────────────────────────
   if (!token) {
     return (
       <div className="adm adm--login">
@@ -179,7 +195,7 @@ const AdminDashboard = () => {
             <p className="adm__eyebrow">EA Indigenous Seed Conference 2026</p>
             <h1>Admin Panel</h1>
           </div>
-          {(authError) && (
+          {authError && (
             <div className="adm__alert adm__alert--error">{authError}</div>
           )}
           <div className="adm__field">
@@ -199,27 +215,31 @@ const AdminDashboard = () => {
             onClick={handleLogin}
             disabled={loginLoading || !passwordInput.trim()}
           >
-            {loginLoading ? <><span className="adm__spinner adm__spinner--sm" /> Signing in…</> : "Sign in"}
+            {loginLoading ? (
+              <><span className="adm__spinner adm__spinner--sm" /> Signing in…</>
+            ) : (
+              "Sign in"
+            )}
           </button>
         </div>
       </div>
     );
   }
 
-  // ── WRONG ROLE (staff trying to access admin) ─────────
+  // ── WRONG ROLE ───────────────────────────────────
   if (role !== "admin") {
     return (
       <div className="adm adm--center">
         <div className="adm__role-error">
           <h2>Access restricted</h2>
-          <p>You are logged in as <strong>{role}</strong>. The admin dashboard requires an admin account.</p>
+          <p>You are logged in as <strong>{role}</strong>. Admin dashboard requires an admin account.</p>
           <button className="adm__btn adm__btn--outline" onClick={logout}>Sign out</button>
         </div>
       </div>
     );
   }
 
-  // ── DASHBOARD ─────────────────────────────────────────
+  // ── DASHBOARD ────────────────────────────────────
   return (
     <div className="adm">
       {toast && <div className="adm__toast">{toast}</div>}
@@ -294,15 +314,21 @@ const AdminDashboard = () => {
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
           />
-          <select className="adm__select" value={statusFilter}
-            onChange={e => setStatusFilter(e.target.value)}>
+          <select 
+            className="adm__select" 
+            value={statusFilter}
+            onChange={e => setStatusFilter(e.target.value)}
+          >
             <option value="">All statuses</option>
             <option value="paid">Paid</option>
             <option value="pending">Pending</option>
             <option value="failed">Failed</option>
           </select>
-          <select className="adm__select" value={typeFilter}
-            onChange={e => setTypeFilter(e.target.value)}>
+          <select 
+            className="adm__select" 
+            value={typeFilter}
+            onChange={e => setTypeFilter(e.target.value)}
+          >
             <option value="">All types</option>
             <option value="delegate">Delegate</option>
             <option value="farmer">Farmer</option>
@@ -334,9 +360,9 @@ const AdminDashboard = () => {
                 </thead>
                 <tbody>
                   {filtered.map(p => (
-                    <>
-                      {/* Main Row */}
-                      <tr key={p.id} className={p.checkedIn ? "adm__row--checkedin" : ""}>
+                    <React.Fragment key={p.id}>
+                      {/* MAIN ROW */}
+                      <tr className={p.checkedIn ? "adm__row--checkedin" : ""}>
                         <td>
                           <button
                             className="adm__expand-btn"
@@ -358,7 +384,9 @@ const AdminDashboard = () => {
                           <div className="adm__cell-muted">{p.organization}</div>
                         </td>
                         <td>
-                          <span className={`adm__status adm__status--${p.paymentStatus}`}>{p.paymentStatus}</span>
+                          <span className={`adm__status adm__status--${p.paymentStatus}`}>
+                            {p.paymentStatus}
+                          </span>
                         </td>
                         <td>
                           {p.checkedIn ? (
@@ -379,20 +407,29 @@ const AdminDashboard = () => {
                         <td>
                           <div className="adm__actions">
                             {p.paymentStatus === "paid" && (
-                              <button className="adm__action-btn adm__action-btn--resend"
-                                onClick={() => handleResend(p.id)} disabled={resendingId === p.id}>
+                              <button 
+                                className="adm__action-btn adm__action-btn--resend"
+                                onClick={() => handleResend(p.id)} 
+                                disabled={resendingId === p.id}
+                              >
                                 {resendingId === p.id ? "…" : "Resend"}
                               </button>
                             )}
                             {p.paymentStatus === "paid" && (
-                              <a className="adm__action-btn adm__action-btn--view"
-                                href={`${BACKEND_URL}/ticket/${p.id}`} target="_blank" rel="noopener noreferrer">
+                              <a 
+                                className="adm__action-btn adm__action-btn--view"
+                                href={`${BACKEND_URL}/ticket/${p.id}`} 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                              >
                                 View
                               </a>
                             )}
                             {p.checkedIn ? (
-                              <button className="adm__action-btn adm__action-btn--undo"
-                                onClick={() => handleUndoCheckin(p.id)}>
+                              <button 
+                                className="adm__action-btn adm__action-btn--undo"
+                                onClick={() => handleUndoCheckin(p.id)}
+                              >
                                 Undo
                               </button>
                             ) : null}
@@ -400,7 +437,7 @@ const AdminDashboard = () => {
                         </td>
                       </tr>
 
-                      {/* ✅ EXPANDED DETAILS ROW */}
+                      {/* EXPANDED DETAILS ROW */}
                       {expandedId === p.id && (
                         <tr className="adm__expanded-row">
                           <td colSpan={7}>
@@ -408,7 +445,7 @@ const AdminDashboard = () => {
                               <div className="adm__detail-grid">
                                 {/* Column 1: Contact Info */}
                                 <div className="adm__detail-col">
-                                  <h4>Contact Information</h4>
+                                  <h4 className="adm__detail-heading">📱 Contact</h4>
                                   <div className="adm__detail-item">
                                     <span className="adm__detail-label">Phone</span>
                                     <span className="adm__detail-value">{p.dialCode || ""} {p.phone || "—"}</span>
@@ -421,7 +458,7 @@ const AdminDashboard = () => {
 
                                 {/* Column 2: Professional Info */}
                                 <div className="adm__detail-col">
-                                  <h4>Professional</h4>
+                                  <h4 className="adm__detail-heading">💼 Professional</h4>
                                   <div className="adm__detail-item">
                                     <span className="adm__detail-label">Organization</span>
                                     <span className="adm__detail-value">{p.organization || "—"}</span>
@@ -438,7 +475,7 @@ const AdminDashboard = () => {
 
                                 {/* Column 3: Preferences */}
                                 <div className="adm__detail-col">
-                                  <h4>Preferences</h4>
+                                  <h4 className="adm__detail-heading">🎯 Preferences</h4>
                                   <div className="adm__detail-item">
                                     <span className="adm__detail-label">Heard about us</span>
                                     <span className="adm__detail-value">{p.hearAbout || "—"}</span>
@@ -453,12 +490,14 @@ const AdminDashboard = () => {
                                   </div>
                                 </div>
 
-                                {/* Column 4: Special Needs & Payment */}
+                                {/* Column 4: Payment & Registration */}
                                 <div className="adm__detail-col">
-                                  <h4>Additional Info</h4>
+                                  <h4 className="adm__detail-heading">💳 Payment</h4>
                                   <div className="adm__detail-item">
-                                    <span className="adm__detail-label">Special needs</span>
-                                    <span className="adm__detail-value">{p.specialNeeds || "—"}</span>
+                                    <span className="adm__detail-label">Payment Status</span>
+                                    <span className={`adm__detail-value adm__detail-status adm__detail-status--${p.paymentStatus}`}>
+                                      {p.paymentStatus}
+                                    </span>
                                   </div>
                                   <div className="adm__detail-item">
                                     <span className="adm__detail-label">Payment Ref</span>
@@ -471,12 +510,21 @@ const AdminDashboard = () => {
                                     </span>
                                   </div>
                                 </div>
+
+                                {/* Column 5: Special Needs */}
+                                <div className="adm__detail-col">
+                                  <h4 className="adm__detail-heading">♿ Accessibility</h4>
+                                  <div className="adm__detail-item">
+                                    <span className="adm__detail-label">Special needs</span>
+                                    <span className="adm__detail-value">{p.specialNeeds || "—"}</span>
+                                  </div>
+                                </div>
                               </div>
 
                               {/* Add-ons Summary */}
                               {(p.excursion || p.galaDinner) && (
                                 <div className="adm__addons-summary">
-                                  <h4>Add-ons</h4>
+                                  <h4 className="adm__detail-heading">✨ Add-ons</h4>
                                   <div className="adm__addon-list">
                                     {p.excursion && <span className="adm__addon-tag">🌱 Field Excursion</span>}
                                     {p.galaDinner && <span className="adm__addon-tag">🍽️ Gala Dinner</span>}
@@ -487,7 +535,7 @@ const AdminDashboard = () => {
                           </td>
                         </tr>
                       )}
-                    </>
+                    </React.Fragment>
                   ))}
                 </tbody>
               </table>
