@@ -13,28 +13,28 @@ interface Stats {
 
 interface Participant {
   id: string;
-  fullname: string;              // was fullName
+  fullname: string;
   email: string;
   phone: string;
-  dialcode: string;              // was dialCode
+  dialcode: string;
   country: string;
   organization: string;
   position: string;
   category: string;
-  registrationtype: string;      // was registrationType
+  registrationtype: string;
   amount: number;
-  paymentstatus: string;         // was paymentStatus
-  paymentreference: string;      // was paymentReference
-  checkedin: number;             // was checkedIn (0 or 1)
-  checkedinat: string | null;    // was checkedInAt
-  checkedinby: string | null;    // was checkedInBy
-  excursion: number;             // 0 or 1
-  galadinner: number;            // was galaDinner (0 or 1)
-  hearabout: string;             // was hearAbout
-  dietaryrestrictions: string;   // was dietaryRestrictions
+  paymentstatus: string;
+  paymentreference: string;
+  checkedin: number;
+  checkedinat: string | null;
+  checkedinby: string | null;
+  excursion: number;
+  galadinner: number;
+  hearabout: string;
+  dietaryrestrictions: string;
   accommodation: string;
-  specialneeds: string;          // was specialNeeds
-  createdat: string;             // was createdAt
+  specialneeds: string;
+  createdat: string;
 }
 
 const TYPE_COLORS: Record<string, string> = {
@@ -61,6 +61,7 @@ const AdminDashboard = () => {
   const [typeFilter, setTypeFilter] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [resendingId, setResendingId] = useState<string | null>(null);
+  const [checkingInId, setCheckingInId] = useState<string | null>(null);
   const [toast, setToast] = useState("");
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
@@ -114,6 +115,45 @@ const AdminDashboard = () => {
     if (!ok) setPasswordInput("");
   };
 
+  const handleCheckIn = async (participantId: string) => {
+    setCheckingInId(participantId);
+    try {
+      const res = await authFetch(`${BACKEND_URL}/checkin/${participantId}`, { 
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ staffName: "admin" })
+      });
+      const data = await res.json();
+      if (res.ok) { 
+        showToast(`✅ ${data.message || "Checked in successfully"}`); 
+        loadData(); // Reload data to update UI
+      } else {
+        showToast("❌ " + data.error);
+      }
+    } catch { 
+      showToast("❌ Network error"); 
+    } finally { 
+      setCheckingInId(null); 
+    }
+  };
+
+  const handleUndoCheckin = async (participantId: string) => {
+    try {
+      const res = await authFetch(`${BACKEND_URL}/admin/undo-checkin/${participantId}`, { method: "PATCH" });
+      const data = await res.json();
+      if (res.ok) { 
+        showToast("✅ Check-in reversed"); 
+        loadData(); // Reload data to update UI
+      } else {
+        showToast("❌ " + data.error);
+      }
+    } catch { 
+      showToast("❌ Network error"); 
+    }
+  };
+
   const handleResend = async (participantId: string) => {
     setResendingId(participantId);
     try {
@@ -124,21 +164,6 @@ const AdminDashboard = () => {
       showToast("❌ Network error"); 
     } finally { 
       setResendingId(null); 
-    }
-  };
-
-  const handleUndoCheckin = async (participantId: string) => {
-    try {
-      const res = await authFetch(`${BACKEND_URL}/admin/undo-checkin/${participantId}`, { method: "PATCH" });
-      const data = await res.json();
-      if (res.ok) { 
-        showToast("✅ Check-in reversed"); 
-        loadData(); 
-      } else {
-        showToast("❌ " + data.error);
-      }
-    } catch { 
-      showToast("❌ Network error"); 
     }
   };
 
@@ -414,32 +439,40 @@ const AdminDashboard = () => {
                         <td>
                           <div className="adm__actions">
                             {p.paymentstatus === "paid" && (
-                              <button 
-                                className="adm__action-btn adm__action-btn--resend"
-                                onClick={() => handleResend(p.id)} 
-                                disabled={resendingId === p.id}
-                              >
-                                {resendingId === p.id ? "…" : "Resend"}
-                              </button>
+                              <>
+                                {!isCheckedIn(p.checkedin) ? (
+                                  <button 
+                                    className="adm__action-btn adm__action-btn--checkin"
+                                    onClick={() => handleCheckIn(p.id)} 
+                                    disabled={checkingInId === p.id}
+                                  >
+                                    {checkingInId === p.id ? "…" : "Check In"}
+                                  </button>
+                                ) : (
+                                  <button 
+                                    className="adm__action-btn adm__action-btn--undo"
+                                    onClick={() => handleUndoCheckin(p.id)}
+                                  >
+                                    Undo
+                                  </button>
+                                )}
+                                <button 
+                                  className="adm__action-btn adm__action-btn--resend"
+                                  onClick={() => handleResend(p.id)} 
+                                  disabled={resendingId === p.id}
+                                >
+                                  {resendingId === p.id ? "…" : "Resend"}
+                                </button>
+                                <a 
+                                  className="adm__action-btn adm__action-btn--view"
+                                  href={`${BACKEND_URL}/ticket/${p.id}`} 
+                                  target="_blank" 
+                                  rel="noopener noreferrer"
+                                >
+                                  View
+                                </a>
+                              </>
                             )}
-                            {p.paymentstatus === "paid" && (
-                              <a 
-                                className="adm__action-btn adm__action-btn--view"
-                                href={`${BACKEND_URL}/ticket/${p.id}`} 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                              >
-                                View
-                              </a>
-                            )}
-                            {isCheckedIn(p.checkedin) ? (
-                              <button 
-                                className="adm__action-btn adm__action-btn--undo"
-                                onClick={() => handleUndoCheckin(p.id)}
-                              >
-                                Undo
-                              </button>
-                            ) : null}
                           </div>
                         </td>
                       </tr>

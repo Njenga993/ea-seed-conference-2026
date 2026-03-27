@@ -713,6 +713,20 @@
   color: #fff;
 }
 
+.adm__action-btn--checkin {
+  background: #38a169;
+  color: white;
+}
+
+.adm__action-btn--checkin:hover {
+  background: #2f855a;
+}
+
+.adm__action-btn--checkin:disabled {
+  background: #9ae6b4;
+  cursor: not-allowed;
+}
+
 .adm__btn--apply {
   background: #1e4a6b;
   color: #fff;
