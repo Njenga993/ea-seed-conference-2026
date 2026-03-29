@@ -664,7 +664,7 @@ const RegistrationForm = () => {
               <motion.div key="s3" className="rfp__step" variants={stepVariants} initial="hidden" animate="visible" exit="exit">
                 <div className="rfp__step-header">
                   <span className="rfp__step-num">03</span>
-                  <h2>Optional Add-ons</h2>
+                  <h2>Optional Add-on's</h2>
                 </div>
 
                 <div className="rfp__addons">
