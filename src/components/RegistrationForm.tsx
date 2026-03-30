@@ -1,4 +1,6 @@
-// components/RegistrationForm.tsx - Complete with Multi-Currency Support
+// components/RegistrationForm.tsx - COMPLETE WITH MULTI-CURRENCY DISPLAY (FIXED)
+// Base prices in USD, converts to KES for payment
+
 import { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -6,7 +8,7 @@ import "../styles/RegistrationForm.css";
 import heroBackground from "../assets/form.webp";
 
 // ─────────────────────────────────────────────
-// COUNTRY LIST  (ISO 3166-1 alpha-2 + dial codes)
+// COUNTRY LIST (ISO 3166-1 alpha-2 + dial codes)
 // ─────────────────────────────────────────────
 const COUNTRIES = [
   { name: "Afghanistan", code: "AF", dial: "+93" },
@@ -103,64 +105,53 @@ const COUNTRIES = [
 ];
 
 // ─────────────────────────────────────────────
-// 🌍 CURRENCIES - COMPLETE GLOBAL LIST
+// CURRENCIES FOR DISPLAY (REFERENCE ONLY)
 // ─────────────────────────────────────────────
-const POPULAR_CURRENCIES = [
+const DISPLAY_CURRENCIES = [
   // MAJOR WORLDWIDE
-  { code: 'USD', name: 'US Dollar', region: 'World' },
-  { code: 'EUR', name: 'Euro', region: 'Europe' },
-  { code: 'GBP', name: 'British Pound', region: 'Europe' },
-  { code: 'JPY', name: 'Japanese Yen', region: 'Asia' },
-  { code: 'CNY', name: 'Chinese Yuan', region: 'Asia' },
-  { code: 'INR', name: 'Indian Rupee', region: 'Asia' },
-  { code: 'AUD', name: 'Australian Dollar', region: 'Oceania' },
-  { code: 'CAD', name: 'Canadian Dollar', region: 'Americas' },
+  { code: 'USD', name: 'US Dollar', symbol: '$', region: 'World (Base Currency)' },
+  { code: 'EUR', name: 'Euro', symbol: '€', region: 'Europe' },
+  { code: 'GBP', name: 'British Pound', symbol: '£', region: 'Europe' },
+  { code: 'JPY', name: 'Japanese Yen', symbol: '¥', region: 'Asia' },
+  { code: 'CNY', name: 'Chinese Yuan', symbol: '¥', region: 'Asia' },
+  { code: 'INR', name: 'Indian Rupee', symbol: '₹', region: 'Asia' },
+  { code: 'AUD', name: 'Australian Dollar', symbol: 'A$', region: 'Oceania' },
+  { code: 'CAD', name: 'Canadian Dollar', symbol: 'C$', region: 'Americas' },
   
   // AFRICA
-  { code: 'KES', name: 'Kenyan Shilling', region: 'East Africa' },
-  { code: 'UGX', name: 'Ugandan Shilling', region: 'East Africa' },
-  { code: 'TZS', name: 'Tanzanian Shilling', region: 'East Africa' },
-  { code: 'RWF', name: 'Rwandan Franc', region: 'East Africa' },
-  { code: 'ETB', name: 'Ethiopian Birr', region: 'East Africa' },
-  { code: 'ZAR', name: 'South African Rand', region: 'Africa' },
-  { code: 'GHS', name: 'Ghanaian Cedi', region: 'West Africa' },
-  { code: 'NGN', name: 'Nigerian Naira', region: 'West Africa' },
-  { code: 'EGP', name: 'Egyptian Pound', region: 'Africa' },
+  { code: 'KES', name: 'Kenyan Shilling', symbol: 'KSh', region: 'East Africa' },
+  { code: 'UGX', name: 'Ugandan Shilling', symbol: 'USh', region: 'East Africa' },
+  { code: 'TZS', name: 'Tanzanian Shilling', symbol: 'TSh', region: 'East Africa' },
+  { code: 'RWF', name: 'Rwandan Franc', symbol: 'FRw', region: 'East Africa' },
+  { code: 'ETB', name: 'Ethiopian Birr', symbol: 'Br', region: 'East Africa' },
+  { code: 'ZAR', name: 'South African Rand', symbol: 'R', region: 'Africa' },
+  { code: 'GHS', name: 'Ghanaian Cedi', symbol: '₵', region: 'West Africa' },
+  { code: 'NGN', name: 'Nigerian Naira', symbol: '₦', region: 'West Africa' },
+  { code: 'EGP', name: 'Egyptian Pound', symbol: 'E£', region: 'Africa' },
   
   // ASIA
-  { code: 'AED', name: 'UAE Dirham', region: 'Middle East' },
-  { code: 'SAR', name: 'Saudi Riyal', region: 'Middle East' },
-  { code: 'PKR', name: 'Pakistani Rupee', region: 'Asia' },
-  { code: 'BDT', name: 'Bangladeshi Taka', region: 'Asia' },
-  { code: 'IDR', name: 'Indonesian Rupiah', region: 'Asia' },
-  { code: 'PHP', name: 'Philippine Peso', region: 'Asia' },
-  { code: 'THB', name: 'Thai Baht', region: 'Asia' },
-  { code: 'VND', name: 'Vietnamese Dong', region: 'Asia' },
-  { code: 'MYR', name: 'Malaysian Ringgit', region: 'Asia' },
-  { code: 'SGD', name: 'Singapore Dollar', region: 'Asia' },
-  { code: 'HKD', name: 'Hong Kong Dollar', region: 'Asia' },
-  { code: 'TWD', name: 'Taiwan Dollar', region: 'Asia' },
+  { code: 'AED', name: 'UAE Dirham', symbol: 'د.إ', region: 'Middle East' },
+  { code: 'SAR', name: 'Saudi Riyal', symbol: '﷼', region: 'Middle East' },
+  { code: 'PKR', name: 'Pakistani Rupee', symbol: '₨', region: 'Asia' },
+  { code: 'BDT', name: 'Bangladeshi Taka', symbol: '৳', region: 'Asia' },
+  { code: 'IDR', name: 'Indonesian Rupiah', symbol: 'Rp', region: 'Asia' },
+  { code: 'PHP', name: 'Philippine Peso', symbol: '₱', region: 'Asia' },
+  { code: 'THB', name: 'Thai Baht', symbol: '฿', region: 'Asia' },
+  { code: 'MYR', name: 'Malaysian Ringgit', symbol: 'RM', region: 'Asia' },
+  { code: 'SGD', name: 'Singapore Dollar', symbol: 'S$', region: 'Asia' },
   
   // AMERICAS
-  { code: 'MXN', name: 'Mexican Peso', region: 'Americas' },
-  { code: 'BRL', name: 'Brazilian Real', region: 'Americas' },
-  { code: 'ARS', name: 'Argentine Peso', region: 'Americas' },
-  { code: 'CLP', name: 'Chilean Peso', region: 'Americas' },
-  { code: 'COP', name: 'Colombian Peso', region: 'Americas' },
-  { code: 'PEN', name: 'Peruvian Sol', region: 'Americas' },
-  { code: 'JMD', name: 'Jamaican Dollar', region: 'Caribbean' },
+  { code: 'MXN', name: 'Mexican Peso', symbol: '$', region: 'Americas' },
+  { code: 'BRL', name: 'Brazilian Real', symbol: 'R$', region: 'Americas' },
+  { code: 'ARS', name: 'Argentine Peso', symbol: '$', region: 'Americas' },
   
   // EUROPE
-  { code: 'CHF', name: 'Swiss Franc', region: 'Europe' },
-  { code: 'SEK', name: 'Swedish Krona', region: 'Europe' },
-  { code: 'NOK', name: 'Norwegian Krone', region: 'Europe' },
-  { code: 'DKK', name: 'Danish Krone', region: 'Europe' },
-  { code: 'PLN', name: 'Polish Zloty', region: 'Europe' },
-  { code: 'CZK', name: 'Czech Koruna', region: 'Europe' },
-  { code: 'HUF', name: 'Hungarian Forint', region: 'Europe' },
-  { code: 'RON', name: 'Romanian Leu', region: 'Europe' },
-  { code: 'RUB', name: 'Russian Ruble', region: 'Europe' },
-  { code: 'TRY', name: 'Turkish Lira', region: 'Europe' },
+  { code: 'CHF', name: 'Swiss Franc', symbol: 'Fr', region: 'Europe' },
+  { code: 'SEK', name: 'Swedish Krona', symbol: 'kr', region: 'Europe' },
+  { code: 'NOK', name: 'Norwegian Krone', symbol: 'kr', region: 'Europe' },
+  { code: 'DKK', name: 'Danish Krone', symbol: 'kr', region: 'Europe' },
+  { code: 'PLN', name: 'Polish Zloty', symbol: 'zł', region: 'Europe' },
+  { code: 'TRY', name: 'Turkish Lira', symbol: '₺', region: 'Europe' },
 ];
 
 // ─────────────────────────────────────────────
@@ -169,8 +160,8 @@ const POPULAR_CURRENCIES = [
 interface FormData {
   fullName: string;
   email: string;
-  dialCode: string;        // ✅ NEW: dial code stored separately
-  phone: string;           // just the number, no prefix
+  dialCode: string;
+  phone: string;
   country: string;
   organization: string;
   position: string;
@@ -230,7 +221,6 @@ const CountryDropdown = ({ value, onChange, onDialCodeChange, hasError }: Countr
     ? COUNTRIES.filter(c => c.name.toLowerCase().includes(query.toLowerCase()))
     : COUNTRIES;
 
-  // Close on outside click
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
@@ -239,7 +229,6 @@ const CountryDropdown = ({ value, onChange, onDialCodeChange, hasError }: Countr
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
-  // Sync query when value changes externally (e.g. on restore from localStorage)
   useEffect(() => { setQuery(value); }, [value]);
 
   const select = (country: typeof COUNTRIES[0]) => {
@@ -292,20 +281,17 @@ const RegistrationForm = () => {
     if (type.includes('delegate')) return 'delegate';
     if (type.includes('farmer')) return 'farmer';
     if (type.includes('virtual')) return 'virtual';
-    
     return '';
   };
 
-  // ✅ CHANGE 1: Restore from localStorage on mount, fall back to blank form
   const getInitialFormData = (): FormData => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
-        // Always reset consent on restore — must re-tick every session
         return { ...parsed, consent: false };
       }
-    } catch { /* ignore corrupt storage */ }
+    } catch { /* ignore */ }
     return {
       fullName: '', email: '', dialCode: '+254', phone: '', country: '',
       organization: '', position: '', category: '',
@@ -322,26 +308,26 @@ const RegistrationForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [submitMessage, setSubmitMessage] = useState('');
-  const [selectedCurrency, setSelectedCurrency] = useState('USD');
-  const [convertedAmount, setConvertedAmount] = useState<number | null>(null);
-  const [isConverting, setIsConverting] = useState(false);
-  const [exchangeRate, setExchangeRate] = useState<number | null>(null);
+  
+  // Currency display states
+  const [selectedDisplayCurrency, setSelectedDisplayCurrency] = useState('USD');
+  const [exchangeRatesMap, setExchangeRatesMap] = useState<Map<string, number>>(new Map());
+  const [usdToKesRate, setUsdToKesRate] = useState<number | null>(null);
   const [lastUpdated, setLastUpdated] = useState('');
+  const [isLoadingRates, setIsLoadingRates] = useState(false);
 
-  // ✅ CHANGE 1: Auto-save to localStorage whenever formData changes
-  // Excludes consent (must re-tick each session)
   useEffect(() => {
     try {
       const { consent: _consent, ...rest } = formData;
       localStorage.setItem(STORAGE_KEY, JSON.stringify(rest));
-    } catch { /* quota exceeded — fail silently */ }
+    } catch { /* ignore */ }
   }, [formData]);
 
   const clearSavedForm = () => {
     try { localStorage.removeItem(STORAGE_KEY); } catch { /* ignore */ }
   };
 
-  const calculateTotal = (): number => {
+  const calculateTotalInUSD = (): number => {
     let total = 0;
     if (formData.registrationType) total += PRICING[formData.registrationType as keyof Pricing] || 0;
     if (formData.excursion) total += PRICING.excursion;
@@ -352,54 +338,82 @@ const RegistrationForm = () => {
   const formatUSD = (amount: number) =>
     new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(amount);
 
-  const formatConverted = (amount: number, code: string) =>
-    new Intl.NumberFormat('en-US', { style: 'currency', currency: code, minimumFractionDigits: 0 }).format(amount);
-
-  // ✅ Fetch live exchange rates using frankfurter.app (free, no API key)
-  const fetchExchangeRate = async (toCurrency: string, amount: number) => {
-    if (toCurrency === 'USD') {
-      setConvertedAmount(amount);
-      setExchangeRate(1);
-      setLastUpdated(new Date().toLocaleTimeString());
-      return;
-    }
-    setIsConverting(true);
+  const formatCurrency = (amount: number, currencyCode: string) => {
     try {
-      const res = await fetch(
-        `https://api.frankfurter.app/latest?from=USD&to=${toCurrency}`
-      );
-      if (!res.ok) throw new Error("API error");
-      const data = await res.json();
-      const rate = data.rates?.[toCurrency];
-      if (!rate) throw new Error("Rate not found");
-      setConvertedAmount(amount * rate);
-      setExchangeRate(rate);
-      setLastUpdated(new Date().toLocaleTimeString());
+      return new Intl.NumberFormat('en-US', { style: 'currency', currency: currencyCode, minimumFractionDigits: 0 }).format(amount);
     } catch {
-      // Hardcoded fallback rates (update these periodically)
-      const fallback: Record<string, number> = {
-        EUR: 0.92, GBP: 0.79, JPY: 150.5, CNY: 7.19, INR: 83.5, AUD: 1.52,
-        KES: 140.5, UGX: 3850, TZS: 2600, RWF: 1300, ETB: 57,
-        ZAR: 18.8, GHS: 13.2, NGN: 1500, EGP: 47.5, CAD: 1.35,
-        AED: 3.67, SAR: 3.75, PKR: 277, BDT: 110, IDR: 16000,
-        PHP: 56, THB: 36, VND: 24000, MYR: 4.85, SGD: 1.36,
-        HKD: 7.85, TWD: 32, MXN: 17, BRL: 5.05, ARS: 900,
-        CLP: 910, COP: 4100, PEN: 3.85, CHF: 0.88, SEK: 10.2,
-        NOK: 10.7, DKK: 6.85, PLN: 4.0, CZK: 24, HUF: 370,
-        RON: 4.6, RUB: 98, TRY: 32, JMD: 154,
-      };
-      const rate = fallback[toCurrency] || 1;
-      setConvertedAmount(amount * rate);
-      setExchangeRate(rate);
-      setLastUpdated(new Date().toLocaleTimeString() + ' (est.)');
-    } finally {
-      setIsConverting(false);
+      return `${currencyCode} ${amount.toFixed(0)}`;
     }
   };
 
+  // Fetch live exchange rates from API
+const fetchExchangeRates = async () => {
+  setIsLoadingRates(true);
+  try {
+    // First fetch USD to KES rate (for backend conversion)
+    const kesRes = await fetch(`${BACKEND_URL}/exchange-rate`);
+    if (kesRes.ok) {
+      const kesData = await kesRes.json();
+      if (kesData.success && kesData.rate) {
+        setUsdToKesRate(kesData.rate);
+      }
+    }
+    
+    // Fetch rates for all display currencies
+    const ratesMap = new Map<string, number>();
+    ratesMap.set('USD', 1);
+    
+    // Fetch from Frankfurter API (free, no API key)
+    const response = await fetch('https://api.frankfurter.app/latest?from=USD');
+    if (response.ok) {
+      const data = await response.json();
+      for (const currency of DISPLAY_CURRENCIES) {
+        if (currency.code !== 'USD' && data.rates[currency.code]) {
+          ratesMap.set(currency.code, data.rates[currency.code]);
+        }
+      }
+      setExchangeRatesMap(ratesMap);
+      setLastUpdated(new Date().toLocaleTimeString());
+      console.log('✅ Exchange rates updated:', Object.fromEntries(ratesMap));
+    } else {
+      throw new Error('API failed');
+    }
+  } catch (error) {
+    console.error('Exchange rate fetch error:', error);
+    // Set fallback rates
+    const fallbackRatesMap = new Map<string, number>();
+    const fallbackRatesData: Record<string, number> = {
+      USD: 1, EUR: 0.92, GBP: 0.79, JPY: 150.5, CNY: 7.19, INR: 83.5,
+      AUD: 1.52, CAD: 1.35, KES: 130, UGX: 3850, TZS: 2600, RWF: 1300,
+      ETB: 57, ZAR: 18.8, GHS: 13.2, NGN: 1500, EGP: 47.5, AED: 3.67,
+      SAR: 3.75, PKR: 277, BDT: 110, IDR: 16000, PHP: 56, THB: 36,
+      MYR: 4.85, SGD: 1.36, MXN: 17, BRL: 5.05, ARS: 900, CHF: 0.88,
+      SEK: 10.2, NOK: 10.7, DKK: 6.85, PLN: 4.0, TRY: 32
+    };
+    for (const [code, rateValue] of Object.entries(fallbackRatesData)) {
+      fallbackRatesMap.set(code, rateValue);
+    }
+    setExchangeRatesMap(fallbackRatesMap);
+    if (!usdToKesRate) setUsdToKesRate(130);
+    setLastUpdated(new Date().toLocaleTimeString() + ' (estimated)');
+  } finally {
+    setIsLoadingRates(false);
+  }
+};
+
+  // Get converted amount for display
+  const getConvertedAmount = (currencyCode: string): number | null => {
+    const rate = exchangeRatesMap.get(currencyCode);
+    if (!rate) return null;
+    return calculateTotalInUSD() * rate;
+  };
+
+  // Fetch rates on mount and every 5 minutes
   useEffect(() => {
-    if (calculateTotal() > 0) fetchExchangeRate(selectedCurrency, calculateTotal());
-  }, [formData.registrationType, formData.excursion, formData.galaDinner, selectedCurrency]);
+    fetchExchangeRates();
+    const interval = setInterval(fetchExchangeRates, 5 * 60 * 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
@@ -440,10 +454,15 @@ const RegistrationForm = () => {
     if (!validateStep(4)) return;
     setIsSubmitting(true);
     try {
-      // ✅ Combine dial code + phone number before sending to backend
       const fullPhone = formData.dialCode
         ? formData.dialCode + " " + formData.phone.replace(/^0+/, "")
         : formData.phone;
+
+      const totalUSD = calculateTotalInUSD();
+      
+      console.log(`💰 Frontend: Total in USD = ${totalUSD}`);
+      console.log(`💰 Frontend: USD to KES rate = ${usdToKesRate}`);
+      console.log(`💰 Will convert to KES on backend`);
 
       const res = await fetch(`${BACKEND_URL}/initialize-payment`, {
         method: "POST",
@@ -451,7 +470,7 @@ const RegistrationForm = () => {
         body: JSON.stringify({
           email: formData.email,
           name: formData.fullName,
-          amount: calculateTotal(),
+          amount: totalUSD,  // Send USD amount to backend
           metadata: {
             phone: fullPhone,
             country: formData.country,
@@ -465,14 +484,13 @@ const RegistrationForm = () => {
             dietaryRestrictions: formData.dietaryRestrictions,
             accommodation: formData.accommodation,
             specialNeeds: formData.specialNeeds,
-            currency: selectedCurrency,  // ✅ SEND CURRENCY TO BACKEND
+            currency: "USD",  // Always send USD to backend for conversion
             dialCode: formData.dialCode,
           },
         }),
       });
       const data = await res.json();
 
-      // ✅ Handle duplicate registration error from server
       if (res.status === 409) {
         setSubmitStatus("error");
         setSubmitMessage("A registration already exists for this email and registration type. Please contact support if you believe this is an error.");
@@ -481,12 +499,13 @@ const RegistrationForm = () => {
       }
 
       if (data.authorization_url) {
-        clearSavedForm(); // ✅ Clear localStorage once redirecting to payment
+        clearSavedForm();
         window.location.href = data.authorization_url;
       } else {
         throw new Error("No authorization URL returned");
       }
     } catch (err) {
+      console.error("Submission error:", err);
       setSubmitStatus("error");
       setSubmitMessage("Payment initialization failed. Please try again.");
     } finally {
@@ -501,6 +520,8 @@ const RegistrationForm = () => {
     visible: { opacity: 1, x: 0, transition: { duration: 0.35, ease: "easeOut" as const } },
     exit: { opacity: 0, x: -40, transition: { duration: 0.2 } },
   };
+
+  const kesAmount = usdToKesRate ? calculateTotalInUSD() * usdToKesRate : null;
 
   return (
     <motion.div className="rfp" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
@@ -545,7 +566,6 @@ const RegistrationForm = () => {
                   <h2>Personal Information</h2>
                 </div>
 
-                {/* Restore banner */}
                 {(() => {
                   try {
                     const saved = localStorage.getItem(STORAGE_KEY);
@@ -588,7 +608,6 @@ const RegistrationForm = () => {
                     {errors.email && <span className="rfp__error">{errors.email}</span>}
                   </div>
 
-                  {/* ✅ CHANGE 4: Phone with dial code selector */}
                   <div className="rfp__field">
                     <label>Phone Number <span className="req">*</span></label>
                     <div className={`rfp__phone-wrap ${errors.phone ? 'has-error' : ''}`}>
@@ -617,7 +636,6 @@ const RegistrationForm = () => {
                 </div>
 
                 <div className="rfp__row">
-                  {/* ✅ CHANGE 2: Country searchable dropdown */}
                   <div className="rfp__field">
                     <label>Country <span className="req">*</span></label>
                     <CountryDropdown
@@ -684,7 +702,6 @@ const RegistrationForm = () => {
                     { value: 'delegate', label: 'Delegate', price: PRICING.delegate, perks: ['All conference sessions', 'Conference materials', 'Lunch & refreshments', 'Certificate of participation'] },
                     { value: 'farmer', label: 'Farmer', price: PRICING.farmer, perks: ['All conference sessions', 'Farm-focused workshops', 'Conference materials', 'Lunch & refreshments'] },
                     { value: 'virtual', label: 'Virtual Participant', price: PRICING.virtual, perks: ['Live streaming of all sessions', 'Virtual networking rooms', 'Digital conference materials', 'Digital certificate'] },
-      
                   ] as const).map(opt => (
                     <label key={opt.value} className={`rfp__reg-card ${formData.registrationType === opt.value ? 'is-selected' : ''}`}>
                       <input type="radio" name="registrationType" value={opt.value}
@@ -749,8 +766,8 @@ const RegistrationForm = () => {
                     {formData.galaDinner && <div className="rfp__summary-row"><span>Gala Dinner</span><span>{formatUSD(PRICING.galaDinner)}</span></div>}
                   </div>
                   <div className="rfp__summary-total">
-                    <span>Total</span>
-                    <span className="rfp__total-val">{formatUSD(calculateTotal())}</span>
+                    <span>Total (USD)</span>
+                    <span className="rfp__total-val">{formatUSD(calculateTotalInUSD())}</span>
                   </div>
                 </div>
 
@@ -808,38 +825,57 @@ const RegistrationForm = () => {
                     placeholder="Please let us know so we can make arrangements for you." />
                 </div>
 
-                {/* ✅ 🌍 MULTI-CURRENCY CONVERTER - ALL MAJOR WORLD CURRENCIES */}
-                <div className="rfp__currency">
-                  <div className="rfp__currency-header">
-                    <span className="rfp__currency-globe">🌍</span>
-                    <div>
-                      <h3>See total in your local currency</h3>
-                      <p>For reference only — payment will be processed in Kenyan Shillings (KES)</p>
-                    </div>
-                  </div>
-                  <select className="rfp__currency-select" value={selectedCurrency}
-                    onChange={e => setSelectedCurrency(e.target.value)} disabled={calculateTotal() === 0}>
-                    {POPULAR_CURRENCIES.map(c => (
-                      <option key={c.code} value={c.code}>{c.code} — {c.name} ({c.region})</option>
-                    ))}
-                  </select>
-                  {isConverting && (
-                    <div className="rfp__currency-loading">
-                      <span className="rfp__spinner" /> Fetching live rate…
-                    </div>
-                  )}
-                  {!isConverting && convertedAmount !== null && selectedCurrency !== 'USD' && (
-                    <div className="rfp__currency-result">
-                      <div className="rfp__currency-meta">
-                        {exchangeRate && <span>1 USD = {exchangeRate.toFixed(2)} {selectedCurrency}</span>}
-                        {lastUpdated && <span>Updated {lastUpdated}</span>}
-                      </div>
-                      <div className="rfp__currency-amount">
-                        ≈ <strong>{formatConverted(convertedAmount, selectedCurrency)}</strong>
-                      </div>
-                    </div>
-                  )}
-                </div>
+                {/* 🌍 CURRENCY SELECTOR - FOR REFERENCE ONLY */}
+<div className="rfp__currency">
+  <div className="rfp__currency-header">
+    <span className="rfp__currency-globe">🌍</span>
+    <div>
+      <h3>See total in your local currency</h3>
+      <p>Select your preferred currency for reference only — payment will be processed in Kenyan Shillings (KES)</p>
+    </div>
+  </div>
+  
+  <select 
+    className="rfp__currency-select" 
+    value={selectedDisplayCurrency}
+    onChange={e => setSelectedDisplayCurrency(e.target.value)} 
+    disabled={calculateTotalInUSD() === 0 || isLoadingRates}
+  >
+    {DISPLAY_CURRENCIES.map(c => (
+      <option key={c.code} value={c.code}>
+        {c.code} — {c.name} ({c.region})
+      </option>
+    ))}
+  </select>
+  
+  {isLoadingRates && (
+    <div className="rfp__currency-loading">
+      <span className="rfp__spinner" /> Fetching live rates…
+    </div>
+  )}
+  
+  {!isLoadingRates && selectedDisplayCurrency !== 'USD' && getConvertedAmount(selectedDisplayCurrency) && (
+    <>
+      {/* 🔥 NEW: Show the conversion sentence */}
+      <div className="rfp__conversion-sentence">
+        <strong>{formatUSD(calculateTotalInUSD())} USD</strong> ={' '}
+        <strong>{formatCurrency(getConvertedAmount(selectedDisplayCurrency)!, selectedDisplayCurrency)}</strong>
+      </div>
+      
+      <div className="rfp__currency-result">
+        <div className="rfp__currency-meta">
+          <span>Exchange rate: 1 USD = {exchangeRatesMap.get(selectedDisplayCurrency)?.toFixed(2)} {selectedDisplayCurrency}</span>
+          <span>Updated {lastUpdated}</span>
+        </div>
+      </div>
+    </>
+  )}
+  
+  {/* Payment processing note */}
+  <div className="rfp__currency-note">
+    💳 <strong>Payment will be processed in Kenyan Shillings (KES)</strong> — approximately {kesAmount ? formatCurrency(kesAmount, 'KES') : 'calculating...'}
+  </div>
+</div>
 
                 {/* FINAL SUMMARY */}
                 <div className="rfp__summary rfp__summary--final">
@@ -854,11 +890,11 @@ const RegistrationForm = () => {
                   </div>
                   <div className="rfp__summary-total">
                     <span>Total (USD)</span>
-                    <span className="rfp__total-val">{formatUSD(calculateTotal())}</span>
+                    <span className="rfp__total-val">{formatUSD(calculateTotalInUSD())}</span>
                   </div>
-                  {convertedAmount !== null && selectedCurrency !== 'USD' && (
+                  {selectedDisplayCurrency !== 'USD' && getConvertedAmount(selectedDisplayCurrency) && (
                     <div className="rfp__summary-converted">
-                      <span>≈ {formatConverted(convertedAmount, selectedCurrency)}</span>
+                      <span>≈ {formatCurrency(getConvertedAmount(selectedDisplayCurrency)!, selectedDisplayCurrency)}</span>
                     </div>
                   )}
                 </div>
@@ -879,7 +915,7 @@ const RegistrationForm = () => {
                 <div className="rfp__nav rfp__nav--split">
                   <button type="button" className="rfp__btn rfp__btn--back" onClick={handlePrev}>← Back</button>
                   <button type="submit" className="rfp__btn rfp__btn--submit" disabled={isSubmitting}>
-                    {isSubmitting ? <><span className="rfp__spinner rfp__spinner--white" /> Processing…</> : 'Pay & Register →'}
+                    {isSubmitting ? <><span className="rfp__spinner rfp__spinner--white" /> Processing…</> : `Pay ${kesAmount ? formatCurrency(kesAmount, 'KES') : 'Now'} →`}
                   </button>
                 </div>
               </motion.div>
