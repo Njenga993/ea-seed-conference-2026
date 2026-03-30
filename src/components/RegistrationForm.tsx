@@ -1,4 +1,4 @@
-// components/RegistrationForm.tsx
+// components/RegistrationForm.tsx - Complete with Multi-Currency Support
 import { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -103,28 +103,64 @@ const COUNTRIES = [
 ];
 
 // ─────────────────────────────────────────────
-// CURRENCIES
+// 🌍 CURRENCIES - COMPLETE GLOBAL LIST
 // ─────────────────────────────────────────────
 const POPULAR_CURRENCIES = [
-  { code: 'USD', name: 'US Dollar' },
-  { code: 'EUR', name: 'Euro' },
-  { code: 'GBP', name: 'British Pound' },
-  { code: 'KES', name: 'Kenyan Shilling' },
-  { code: 'UGX', name: 'Ugandan Shilling' },
-  { code: 'TZS', name: 'Tanzanian Shilling' },
-  { code: 'RWF', name: 'Rwandan Franc' },
-  { code: 'ETB', name: 'Ethiopian Birr' },
-  { code: 'NGN', name: 'Nigerian Naira' },
-  { code: 'ZAR', name: 'South African Rand' },
-  { code: 'GHS', name: 'Ghanaian Cedi' },
-  { code: 'EGP', name: 'Egyptian Pound' },
-  { code: 'CAD', name: 'Canadian Dollar' },
-  { code: 'AUD', name: 'Australian Dollar' },
-  { code: 'JPY', name: 'Japanese Yen' },
-  { code: 'CNY', name: 'Chinese Yuan' },
-  { code: 'INR', name: 'Indian Rupee' },
-  { code: 'AED', name: 'UAE Dirham' },
-  { code: 'SAR', name: 'Saudi Riyal' },
+  // MAJOR WORLDWIDE
+  { code: 'USD', name: 'US Dollar', region: 'World' },
+  { code: 'EUR', name: 'Euro', region: 'Europe' },
+  { code: 'GBP', name: 'British Pound', region: 'Europe' },
+  { code: 'JPY', name: 'Japanese Yen', region: 'Asia' },
+  { code: 'CNY', name: 'Chinese Yuan', region: 'Asia' },
+  { code: 'INR', name: 'Indian Rupee', region: 'Asia' },
+  { code: 'AUD', name: 'Australian Dollar', region: 'Oceania' },
+  { code: 'CAD', name: 'Canadian Dollar', region: 'Americas' },
+  
+  // AFRICA
+  { code: 'KES', name: 'Kenyan Shilling', region: 'East Africa' },
+  { code: 'UGX', name: 'Ugandan Shilling', region: 'East Africa' },
+  { code: 'TZS', name: 'Tanzanian Shilling', region: 'East Africa' },
+  { code: 'RWF', name: 'Rwandan Franc', region: 'East Africa' },
+  { code: 'ETB', name: 'Ethiopian Birr', region: 'East Africa' },
+  { code: 'ZAR', name: 'South African Rand', region: 'Africa' },
+  { code: 'GHS', name: 'Ghanaian Cedi', region: 'West Africa' },
+  { code: 'NGN', name: 'Nigerian Naira', region: 'West Africa' },
+  { code: 'EGP', name: 'Egyptian Pound', region: 'Africa' },
+  
+  // ASIA
+  { code: 'AED', name: 'UAE Dirham', region: 'Middle East' },
+  { code: 'SAR', name: 'Saudi Riyal', region: 'Middle East' },
+  { code: 'PKR', name: 'Pakistani Rupee', region: 'Asia' },
+  { code: 'BDT', name: 'Bangladeshi Taka', region: 'Asia' },
+  { code: 'IDR', name: 'Indonesian Rupiah', region: 'Asia' },
+  { code: 'PHP', name: 'Philippine Peso', region: 'Asia' },
+  { code: 'THB', name: 'Thai Baht', region: 'Asia' },
+  { code: 'VND', name: 'Vietnamese Dong', region: 'Asia' },
+  { code: 'MYR', name: 'Malaysian Ringgit', region: 'Asia' },
+  { code: 'SGD', name: 'Singapore Dollar', region: 'Asia' },
+  { code: 'HKD', name: 'Hong Kong Dollar', region: 'Asia' },
+  { code: 'TWD', name: 'Taiwan Dollar', region: 'Asia' },
+  
+  // AMERICAS
+  { code: 'MXN', name: 'Mexican Peso', region: 'Americas' },
+  { code: 'BRL', name: 'Brazilian Real', region: 'Americas' },
+  { code: 'ARS', name: 'Argentine Peso', region: 'Americas' },
+  { code: 'CLP', name: 'Chilean Peso', region: 'Americas' },
+  { code: 'COP', name: 'Colombian Peso', region: 'Americas' },
+  { code: 'PEN', name: 'Peruvian Sol', region: 'Americas' },
+  { code: 'JMD', name: 'Jamaican Dollar', region: 'Caribbean' },
+  
+  // EUROPE
+  { code: 'CHF', name: 'Swiss Franc', region: 'Europe' },
+  { code: 'SEK', name: 'Swedish Krona', region: 'Europe' },
+  { code: 'NOK', name: 'Norwegian Krone', region: 'Europe' },
+  { code: 'DKK', name: 'Danish Krone', region: 'Europe' },
+  { code: 'PLN', name: 'Polish Zloty', region: 'Europe' },
+  { code: 'CZK', name: 'Czech Koruna', region: 'Europe' },
+  { code: 'HUF', name: 'Hungarian Forint', region: 'Europe' },
+  { code: 'RON', name: 'Romanian Leu', region: 'Europe' },
+  { code: 'RUB', name: 'Russian Ruble', region: 'Europe' },
+  { code: 'TRY', name: 'Turkish Lira', region: 'Europe' },
 ];
 
 // ─────────────────────────────────────────────
@@ -319,7 +355,7 @@ const RegistrationForm = () => {
   const formatConverted = (amount: number, code: string) =>
     new Intl.NumberFormat('en-US', { style: 'currency', currency: code, minimumFractionDigits: 0 }).format(amount);
 
-  // ✅ CHANGE 3: Fixed currency API — frankfurter.app (free, no key, no deprecation)
+  // ✅ Fetch live exchange rates using frankfurter.app (free, no API key)
   const fetchExchangeRate = async (toCurrency: string, amount: number) => {
     if (toCurrency === 'USD') {
       setConvertedAmount(amount);
@@ -340,12 +376,17 @@ const RegistrationForm = () => {
       setExchangeRate(rate);
       setLastUpdated(new Date().toLocaleTimeString());
     } catch {
-      // Hardcoded fallback rates
+      // Hardcoded fallback rates (update these periodically)
       const fallback: Record<string, number> = {
-        EUR: 0.92, GBP: 0.79, KES: 140.5, UGX: 3850, TZS: 2600,
-        RWF: 1300, ETB: 57, NGN: 1500, ZAR: 18.8, GHS: 13.2,
-        EGP: 47.5, CAD: 1.35, AUD: 1.52, JPY: 150.5, CNY: 7.19,
-        INR: 83.5, AED: 3.67, SAR: 3.75,
+        EUR: 0.92, GBP: 0.79, JPY: 150.5, CNY: 7.19, INR: 83.5, AUD: 1.52,
+        KES: 140.5, UGX: 3850, TZS: 2600, RWF: 1300, ETB: 57,
+        ZAR: 18.8, GHS: 13.2, NGN: 1500, EGP: 47.5, CAD: 1.35,
+        AED: 3.67, SAR: 3.75, PKR: 277, BDT: 110, IDR: 16000,
+        PHP: 56, THB: 36, VND: 24000, MYR: 4.85, SGD: 1.36,
+        HKD: 7.85, TWD: 32, MXN: 17, BRL: 5.05, ARS: 900,
+        CLP: 910, COP: 4100, PEN: 3.85, CHF: 0.88, SEK: 10.2,
+        NOK: 10.7, DKK: 6.85, PLN: 4.0, CZK: 24, HUF: 370,
+        RON: 4.6, RUB: 98, TRY: 32, JMD: 154,
       };
       const rate = fallback[toCurrency] || 1;
       setConvertedAmount(amount * rate);
@@ -416,8 +457,16 @@ const RegistrationForm = () => {
             country: formData.country,
             organization: formData.organization,
             registrationType: formData.registrationType,
+            category: formData.category,
+            position: formData.position,
             excursion: formData.excursion,
             galaDinner: formData.galaDinner,
+            hearAbout: formData.hearAbout,
+            dietaryRestrictions: formData.dietaryRestrictions,
+            accommodation: formData.accommodation,
+            specialNeeds: formData.specialNeeds,
+            currency: selectedCurrency,  // ✅ SEND CURRENCY TO BACKEND
+            dialCode: formData.dialCode,
           },
         }),
       });
@@ -664,7 +713,7 @@ const RegistrationForm = () => {
               <motion.div key="s3" className="rfp__step" variants={stepVariants} initial="hidden" animate="visible" exit="exit">
                 <div className="rfp__step-header">
                   <span className="rfp__step-num">03</span>
-                  <h2>Optional Add-on's</h2>
+                  <h2>Optional Add-ons</h2>
                 </div>
 
                 <div className="rfp__addons">
@@ -717,7 +766,7 @@ const RegistrationForm = () => {
               <motion.div key="s4" className="rfp__step" variants={stepVariants} initial="hidden" animate="visible" exit="exit">
                 <div className="rfp__step-header">
                   <span className="rfp__step-num">04</span>
-                  <h2>Additional Information</h2>
+                  <h2>Additional Information & Payment</h2>
                 </div>
 
                 <div className="rfp__row">
@@ -759,19 +808,19 @@ const RegistrationForm = () => {
                     placeholder="Please let us know so we can make arrangements for you." />
                 </div>
 
-                {/* ✅ CHANGE 3: Currency converter using frankfurter.app */}
+                {/* ✅ 🌍 MULTI-CURRENCY CONVERTER - ALL MAJOR WORLD CURRENCIES */}
                 <div className="rfp__currency">
                   <div className="rfp__currency-header">
                     <span className="rfp__currency-globe">🌍</span>
                     <div>
                       <h3>See total in your local currency</h3>
-                      <p>For reference only — payment is processed in USD</p>
+                      <p>For reference only — payment will be processed in Kenyan Shillings (KES)</p>
                     </div>
                   </div>
                   <select className="rfp__currency-select" value={selectedCurrency}
                     onChange={e => setSelectedCurrency(e.target.value)} disabled={calculateTotal() === 0}>
                     {POPULAR_CURRENCIES.map(c => (
-                      <option key={c.code} value={c.code}>{c.code} — {c.name}</option>
+                      <option key={c.code} value={c.code}>{c.code} — {c.name} ({c.region})</option>
                     ))}
                   </select>
                   {isConverting && (
