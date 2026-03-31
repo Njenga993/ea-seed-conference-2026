@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import "../styles/navbar.css";
 
 // Import logos (update these paths to match your actual logo files)
-import leftLogo from "../assets/ea.webp"; // Your left side logo
+
 import rightLogo from "../assets/ssklogo.webp"; // Your right side logo
 
 const Navbar = () => {
@@ -95,7 +95,7 @@ const Navbar = () => {
         {/* LEFT LOGO */}
         <Link to="/" className="nav-logo-left">
           <img 
-            src={leftLogo} 
+            src={rightLogo} 
             alt="Eastern Africa Indigenous Seed Conference" 
             className="nav-logo-image"
           />
@@ -179,14 +179,6 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* RIGHT LOGO */}
-        <Link to="/" className="nav-logo-right">
-          <img 
-            src={rightLogo} 
-            alt="Partner Organization" 
-            className="nav-logo-image"
-          />
-        </Link>
       </div>
     </nav>
   );

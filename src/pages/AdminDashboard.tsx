@@ -3,10 +3,18 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useAuth } from "../hooks/useAuth";
 import "../styles/AdminDashboard.css";
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "https://conference-backend-m5hq.onrender.com";
+const BACKEND_URL =
+  import.meta.env.VITE_BACKEND_URL ||
+  "https://conference-backend-m5hq.onrender.com";
 
 interface Stats {
-  registrations: { total: number; paid: number; pending: number; failed: number; checkedIn: number };
+  registrations: {
+    total: number;
+    paid: number;
+    pending: number;
+    failed: number;
+    checkedIn: number;
+  };
   byType: Record<string, number>;
   totalRevenue: number;
 }
@@ -30,24 +38,32 @@ interface Participant {
   checkedinby: string | null;
   excursion: number;
   galadinner: number;
-  hearabout: string;
-  dietaryrestrictions: string;
+  hearAbout: string;
+  dietaryRestrictions: string;
   accommodation: string;
-  specialneeds: string;
+  specialNeeds: string;
   createdat: string;
 }
 
 const TYPE_COLORS: Record<string, string> = {
-  delegate: "#3182CE", 
+  delegate: "#3182CE",
   farmer: "#38A169",
-  virtual: "#805AD5", 
+  virtual: "#805AD5",
   student: "#DD6B20",
-  vip: "#C99A2E", 
+  vip: "#C99A2E",
   speaker: "#B7791F",
 };
 
 const AdminDashboard = () => {
-  const { token, role, loading: authLoading, error: authError, login, logout, authFetch } = useAuth();
+  const {
+    token,
+    role,
+    loading: authLoading,
+    error: authError,
+    login,
+    logout,
+    authFetch,
+  } = useAuth();
 
   const [passwordInput, setPasswordInput] = useState("");
   const [loginLoading, setLoginLoading] = useState(false);
@@ -63,7 +79,7 @@ const AdminDashboard = () => {
   const [resendingId, setResendingId] = useState<string | null>(null);
   const [toast, setToast] = useState("");
   const [expandedId, setExpandedId] = useState<string | null>(null);
-  
+
   // Track if this is the first load
   const isFirstLoad = useRef(true);
   // Track last check-in count to detect changes
@@ -94,21 +110,28 @@ const AdminDashboard = () => {
       }
 
       const [statsData, participantsData] = await Promise.all([
-        statsRes.json(), 
+        statsRes.json(),
         participantsRes.json(),
       ]);
 
       // Check if check-in count changed (for silent toast notification)
-      if (!isFirstLoad.current && lastCheckedInCount.current !== 0 && statsData?.registrations?.checkedIn !== lastCheckedInCount.current) {
-        const change = statsData.registrations.checkedIn - lastCheckedInCount.current;
+      if (
+        !isFirstLoad.current &&
+        lastCheckedInCount.current !== 0 &&
+        statsData?.registrations?.checkedIn !== lastCheckedInCount.current
+      ) {
+        const change =
+          statsData.registrations.checkedIn - lastCheckedInCount.current;
         if (change > 0) {
-          showToast(`🔔 ${change} new participant${change > 1 ? 's' : ''} checked in!`);
+          showToast(
+            `🔔 ${change} new participant${change > 1 ? "s" : ""} checked in!`,
+          );
         }
       }
-      
+
       lastCheckedInCount.current = statsData?.registrations?.checkedIn || 0;
       isFirstLoad.current = false;
-      
+
       setStats(statsData);
       setParticipants(participantsData);
     } catch {
@@ -118,39 +141,23 @@ const AdminDashboard = () => {
     }
   }, [token, role, statusFilter, typeFilter, authFetch]);
 
-  // Initial load and auto-refresh setup
-  useEffect(() => {
-    if (token && role === "admin") {
-      // Initial load
-      loadData();
-      
-      // Set up auto-refresh every 10 seconds to sync with check-in page
-      const intervalId = setInterval(() => {
-        loadData();
-      }, 10000); // Refresh every 10 seconds
-      
-      // Cleanup interval on component unmount
-      return () => clearInterval(intervalId);
-    }
-  }, [token, role, loadData]);
-
   // Refresh when tab becomes visible (user comes back to dashboard)
   useEffect(() => {
     if (!token || role !== "admin") return;
-    
+
     const handleVisibilityChange = () => {
       if (!document.hidden) {
         loadData();
       }
     };
-    
+
     const handleFocus = () => {
       loadData();
     };
-    
+
     document.addEventListener("visibilitychange", handleVisibilityChange);
     window.addEventListener("focus", handleFocus);
-    
+
     return () => {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       window.removeEventListener("focus", handleFocus);
@@ -168,28 +175,34 @@ const AdminDashboard = () => {
   const handleResend = async (participantId: string) => {
     setResendingId(participantId);
     try {
-      const res = await authFetch(`${BACKEND_URL}/admin/resend-ticket/${participantId}`, { method: "POST" });
+      const res = await authFetch(
+        `${BACKEND_URL}/admin/resend-ticket/${participantId}`,
+        { method: "POST" },
+      );
       const data = await res.json();
       showToast(res.ok ? "✅ Ticket resent" : "❌ " + data.error);
-    } catch { 
-      showToast("❌ Network error"); 
-    } finally { 
-      setResendingId(null); 
+    } catch {
+      showToast("❌ Network error");
+    } finally {
+      setResendingId(null);
     }
   };
 
   const handleUndoCheckin = async (participantId: string) => {
     try {
-      const res = await authFetch(`${BACKEND_URL}/admin/undo-checkin/${participantId}`, { method: "PATCH" });
+      const res = await authFetch(
+        `${BACKEND_URL}/admin/undo-checkin/${participantId}`,
+        { method: "PATCH" },
+      );
       const data = await res.json();
-      if (res.ok) { 
-        showToast("✅ Check-in reversed"); 
-        loadData(); 
+      if (res.ok) {
+        showToast("✅ Check-in reversed");
+        loadData();
       } else {
         showToast("❌ " + data.error);
       }
-    } catch { 
-      showToast("❌ Network error"); 
+    } catch {
+      showToast("❌ Network error");
     }
   };
 
@@ -199,24 +212,24 @@ const AdminDashboard = () => {
       if (statusFilter) params.set("status", statusFilter);
       if (typeFilter) params.set("type", typeFilter);
       const res = await authFetch(`${BACKEND_URL}/admin/export?${params}`);
-      if (!res.ok) { 
-        showToast("❌ Export failed"); 
-        return; 
+      if (!res.ok) {
+        showToast("❌ Export failed");
+        return;
       }
       const blob = await res.blob();
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `participants-${new Date().toISOString().split('T')[0]}.csv`;
+      a.download = `participants-${new Date().toISOString().split("T")[0]}.csv`;
       a.click();
       URL.revokeObjectURL(url);
       showToast("✅ CSV exported");
-    } catch { 
-      showToast("❌ Export failed"); 
+    } catch {
+      showToast("❌ Export failed");
     }
   };
 
-  const filtered = participants.filter(p => {
+  const filtered = participants.filter((p) => {
     if (!searchQuery) return true;
     const q = searchQuery.toLowerCase();
     return (
@@ -248,7 +261,9 @@ const AdminDashboard = () => {
       <div className="adm adm--login">
         <div className="adm__login-card">
           <div className="adm__login-logo">
-            <p className="adm__eyebrow">EA Indigenous Seed Conference 2026</p>
+            <p className="adm__eyebrow">
+              1st EA Indigenous Seed Conference 2026
+            </p>
             <h1>Admin Panel</h1>
           </div>
           {authError && (
@@ -261,8 +276,8 @@ const AdminDashboard = () => {
               type="password"
               placeholder="Enter your password"
               value={passwordInput}
-              onChange={e => setPasswordInput(e.target.value)}
-              onKeyDown={e => e.key === "Enter" && handleLogin()}
+              onChange={(e) => setPasswordInput(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleLogin()}
               autoFocus
             />
           </div>
@@ -272,7 +287,9 @@ const AdminDashboard = () => {
             disabled={loginLoading || !passwordInput.trim()}
           >
             {loginLoading ? (
-              <><span className="adm__spinner adm__spinner--sm" /> Signing in…</>
+              <>
+                <span className="adm__spinner adm__spinner--sm" /> Signing in…
+              </>
             ) : (
               "Sign in"
             )}
@@ -288,8 +305,13 @@ const AdminDashboard = () => {
       <div className="adm adm--center">
         <div className="adm__role-error">
           <h2>Access restricted</h2>
-          <p>You are logged in as <strong>{role}</strong>. Admin dashboard requires an admin account.</p>
-          <button className="adm__btn adm__btn--outline" onClick={logout}>Sign out</button>
+          <p>
+            You are logged in as <strong>{role}</strong>. Admin dashboard
+            requires an admin account.
+          </p>
+          <button className="adm__btn adm__btn--outline" onClick={logout}>
+            Sign out
+          </button>
         </div>
       </div>
     );
@@ -307,21 +329,33 @@ const AdminDashboard = () => {
             <p className="adm__eyebrow">Admin Panel</p>
             <h1 className="adm__heading">EA Seed Conference 2026</h1>
             {/* Show auto-refresh indicator */}
-            <p className="adm__auto-refresh-indicator">Auto-refreshing every 10s</p>
           </div>
           <div className="adm__topbar-actions">
             <span className="adm__role-pill">admin</span>
-            <button className="adm__btn adm__btn--ghost" onClick={loadData} disabled={dataLoading}>
+            <button
+              className="adm__btn adm__btn--ghost"
+              onClick={loadData}
+              disabled={dataLoading}
+            >
               {dataLoading ? "Loading…" : "↻ Refresh"}
             </button>
-            <button className="adm__btn adm__btn--export" onClick={handleExport}>↓ CSV</button>
-            <button className="adm__btn adm__btn--logout" onClick={logout}>Sign out</button>
+            <button
+              className="adm__btn adm__btn--export"
+              onClick={handleExport}
+            >
+              ↓ CSV
+            </button>
+            <button className="adm__btn adm__btn--logout" onClick={logout}>
+              Sign out
+            </button>
           </div>
         </div>
       </div>
 
       <div className="adm__body">
-        {dataError && <div className="adm__alert adm__alert--error">{dataError}</div>}
+        {dataError && (
+          <div className="adm__alert adm__alert--error">{dataError}</div>
+        )}
 
         {/* STAT CARDS */}
         {stats && (
@@ -331,20 +365,30 @@ const AdminDashboard = () => {
               <span className="adm__stat-label">Paid registrations</span>
             </div>
             <div className="adm__stat adm__stat--green">
-              <span className="adm__stat-val">{stats.registrations.checkedIn}</span>
+              <span className="adm__stat-val">
+                {stats.registrations.checkedIn}
+              </span>
               <span className="adm__stat-label">Checked in</span>
               <span className="adm__stat-sub">
                 {stats.registrations.paid > 0
-                  ? Math.round((stats.registrations.checkedIn / stats.registrations.paid) * 100) + "% arrived"
+                  ? Math.round(
+                      (stats.registrations.checkedIn /
+                        stats.registrations.paid) *
+                        100,
+                    ) + "% arrived"
                   : "0% arrived"}
               </span>
             </div>
             <div className="adm__stat adm__stat--gold">
-              <span className="adm__stat-val">${stats.totalRevenue.toLocaleString()}</span>
+              <span className="adm__stat-val">
+                ${stats.totalRevenue.toLocaleString()}
+              </span>
               <span className="adm__stat-label">Total revenue</span>
             </div>
             <div className="adm__stat">
-              <span className="adm__stat-val">{stats.registrations.pending}</span>
+              <span className="adm__stat-val">
+                {stats.registrations.pending}
+              </span>
               <span className="adm__stat-label">Pending payment</span>
             </div>
           </div>
@@ -355,7 +399,10 @@ const AdminDashboard = () => {
           <div className="adm__breakdown">
             {Object.entries(stats.byType).map(([type, count]) => (
               <div key={type} className="adm__breakdown-item">
-                <span className="adm__breakdown-dot" style={{ background: TYPE_COLORS[type] || "#888" }} />
+                <span
+                  className="adm__breakdown-dot"
+                  style={{ background: TYPE_COLORS[type] || "#888" }}
+                />
                 <span className="adm__breakdown-type">{type}</span>
                 <span className="adm__breakdown-count">{count}</span>
               </div>
@@ -370,22 +417,22 @@ const AdminDashboard = () => {
             type="text"
             placeholder="Search name, email, country, phone…"
             value={searchQuery}
-            onChange={e => setSearchQuery(e.target.value)}
+            onChange={(e) => setSearchQuery(e.target.value)}
           />
-          <select 
-            className="adm__select" 
+          <select
+            className="adm__select"
             value={statusFilter}
-            onChange={e => setStatusFilter(e.target.value)}
+            onChange={(e) => setStatusFilter(e.target.value)}
           >
             <option value="">All statuses</option>
             <option value="paid">Paid</option>
             <option value="pending">Pending</option>
             <option value="failed">Failed</option>
           </select>
-          <select 
-            className="adm__select" 
+          <select
+            className="adm__select"
             value={typeFilter}
-            onChange={e => setTypeFilter(e.target.value)}
+            onChange={(e) => setTypeFilter(e.target.value)}
           >
             <option value="">All types</option>
             <option value="delegate">Delegate</option>
@@ -393,13 +440,17 @@ const AdminDashboard = () => {
             <option value="virtual">Virtual</option>
             <option value="student">Student</option>
           </select>
-          <button className="adm__btn adm__btn--apply" onClick={loadData}>Apply</button>
+          <button className="adm__btn adm__btn--apply" onClick={loadData}>
+            Apply
+          </button>
         </div>
 
         {/* TABLE */}
         <div className="adm__table-wrap">
           {dataLoading ? (
-            <div className="adm__loading"><span className="adm__spinner" /> Loading…</div>
+            <div className="adm__loading">
+              <span className="adm__spinner" /> Loading…
+            </div>
           ) : filtered.length === 0 ? (
             <div className="adm__empty">No participants found.</div>
           ) : (
@@ -417,50 +468,75 @@ const AdminDashboard = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {filtered.map(p => (
+                  {filtered.map((p) => (
                     <React.Fragment key={p.id}>
                       {/* MAIN ROW */}
-                      <tr className={isCheckedIn(p.checkedin) ? "adm__row--checkedin" : ""}>
+                      <tr
+                        className={
+                          isCheckedIn(p.checkedin) ? "adm__row--checkedin" : ""
+                        }
+                      >
                         <td className="adm__cell-name-cell">
                           <button
                             className="adm__expand-btn"
-                            onClick={() => setExpandedId(expandedId === p.id ? null : p.id)}
+                            onClick={() =>
+                              setExpandedId(expandedId === p.id ? null : p.id)
+                            }
                             title="Click to expand details"
                           >
                             {expandedId === p.id ? "▼" : "▶"}
                           </button>
                           <div className="adm__cell-name">
-                            <div className="adm__cell-name-text">{p.fullname}</div>
+                            <div className="adm__cell-name-text">
+                              {p.fullname}
+                            </div>
                             <div className="adm__cell-email">{p.email}</div>
                           </div>
                         </td>
                         <td>
-                          <span className="adm__badge" style={{ background: TYPE_COLORS[p.registrationtype] || "#888" }}>
+                          <span
+                            className="adm__badge"
+                            style={{
+                              background:
+                                TYPE_COLORS[p.registrationtype] || "#888",
+                            }}
+                          >
                             {p.registrationtype}
                           </span>
                         </td>
                         <td>
                           <div className="adm__cell-muted">{p.country}</div>
-                          <div className="adm__cell-muted adm__cell-org">{p.organization}</div>
+                          <div className="adm__cell-muted adm__cell-org">
+                            {p.organization}
+                          </div>
                         </td>
                         <td>
-                          <span className={`adm__status adm__status--${p.paymentstatus}`}>
+                          <span
+                            className={`adm__status adm__status--${p.paymentstatus}`}
+                          >
                             {p.paymentstatus}
                           </span>
                         </td>
                         <td>
                           {isCheckedIn(p.checkedin) ? (
                             <div>
-                              <span className="adm__status adm__status--checkedin">✓ In</span>
+                              <span className="adm__status adm__status--checkedin">
+                                ✓ In
+                              </span>
                               {p.checkedinat && (
                                 <div className="adm__cell-time">
-                                  {new Date(p.checkedinat).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                                  {new Date(p.checkedinat).toLocaleTimeString(
+                                    [],
+                                    { hour: "2-digit", minute: "2-digit" },
+                                  )}
                                   {p.checkedinby ? ` · ${p.checkedinby}` : ""}
                                 </div>
                               )}
                             </div>
                           ) : (
-                            <span className="adm__status adm__status--pending">Not yet</span>
+                            <span className="adm__status adm__status--pending">
+                              Not yet
+                            </span>
                           )}
                         </td>
                         <td className="adm__cell-amount">${p.amount}</td>
@@ -468,23 +544,23 @@ const AdminDashboard = () => {
                           <div className="adm__actions">
                             {p.paymentstatus === "paid" && (
                               <>
-                                <button 
+                                <button
                                   className="adm__action-btn adm__action-btn--resend"
-                                  onClick={() => handleResend(p.id)} 
+                                  onClick={() => handleResend(p.id)}
                                   disabled={resendingId === p.id}
                                 >
                                   {resendingId === p.id ? "…" : "Resend"}
                                 </button>
-                                <a 
+                                <a
                                   className="adm__action-btn adm__action-btn--view"
-                                  href={`${BACKEND_URL}/ticket/${p.id}`} 
-                                  target="_blank" 
+                                  href={`${BACKEND_URL}/ticket/${p.id}`}
+                                  target="_blank"
                                   rel="noopener noreferrer"
                                 >
                                   View
                                 </a>
                                 {isCheckedIn(p.checkedin) && (
-                                  <button 
+                                  <button
                                     className="adm__action-btn adm__action-btn--undo"
                                     onClick={() => handleUndoCheckin(p.id)}
                                   >
@@ -505,89 +581,166 @@ const AdminDashboard = () => {
                               <div className="adm__detail-grid">
                                 {/* Column 1: Contact Info */}
                                 <div className="adm__detail-col">
-                                  <h4 className="adm__detail-heading"> Contact</h4>
+                                  <h4 className="adm__detail-heading">
+                                    {" "}
+                                    Contact
+                                  </h4>
                                   <div className="adm__detail-item">
-                                    <span className="adm__detail-label">Phone</span>
-                                    <span className="adm__detail-value">{p.dialcode || ""} {p.phone || "—"}</span>
+                                    <span className="adm__detail-label">
+                                      Phone
+                                    </span>
+                                    <span className="adm__detail-value">
+                                      {p.dialcode || ""} {p.phone || "—"}
+                                    </span>
                                   </div>
                                   <div className="adm__detail-item">
-                                    <span className="adm__detail-label">Email</span>
-                                    <span className="adm__detail-value">{p.email}</span>
+                                    <span className="adm__detail-label">
+                                      Email
+                                    </span>
+                                    <span className="adm__detail-value">
+                                      {p.email}
+                                    </span>
                                   </div>
                                 </div>
 
                                 {/* Column 2: Professional Info */}
                                 <div className="adm__detail-col">
-                                  <h4 className="adm__detail-heading"> Professional</h4>
+                                  <h4 className="adm__detail-heading">
+                                    {" "}
+                                    Professional
+                                  </h4>
                                   <div className="adm__detail-item">
-                                    <span className="adm__detail-label">Organization</span>
-                                    <span className="adm__detail-value">{p.organization || "—"}</span>
+                                    <span className="adm__detail-label">
+                                      Organization
+                                    </span>
+                                    <span className="adm__detail-value">
+                                      {p.organization || "—"}
+                                    </span>
                                   </div>
                                   <div className="adm__detail-item">
-                                    <span className="adm__detail-label">Position</span>
-                                    <span className="adm__detail-value">{p.position || "—"}</span>
+                                    <span className="adm__detail-label">
+                                      Position
+                                    </span>
+                                    <span className="adm__detail-value">
+                                      {p.position || "—"}
+                                    </span>
                                   </div>
                                   <div className="adm__detail-item">
-                                    <span className="adm__detail-label">Category</span>
-                                    <span className="adm__detail-value">{p.category || "—"}</span>
+                                    <span className="adm__detail-label">
+                                      Category
+                                    </span>
+                                    <span className="adm__detail-value">
+                                      {p.category || "—"}
+                                    </span>
                                   </div>
                                 </div>
 
                                 {/* Column 3: Preferences */}
                                 <div className="adm__detail-col">
-                                  <h4 className="adm__detail-heading"> Preferences</h4>
+                                  <h4 className="adm__detail-heading">
+                                    {" "}
+                                    Preferences
+                                  </h4>
                                   <div className="adm__detail-item">
-                                    <span className="adm__detail-label">Heard about us</span>
-                                    <span className="adm__detail-value">{p.hearabout || "—"}</span>
+                                    <span className="adm__detail-label">
+                                      Heard about us
+                                    </span>
+                                    <span className="adm__detail-value">
+                                      {p.hearAbout || "—"}
+                                    </span>
                                   </div>
                                   <div className="adm__detail-item">
-                                    <span className="adm__detail-label">Dietary restrictions</span>
-                                    <span className="adm__detail-value">{p.dietaryrestrictions || "—"}</span>
+                                    <span className="adm__detail-label">
+                                      Dietary restrictions
+                                    </span>
+                                    <span className="adm__detail-value">
+                                      {p.dietaryRestrictions || "—"}
+                                    </span>
                                   </div>
                                   <div className="adm__detail-item">
-                                    <span className="adm__detail-label">Accommodation</span>
-                                    <span className="adm__detail-value">{p.accommodation || "—"}</span>
+                                    <span className="adm__detail-label">
+                                      Accommodation
+                                    </span>
+                                    <span className="adm__detail-value">
+                                      {p.accommodation || "—"}
+                                    </span>
                                   </div>
                                 </div>
 
                                 {/* Column 4: Payment & Registration */}
                                 <div className="adm__detail-col">
-                                  <h4 className="adm__detail-heading"> Payment</h4>
+                                  <h4 className="adm__detail-heading">
+                                    {" "}
+                                    Payment
+                                  </h4>
                                   <div className="adm__detail-item">
-                                    <span className="adm__detail-label">Payment Status</span>
-                                    <span className={`adm__detail-value adm__detail-status adm__detail-status--${p.paymentstatus}`}>
+                                    <span className="adm__detail-label">
+                                      Payment Status
+                                    </span>
+                                    <span
+                                      className={`adm__detail-value adm__detail-status adm__detail-status--${p.paymentstatus}`}
+                                    >
                                       {p.paymentstatus}
                                     </span>
                                   </div>
                                   <div className="adm__detail-item">
-                                    <span className="adm__detail-label">Payment Ref</span>
-                                    <span className="adm__detail-value adm__mono">{p.paymentreference || "—"}</span>
+                                    <span className="adm__detail-label">
+                                      Payment Ref
+                                    </span>
+                                    <span className="adm__detail-value adm__mono">
+                                      {p.paymentreference || "—"}
+                                    </span>
                                   </div>
                                   <div className="adm__detail-item">
-                                    <span className="adm__detail-label">Registered</span>
+                                    <span className="adm__detail-label">
+                                      Registered
+                                    </span>
                                     <span className="adm__detail-value">
-                                      {p.createdat ? new Date(p.createdat).toLocaleDateString() : "—"}
+                                      {p.createdat
+                                        ? new Date(
+                                            p.createdat,
+                                          ).toLocaleDateString()
+                                        : "—"}
                                     </span>
                                   </div>
                                 </div>
 
                                 {/* Column 5: Special Needs */}
                                 <div className="adm__detail-col">
-                                  <h4 className="adm__detail-heading"> Accessibility</h4>
+                                  <h4 className="adm__detail-heading">
+                                    {" "}
+                                    Accessibility
+                                  </h4>
                                   <div className="adm__detail-item">
-                                    <span className="adm__detail-label">Special needs</span>
-                                    <span className="adm__detail-value">{p.specialneeds || "—"}</span>
+                                    <span className="adm__detail-label">
+                                      Special needs
+                                    </span>
+                                    <span className="adm__detail-value">
+                                      {p.specialNeeds || "—"}
+                                    </span>
                                   </div>
                                 </div>
                               </div>
 
                               {/* Add-ons Summary */}
-                              {(hasExcursion(p.excursion) || hasGalaDinner(p.galadinner)) && (
+                              {(hasExcursion(p.excursion) ||
+                                hasGalaDinner(p.galadinner)) && (
                                 <div className="adm__addons-summary">
-                                  <h4 className="adm__detail-heading"> Add-ons</h4>
+                                  <h4 className="adm__detail-heading">
+                                    {" "}
+                                    Add-ons
+                                  </h4>
                                   <div className="adm__addon-list">
-                                    {hasExcursion(p.excursion) && <span className="adm__addon-tag">🌱 Field Excursion</span>}
-                                    {hasGalaDinner(p.galadinner) && <span className="adm__addon-tag">🍽️ Gala Dinner</span>}
+                                    {hasExcursion(p.excursion) && (
+                                      <span className="adm__addon-tag">
+                                        🌱 Field Excursion
+                                      </span>
+                                    )}
+                                    {hasGalaDinner(p.galadinner) && (
+                                      <span className="adm__addon-tag">
+                                        🍽️ Gala Dinner
+                                      </span>
+                                    )}
                                   </div>
                                 </div>
                               )}
@@ -599,7 +752,9 @@ const AdminDashboard = () => {
                   ))}
                 </tbody>
               </table>
-              <p className="adm__count">Showing {filtered.length} of {participants.length} participants</p>
+              <p className="adm__count">
+                Showing {filtered.length} of {participants.length} participants
+              </p>
             </>
           )}
         </div>
