@@ -38,10 +38,10 @@ interface Participant {
   checkedinby: string | null;
   excursion: number;
   galadinner: number;
-  hearAbout: string;
-  dietaryRestrictions: string;
+  hearabout: string;
+  dietaryrestrictions: string;
   accommodation: string;
-  specialNeeds: string;
+  specialneeds: string;
   createdat: string;
 }
 
@@ -646,7 +646,7 @@ const AdminDashboard = () => {
                                       Heard about us
                                     </span>
                                     <span className="adm__detail-value">
-                                      {p.hearAbout || "—"}
+                                      {p.hearabout || "—"}
                                     </span>
                                   </div>
                                   <div className="adm__detail-item">
@@ -654,7 +654,7 @@ const AdminDashboard = () => {
                                       Dietary restrictions
                                     </span>
                                     <span className="adm__detail-value">
-                                      {p.dietaryRestrictions || "—"}
+                                      {p.dietaryrestrictions || "—"}
                                     </span>
                                   </div>
                                   <div className="adm__detail-item">
@@ -716,7 +716,7 @@ const AdminDashboard = () => {
                                       Special needs
                                     </span>
                                     <span className="adm__detail-value">
-                                      {p.specialNeeds || "—"}
+                                      {p.specialneeds || "—"}
                                     </span>
                                   </div>
                                 </div>
@@ -733,12 +733,12 @@ const AdminDashboard = () => {
                                   <div className="adm__addon-list">
                                     {hasExcursion(p.excursion) && (
                                       <span className="adm__addon-tag">
-                                        🌱 Field Excursion
+                                        Field Excursion
                                       </span>
                                     )}
                                     {hasGalaDinner(p.galadinner) && (
                                       <span className="adm__addon-tag">
-                                        🍽️ Gala Dinner
+                                        Gala Dinner
                                       </span>
                                     )}
                                   </div>
