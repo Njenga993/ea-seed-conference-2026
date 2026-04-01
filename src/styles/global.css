@@ -18,3 +18,30 @@ body {
   margin: 0 auto;
   padding: 0 20px;
 }
+
+/* Global app container styles */
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ensure content is properly spaced */
+main {
+  flex: 1;
+}
+
+/* Smooth transitions */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Prevent scrollbar jump during loading */
+body {
+  overflow-y: scroll;
+}
+
+/* Loading state */
+body.loading {
+  overflow: hidden;
+}

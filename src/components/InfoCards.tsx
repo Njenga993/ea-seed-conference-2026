@@ -7,7 +7,7 @@ const InfoCards = () => {
   const navigate = useNavigate();
   const sectionRef = useRef<HTMLElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
-  
+
   // Properly typed ref array for HTMLDivElement
   const card1Ref = useRef<HTMLDivElement>(null);
   const card2Ref = useRef<HTMLDivElement>(null);
@@ -21,21 +21,21 @@ const InfoCards = () => {
             // Animate header first
             if (headerRef.current) {
               setTimeout(() => {
-                headerRef.current?.classList.add('info-header-visible');
+                headerRef.current?.classList.add("info-header-visible");
               }, 200);
             }
 
             // Animate cards with staggered delays
             setTimeout(() => {
-              card1Ref.current?.classList.add('info-card-visible');
+              card1Ref.current?.classList.add("info-card-visible");
             }, 400);
-            
+
             setTimeout(() => {
-              card2Ref.current?.classList.add('info-card-visible');
+              card2Ref.current?.classList.add("info-card-visible");
             }, 600);
-            
+
             setTimeout(() => {
-              card3Ref.current?.classList.add('info-card-visible');
+              card3Ref.current?.classList.add("info-card-visible");
             }, 800);
 
             observer.disconnect();
@@ -45,7 +45,7 @@ const InfoCards = () => {
       {
         threshold: 0.2,
         rootMargin: "0px 0px -50px 0px",
-      }
+      },
     );
 
     if (sectionRef.current) {
@@ -62,29 +62,25 @@ const InfoCards = () => {
   return (
     <section className="conf-info-cards-section" ref={sectionRef}>
       <div className="conf-info-cards-container">
-
         <header className="conf-info-cards-header" ref={headerRef}>
           <span className="conf-info-cards-tag">Important Information</span>
           <h2 className="conf-info-cards-title">Everything You Need to Know</h2>
           <p className="conf-info-cards-subtitle">
-            Get detailed information about abstract submission, registration process, and venue details
+            Get detailed information about abstract submission, registration
+            process, and venue details
           </p>
         </header>
 
         <div className="conf-info-cards-grid">
-
           {/* Abstract Card */}
-          <article 
-            className="conf-info-card"
-            ref={card1Ref}
-          >
-
+          <article className="conf-info-card" ref={card1Ref}>
             <div className="conf-card-content">
               <span className="conf-card-badge">Now Open</span>
               <h3 className="conf-card-title">Abstract Submission</h3>
 
               <p className="conf-card-description">
-                Submit your research abstracts for consideration. Contributions are welcome from all relevant fields.
+                Submit your research abstracts for consideration. Contributions
+                are welcome from all relevant fields.
               </p>
 
               <div className="conf-card-deadline">
@@ -101,7 +97,7 @@ const InfoCards = () => {
 
             <button
               className="conf-card-learn-more"
-              onClick={() => handleLearnMore("/registration-abstract")}
+              onClick={() => handleLearnMore("/how-to-submit-abstract")}
             >
               Learn More
               <span className="conf-card-arrow">→</span>
@@ -109,17 +105,14 @@ const InfoCards = () => {
           </article>
 
           {/* Registration Card */}
-          <article 
-            className="conf-info-card"
-            ref={card2Ref}
-          >
-
+          <article className="conf-info-card" ref={card2Ref}>
             <div className="conf-card-content">
               <span className="conf-card-badge">Early Bird</span>
               <h3 className="conf-card-title">Registration</h3>
 
               <p className="conf-card-description">
-                Secure your participation in the conference and benefit from early registration discounts.
+                Secure your participation in the conference and benefit from
+                early registration discounts.
               </p>
 
               <div className="conf-card-deadline">
@@ -144,17 +137,14 @@ const InfoCards = () => {
           </article>
 
           {/* Venue Card */}
-          <article 
-            className="conf-info-card"
-            ref={card3Ref}
-          >
-
+          <article className="conf-info-card" ref={card3Ref}>
             <div className="conf-card-content">
               <span className="conf-card-badge">Nairobi, Kenya</span>
               <h3 className="conf-card-title">Venue & Location</h3>
 
               <p className="conf-card-description">
-                The conference will take place in Nairobi, providing a central location for regional participants.
+                The conference will take place in Nairobi, providing a central
+                location for regional participants.
               </p>
 
               <div className="conf-card-deadline">
@@ -177,7 +167,6 @@ const InfoCards = () => {
               <span className="conf-card-arrow">→</span>
             </button>
           </article>
-
         </div>
       </div>
     </section>

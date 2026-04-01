@@ -1,495 +1,470 @@
-/* focus.css - WordPress-inspired design */
+/* focus.css - Professional Conference Design */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 
-/* CSS Variables */
+/* CSS Variables - Clean, Professional Palette */
 :root {
-  --focus-primary: #1e4a6b;
-  --focus-secondary: #c17b3c;
-  --focus-text-dark: #1e293b;
-  --focus-text-medium: #475569;
-  --focus-text-light: #64748b;
-  --focus-border: #e2e8f0;
-  --focus-bg-light: #f8fafc;
-  --focus-bg-white: #ffffff;
-  --focus-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
-  --focus-shadow-hover: 0 20px 30px -10px rgba(0, 0, 0, 0.1);
-  --focus-transition: all 0.3s ease;
+  --color-primary: #1e3a5f;
+  --color-primary-dark: #0a2540;
+  --color-secondary: #5a6e4a;
+  --color-accent: #b48c48;
+  --color-text-primary: #1f2a3a;
+  --color-text-secondary: #4a5568;
+  --color-text-tertiary: #718096;
+  --color-bg: #ffffff;
+  --color-bg-alt: #f7f9fc;
+  --color-border: #e2e8f0;
+  --color-border-light: #edf2f7;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  --transition: all 0.2s ease;
 }
 
-/* Base Section */
-.focus-section {
-  background: var(--focus-bg-white);
-  padding: 80px 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+/* Section Styles */
+.focus-section-pro {
+  background: var(--color-bg);
+  padding: 100px 0;
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  border-top: 1px solid var(--color-border-light);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
-.focus-container {
-  max-width: 1200px;
+.focus-container-pro {
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 32px;
 }
 
-/* ===== Section Header - WordPress Style ===== */
-.focus-header {
+/* Header Styles */
+.focus-header-pro {
   text-align: center;
-  max-width: 700px;
-  margin: 0 auto 50px;
+  margin-bottom: 64px;
 }
 
-.focus-header-tag {
+.focus-suptitle {
   display: inline-block;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  color: var(--focus-secondary);
-  margin-bottom: 15px;
+  color: var(--color-secondary);
+  margin-bottom: 16px;
 }
 
-.focus-header-title {
+.focus-title-pro {
   font-size: 2.5rem;
-  font-weight: 400;
-  color: var(--focus-primary);
+  font-weight: 600;
+  color: var(--color-primary);
+  letter-spacing: -0.02em;
   margin-bottom: 20px;
   line-height: 1.2;
 }
 
-/* Decorative elements - WordPress style */
-.focus-header-decoration {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 25px;
+.focus-divider {
+  width: 60px;
+  height: 2px;
+  background: var(--color-secondary);
+  margin: 0 auto 24px;
 }
 
-.decoration-line {
-  width: 50px;
-  height: 1px;
-  background: var(--focus-border);
+.focus-description-pro {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  max-width: 680px;
+  margin: 0 auto;
 }
 
-.decoration-dot {
-  width: 6px;
-  height: 6px;
-  background: var(--focus-secondary);
-  border-radius: 50%;
-}
-
-.focus-header-description {
-  font-size: 1.1rem;
-  color: var(--focus-text-medium);
-  line-height: 1.7;
-  font-weight: 300;
-}
-
-/* ===== Featured Cards - WordPress Block Style ===== */
-.focus-grid {
+/* Card Grid */
+.focus-grid-pro {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 30px;
-  margin-bottom: 40px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-bottom: 64px;
 }
 
-.focus-card.featured {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 20px;
-  background: var(--focus-bg-white);
-  border: 1px solid var(--focus-border);
-  border-radius: 12px;
+/* Card Styles */
+.focus-card-pro {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  transition: var(--transition);
+  position: relative;
   overflow: hidden;
-  transition: var(--focus-transition);
-  box-shadow: var(--focus-shadow);
 }
 
-.focus-card.featured:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--focus-shadow-hover);
-  border-color: var(--focus-secondary);
+.focus-card-pro:hover {
+  border-color: var(--color-secondary);
+  box-shadow: var(--shadow-lg);
 }
 
-.focus-card-media {
-  background: linear-gradient(135deg, var(--focus-primary) 0%, #2d5a7b 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 30px;
-  min-height: 200px;
+.card-number {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-text-tertiary);
+  letter-spacing: 0.5px;
 }
 
-.focus-card-icon {
-  font-size: 3.5rem;
-  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+.card-content-pro {
+  padding: 32px;
 }
 
-.focus-card-content {
-  padding: 30px 30px 30px 0;
-}
-
-.focus-card-category {
+.card-category-pro {
   display: inline-block;
   font-size: 0.7rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  color: var(--focus-secondary);
-  margin-bottom: 10px;
+  color: var(--color-accent);
+  margin-bottom: 16px;
 }
 
-.focus-card-title {
-  font-size: 1.4rem;
-  font-weight: 500;
-  color: var(--focus-primary);
-  margin-bottom: 15px;
-  line-height: 1.3;
-}
-
-.focus-card-description {
-  font-size: 0.95rem;
-  color: var(--focus-text-medium);
-  line-height: 1.7;
-  margin-bottom: 20px;
-}
-
-.focus-card-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--focus-secondary);
-  text-decoration: none;
-  font-size: 0.9rem;
-  font-weight: 500;
-  transition: var(--focus-transition);
-}
-
-.link-arrow {
-  transition: transform 0.3s ease;
-}
-
-.focus-card-link:hover {
-  color: var(--focus-primary);
-}
-
-.focus-card-link:hover .link-arrow {
-  transform: translateX(5px);
-}
-
-/* ===== Secondary Cards Grid ===== */
-.focus-grid-secondary {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 25px;
-  margin-bottom: 60px;
-}
-
-.focus-card {
-  background: var(--focus-bg-light);
-  border: 1px solid var(--focus-border);
-  border-radius: 10px;
-  padding: 25px;
-  transition: var(--focus-transition);
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.focus-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--focus-shadow-hover);
-  border-color: var(--focus-secondary);
-  background: var(--focus-bg-white);
-}
-
-.focus-card-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 15px;
-}
-
-.focus-card-icon-small {
-  font-size: 1.8rem;
-  line-height: 1;
-}
-
-.focus-card-category-small {
-  font-size: 0.7rem;
+.card-title-pro {
+  font-size: 1.25rem;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--focus-secondary);
-  background: rgba(193, 123, 60, 0.1);
-  padding: 4px 10px;
-  border-radius: 20px;
-}
-
-.focus-card-title-small {
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: var(--focus-primary);
-  margin-bottom: 10px;
+  color: var(--color-primary);
+  margin-bottom: 12px;
   line-height: 1.4;
 }
 
-.focus-card-description-small {
-  font-size: 0.9rem;
-  color: var(--focus-text-medium);
+.card-description-pro {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
   line-height: 1.6;
   margin-bottom: 20px;
-  flex: 1;
 }
 
-.focus-card-link-small {
-  color: var(--focus-text-light);
+/* Topics Section */
+.card-topics {
+  margin: 20px 0 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-border-light);
+}
+
+.topics-label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-text-tertiary);
+  margin-bottom: 12px;
+}
+
+.topics-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.topic-tag {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  background: var(--color-bg-alt);
+  padding: 4px 12px;
+  border-radius: 4px;
+  transition: var(--transition);
+}
+
+.topic-tag:hover {
+  background: var(--color-secondary);
+  color: white;
+}
+
+/* Card Link */
+.card-link-pro {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-primary);
   text-decoration: none;
-  font-size: 0.9rem;
-  font-weight: 400;
-  transition: var(--focus-transition);
-  display: inline-block;
-  margin-top: auto;
+  transition: var(--transition);
+  margin-top: 8px;
 }
 
-.focus-card-link-small:hover {
-  color: var(--focus-secondary);
+.card-link-pro:hover {
+  color: var(--color-secondary);
+}
+
+.link-icon {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.2s ease;
+}
+
+.card-link-pro:hover .link-icon {
   transform: translateX(3px);
 }
 
-/* ===== Call to Action - WordPress CTA Block ===== */
-.focus-cta {
-  background: var(--focus-primary);
+/* Call to Action */
+.focus-cta-pro {
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
   border-radius: 12px;
-  padding: 50px;
+  padding: 48px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 40px;
-  box-shadow: var(--focus-shadow);
+  gap: 48px;
 }
 
-.focus-cta-content {
+.cta-content-pro {
   flex: 1;
 }
 
-.focus-cta-title {
-  font-size: 1.8rem;
-  font-weight: 400;
-  color: white;
-  margin-bottom: 10px;
-  line-height: 1.3;
+.cta-title-pro {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 12px;
 }
 
-.focus-cta-description {
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.9);
+.cta-description-pro {
+  font-size: 0.9375rem;
+  color: var(--color-text-secondary);
   line-height: 1.6;
-  margin: 0;
+  max-width: 500px;
 }
 
-.focus-cta-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: white;
-  color: var(--focus-primary);
-  padding: 16px 32px;
-  border-radius: 40px;
+.cta-actions {
+  display: flex;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.cta-button-primary {
+  display: inline-block;
+  padding: 12px 28px;
+  background: var(--color-primary);
+  color: white;
   text-decoration: none;
   font-weight: 500;
-  font-size: 1rem;
-  transition: var(--focus-transition);
-  border: 1px solid transparent;
-  white-space: nowrap;
+  font-size: 0.875rem;
+  border-radius: 6px;
+  transition: var(--transition);
+  border: 1px solid var(--color-primary);
 }
 
-.button-arrow {
-  transition: transform 0.3s ease;
+.cta-button-primary:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
 }
 
-.focus-cta-button:hover {
+.cta-button-secondary {
+  display: inline-block;
+  padding: 12px 28px;
   background: transparent;
-  color: white;
-  border-color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.875rem;
+  border-radius: 6px;
+  transition: var(--transition);
+  border: 1px solid var(--color-border);
 }
 
-.focus-cta-button:hover .button-arrow {
-  transform: translateX(5px);
-  stroke: white;
+.cta-button-secondary:hover {
+  border-color: var(--color-primary);
+  background: var(--color-bg);
 }
 
-/* ===== Responsive Design ===== */
+/* Responsive Design */
 @media (max-width: 1024px) {
-  .focus-grid-secondary {
+  .focus-grid-pro {
     grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
   }
-  
-  .focus-header-title {
-    font-size: 2.2rem;
-  }
-  
-  .focus-cta {
-    padding: 40px;
-  }
-  
-  .focus-cta-title {
-    font-size: 1.6rem;
-  }
-}
 
-@media (max-width: 900px) {
-  .focus-grid {
-    grid-template-columns: 1fr;
-    gap: 25px;
-  }
-  
-  .focus-card.featured {
-    grid-template-columns: 1fr 2fr;
-  }
-  
-  .focus-card-media {
-    min-height: 180px;
-    padding: 25px;
-  }
-  
-  .focus-card-icon {
-    font-size: 3rem;
+  .focus-title-pro {
+    font-size: 2.25rem;
   }
 }
 
 @media (max-width: 768px) {
-  .focus-section {
-    padding: 60px 0;
+  .focus-section-pro {
+    padding: 64px 0;
   }
-  
-  .focus-header-title {
-    font-size: 2rem;
+
+  .focus-container-pro {
+    padding: 0 24px;
   }
-  
-  .focus-header-description {
-    font-size: 1rem;
+
+  .focus-title-pro {
+    font-size: 1.875rem;
   }
-  
-  .focus-card.featured {
+
+  .focus-description-pro {
+    font-size: 0.9375rem;
+  }
+
+  .focus-grid-pro {
     grid-template-columns: 1fr;
+    gap: 24px;
   }
-  
-  .focus-card-media {
-    min-height: 150px;
-    padding: 30px;
+
+  .card-content-pro {
+    padding: 28px;
   }
-  
-  .focus-card-content {
-    padding: 25px;
+
+  .card-title-pro {
+    font-size: 1.125rem;
   }
-  
-  .focus-grid-secondary {
-    grid-template-columns: 1fr;
-    max-width: 500px;
-    margin: 0 auto 50px;
-  }
-  
-  .focus-cta {
+
+  .focus-cta-pro {
     flex-direction: column;
     text-align: center;
-    padding: 35px;
-    gap: 25px;
+    padding: 36px 28px;
+    gap: 28px;
   }
-  
-  .focus-cta-button {
+
+  .cta-description-pro {
+    max-width: 100%;
+  }
+
+  .cta-actions {
+    flex-direction: column;
     width: 100%;
-    justify-content: center;
+  }
+
+  .cta-button-primary,
+  .cta-button-secondary {
+    text-align: center;
+    width: 100%;
   }
 }
 
-@media (max-width: 576px) {
-  .focus-header-tag {
-    font-size: 0.75rem;
+@media (max-width: 480px) {
+  .focus-title-pro {
+    font-size: 1.625rem;
   }
-  
-  .focus-header-title {
-    font-size: 1.8rem;
+
+  .focus-suptitle {
+    font-size: 0.7rem;
   }
-  
-  .focus-card-title {
-    font-size: 1.2rem;
+
+  .card-content-pro {
+    padding: 24px;
   }
-  
-  .focus-card-title-small {
+
+  .card-title-pro {
     font-size: 1rem;
   }
-  
-  .focus-cta-title {
-    font-size: 1.4rem;
+
+  .card-description-pro {
+    font-size: 0.8125rem;
   }
-  
-  .focus-cta-description {
-    font-size: 0.95rem;
+
+  .topics-list {
+    gap: 6px;
   }
-  
-  .focus-cta-button {
-    padding: 14px 28px;
-    font-size: 0.95rem;
+
+  .topic-tag {
+    font-size: 0.7rem;
+    padding: 3px 10px;
+  }
+
+  .cta-title-pro {
+    font-size: 1.25rem;
+  }
+
+  .cta-description-pro {
+    font-size: 0.875rem;
+  }
+
+  .focus-cta-pro {
+    padding: 28px 20px;
   }
 }
 
-@media (max-width: 380px) {
-  .focus-header-title {
-    font-size: 1.6rem;
-  }
-  
-  .focus-card-media {
-    padding: 20px;
-  }
-  
-  .focus-card-icon {
-    font-size: 2.5rem;
-  }
-  
-  .focus-card-content {
-    padding: 20px;
-  }
-  
-  .focus-card-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
-  
-  .focus-cta {
-    padding: 25px;
-  }
-}
-
-/* ===== Reduced Motion ===== */
+/* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
-  .focus-card,
-  .focus-card-link,
-  .focus-cta-button,
-  .link-arrow,
-  .button-arrow {
+  .focus-card-pro,
+  .card-link-pro,
+  .link-icon,
+  .cta-button-primary,
+  .cta-button-secondary,
+  .topic-tag {
     transition: none;
+  }
+
+  .focus-card-pro:hover {
     transform: none;
   }
-  
-  .focus-card:hover {
+
+  .card-link-pro:hover .link-icon {
+    transform: none;
+  }
+
+  .cta-button-primary:hover,
+  .cta-button-secondary:hover {
     transform: none;
   }
 }
 
-/* ===== Print Styles ===== */
+/* Print Styles */
 @media print {
-  .focus-cta {
+  .focus-section-pro {
+    padding: 40px 0;
+    border: none;
+  }
+
+  .focus-cta-pro {
     background: none;
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
+    break-inside: avoid;
   }
-  
-  .focus-cta-title,
-  .focus-cta-description {
-    color: black;
-  }
-  
-  .focus-cta-button {
+
+  .cta-button-primary,
+  .cta-button-secondary {
     display: none;
   }
+
+  .focus-card-pro {
+    break-inside: avoid;
+    border: 1px solid #ddd;
+  }
+
+  .card-link-pro {
+    display: none;
+  }
+}
+
+/* Focus States for Accessibility */
+.card-link-pro:focus-visible,
+.cta-button-primary:focus-visible,
+.cta-button-secondary:focus-visible {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
+}
+
+/* Subtle Hover Effects for Professional Feel */
+.focus-card-pro {
+  will-change: transform;
+}
+
+/* Clean Scrollbar */
+.focus-section-pro::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.focus-section-pro::-webkit-scrollbar-track {
+  background: var(--color-bg-alt);
+}
+
+.focus-section-pro::-webkit-scrollbar-thumb {
+  background: var(--color-text-tertiary);
+  border-radius: 4px;
 }

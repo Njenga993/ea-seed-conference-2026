@@ -1,0 +1,117 @@
+/* styles/loader.css */
+
+/* Loader Overlay */
+.loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--color-bg);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(0);
+}
+
+.loader-container {
+  text-align: center;
+  max-width: 400px;
+  padding: 40px;
+}
+
+/* Seed Loader Animation */
+.seed-loader {
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.seed-svg {
+  width: 80px;
+  height: 80px;
+}
+
+/* Loading Text */
+.loader-text h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+
+.loader-text p {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* Progress Bar */
+.loader-progress {
+  width: 100%;
+  height: 2px;
+  background: var(--color-border);
+  margin-top: 40px;
+  transform-origin: left;
+  position: relative;
+  overflow: hidden;
+}
+
+.loader-progress::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--color-primary) 0%,
+    var(--color-secondary) 50%,
+    var(--color-primary) 100%
+  );
+  animation: shimmer 1s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .loader-container {
+    padding: 24px;
+  }
+
+  .seed-svg {
+    width: 60px;
+    height: 60px;
+  }
+
+  .loader-text h3 {
+    font-size: 1rem;
+  }
+
+  .loader-text p {
+    font-size: 0.8125rem;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .loader-progress::after {
+    animation: none;
+  }
+
+  .seed-svg path,
+  .seed-svg circle {
+    animation: none;
+  }
+}
