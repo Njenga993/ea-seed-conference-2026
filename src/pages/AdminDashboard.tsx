@@ -5,7 +5,7 @@ import "../styles/AdminDashboard.css";
 
 const BACKEND_URL =
   import.meta.env.VITE_BACKEND_URL ||
-  "https://conference-backend-m5hq.onrender.com";
+  "https://api.eaindigenousseedconference.org";
 
 interface Stats {
   registrations: {

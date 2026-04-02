@@ -4,7 +4,9 @@ import { Html5Qrcode } from "html5-qrcode";
 import { useAuth } from "../hooks/useAuth";
 import "../styles/CheckIn.css";
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "https://conference-backend-m5hq.onrender.com";
+const BACKEND_URL =
+  import.meta.env.VITE_BACKEND_URL ||
+  "https://api.eaindigenousseedconference.org";
 
 interface Participant {
   id: string;
@@ -21,13 +23,23 @@ interface Participant {
   checkedInBy: string | null;
 }
 
-type Stage = "idle" | "loading" | "found" | "checkedin" | "already" | "invalid" | "error";
+type Stage =
+  | "idle"
+  | "loading"
+  | "found"
+  | "checkedin"
+  | "already"
+  | "invalid"
+  | "error";
 type InputMode = "manual" | "camera";
 
 const TYPE_COLORS: Record<string, string> = {
-  delegate: "#3182CE", farmer: "#38A169",
-  virtual: "#805AD5", student: "#DD6B20",
-  vip: "#C99A2E", speaker: "#B7791F",
+  delegate: "#3182CE",
+  farmer: "#38A169",
+  virtual: "#805AD5",
+  student: "#DD6B20",
+  vip: "#C99A2E",
+  speaker: "#B7791F",
 };
 
 // Extract participant ID from either a plain UUID or a full URL
@@ -37,15 +49,27 @@ const extractId = (raw: string): string => {
     const url = new URL(raw);
     const id = url.searchParams.get("id");
     if (id) return id;
-  } catch { /* not a URL — use raw value */ }
+  } catch {
+    /* not a URL — use raw value */
+  }
   return raw.trim();
 };
 
 const CheckIn = () => {
-  const { token, role, loading: authLoading, error: authError, login, logout, authFetch } = useAuth();
+  const {
+    token,
+    role,
+    loading: authLoading,
+    error: authError,
+    login,
+    logout,
+    authFetch,
+  } = useAuth();
 
   const [passwordInput, setPasswordInput] = useState("");
-  const [staffName, setStaffName] = useState(() => localStorage.getItem("checkin_staff") || "");
+  const [staffName, setStaffName] = useState(
+    () => localStorage.getItem("checkin_staff") || "",
+  );
   const [loginLoading, setLoginLoading] = useState(false);
 
   const [query, setQuery] = useState("");
@@ -83,7 +107,7 @@ const CheckIn = () => {
       setCameraError("");
       try {
         // Small delay to ensure the div is rendered
-        await new Promise(r => setTimeout(r, 200));
+        await new Promise((r) => setTimeout(r, 200));
 
         const scanner = new Html5Qrcode(scannerDivId);
         scannerRef.current = scanner;
@@ -102,16 +126,22 @@ const CheckIn = () => {
             stopScanner();
             handleLookup(id);
           },
-          () => { /* scan failure — ignore, keep scanning */ }
+          () => {
+            /* scan failure — ignore, keep scanning */
+          },
         );
 
         setScannerActive(true);
       } catch (err: any) {
         const msg = err?.message || String(err);
         if (msg.includes("Permission") || msg.includes("NotAllowed")) {
-          setCameraError("Camera permission denied. Please allow camera access or use manual entry.");
+          setCameraError(
+            "Camera permission denied. Please allow camera access or use manual entry.",
+          );
         } else if (msg.includes("NotFound") || msg.includes("no camera")) {
-          setCameraError("No camera found on this device. Use manual entry below.");
+          setCameraError(
+            "No camera found on this device. Use manual entry below.",
+          );
         } else {
           setCameraError("Could not start camera. Use manual entry below.");
         }
@@ -121,7 +151,9 @@ const CheckIn = () => {
 
     startScanner();
 
-    return () => { stopScanner(); };
+    return () => {
+      stopScanner();
+    };
   }, [token, inputMode]);
 
   // Stop scanner when a participant is found or on unmount
@@ -138,7 +170,9 @@ const CheckIn = () => {
         // state 2 = SCANNING
         if (state === 2) await scannerRef.current.stop();
         scannerRef.current.clear();
-      } catch { /* already stopped */ }
+      } catch {
+        /* already stopped */
+      }
       scannerRef.current = null;
     }
     setScannerActive(false);
@@ -157,7 +191,9 @@ const CheckIn = () => {
         const data = await res.json();
         setTotalCheckedIn(data.registrations?.checkedIn ?? null);
       }
-    } catch { /* optional */ }
+    } catch {
+      /* optional */
+    }
   };
 
   const saveStaffName = (name: string) => {
@@ -210,12 +246,25 @@ const CheckIn = () => {
       });
       const data = await res.json();
 
-      if (res.status === 409 || data.alreadyCheckedIn) { setStage("already"); return; }
-      if (!res.ok) { setErrorMsg(data.error || "Check-in failed"); setStage("error"); return; }
+      if (res.status === 409 || data.alreadyCheckedIn) {
+        setStage("already");
+        return;
+      }
+      if (!res.ok) {
+        setErrorMsg(data.error || "Check-in failed");
+        setStage("error");
+        return;
+      }
 
-      setParticipant(prev => prev
-        ? { ...prev, checkedIn: true, checkedInAt: new Date().toISOString(), checkedInBy: staffName }
-        : null
+      setParticipant((prev) =>
+        prev
+          ? {
+              ...prev,
+              checkedIn: true,
+              checkedInAt: new Date().toISOString(),
+              checkedInBy: staffName,
+            }
+          : null,
       );
       setStage("checkedin");
       fetchStats();
@@ -234,7 +283,7 @@ const CheckIn = () => {
   };
 
   const accentColor = participant
-    ? (TYPE_COLORS[participant.registrationType?.toLowerCase()] || "#1e4a6b")
+    ? TYPE_COLORS[participant.registrationType?.toLowerCase()] || "#1e4a6b"
     : "#1e4a6b";
 
   // ── LOADING ───────────────────────────────────────────
@@ -251,9 +300,13 @@ const CheckIn = () => {
     return (
       <div className="ci ci--login">
         <div className="ci__login-card">
-          <p className="ci__eyebrow-small">EA Indigenous Seed Conference 2026</p>
+          <p className="ci__eyebrow-small">
+            EA Indigenous Seed Conference 2026
+          </p>
           <h1 className="ci__login-title">Staff Check-in</h1>
-          <p className="ci__login-hint">Sign in with your staff or admin password to continue.</p>
+          <p className="ci__login-hint">
+            Sign in with your staff or admin password to continue.
+          </p>
 
           {authError && (
             <div className="ci__alert ci__alert--error">
@@ -266,8 +319,8 @@ const CheckIn = () => {
             type="password"
             placeholder="Enter your password"
             value={passwordInput}
-            onChange={e => setPasswordInput(e.target.value)}
-            onKeyDown={e => e.key === "Enter" && handleLogin()}
+            onChange={(e) => setPasswordInput(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleLogin()}
             autoFocus
           />
           <button
@@ -275,7 +328,13 @@ const CheckIn = () => {
             onClick={handleLogin}
             disabled={loginLoading || !passwordInput.trim()}
           >
-            {loginLoading ? <><span className="ci__spinner" /> Signing in…</> : "Sign in"}
+            {loginLoading ? (
+              <>
+                <span className="ci__spinner" /> Signing in…
+              </>
+            ) : (
+              "Sign in"
+            )}
           </button>
         </div>
       </div>
@@ -285,12 +344,13 @@ const CheckIn = () => {
   // ── MAIN CHECK-IN INTERFACE ───────────────────────────
   return (
     <div className="ci">
-
       {/* HEADER */}
       <div className="ci__header">
         <div className="ci__header-inner">
           <div>
-            <p className="ci__eyebrow">1st EA Indigenous Seed Conference 2026</p>
+            <p className="ci__eyebrow">
+              1st EA Indigenous Seed Conference 2026
+            </p>
             <h1 className="ci__title">Check-in</h1>
           </div>
           <div className="ci__header-right">
@@ -300,7 +360,13 @@ const CheckIn = () => {
                 <span className="ci__counter-label">checked in</span>
               </div>
             )}
-            <button className="ci__btn ci__btn--signout" onClick={() => { stopScanner(); logout(); }}>
+            <button
+              className="ci__btn ci__btn--signout"
+              onClick={() => {
+                stopScanner();
+                logout();
+              }}
+            >
               Sign out
             </button>
           </div>
@@ -308,52 +374,78 @@ const CheckIn = () => {
       </div>
 
       <div className="ci__body">
-
         {/* STAFF NAME */}
         <div className="ci__staff-row">
-          <label className="ci__label">Your name (recorded with each check-in)</label>
+          <label className="ci__label">
+            Your name (recorded with each check-in)
+          </label>
           <input
             className="ci__input ci__input--sm"
             type="text"
             value={staffName}
-            onChange={e => saveStaffName(e.target.value)}
+            onChange={(e) => saveStaffName(e.target.value)}
             placeholder="e.g. Jane Kamau"
           />
         </div>
 
         {/* RESULT CARD — shown above scanner when result is ready */}
         {participant && stage !== "idle" && stage !== "loading" && (
-          <div className="ci__card" style={{ "--accent": accentColor } as React.CSSProperties}>
+          <div
+            className="ci__card"
+            style={{ "--accent": accentColor } as React.CSSProperties}
+          >
             <div className="ci__card-header">
               <div>
-                <span className="ci__type-badge" style={{ background: accentColor }}>
+                <span
+                  className="ci__type-badge"
+                  style={{ background: accentColor }}
+                >
                   {participant.registrationType?.toUpperCase()}
                 </span>
                 <h2 className="ci__name">{participant.fullName}</h2>
                 <p className="ci__meta">
-                  {participant.organization}{participant.country ? ` · ${participant.country}` : ""}
+                  {participant.organization}
+                  {participant.country ? ` · ${participant.country}` : ""}
                 </p>
               </div>
-              {stage === "checkedin" && <div className="ci__status ci__status--success">✓ Checked in</div>}
-              {stage === "already"   && <div className="ci__status ci__status--warn">Already in</div>}
+              {stage === "checkedin" && (
+                <div className="ci__status ci__status--success">
+                  ✓ Checked in
+                </div>
+              )}
+              {stage === "already" && (
+                <div className="ci__status ci__status--warn">Already in</div>
+              )}
             </div>
 
             <div className="ci__card-details">
-              {participant.excursion  && <span className="ci__tag">🌱 Field Excursion</span>}
-              {participant.galaDinner && <span className="ci__tag">🍽️ Gala Dinner</span>}
-              <span className="ci__tag ci__tag--amount">${participant.amount}</span>
+              {participant.excursion && (
+                <span className="ci__tag">🌱 Field Excursion</span>
+              )}
+              {participant.galaDinner && (
+                <span className="ci__tag">🍽️ Gala Dinner</span>
+              )}
+              <span className="ci__tag ci__tag--amount">
+                ${participant.amount}
+              </span>
             </div>
 
             {stage === "already" && participant.checkedInAt && (
               <p className="ci__already-msg">
-                Checked in at {new Date(participant.checkedInAt).toLocaleTimeString()}
-                {participant.checkedInBy ? ` by ${participant.checkedInBy}` : ""}
+                Checked in at{" "}
+                {new Date(participant.checkedInAt).toLocaleTimeString()}
+                {participant.checkedInBy
+                  ? ` by ${participant.checkedInBy}`
+                  : ""}
               </p>
             )}
 
             <div className="ci__card-actions">
               {stage === "found" && (
-                <button className="ci__btn ci__btn--confirm" onClick={handleCheckIn}>
+                <button
+                  className="ci__btn ci__btn--confirm"
+                  onClick={handleCheckIn}
+                >
                   ✓ Confirm Check-in
                 </button>
               )}
@@ -361,7 +453,9 @@ const CheckIn = () => {
                 className="ci__btn ci__btn--reset"
                 onClick={inputMode === "camera" ? restartScanner : reset}
               >
-                {stage === "checkedin" || stage === "already" ? "Scan next" : "Try again"}
+                {stage === "checkedin" || stage === "already"
+                  ? "Scan next"
+                  : "Try again"}
               </button>
             </div>
           </div>
@@ -372,7 +466,11 @@ const CheckIn = () => {
           <div className="ci__alert ci__alert--error">
             <span className="ci__alert-icon">✕</span>
             <div>
-              <p className="ci__alert-title">{stage === "invalid" ? "Invalid ticket" : "Something went wrong"}</p>
+              <p className="ci__alert-title">
+                {stage === "invalid"
+                  ? "Invalid ticket"
+                  : "Something went wrong"}
+              </p>
               <p className="ci__alert-msg">{errorMsg}</p>
             </div>
             <button
@@ -393,19 +491,25 @@ const CheckIn = () => {
         )}
 
         {/* QR SCANNER / MANUAL INPUT — only show when idle */}
-        {(stage === "idle") && (
+        {stage === "idle" && (
           <>
             {/* MODE TOGGLE */}
             <div className="ci__mode-tabs">
               <button
                 className={`ci__mode-tab ${inputMode === "camera" ? "is-active" : ""}`}
-                onClick={() => { reset(); setInputMode("camera"); }}
+                onClick={() => {
+                  reset();
+                  setInputMode("camera");
+                }}
               >
                 📷 Scan QR
               </button>
               <button
                 className={`ci__mode-tab ${inputMode === "manual" ? "is-active" : ""}`}
-                onClick={() => { stopScanner(); setInputMode("manual"); }}
+                onClick={() => {
+                  stopScanner();
+                  setInputMode("manual");
+                }}
               >
                 ⌨️ Manual entry
               </button>
@@ -417,7 +521,10 @@ const CheckIn = () => {
                 {cameraError ? (
                   <div className="ci__camera-error">
                     <p>{cameraError}</p>
-                    <button className="ci__btn ci__btn--look" onClick={() => setInputMode("manual")}>
+                    <button
+                      className="ci__btn ci__btn--look"
+                      onClick={() => setInputMode("manual")}
+                    >
                       Switch to manual entry
                     </button>
                   </div>
@@ -434,12 +541,17 @@ const CheckIn = () => {
                       {scannerActive && (
                         <div className="ci__scanner-overlay">
                           <div className="ci__scanner-corners">
-                            <span /><span /><span /><span />
+                            <span />
+                            <span />
+                            <span />
+                            <span />
                           </div>
                         </div>
                       )}
                     </div>
-                    <p className="ci__scanner-hint">Point the camera at the QR code on the ticket</p>
+                    <p className="ci__scanner-hint">
+                      Point the camera at the QR code on the ticket
+                    </p>
                   </>
                 )}
               </div>
@@ -448,14 +560,16 @@ const CheckIn = () => {
             {/* MANUAL ENTRY */}
             {inputMode === "manual" && (
               <div className="ci__manual-wrap">
-                <label className="ci__label">Participant ID or ticket URL</label>
+                <label className="ci__label">
+                  Participant ID or ticket URL
+                </label>
                 <div className="ci__search-row">
                   <input
                     className="ci__input"
                     type="text"
                     value={query}
-                    onChange={e => setQuery(e.target.value)}
-                    onKeyDown={e => e.key === "Enter" && handleLookup()}
+                    onChange={(e) => setQuery(e.target.value)}
+                    onKeyDown={(e) => e.key === "Enter" && handleLookup()}
                     placeholder="Paste the participant ID here…"
                     autoFocus
                   />
@@ -471,7 +585,6 @@ const CheckIn = () => {
             )}
           </>
         )}
-
       </div>
     </div>
   );

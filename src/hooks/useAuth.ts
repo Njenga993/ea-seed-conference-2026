@@ -5,16 +5,18 @@
 
 import { useState, useEffect, useCallback } from "react";
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "https://conference-backend-m5hq.onrender.com";
+const BACKEND_URL =
+  import.meta.env.VITE_BACKEND_URL ||
+  "https://api.eaindigenousseedconference.org";
 const TOKEN_KEY = "ea_conf_token";
-const ROLE_KEY  = "ea_conf_role";
+const ROLE_KEY = "ea_conf_role";
 
 export type Role = "admin" | "staff" | null;
 
 export interface AuthState {
   token: string | null;
   role: Role;
-  loading: boolean;         // true while verifying token on mount
+  loading: boolean; // true while verifying token on mount
   error: string;
 }
 
@@ -25,11 +27,11 @@ export interface UseAuthReturn extends AuthState {
 }
 
 export function useAuth(): UseAuthReturn {
-  const [token, setToken] = useState<string | null>(
-    () => sessionStorage.getItem(TOKEN_KEY)
+  const [token, setToken] = useState<string | null>(() =>
+    sessionStorage.getItem(TOKEN_KEY),
   );
   const [role, setRole] = useState<Role>(
-    () => sessionStorage.getItem(ROLE_KEY) as Role
+    () => sessionStorage.getItem(ROLE_KEY) as Role,
   );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -38,7 +40,10 @@ export function useAuth(): UseAuthReturn {
   useEffect(() => {
     const verify = async () => {
       const stored = sessionStorage.getItem(TOKEN_KEY);
-      if (!stored) { setLoading(false); return; }
+      if (!stored) {
+        setLoading(false);
+        return;
+      }
 
       try {
         const res = await fetch(`${BACKEND_URL}/auth/verify`, {
@@ -85,7 +90,6 @@ export function useAuth(): UseAuthReturn {
       setToken(data.token);
       setRole(data.role);
       return true;
-
     } catch {
       setError("Network error. Check your connection.");
       return false;
@@ -101,29 +105,35 @@ export function useAuth(): UseAuthReturn {
 
   // Authenticated fetch — automatically attaches the token
   // and handles 401 (session expired) gracefully
-  const authFetch = useCallback(async (url: string, options?: RequestInit): Promise<Response> => {
-    const res = await fetch(url, {
-      ...options,
-      headers: {
-        "Content-Type": "application/json",
-        ...options?.headers,
-        Authorization: `Bearer ${token}`,
-      },
-    });
+  const authFetch = useCallback(
+    async (url: string, options?: RequestInit): Promise<Response> => {
+      const res = await fetch(url, {
+        ...options,
+        headers: {
+          "Content-Type": "application/json",
+          ...options?.headers,
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-    if (res.status === 401) {
-      const data = await res.clone().json().catch(() => ({}));
-      if (data.expired) {
-        // Auto-logout on expiry
-        sessionStorage.removeItem(TOKEN_KEY);
-        sessionStorage.removeItem(ROLE_KEY);
-        setToken(null);
-        setRole(null);
+      if (res.status === 401) {
+        const data = await res
+          .clone()
+          .json()
+          .catch(() => ({}));
+        if (data.expired) {
+          // Auto-logout on expiry
+          sessionStorage.removeItem(TOKEN_KEY);
+          sessionStorage.removeItem(ROLE_KEY);
+          setToken(null);
+          setRole(null);
+        }
       }
-    }
 
-    return res;
-  }, [token]);
+      return res;
+    },
+    [token],
+  );
 
   return { token, role, loading, error, login, logout, authFetch };
 }

@@ -109,49 +109,69 @@ const COUNTRIES = [
 // ─────────────────────────────────────────────
 const DISPLAY_CURRENCIES = [
   // MAJOR WORLDWIDE
-  { code: 'USD', name: 'US Dollar', symbol: '$', region: 'World (Base Currency)' },
-  { code: 'EUR', name: 'Euro', symbol: '€', region: 'Europe' },
-  { code: 'GBP', name: 'British Pound', symbol: '£', region: 'Europe' },
-  { code: 'JPY', name: 'Japanese Yen', symbol: '¥', region: 'Asia' },
-  { code: 'CNY', name: 'Chinese Yuan', symbol: '¥', region: 'Asia' },
-  { code: 'INR', name: 'Indian Rupee', symbol: '₹', region: 'Asia' },
-  { code: 'AUD', name: 'Australian Dollar', symbol: 'A$', region: 'Oceania' },
-  { code: 'CAD', name: 'Canadian Dollar', symbol: 'C$', region: 'Americas' },
-  
+  {
+    code: "USD",
+    name: "US Dollar",
+    symbol: "$",
+    region: "World (Base Currency)",
+  },
+  { code: "EUR", name: "Euro", symbol: "€", region: "Europe" },
+  { code: "GBP", name: "British Pound", symbol: "£", region: "Europe" },
+  { code: "JPY", name: "Japanese Yen", symbol: "¥", region: "Asia" },
+  { code: "CNY", name: "Chinese Yuan", symbol: "¥", region: "Asia" },
+  { code: "INR", name: "Indian Rupee", symbol: "₹", region: "Asia" },
+  { code: "AUD", name: "Australian Dollar", symbol: "A$", region: "Oceania" },
+  { code: "CAD", name: "Canadian Dollar", symbol: "C$", region: "Americas" },
+
   // AFRICA
-  { code: 'KES', name: 'Kenyan Shilling', symbol: 'KSh', region: 'East Africa' },
-  { code: 'UGX', name: 'Ugandan Shilling', symbol: 'USh', region: 'East Africa' },
-  { code: 'TZS', name: 'Tanzanian Shilling', symbol: 'TSh', region: 'East Africa' },
-  { code: 'RWF', name: 'Rwandan Franc', symbol: 'FRw', region: 'East Africa' },
-  { code: 'ETB', name: 'Ethiopian Birr', symbol: 'Br', region: 'East Africa' },
-  { code: 'ZAR', name: 'South African Rand', symbol: 'R', region: 'Africa' },
-  { code: 'GHS', name: 'Ghanaian Cedi', symbol: '₵', region: 'West Africa' },
-  { code: 'NGN', name: 'Nigerian Naira', symbol: '₦', region: 'West Africa' },
-  { code: 'EGP', name: 'Egyptian Pound', symbol: 'E£', region: 'Africa' },
-  
+  {
+    code: "KES",
+    name: "Kenyan Shilling",
+    symbol: "KSh",
+    region: "East Africa",
+  },
+  {
+    code: "UGX",
+    name: "Ugandan Shilling",
+    symbol: "USh",
+    region: "East Africa",
+  },
+  {
+    code: "TZS",
+    name: "Tanzanian Shilling",
+    symbol: "TSh",
+    region: "East Africa",
+  },
+  { code: "RWF", name: "Rwandan Franc", symbol: "FRw", region: "East Africa" },
+  { code: "ETB", name: "Ethiopian Birr", symbol: "Br", region: "East Africa" },
+  { code: "ZAR", name: "South African Rand", symbol: "R", region: "Africa" },
+  { code: "GHS", name: "Ghanaian Cedi", symbol: "₵", region: "West Africa" },
+  { code: "NGN", name: "Nigerian Naira", symbol: "₦", region: "West Africa" },
+  { code: "EGP", name: "Egyptian Pound", symbol: "E£", region: "Africa" },
+
   // ASIA
-  { code: 'AED', name: 'UAE Dirham', symbol: 'د.إ', region: 'Middle East' },
-  { code: 'SAR', name: 'Saudi Riyal', symbol: '﷼', region: 'Middle East' },
-  { code: 'PKR', name: 'Pakistani Rupee', symbol: '₨', region: 'Asia' },
-  { code: 'BDT', name: 'Bangladeshi Taka', symbol: '৳', region: 'Asia' },
-  { code: 'IDR', name: 'Indonesian Rupiah', symbol: 'Rp', region: 'Asia' },
-  { code: 'PHP', name: 'Philippine Peso', symbol: '₱', region: 'Asia' },
-  { code: 'THB', name: 'Thai Baht', symbol: '฿', region: 'Asia' },
-  { code: 'MYR', name: 'Malaysian Ringgit', symbol: 'RM', region: 'Asia' },
-  { code: 'SGD', name: 'Singapore Dollar', symbol: 'S$', region: 'Asia' },
-  
+  { code: "AED", name: "UAE Dirham", symbol: "د.إ", region: "Middle East" },
+  { code: "SAR", name: "Saudi Riyal", symbol: "﷼", region: "Middle East" },
+  { code: "PKR", name: "Pakistani Rupee", symbol: "₨", region: "Asia" },
+  { code: "BDT", name: "Bangladeshi Taka", symbol: "৳", region: "Asia" },
+  { code: "IDR", name: "Indonesian Rupiah", symbol: "Rp", region: "Asia" },
+  { code: "PHP", name: "Philippine Peso", symbol: "₱", region: "Asia" },
+  { code: "THB", name: "Thai Baht", symbol: "฿", region: "Asia" },
+  { code: "MYR", name: "Malaysian Ringgit", symbol: "RM", region: "Asia" },
+  { code: "SGD", name: "Singapore Dollar", symbol: "S$", region: "Asia" },
+
   // AMERICAS
-  { code: 'MXN', name: 'Mexican Peso', symbol: '$', region: 'Americas' },
-  { code: 'BRL', name: 'Brazilian Real', symbol: 'R$', region: 'Americas' },
-  { code: 'ARS', name: 'Argentine Peso', symbol: '$', region: 'Americas' },
-  
+  { code: "MXN", name: "Mexican Peso", symbol: "$", region: "Americas" },
+  { code: "BRL", name: "Brazilian Real", symbol: "R$", region: "Americas" },
+  { code: "ARS", name: "Argentine Peso", symbol: "$", region: "Americas" },
+
   // EUROPE
-  { code: 'CHF', name: 'Swiss Franc', symbol: 'Fr', region: 'Europe' },
-  { code: 'SEK', name: 'Swedish Krona', symbol: 'kr', region: 'Europe' },
-  { code: 'NOK', name: 'Norwegian Krone', symbol: 'kr', region: 'Europe' },
-  { code: 'DKK', name: 'Danish Krone', symbol: 'kr', region: 'Europe' },
-  { code: 'PLN', name: 'Polish Zloty', symbol: 'zł', region: 'Europe' },
-  { code: 'TRY', name: 'Turkish Lira', symbol: '₺', region: 'Europe' },
+  { code: "CHF", name: "Swiss Franc", symbol: "Fr", region: "Europe" },
+  { code: "SEK", name: "Swedish Krona", symbol: "kr", region: "Europe" },
+  { code: "NOK", name: "Norwegian Krone", symbol: "kr", region: "Europe" },
+  { code: "DKK", name: "Danish Krone", symbol: "kr", region: "Europe" },
+  { code: "PLN", name: "Polish Zloty", symbol: "zł", region: "Europe" },
+  { code: "TRY", name: "Turkish Lira", symbol: "₺", region: "Europe" },
 ];
 
 // ─────────────────────────────────────────────
@@ -166,7 +186,7 @@ interface FormData {
   organization: string;
   position: string;
   category: string;
-  registrationType: 'delegate' | 'farmer' | 'virtual' | 'student' | '';
+  registrationType: "delegate" | "farmer" | "virtual" | "student" | "";
   excursion: boolean;
   galaDinner: boolean;
   hearAbout: string;
@@ -200,7 +220,9 @@ interface Pricing {
 // ─────────────────────────────────────────────
 const STORAGE_KEY = "ea_seed_reg_form";
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "https://conference-backend-m5hq.onrender.com";
+const BACKEND_URL =
+  import.meta.env.VITE_BACKEND_URL ||
+  "https://api.eaindigenousseedconference.org";
 
 // ─────────────────────────────────────────────
 // COUNTRY SEARCH DROPDOWN COMPONENT
@@ -212,26 +234,36 @@ interface CountryDropdownProps {
   hasError?: boolean;
 }
 
-const CountryDropdown = ({ value, onChange, onDialCodeChange, hasError }: CountryDropdownProps) => {
+const CountryDropdown = ({
+  value,
+  onChange,
+  onDialCodeChange,
+  hasError,
+}: CountryDropdownProps) => {
   const [query, setQuery] = useState(value);
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   const filtered = query.trim()
-    ? COUNTRIES.filter(c => c.name.toLowerCase().includes(query.toLowerCase()))
+    ? COUNTRIES.filter((c) =>
+        c.name.toLowerCase().includes(query.toLowerCase()),
+      )
     : COUNTRIES;
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+      if (ref.current && !ref.current.contains(e.target as Node))
+        setOpen(false);
     };
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
-  useEffect(() => { setQuery(value); }, [value]);
+  useEffect(() => {
+    setQuery(value);
+  }, [value]);
 
-  const select = (country: typeof COUNTRIES[0]) => {
+  const select = (country: (typeof COUNTRIES)[0]) => {
     setQuery(country.name);
     onChange(country.name);
     onDialCodeChange(country.dial);
@@ -243,15 +275,19 @@ const CountryDropdown = ({ value, onChange, onDialCodeChange, hasError }: Countr
       <input
         type="text"
         value={query}
-        className={hasError ? 'has-error' : ''}
+        className={hasError ? "has-error" : ""}
         placeholder="Search your country…"
         autoComplete="off"
-        onChange={e => { setQuery(e.target.value); setOpen(true); onChange(''); }}
+        onChange={(e) => {
+          setQuery(e.target.value);
+          setOpen(true);
+          onChange("");
+        }}
         onFocus={() => setOpen(true)}
       />
       {open && filtered.length > 0 && (
         <ul className="rfp__country-list">
-          {filtered.slice(0, 60).map(c => (
+          {filtered.slice(0, 60).map((c) => (
             <li key={c.code} onMouseDown={() => select(c)}>
               <span className="rfp__country-name">{c.name}</span>
               <span className="rfp__country-dial">{c.dial}</span>
@@ -270,18 +306,27 @@ const RegistrationForm = () => {
   const location = useLocation();
 
   const PRICING: Pricing = {
-    delegate: 200, farmer: 150, virtual: 100,
-    student: 80, excursion: 50, galaDinner: 100,
+    delegate: 200,
+    farmer: 150,
+    virtual: 100,
+    student: 80,
+    excursion: 50,
+    galaDinner: 100,
   };
 
-  const getInitialType = (): '' | 'delegate' | 'farmer' | 'virtual' | 'student' => {
+  const getInitialType = ():
+    | ""
+    | "delegate"
+    | "farmer"
+    | "virtual"
+    | "student" => {
     const state = location.state as { type: string } | null;
-    if (!state?.type) return '';
+    if (!state?.type) return "";
     const type = state.type.toLowerCase();
-    if (type.includes('delegate')) return 'delegate';
-    if (type.includes('farmer')) return 'farmer';
-    if (type.includes('virtual')) return 'virtual';
-    return '';
+    if (type.includes("delegate")) return "delegate";
+    if (type.includes("farmer")) return "farmer";
+    if (type.includes("virtual")) return "virtual";
+    return "";
   };
 
   const getInitialFormData = (): FormData => {
@@ -291,14 +336,26 @@ const RegistrationForm = () => {
         const parsed = JSON.parse(saved);
         return { ...parsed, consent: false };
       }
-    } catch { /* ignore */ }
+    } catch {
+      /* ignore */
+    }
     return {
-      fullName: '', email: '', dialCode: '+254', phone: '', country: '',
-      organization: '', position: '', category: '',
+      fullName: "",
+      email: "",
+      dialCode: "+254",
+      phone: "",
+      country: "",
+      organization: "",
+      position: "",
+      category: "",
       registrationType: getInitialType(),
-      excursion: false, galaDinner: false,
-      hearAbout: '', dietaryRestrictions: '',
-      accommodation: '', specialNeeds: '', consent: false,
+      excursion: false,
+      galaDinner: false,
+      hearAbout: "",
+      dietaryRestrictions: "",
+      accommodation: "",
+      specialNeeds: "",
+      consent: false,
     };
   };
 
@@ -306,100 +363,150 @@ const RegistrationForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
-  const [submitMessage, setSubmitMessage] = useState('');
-  
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "success" | "error"
+  >("idle");
+  const [submitMessage, setSubmitMessage] = useState("");
+
   // Currency display states
-  const [selectedDisplayCurrency, setSelectedDisplayCurrency] = useState('USD');
-  const [exchangeRatesMap, setExchangeRatesMap] = useState<Map<string, number>>(new Map());
+  const [selectedDisplayCurrency, setSelectedDisplayCurrency] = useState("USD");
+  const [exchangeRatesMap, setExchangeRatesMap] = useState<Map<string, number>>(
+    new Map(),
+  );
   const [usdToKesRate, setUsdToKesRate] = useState<number | null>(null);
-  const [lastUpdated, setLastUpdated] = useState('');
+  const [lastUpdated, setLastUpdated] = useState("");
   const [isLoadingRates, setIsLoadingRates] = useState(false);
 
   useEffect(() => {
     try {
       const { consent: _consent, ...rest } = formData;
       localStorage.setItem(STORAGE_KEY, JSON.stringify(rest));
-    } catch { /* ignore */ }
+    } catch {
+      /* ignore */
+    }
   }, [formData]);
 
   const clearSavedForm = () => {
-    try { localStorage.removeItem(STORAGE_KEY); } catch { /* ignore */ }
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+    } catch {
+      /* ignore */
+    }
   };
 
   const calculateTotalInUSD = (): number => {
     let total = 0;
-    if (formData.registrationType) total += PRICING[formData.registrationType as keyof Pricing] || 0;
+    if (formData.registrationType)
+      total += PRICING[formData.registrationType as keyof Pricing] || 0;
     if (formData.excursion) total += PRICING.excursion;
     if (formData.galaDinner) total += PRICING.galaDinner;
     return total;
   };
 
   const formatUSD = (amount: number) =>
-    new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(amount);
+    new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      minimumFractionDigits: 0,
+    }).format(amount);
 
   const formatCurrency = (amount: number, currencyCode: string) => {
     try {
-      return new Intl.NumberFormat('en-US', { style: 'currency', currency: currencyCode, minimumFractionDigits: 0 }).format(amount);
+      return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: currencyCode,
+        minimumFractionDigits: 0,
+      }).format(amount);
     } catch {
       return `${currencyCode} ${amount.toFixed(0)}`;
     }
   };
 
   // Fetch live exchange rates from API
-const fetchExchangeRates = async () => {
-  setIsLoadingRates(true);
-  try {
-    // First fetch USD to KES rate (for backend conversion)
-    const kesRes = await fetch(`${BACKEND_URL}/exchange-rate`);
-    if (kesRes.ok) {
-      const kesData = await kesRes.json();
-      if (kesData.success && kesData.rate) {
-        setUsdToKesRate(kesData.rate);
-      }
-    }
-    
-    // Fetch rates for all display currencies
-    const ratesMap = new Map<string, number>();
-    ratesMap.set('USD', 1);
-    
-    // Fetch from Frankfurter API (free, no API key)
-    const response = await fetch('https://api.frankfurter.app/latest?from=USD');
-    if (response.ok) {
-      const data = await response.json();
-      for (const currency of DISPLAY_CURRENCIES) {
-        if (currency.code !== 'USD' && data.rates[currency.code]) {
-          ratesMap.set(currency.code, data.rates[currency.code]);
+  const fetchExchangeRates = async () => {
+    setIsLoadingRates(true);
+    try {
+      // First fetch USD to KES rate (for backend conversion)
+      const kesRes = await fetch(`${BACKEND_URL}/exchange-rate`);
+      if (kesRes.ok) {
+        const kesData = await kesRes.json();
+        if (kesData.success && kesData.rate) {
+          setUsdToKesRate(kesData.rate);
         }
       }
-      setExchangeRatesMap(ratesMap);
-      setLastUpdated(new Date().toLocaleTimeString());
-      console.log('✅ Exchange rates updated:', Object.fromEntries(ratesMap));
-    } else {
-      throw new Error('API failed');
+
+      // Fetch rates for all display currencies
+      const ratesMap = new Map<string, number>();
+      ratesMap.set("USD", 1);
+
+      // Fetch from Frankfurter API (free, no API key)
+      const response = await fetch(
+        "https://api.frankfurter.app/latest?from=USD",
+      );
+      if (response.ok) {
+        const data = await response.json();
+        for (const currency of DISPLAY_CURRENCIES) {
+          if (currency.code !== "USD" && data.rates[currency.code]) {
+            ratesMap.set(currency.code, data.rates[currency.code]);
+          }
+        }
+        setExchangeRatesMap(ratesMap);
+        setLastUpdated(new Date().toLocaleTimeString());
+        console.log("✅ Exchange rates updated:", Object.fromEntries(ratesMap));
+      } else {
+        throw new Error("API failed");
+      }
+    } catch (error) {
+      console.error("Exchange rate fetch error:", error);
+      // Set fallback rates
+      const fallbackRatesMap = new Map<string, number>();
+      const fallbackRatesData: Record<string, number> = {
+        USD: 1,
+        EUR: 0.92,
+        GBP: 0.79,
+        JPY: 150.5,
+        CNY: 7.19,
+        INR: 83.5,
+        AUD: 1.52,
+        CAD: 1.35,
+        KES: 130,
+        UGX: 3850,
+        TZS: 2600,
+        RWF: 1300,
+        ETB: 57,
+        ZAR: 18.8,
+        GHS: 13.2,
+        NGN: 1500,
+        EGP: 47.5,
+        AED: 3.67,
+        SAR: 3.75,
+        PKR: 277,
+        BDT: 110,
+        IDR: 16000,
+        PHP: 56,
+        THB: 36,
+        MYR: 4.85,
+        SGD: 1.36,
+        MXN: 17,
+        BRL: 5.05,
+        ARS: 900,
+        CHF: 0.88,
+        SEK: 10.2,
+        NOK: 10.7,
+        DKK: 6.85,
+        PLN: 4.0,
+        TRY: 32,
+      };
+      for (const [code, rateValue] of Object.entries(fallbackRatesData)) {
+        fallbackRatesMap.set(code, rateValue);
+      }
+      setExchangeRatesMap(fallbackRatesMap);
+      if (!usdToKesRate) setUsdToKesRate(130);
+      setLastUpdated(new Date().toLocaleTimeString() + " (estimated)");
+    } finally {
+      setIsLoadingRates(false);
     }
-  } catch (error) {
-    console.error('Exchange rate fetch error:', error);
-    // Set fallback rates
-    const fallbackRatesMap = new Map<string, number>();
-    const fallbackRatesData: Record<string, number> = {
-      USD: 1, EUR: 0.92, GBP: 0.79, JPY: 150.5, CNY: 7.19, INR: 83.5,
-      AUD: 1.52, CAD: 1.35, KES: 130, UGX: 3850, TZS: 2600, RWF: 1300,
-      ETB: 57, ZAR: 18.8, GHS: 13.2, NGN: 1500, EGP: 47.5, AED: 3.67,
-      SAR: 3.75, PKR: 277, BDT: 110, IDR: 16000, PHP: 56, THB: 36,
-      MYR: 4.85, SGD: 1.36, MXN: 17, BRL: 5.05, ARS: 900, CHF: 0.88,
-      SEK: 10.2, NOK: 10.7, DKK: 6.85, PLN: 4.0, TRY: 32
-    };
-    for (const [code, rateValue] of Object.entries(fallbackRatesData)) {
-      fallbackRatesMap.set(code, rateValue);
-    }
-    setExchangeRatesMap(fallbackRatesMap);
-    if (!usdToKesRate) setUsdToKesRate(130);
-    setLastUpdated(new Date().toLocaleTimeString() + ' (estimated)');
-  } finally {
-    setIsLoadingRates(false);
-  }
-};
+  };
 
   // Get converted amount for display
   const getConvertedAmount = (currencyCode: string): number | null => {
@@ -415,38 +522,48 @@ const fetchExchangeRates = async () => {
     return () => clearInterval(interval);
   }, []);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
+  ) => {
     const { name, value, type } = e.target;
-    const val = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
-    setFormData(prev => ({ ...prev, [name]: val }));
-    if (errors[name]) setErrors(prev => ({ ...prev, [name]: undefined }));
+    const val =
+      type === "checkbox" ? (e.target as HTMLInputElement).checked : value;
+    setFormData((prev) => ({ ...prev, [name]: val }));
+    if (errors[name]) setErrors((prev) => ({ ...prev, [name]: undefined }));
   };
 
   const validateStep = (step: number): boolean => {
     const newErrors: FormErrors = {};
     if (step === 1) {
-      if (!formData.fullName.trim()) newErrors.fullName = 'Full name is required';
-      if (!formData.email.trim()) newErrors.email = 'Email is required';
-      else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = 'Valid email required';
-      if (!formData.phone.trim()) newErrors.phone = 'Phone number is required';
-      if (!formData.country.trim()) newErrors.country = 'Please select your country';
+      if (!formData.fullName.trim())
+        newErrors.fullName = "Full name is required";
+      if (!formData.email.trim()) newErrors.email = "Email is required";
+      else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
+        newErrors.email = "Valid email required";
+      if (!formData.phone.trim()) newErrors.phone = "Phone number is required";
+      if (!formData.country.trim())
+        newErrors.country = "Please select your country";
     }
-    if (step === 2 && !formData.registrationType) newErrors.registrationType = 'Please select a registration type';
-    if (step === 4 && !formData.consent) newErrors.consent = 'You must agree to continue';
+    if (step === 2 && !formData.registrationType)
+      newErrors.registrationType = "Please select a registration type";
+    if (step === 4 && !formData.consent)
+      newErrors.consent = "You must agree to continue";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleNext = () => {
     if (validateStep(currentStep)) {
-      setCurrentStep(p => p + 1);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setCurrentStep((p) => p + 1);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
   const handlePrev = () => {
-    setCurrentStep(p => p - 1);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setCurrentStep((p) => p - 1);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -459,7 +576,7 @@ const fetchExchangeRates = async () => {
         : formData.phone;
 
       const totalUSD = calculateTotalInUSD();
-      
+
       console.log(`💰 Frontend: Total in USD = ${totalUSD}`);
       console.log(`💰 Frontend: USD to KES rate = ${usdToKesRate}`);
       console.log(`💰 Will convert to KES on backend`);
@@ -470,7 +587,7 @@ const fetchExchangeRates = async () => {
         body: JSON.stringify({
           email: formData.email,
           name: formData.fullName,
-          amount: totalUSD,  // Send USD amount to backend
+          amount: totalUSD, // Send USD amount to backend
           metadata: {
             phone: fullPhone,
             country: formData.country,
@@ -484,7 +601,7 @@ const fetchExchangeRates = async () => {
             dietaryRestrictions: formData.dietaryRestrictions,
             accommodation: formData.accommodation,
             specialNeeds: formData.specialNeeds,
-            currency: "USD",  // Always send USD to backend for conversion
+            currency: "USD", // Always send USD to backend for conversion
             dialCode: formData.dialCode,
           },
         }),
@@ -493,7 +610,9 @@ const fetchExchangeRates = async () => {
 
       if (res.status === 409) {
         setSubmitStatus("error");
-        setSubmitMessage("A registration already exists for this email and registration type. Please contact support if you believe this is an error.");
+        setSubmitMessage(
+          "A registration already exists for this email and registration type. Please contact support if you believe this is an error.",
+        );
         setIsSubmitting(false);
         return;
       }
@@ -513,26 +632,40 @@ const fetchExchangeRates = async () => {
     }
   };
 
-  const stepLabels = ['Personal Info', 'Registration', 'Add-ons', 'Review'];
+  const stepLabels = ["Personal Info", "Registration", "Add-ons", "Review"];
 
   const stepVariants = {
     hidden: { opacity: 0, x: 40 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.35, ease: "easeOut" as const } },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.35, ease: "easeOut" as const },
+    },
     exit: { opacity: 0, x: -40, transition: { duration: 0.2 } },
   };
 
   const kesAmount = usdToKesRate ? calculateTotalInUSD() * usdToKesRate : null;
 
   return (
-    <motion.div className="rfp" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+    <motion.div
+      className="rfp"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+    >
       <div className="rfp__container">
-
         {/* ── HEADER ─────────────────────────────────────── */}
-        <div className="rfp__hero" style={{ backgroundImage: `url(${heroBackground})` }}>
+        <div
+          className="rfp__hero"
+          style={{ backgroundImage: `url(${heroBackground})` }}
+        >
           <div className="rfp__hero-overlay" />
           <div className="rfp__hero-content">
             <p className="rfp__hero-eyebrow">1st Eastern Africa</p>
-            <h1 className="rfp__hero-title">Indigenous Seed<br />Conference 2026</h1>
+            <h1 className="rfp__hero-title">
+              Indigenous Seed
+              <br />
+              Conference 2026
+            </h1>
             <p className="rfp__hero-sub">17–20 November · Nairobi, Kenya</p>
 
             <div className="rfp__progress">
@@ -542,11 +675,21 @@ const fetchExchangeRates = async () => {
                 const active = currentStep === n;
                 return (
                   <div key={n} className="rfp__progress-item">
-                    <div className={`rfp__step-dot ${active ? 'is-active' : ''} ${done ? 'is-done' : ''}`}>
-                      {done ? '✓' : n}
+                    <div
+                      className={`rfp__step-dot ${active ? "is-active" : ""} ${done ? "is-done" : ""}`}
+                    >
+                      {done ? "✓" : n}
                     </div>
-                    <span className={`rfp__step-label ${active || done ? 'is-visible' : ''}`}>{label}</span>
-                    {n < 4 && <div className={`rfp__progress-line ${currentStep > n ? 'is-filled' : ''}`} />}
+                    <span
+                      className={`rfp__step-label ${active || done ? "is-visible" : ""}`}
+                    >
+                      {label}
+                    </span>
+                    {n < 4 && (
+                      <div
+                        className={`rfp__progress-line ${currentStep > n ? "is-filled" : ""}`}
+                      />
+                    )}
                   </div>
                 );
               })}
@@ -557,10 +700,16 @@ const fetchExchangeRates = async () => {
         {/* ── FORM BODY ───────────────────────────────────── */}
         <form onSubmit={handleSubmit} className="rfp__body">
           <AnimatePresence mode="wait">
-
             {/* ── STEP 1 ── */}
             {currentStep === 1 && (
-              <motion.div key="s1" className="rfp__step" variants={stepVariants} initial="hidden" animate="visible" exit="exit">
+              <motion.div
+                key="s1"
+                className="rfp__step"
+                variants={stepVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+              >
                 <div className="rfp__step-header">
                   <span className="rfp__step-num">01</span>
                   <h2>Personal Information</h2>
@@ -572,51 +721,99 @@ const fetchExchangeRates = async () => {
                     if (saved && JSON.parse(saved).fullName) {
                       return (
                         <div className="rfp__restore-banner">
-                          <span>✦ Your previous progress has been restored.</span>
-                          <button type="button" onClick={() => {
-                            clearSavedForm();
-                            setFormData({
-                              fullName: '', email: '', dialCode: '+254', phone: '', country: '',
-                              organization: '', position: '', category: '',
-                              registrationType: getInitialType(),
-                              excursion: false, galaDinner: false,
-                              hearAbout: '', dietaryRestrictions: '',
-                              accommodation: '', specialNeeds: '', consent: false,
-                            });
-                          }}>Start fresh</button>
+                          <span>
+                            ✦ Your previous progress has been restored.
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              clearSavedForm();
+                              setFormData({
+                                fullName: "",
+                                email: "",
+                                dialCode: "+254",
+                                phone: "",
+                                country: "",
+                                organization: "",
+                                position: "",
+                                category: "",
+                                registrationType: getInitialType(),
+                                excursion: false,
+                                galaDinner: false,
+                                hearAbout: "",
+                                dietaryRestrictions: "",
+                                accommodation: "",
+                                specialNeeds: "",
+                                consent: false,
+                              });
+                            }}
+                          >
+                            Start fresh
+                          </button>
                         </div>
                       );
                     }
-                  } catch { /* ignore */ }
+                  } catch {
+                    /* ignore */
+                  }
                   return null;
                 })()}
 
                 <div className="rfp__field">
-                  <label htmlFor="fullName">Full Name <span className="req">*</span></label>
-                  <input id="fullName" name="fullName" type="text" value={formData.fullName}
-                    onChange={handleChange} className={errors.fullName ? 'has-error' : ''}
-                    placeholder="Your full name as it should appear on the ticket" />
-                  {errors.fullName && <span className="rfp__error">{errors.fullName}</span>}
+                  <label htmlFor="fullName">
+                    Full Name <span className="req">*</span>
+                  </label>
+                  <input
+                    id="fullName"
+                    name="fullName"
+                    type="text"
+                    value={formData.fullName}
+                    onChange={handleChange}
+                    className={errors.fullName ? "has-error" : ""}
+                    placeholder="Your full name as it should appear on the ticket"
+                  />
+                  {errors.fullName && (
+                    <span className="rfp__error">{errors.fullName}</span>
+                  )}
                 </div>
 
                 <div className="rfp__row">
                   <div className="rfp__field">
-                    <label htmlFor="email">Email Address <span className="req">*</span></label>
-                    <input id="email" name="email" type="email" value={formData.email}
-                      onChange={handleChange} className={errors.email ? 'has-error' : ''}
-                      placeholder="your@email.com" />
-                    {errors.email && <span className="rfp__error">{errors.email}</span>}
+                    <label htmlFor="email">
+                      Email Address <span className="req">*</span>
+                    </label>
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      className={errors.email ? "has-error" : ""}
+                      placeholder="your@email.com"
+                    />
+                    {errors.email && (
+                      <span className="rfp__error">{errors.email}</span>
+                    )}
                   </div>
 
                   <div className="rfp__field">
-                    <label>Phone Number <span className="req">*</span></label>
-                    <div className={`rfp__phone-wrap ${errors.phone ? 'has-error' : ''}`}>
+                    <label>
+                      Phone Number <span className="req">*</span>
+                    </label>
+                    <div
+                      className={`rfp__phone-wrap ${errors.phone ? "has-error" : ""}`}
+                    >
                       <select
                         className="rfp__dial-select"
                         value={formData.dialCode}
-                        onChange={e => setFormData(prev => ({ ...prev, dialCode: e.target.value }))}
+                        onChange={(e) =>
+                          setFormData((prev) => ({
+                            ...prev,
+                            dialCode: e.target.value,
+                          }))
+                        }
                       >
-                        {COUNTRIES.map(c => (
+                        {COUNTRIES.map((c) => (
                           <option key={c.code} value={c.dial}>
                             {c.code} {c.dial}
                           </option>
@@ -631,30 +828,45 @@ const fetchExchangeRates = async () => {
                         className="rfp__phone-input"
                       />
                     </div>
-                    {errors.phone && <span className="rfp__error">{errors.phone}</span>}
+                    {errors.phone && (
+                      <span className="rfp__error">{errors.phone}</span>
+                    )}
                   </div>
                 </div>
 
                 <div className="rfp__row">
                   <div className="rfp__field">
-                    <label>Country <span className="req">*</span></label>
+                    <label>
+                      Country <span className="req">*</span>
+                    </label>
                     <CountryDropdown
                       value={formData.country}
                       hasError={!!errors.country}
-                      onChange={country => {
-                        setFormData(prev => ({ ...prev, country }));
-                        if (errors.country) setErrors(prev => ({ ...prev, country: undefined }));
+                      onChange={(country) => {
+                        setFormData((prev) => ({ ...prev, country }));
+                        if (errors.country)
+                          setErrors((prev) => ({
+                            ...prev,
+                            country: undefined,
+                          }));
                       }}
-                      onDialCodeChange={dial =>
-                        setFormData(prev => ({ ...prev, dialCode: dial }))
+                      onDialCodeChange={(dial) =>
+                        setFormData((prev) => ({ ...prev, dialCode: dial }))
                       }
                     />
-                    {errors.country && <span className="rfp__error">{errors.country}</span>}
+                    {errors.country && (
+                      <span className="rfp__error">{errors.country}</span>
+                    )}
                   </div>
 
                   <div className="rfp__field">
                     <label htmlFor="category">Category</label>
-                    <select id="category" name="category" value={formData.category} onChange={handleChange}>
+                    <select
+                      id="category"
+                      name="category"
+                      value={formData.category}
+                      onChange={handleChange}
+                    >
                       <option value="">Select your category</option>
                       <option value="researcher">Researcher / Academic</option>
                       <option value="farmer">Farmer</option>
@@ -670,19 +882,37 @@ const fetchExchangeRates = async () => {
 
                 <div className="rfp__row">
                   <div className="rfp__field">
-                    <label htmlFor="organization">Organisation / Institution</label>
-                    <input id="organization" name="organization" type="text" value={formData.organization}
-                      onChange={handleChange} placeholder="Where do you work or study?" />
+                    <label htmlFor="organization">
+                      Organisation / Institution
+                    </label>
+                    <input
+                      id="organization"
+                      name="organization"
+                      type="text"
+                      value={formData.organization}
+                      onChange={handleChange}
+                      placeholder="Where do you work or study?"
+                    />
                   </div>
                   <div className="rfp__field">
                     <label htmlFor="position">Position / Title</label>
-                    <input id="position" name="position" type="text" value={formData.position}
-                      onChange={handleChange} placeholder="Your role or title" />
+                    <input
+                      id="position"
+                      name="position"
+                      type="text"
+                      value={formData.position}
+                      onChange={handleChange}
+                      placeholder="Your role or title"
+                    />
                   </div>
                 </div>
 
                 <div className="rfp__nav">
-                  <button type="button" className="rfp__btn rfp__btn--next" onClick={handleNext}>
+                  <button
+                    type="button"
+                    className="rfp__btn rfp__btn--next"
+                    onClick={handleNext}
+                  >
                     Continue <span>→</span>
                   </button>
                 </div>
@@ -691,65 +921,172 @@ const fetchExchangeRates = async () => {
 
             {/* ── STEP 2 ── */}
             {currentStep === 2 && (
-              <motion.div key="s2" className="rfp__step" variants={stepVariants} initial="hidden" animate="visible" exit="exit">
+              <motion.div
+                key="s2"
+                className="rfp__step"
+                variants={stepVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+              >
                 <div className="rfp__step-header">
                   <span className="rfp__step-num">02</span>
                   <h2>Select Registration Type</h2>
                 </div>
 
                 <div className="rfp__reg-grid">
-                  {([
-                    { value: 'delegate', label: 'Delegate', price: PRICING.delegate, perks: ['All conference sessions', 'Conference materials', 'Lunch & refreshments', 'Certificate of participation'] },
-                    { value: 'farmer', label: 'Farmer', price: PRICING.farmer, perks: ['All conference sessions', 'Farm-focused workshops', 'Conference materials', 'Lunch & refreshments'] },
-                    { value: 'virtual', label: 'Virtual Participant', price: PRICING.virtual, perks: ['Live streaming of all sessions', 'Virtual networking rooms', 'Digital conference materials', 'Digital certificate'] },
-                  ] as const).map(opt => (
-                    <label key={opt.value} className={`rfp__reg-card ${formData.registrationType === opt.value ? 'is-selected' : ''}`}>
-                      <input type="radio" name="registrationType" value={opt.value}
-                        checked={formData.registrationType === opt.value} onChange={handleChange} />
+                  {(
+                    [
+                      {
+                        value: "delegate",
+                        label: "Delegate",
+                        price: PRICING.delegate,
+                        perks: [
+                          "All conference sessions",
+                          "Conference materials",
+                          "Lunch & refreshments",
+                          "Certificate of participation",
+                        ],
+                      },
+                      {
+                        value: "farmer",
+                        label: "Farmer",
+                        price: PRICING.farmer,
+                        perks: [
+                          "All conference sessions",
+                          "Farm-focused workshops",
+                          "Conference materials",
+                          "Lunch & refreshments",
+                        ],
+                      },
+                      {
+                        value: "virtual",
+                        label: "Virtual Participant",
+                        price: PRICING.virtual,
+                        perks: [
+                          "Live streaming of all sessions",
+                          "Virtual networking rooms",
+                          "Digital conference materials",
+                          "Digital certificate",
+                        ],
+                      },
+                    ] as const
+                  ).map((opt) => (
+                    <label
+                      key={opt.value}
+                      className={`rfp__reg-card ${formData.registrationType === opt.value ? "is-selected" : ""}`}
+                    >
+                      <input
+                        type="radio"
+                        name="registrationType"
+                        value={opt.value}
+                        checked={formData.registrationType === opt.value}
+                        onChange={handleChange}
+                      />
                       <div className="rfp__reg-card-inner">
-                        <div className="rfp__reg-check">{formData.registrationType === opt.value ? '✓' : ''}</div>
+                        <div className="rfp__reg-check">
+                          {formData.registrationType === opt.value ? "✓" : ""}
+                        </div>
                         <h3>{opt.label}</h3>
-                        <p className="rfp__reg-price">{formatUSD(opt.price)}<span>/person</span></p>
-                        <ul>{opt.perks.map(p => <li key={p}>{p}</li>)}</ul>
+                        <p className="rfp__reg-price">
+                          {formatUSD(opt.price)}
+                          <span>/person</span>
+                        </p>
+                        <ul>
+                          {opt.perks.map((p) => (
+                            <li key={p}>{p}</li>
+                          ))}
+                        </ul>
                       </div>
                     </label>
                   ))}
                 </div>
 
-                {errors.registrationType && <span className="rfp__error rfp__error--center">{errors.registrationType}</span>}
+                {errors.registrationType && (
+                  <span className="rfp__error rfp__error--center">
+                    {errors.registrationType}
+                  </span>
+                )}
 
                 <div className="rfp__nav rfp__nav--split">
-                  <button type="button" className="rfp__btn rfp__btn--back" onClick={handlePrev}>← Back</button>
-                  <button type="button" className="rfp__btn rfp__btn--next" onClick={handleNext}>Continue →</button>
+                  <button
+                    type="button"
+                    className="rfp__btn rfp__btn--back"
+                    onClick={handlePrev}
+                  >
+                    ← Back
+                  </button>
+                  <button
+                    type="button"
+                    className="rfp__btn rfp__btn--next"
+                    onClick={handleNext}
+                  >
+                    Continue →
+                  </button>
                 </div>
               </motion.div>
             )}
 
             {/* ── STEP 3 ── */}
             {currentStep === 3 && (
-              <motion.div key="s3" className="rfp__step" variants={stepVariants} initial="hidden" animate="visible" exit="exit">
+              <motion.div
+                key="s3"
+                className="rfp__step"
+                variants={stepVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+              >
                 <div className="rfp__step-header">
                   <span className="rfp__step-num">03</span>
                   <h2>Optional Add-ons</h2>
                 </div>
 
                 <div className="rfp__addons">
-                  {([
-                    { name: 'excursion', label: 'Field Excursion', price: PRICING.excursion, desc: 'Visit local agricultural projects and indigenous seed banks. Includes guided transportation and lunch.', icon: '' },
-                    { name: 'galaDinner', label: 'Gala Dinner', price: PRICING.galaDinner, desc: 'Formal networking dinner with keynote speakers and delegates. Includes dinner and welcome drinks.', icon: '' },
-                  ] as const).map(addon => (
-                    <label key={addon.name} className={`rfp__addon-card ${formData[addon.name] ? 'is-selected' : ''}`}>
-                      <input type="checkbox" name={addon.name} checked={formData[addon.name]} onChange={handleChange} />
+                  {(
+                    [
+                      {
+                        name: "excursion",
+                        label: "Field Excursion",
+                        price: PRICING.excursion,
+                        desc: "Visit local agricultural projects and indigenous seed banks. Includes guided transportation and lunch.",
+                        icon: "",
+                      },
+                      {
+                        name: "galaDinner",
+                        label: "Gala Dinner",
+                        price: PRICING.galaDinner,
+                        desc: "Formal networking dinner with keynote speakers and delegates. Includes dinner and welcome drinks.",
+                        icon: "",
+                      },
+                    ] as const
+                  ).map((addon) => (
+                    <label
+                      key={addon.name}
+                      className={`rfp__addon-card ${formData[addon.name] ? "is-selected" : ""}`}
+                    >
+                      <input
+                        type="checkbox"
+                        name={addon.name}
+                        checked={formData[addon.name]}
+                        onChange={handleChange}
+                      />
                       <div className="rfp__addon-inner">
                         <div className="rfp__addon-icon">{addon.icon}</div>
                         <div className="rfp__addon-body">
                           <div className="rfp__addon-top">
                             <h3>{addon.label}</h3>
-                            <p className="rfp__addon-price">{formatUSD(addon.price)}</p>
+                            <p className="rfp__addon-price">
+                              {formatUSD(addon.price)}
+                            </p>
                           </div>
                           <p className="rfp__addon-desc">{addon.desc}</p>
                         </div>
-                        <div className={`rfp__addon-check ${formData[addon.name] ? 'is-checked' : ''}`}>✓</div>
+                        <div
+                          className={`rfp__addon-check ${formData[addon.name] ? "is-checked" : ""}`}
+                        >
+                          ✓
+                        </div>
                       </div>
                     </label>
                   ))}
@@ -759,28 +1096,70 @@ const fetchExchangeRates = async () => {
                   <h3>Registration Summary</h3>
                   <div className="rfp__summary-rows">
                     <div className="rfp__summary-row">
-                      <span>{formData.registrationType ? formData.registrationType.charAt(0).toUpperCase() + formData.registrationType.slice(1) : 'No type selected'} Registration</span>
-                      <span>{formatUSD(PRICING[formData.registrationType as keyof Pricing] || 0)}</span>
+                      <span>
+                        {formData.registrationType
+                          ? formData.registrationType.charAt(0).toUpperCase() +
+                            formData.registrationType.slice(1)
+                          : "No type selected"}{" "}
+                        Registration
+                      </span>
+                      <span>
+                        {formatUSD(
+                          PRICING[formData.registrationType as keyof Pricing] ||
+                            0,
+                        )}
+                      </span>
                     </div>
-                    {formData.excursion && <div className="rfp__summary-row"><span>Field Excursion</span><span>{formatUSD(PRICING.excursion)}</span></div>}
-                    {formData.galaDinner && <div className="rfp__summary-row"><span>Gala Dinner</span><span>{formatUSD(PRICING.galaDinner)}</span></div>}
+                    {formData.excursion && (
+                      <div className="rfp__summary-row">
+                        <span>Field Excursion</span>
+                        <span>{formatUSD(PRICING.excursion)}</span>
+                      </div>
+                    )}
+                    {formData.galaDinner && (
+                      <div className="rfp__summary-row">
+                        <span>Gala Dinner</span>
+                        <span>{formatUSD(PRICING.galaDinner)}</span>
+                      </div>
+                    )}
                   </div>
                   <div className="rfp__summary-total">
                     <span>Total (USD)</span>
-                    <span className="rfp__total-val">{formatUSD(calculateTotalInUSD())}</span>
+                    <span className="rfp__total-val">
+                      {formatUSD(calculateTotalInUSD())}
+                    </span>
                   </div>
                 </div>
 
                 <div className="rfp__nav rfp__nav--split">
-                  <button type="button" className="rfp__btn rfp__btn--back" onClick={handlePrev}>← Back</button>
-                  <button type="button" className="rfp__btn rfp__btn--next" onClick={handleNext}>Continue →</button>
+                  <button
+                    type="button"
+                    className="rfp__btn rfp__btn--back"
+                    onClick={handlePrev}
+                  >
+                    ← Back
+                  </button>
+                  <button
+                    type="button"
+                    className="rfp__btn rfp__btn--next"
+                    onClick={handleNext}
+                  >
+                    Continue →
+                  </button>
                 </div>
               </motion.div>
             )}
 
             {/* ── STEP 4 ── */}
             {currentStep === 4 && (
-              <motion.div key="s4" className="rfp__step" variants={stepVariants} initial="hidden" animate="visible" exit="exit">
+              <motion.div
+                key="s4"
+                className="rfp__step"
+                variants={stepVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+              >
                 <div className="rfp__step-header">
                   <span className="rfp__step-num">04</span>
                   <h2>Additional Information & Payment</h2>
@@ -788,8 +1167,15 @@ const fetchExchangeRates = async () => {
 
                 <div className="rfp__row">
                   <div className="rfp__field">
-                    <label htmlFor="hearAbout">How did you hear about this conference?</label>
-                    <select id="hearAbout" name="hearAbout" value={formData.hearAbout} onChange={handleChange}>
+                    <label htmlFor="hearAbout">
+                      How did you hear about this conference?
+                    </label>
+                    <select
+                      id="hearAbout"
+                      name="hearAbout"
+                      value={formData.hearAbout}
+                      onChange={handleChange}
+                    >
                       <option value="">Please select</option>
                       <option value="website">Conference Website</option>
                       <option value="social">Social Media</option>
@@ -801,8 +1187,15 @@ const fetchExchangeRates = async () => {
                     </select>
                   </div>
                   <div className="rfp__field">
-                    <label htmlFor="accommodation">Accommodation assistance?</label>
-                    <select id="accommodation" name="accommodation" value={formData.accommodation} onChange={handleChange}>
+                    <label htmlFor="accommodation">
+                      Accommodation assistance?
+                    </label>
+                    <select
+                      id="accommodation"
+                      name="accommodation"
+                      value={formData.accommodation}
+                      onChange={handleChange}
+                    >
                       <option value="">Please select</option>
                       <option value="yes">Yes, I need accommodation</option>
                       <option value="no">No, I will arrange my own</option>
@@ -812,115 +1205,209 @@ const fetchExchangeRates = async () => {
                 </div>
 
                 <div className="rfp__field">
-                  <label htmlFor="dietaryRestrictions">Dietary restrictions or allergies</label>
-                  <input id="dietaryRestrictions" name="dietaryRestrictions" type="text"
-                    value={formData.dietaryRestrictions} onChange={handleChange}
-                    placeholder="e.g. Vegetarian, Halal, nut allergy..." />
+                  <label htmlFor="dietaryRestrictions">
+                    Dietary restrictions or allergies
+                  </label>
+                  <input
+                    id="dietaryRestrictions"
+                    name="dietaryRestrictions"
+                    type="text"
+                    value={formData.dietaryRestrictions}
+                    onChange={handleChange}
+                    placeholder="e.g. Vegetarian, Halal, nut allergy..."
+                  />
                 </div>
 
                 <div className="rfp__field">
-                  <label htmlFor="specialNeeds">Special needs or accessibility requirements</label>
-                  <textarea id="specialNeeds" name="specialNeeds" rows={3}
-                    value={formData.specialNeeds} onChange={handleChange}
-                    placeholder="Please let us know so we can make arrangements for you." />
+                  <label htmlFor="specialNeeds">
+                    Special needs or accessibility requirements
+                  </label>
+                  <textarea
+                    id="specialNeeds"
+                    name="specialNeeds"
+                    rows={3}
+                    value={formData.specialNeeds}
+                    onChange={handleChange}
+                    placeholder="Please let us know so we can make arrangements for you."
+                  />
                 </div>
 
                 {/* 🌍 CURRENCY SELECTOR - FOR REFERENCE ONLY */}
-<div className="rfp__currency">
-  <div className="rfp__currency-header">
-    <span className="rfp__currency-globe">🌍</span>
-    <div>
-      <h3>See total in your local currency</h3>
-      <p>Select your preferred currency for reference only — payment will be processed in Kenyan Shillings (KES)</p>
-    </div>
-  </div>
-  
-  <select 
-    className="rfp__currency-select" 
-    value={selectedDisplayCurrency}
-    onChange={e => setSelectedDisplayCurrency(e.target.value)} 
-    disabled={calculateTotalInUSD() === 0 || isLoadingRates}
-  >
-    {DISPLAY_CURRENCIES.map(c => (
-      <option key={c.code} value={c.code}>
-        {c.code} — {c.name} ({c.region})
-      </option>
-    ))}
-  </select>
-  
-  {isLoadingRates && (
-    <div className="rfp__currency-loading">
-      <span className="rfp__spinner" /> Fetching live rates…
-    </div>
-  )}
-  
-  {!isLoadingRates && selectedDisplayCurrency !== 'USD' && getConvertedAmount(selectedDisplayCurrency) && (
-    <>
-      {/* 🔥 NEW: Show the conversion sentence */}
-      <div className="rfp__conversion-sentence">
-        <strong>{formatUSD(calculateTotalInUSD())} USD</strong> ={' '}
-        <strong>{formatCurrency(getConvertedAmount(selectedDisplayCurrency)!, selectedDisplayCurrency)}</strong>
-      </div>
-      
-      <div className="rfp__currency-result">
-        <div className="rfp__currency-meta">
-          <span>Exchange rate: 1 USD = {exchangeRatesMap.get(selectedDisplayCurrency)?.toFixed(2)} {selectedDisplayCurrency}</span>
-          <span>Updated {lastUpdated}</span>
-        </div>
-      </div>
-    </>
-  )}
-  
-  {/* Payment processing note */}
-  <div className="rfp__currency-note">
-    💳 <strong>Payment will be processed in Kenyan Shillings (KES)</strong> — approximately {kesAmount ? formatCurrency(kesAmount, 'KES') : 'calculating...'}
-  </div>
-</div>
+                <div className="rfp__currency">
+                  <div className="rfp__currency-header">
+                    <span className="rfp__currency-globe">🌍</span>
+                    <div>
+                      <h3>See total in your local currency</h3>
+                      <p>
+                        Select your preferred currency for reference only —
+                        payment will be processed in Kenyan Shillings (KES)
+                      </p>
+                    </div>
+                  </div>
+
+                  <select
+                    className="rfp__currency-select"
+                    value={selectedDisplayCurrency}
+                    onChange={(e) => setSelectedDisplayCurrency(e.target.value)}
+                    disabled={calculateTotalInUSD() === 0 || isLoadingRates}
+                  >
+                    {DISPLAY_CURRENCIES.map((c) => (
+                      <option key={c.code} value={c.code}>
+                        {c.code} — {c.name} ({c.region})
+                      </option>
+                    ))}
+                  </select>
+
+                  {isLoadingRates && (
+                    <div className="rfp__currency-loading">
+                      <span className="rfp__spinner" /> Fetching live rates…
+                    </div>
+                  )}
+
+                  {!isLoadingRates &&
+                    selectedDisplayCurrency !== "USD" &&
+                    getConvertedAmount(selectedDisplayCurrency) && (
+                      <>
+                        {/* 🔥 NEW: Show the conversion sentence */}
+                        <div className="rfp__conversion-sentence">
+                          <strong>
+                            {formatUSD(calculateTotalInUSD())} USD
+                          </strong>{" "}
+                          ={" "}
+                          <strong>
+                            {formatCurrency(
+                              getConvertedAmount(selectedDisplayCurrency)!,
+                              selectedDisplayCurrency,
+                            )}
+                          </strong>
+                        </div>
+
+                        <div className="rfp__currency-result">
+                          <div className="rfp__currency-meta">
+                            <span>
+                              Exchange rate: 1 USD ={" "}
+                              {exchangeRatesMap
+                                .get(selectedDisplayCurrency)
+                                ?.toFixed(2)}{" "}
+                              {selectedDisplayCurrency}
+                            </span>
+                            <span>Updated {lastUpdated}</span>
+                          </div>
+                        </div>
+                      </>
+                    )}
+
+                  {/* Payment processing note */}
+                  <div className="rfp__currency-note">
+                    💳{" "}
+                    <strong>
+                      Payment will be processed in Kenyan Shillings (KES)
+                    </strong>{" "}
+                    — approximately{" "}
+                    {kesAmount
+                      ? formatCurrency(kesAmount, "KES")
+                      : "calculating..."}
+                  </div>
+                </div>
 
                 {/* FINAL SUMMARY */}
                 <div className="rfp__summary rfp__summary--final">
                   <h3>Order Summary</h3>
                   <div className="rfp__summary-rows">
                     <div className="rfp__summary-row">
-                      <span>{formData.registrationType || 'No type'} registration</span>
-                      <span>{formatUSD(PRICING[formData.registrationType as keyof Pricing] || 0)}</span>
+                      <span>
+                        {formData.registrationType || "No type"} registration
+                      </span>
+                      <span>
+                        {formatUSD(
+                          PRICING[formData.registrationType as keyof Pricing] ||
+                            0,
+                        )}
+                      </span>
                     </div>
-                    {formData.excursion && <div className="rfp__summary-row"><span>Field excursion</span><span>{formatUSD(PRICING.excursion)}</span></div>}
-                    {formData.galaDinner && <div className="rfp__summary-row"><span>Gala dinner</span><span>{formatUSD(PRICING.galaDinner)}</span></div>}
+                    {formData.excursion && (
+                      <div className="rfp__summary-row">
+                        <span>Field excursion</span>
+                        <span>{formatUSD(PRICING.excursion)}</span>
+                      </div>
+                    )}
+                    {formData.galaDinner && (
+                      <div className="rfp__summary-row">
+                        <span>Gala dinner</span>
+                        <span>{formatUSD(PRICING.galaDinner)}</span>
+                      </div>
+                    )}
                   </div>
                   <div className="rfp__summary-total">
                     <span>Total (USD)</span>
-                    <span className="rfp__total-val">{formatUSD(calculateTotalInUSD())}</span>
+                    <span className="rfp__total-val">
+                      {formatUSD(calculateTotalInUSD())}
+                    </span>
                   </div>
-                  {selectedDisplayCurrency !== 'USD' && getConvertedAmount(selectedDisplayCurrency) && (
-                    <div className="rfp__summary-converted">
-                      <span>≈ {formatCurrency(getConvertedAmount(selectedDisplayCurrency)!, selectedDisplayCurrency)}</span>
-                    </div>
-                  )}
+                  {selectedDisplayCurrency !== "USD" &&
+                    getConvertedAmount(selectedDisplayCurrency) && (
+                      <div className="rfp__summary-converted">
+                        <span>
+                          ≈{" "}
+                          {formatCurrency(
+                            getConvertedAmount(selectedDisplayCurrency)!,
+                            selectedDisplayCurrency,
+                          )}
+                        </span>
+                      </div>
+                    )}
                 </div>
 
-                <label className={`rfp__consent ${errors.consent ? 'has-error' : ''}`}>
-                  <input type="checkbox" name="consent" checked={formData.consent} onChange={handleChange} />
+                <label
+                  className={`rfp__consent ${errors.consent ? "has-error" : ""}`}
+                >
+                  <input
+                    type="checkbox"
+                    name="consent"
+                    checked={formData.consent}
+                    onChange={handleChange}
+                  />
                   <span>
-                    I confirm the information provided is accurate and I agree to the{' '}
-                    <a href="/terms">Terms & Conditions</a> and <a href="/privacy">Privacy Policy</a>.
+                    I confirm the information provided is accurate and I agree
+                    to the <a href="/terms">Terms & Conditions</a> and{" "}
+                    <a href="/privacy">Privacy Policy</a>.
                   </span>
                 </label>
-                {errors.consent && <span className="rfp__error">{errors.consent}</span>}
+                {errors.consent && (
+                  <span className="rfp__error">{errors.consent}</span>
+                )}
 
-                {submitStatus === 'error' && (
-                  <div className="rfp__alert rfp__alert--error">⚠️ {submitMessage}</div>
+                {submitStatus === "error" && (
+                  <div className="rfp__alert rfp__alert--error">
+                    ⚠️ {submitMessage}
+                  </div>
                 )}
 
                 <div className="rfp__nav rfp__nav--split">
-                  <button type="button" className="rfp__btn rfp__btn--back" onClick={handlePrev}>← Back</button>
-                  <button type="submit" className="rfp__btn rfp__btn--submit" disabled={isSubmitting}>
-                    {isSubmitting ? <><span className="rfp__spinner rfp__spinner--white" /> Processing…</> : `Pay ${kesAmount ? formatCurrency(kesAmount, 'KES') : 'Now'} →`}
+                  <button
+                    type="button"
+                    className="rfp__btn rfp__btn--back"
+                    onClick={handlePrev}
+                  >
+                    ← Back
+                  </button>
+                  <button
+                    type="submit"
+                    className="rfp__btn rfp__btn--submit"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <span className="rfp__spinner rfp__spinner--white" />{" "}
+                        Processing…
+                      </>
+                    ) : (
+                      `Pay ${kesAmount ? formatCurrency(kesAmount, "KES") : "Now"} →`
+                    )}
                   </button>
                 </div>
               </motion.div>
             )}
-
           </AnimatePresence>
         </form>
       </div>
