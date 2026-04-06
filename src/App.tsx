@@ -12,6 +12,7 @@ import SpeakersPage from "./pages/SpeakersPage";*/
 import RegistrationAbstractPage from "./pages/RegistrationAbstractPage";
 import HowToSubmitAbstractPage from "./pages/HowToSubmitAbstractPage";
 import HowToApplyForSideEvents from "./pages/HowToApplyForSideEvents";
+import Sponsorship from "./pages/Sponsorship";
 import RegistrationForm from "./components/RegistrationForm";
 import RegistrationSuccess from "./pages/RegistrationSuccess";
 import ContactPage from "./pages/ContactPage";
@@ -72,6 +73,7 @@ function AppContent() {
             path="/how-to-apply-for-side-events"
             element={<HowToApplyForSideEvents />}
           />
+          <Route path="/sponsorship" element={<Sponsorship />} />
           <Route path="/register" element={<RegistrationForm />} />
           <Route
             path="/registration-success"

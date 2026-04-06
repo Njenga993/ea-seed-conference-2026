@@ -209,10 +209,7 @@ const FocusAreas = () => {
           </div>
           <div className="cta-actions">
             <a href="/how-to-submit-abstract" className="cta-button-primary">
-              Submit Abstract
-            </a>
-            <a href="/how-to-submit-abstract" className="cta-button-secondary">
-              Submission Guidelines
+              Abstracts Submission Guidelines
             </a>
           </div>
         </motion.div>

@@ -161,7 +161,7 @@ const HowToApplyForSideEvents = () => {
                   Application Deadline: <strong>October 15, 2026</strong>
                 </span>
                 <span className="fee-badge">
-                  Side Event Fee: <strong>10,000 kes</strong>
+                  Side Event Fee: <strong>$ 10,000 USD </strong>
                 </span>
               </div>
             </div>
@@ -199,7 +199,7 @@ const HowToApplyForSideEvents = () => {
                 <div className="info-card">
                   <span className="info-number">04</span>
                   <h4>Fee</h4>
-                  <p>$3,000 USD</p>
+                  <p>$10,000 USD</p>
                 </div>
               </div>
             </div>

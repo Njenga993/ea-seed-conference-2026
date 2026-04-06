@@ -12,6 +12,8 @@ const InfoCards = () => {
   const card1Ref = useRef<HTMLDivElement>(null);
   const card2Ref = useRef<HTMLDivElement>(null);
   const card3Ref = useRef<HTMLDivElement>(null);
+  const card4Ref = useRef<HTMLDivElement>(null);
+  const card5Ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -37,6 +39,14 @@ const InfoCards = () => {
             setTimeout(() => {
               card3Ref.current?.classList.add("info-card-visible");
             }, 800);
+
+            setTimeout(() => {
+              card4Ref.current?.classList.add("info-card-visible");
+            }, 1000);
+
+            setTimeout(() => {
+              card5Ref.current?.classList.add("info-card-visible");
+            }, 1200);
 
             observer.disconnect();
           }
@@ -67,7 +77,7 @@ const InfoCards = () => {
           <h2 className="conf-info-cards-title">Everything You Need to Know</h2>
           <p className="conf-info-cards-subtitle">
             Get detailed information about abstract submission, registration
-            process, and venue details
+            process, venue details, sponsorship opportunities, and side events
           </p>
         </header>
 
@@ -164,6 +174,81 @@ const InfoCards = () => {
               onClick={() => handleLearnMore("/contact")}
             >
               Learn More
+              <span className="conf-card-arrow">→</span>
+            </button>
+          </article>
+
+          {/* Sponsorship Card - NEW */}
+          <article
+            className="conf-info-card conf-info-card--sponsor"
+            ref={card4Ref}
+          >
+            <div className="conf-card-content">
+              <span className="conf-card-badge">Partner With Us</span>
+              <h3 className="conf-card-title">Become a Sponsor</h3>
+
+              <p className="conf-card-description">
+                Showcase your organization's commitment to indigenous seed
+                sovereignty and agricultural biodiversity.
+              </p>
+
+              <div className="conf-card-deadline">
+                <div className="conf-deadline-label">Sponsorship Deadline</div>
+                <div className="conf-deadline-date">October 15, 2026</div>
+              </div>
+
+              <ul className="conf-card-features">
+                <li> Premium brand visibility</li>
+                <li> Network with key stakeholders</li>
+                <li> Speaking opportunities</li>
+                <li> Featured in all conference materials</li>
+                <li> Complimentary registrations</li>
+              </ul>
+            </div>
+
+            <button
+              className="conf-card-learn-more"
+              onClick={() => handleLearnMore("/sponsorship")}
+            >
+              View Packages
+              <span className="conf-card-arrow">→</span>
+            </button>
+          </article>
+
+          {/* Side Events Card - NEW */}
+          <article
+            className="conf-info-card conf-info-card--sideevent"
+            ref={card5Ref}
+          >
+            <div className="conf-card-content">
+              <span className="conf-card-badge">Limited Slots</span>
+              <h3 className="conf-card-title">Host a Side Event</h3>
+
+              <p className="conf-card-description">
+                Organize workshops, panel discussions, or networking sessions
+                alongside the main conference program.
+              </p>
+
+              <div className="conf-card-deadline">
+                <div className="conf-deadline-label">Application Deadline</div>
+                <div className="conf-deadline-date">September 15, 2026</div>
+              </div>
+
+              <ul className="conf-card-features">
+                <li> 60-90 minute session slots</li>
+                <li> Free meeting space</li>
+                <li> Promoted in conference program</li>
+                <li> 2 Free Delegates Tickets</li>
+                <li> 2 Free Farmers Tickets</li>
+                <li> Amplify your organization's work</li>
+              </ul>
+            </div>
+
+            <button
+              className="conf-card-learn-more"
+              onClick={() => handleLearnMore("/how-to-apply-for-side-events")}
+            >
+              Apply Now
               <span className="conf-card-arrow">→</span>
             </button>
           </article>

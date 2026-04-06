@@ -9,7 +9,7 @@
 
 /* Subtle background pattern */
 .conf-info-cards-section::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -56,7 +56,7 @@
 
 .conf-info-cards-tag::before,
 .conf-info-cards-tag::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   width: 30px;
@@ -135,13 +135,13 @@
 
 /* Subtle card edge accent */
 .conf-info-card::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 3px;
-  background: #72BF44;
+  background: #72bf44;
   transform: scaleX(0);
   transition: transform 0.3s ease;
   transform-origin: left;
@@ -172,7 +172,7 @@
 }
 
 .conf-info-card:hover .conf-card-icon-wrapper {
-  background: #72BF44;
+  background: #72bf44;
   transform: scale(1.05);
 }
 
@@ -228,7 +228,7 @@
 }
 
 .conf-info-card:hover .conf-card-badge {
-  background: #72BF44;
+  background: #72bf44;
   color: #ffffff;
 }
 
@@ -241,7 +241,7 @@
 }
 
 .conf-info-card:hover .conf-card-title {
-  color: #72BF44;
+  color: #72bf44;
 }
 
 .conf-card-description {
@@ -260,7 +260,7 @@
 }
 
 .conf-info-card:hover .conf-card-deadline {
-  border-left-color: #72BF44;
+  border-left-color: #72bf44;
 }
 
 .conf-deadline-label {
@@ -293,10 +293,10 @@
 }
 
 .conf-card-features li::before {
-  content: '•';
+  content: "•";
   position: absolute;
   left: -14px;
-  color: #72BF44;
+  color: #72bf44;
   font-size: 1.2rem;
   transition: transform 0.3s ease;
 }
@@ -333,8 +333,8 @@
 }
 
 .conf-card-learn-more:hover {
-  background: #72BF44;
-  border-color: #72BF44;
+  background: #72bf44;
+  border-color: #72bf44;
   color: white;
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(114, 191, 68, 0.2);
@@ -349,7 +349,7 @@
   .conf-info-cards-title {
     font-size: 2rem;
   }
-  
+
   .conf-info-cards-grid {
     gap: 25px;
   }
@@ -359,30 +359,30 @@
   .conf-info-cards-section {
     padding: 60px 0;
   }
-  
+
   .conf-info-cards-title {
     font-size: 1.8rem;
   }
-  
+
   .conf-info-cards-tag::before,
   .conf-info-cards-tag::after {
     display: none;
   }
-  
+
   .conf-info-cards-grid {
     grid-template-columns: 1fr;
     max-width: 450px;
     margin: 0 auto;
   }
-  
+
   .conf-info-card {
     padding: 28px;
   }
-  
+
   .conf-info-card:hover {
     transform: translateY(-5px);
   }
-  
+
   /* Reset delays for mobile */
   .conf-info-card:nth-child(1).info-card-visible,
   .conf-info-card:nth-child(2).info-card-visible,
@@ -395,25 +395,25 @@
   .conf-info-cards-section {
     padding: 50px 0;
   }
-  
+
   .conf-info-cards-title {
     font-size: 1.6rem;
   }
-  
+
   .conf-info-cards-tag {
     font-size: 0.7rem;
   }
-  
+
   .conf-card-icon-wrapper {
     width: 48px;
     height: 48px;
   }
-  
+
   .conf-card-icon {
     width: 24px;
     height: 24px;
   }
-  
+
   .conf-card-title {
     font-size: 1.2rem;
   }
@@ -423,11 +423,11 @@
   .conf-info-cards-title {
     font-size: 1.4rem;
   }
-  
+
   .conf-info-card {
     padding: 24px;
   }
-  
+
   .conf-card-learn-more {
     width: 100%;
     justify-content: center;
@@ -450,27 +450,161 @@
     transition: none;
     transform: none;
   }
-  
+
   .conf-info-card:hover {
     transform: none;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
   }
-  
+
   .conf-info-card:hover .conf-card-icon-wrapper {
     transform: none;
     background: #f1f5f9;
   }
-  
+
   .conf-info-card:hover .conf-card-icon {
     fill: #475569;
   }
-  
+
   .conf-info-card:hover .conf-card-badge {
     background: #f1f5f9;
     color: #475569;
   }
-  
+
   .conf-card-learn-more:hover .conf-card-arrow {
     transform: none;
+  }
+}
+/* ===== SPONSORSHIP CARD SPECIAL STYLES ===== */
+.conf-info-card--sponsor {
+  background: linear-gradient(135deg, #ffffff 0%, #fef9e8 100%);
+  border-left: 4px solid #f5a623;
+}
+
+.conf-info-card--sponsor .conf-card-badge {
+  background: #f5a62320;
+  color: #d4891a;
+}
+
+.conf-info-card--sponsor:hover .conf-card-badge {
+  background: #f5a623;
+  color: #ffffff;
+}
+
+.conf-info-card--sponsor .conf-card-deadline {
+  border-left-color: #f5a623;
+}
+
+.conf-info-card--sponsor:hover .conf-card-title {
+  color: #f5a623;
+}
+
+.conf-info-card--sponsor .conf-card-features li::before {
+  color: #f5a623;
+}
+
+.conf-info-card--sponsor .conf-card-learn-more:hover {
+  background: #f5a623;
+  border-color: #f5a623;
+  box-shadow: 0 5px 15px rgba(245, 166, 35, 0.2);
+}
+
+/* ===== SIDE EVENT CARD SPECIAL STYLES ===== */
+.conf-info-card--sideevent {
+  background: linear-gradient(135deg, #ffffff 0%, #eef5ff 100%);
+  border-left: 4px solid #4a90e2;
+}
+
+.conf-info-card--sideevent .conf-card-badge {
+  background: #4a90e220;
+  color: #3a7bc8;
+}
+
+.conf-info-card--sideevent:hover .conf-card-badge {
+  background: #4a90e2;
+  color: #ffffff;
+}
+
+.conf-info-card--sideevent .conf-card-deadline {
+  border-left-color: #4a90e2;
+}
+
+.conf-info-card--sideevent:hover .conf-card-title {
+  color: #4a90e2;
+}
+
+.conf-info-card--sideevent .conf-card-features li::before {
+  color: #4a90e2;
+}
+
+.conf-info-card--sideevent .conf-card-learn-more:hover {
+  background: #4a90e2;
+  border-color: #4a90e2;
+  box-shadow: 0 5px 15px rgba(74, 144, 226, 0.2);
+}
+
+/* ===== GRID ADJUSTMENT FOR 5 CARDS ===== */
+@media (min-width: 1200px) {
+  .conf-info-cards-grid {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  }
+}
+
+@media (min-width: 1400px) {
+  .conf-info-cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Make sponsor and side event cards span across the grid nicely */
+  .conf-info-card--sponsor,
+  .conf-info-card--sideevent {
+    grid-column: span 1;
+  }
+}
+
+/* ===== ICON VARIATIONS FOR NEW CARDS ===== */
+.conf-info-card--sponsor .conf-card-icon-wrapper {
+  background: #f5a62320;
+}
+
+.conf-info-card--sponsor:hover .conf-card-icon-wrapper {
+  background: #f5a623;
+}
+
+.conf-info-card--sideevent .conf-card-icon-wrapper {
+  background: #4a90e220;
+}
+
+.conf-info-card--sideevent:hover .conf-card-icon-wrapper {
+  background: #4a90e2;
+}
+
+/* ===== RESPONSIVE ADJUSTMENTS ===== */
+@media (max-width: 768px) {
+  .conf-info-cards-grid {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .conf-info-card--sponsor,
+  .conf-info-card--sideevent {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 576px) {
+  .conf-info-card--sponsor,
+  .conf-info-card--sideevent {
+    padding: 24px;
+  }
+}
+
+/* ===== REDUCED MOTION - ADD FOR NEW CARDS ===== */
+@media (prefers-reduced-motion: reduce) {
+  .conf-info-card--sponsor,
+  .conf-info-card--sideevent,
+  .conf-info-card--sponsor *,
+  .conf-info-card--sideevent * {
+    transition: none !important;
   }
 }
