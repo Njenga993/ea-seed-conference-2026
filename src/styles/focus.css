@@ -3,8 +3,8 @@
 
 /* CSS Variables - Clean, Professional Palette */
 :root {
-  --color-primary: #1e3a5f;
-  --color-primary-dark: #0a2540;
+  --color-primary: #72bf44;
+  --color-primary-dark: #5dae35;
   --color-secondary: #5a6e4a;
   --color-accent: #b48c48;
   --color-text-primary: #1f2a3a;
@@ -467,4 +467,7 @@
 .focus-section-pro::-webkit-scrollbar-thumb {
   background: var(--color-text-tertiary);
   border-radius: 4px;
+}
+.focus-section-pro::-webkit-scrollbar-thumb:hover {
+  background: var(--color-secondary);
 }

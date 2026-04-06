@@ -164,6 +164,24 @@ const AdminDashboard = () => {
     };
   }, [token, role, loadData]);
 
+  // AUTO-REFRESH POLLING - This fixes the check-in table not updating issue
+  useEffect(() => {
+    if (!token || role !== "admin") return;
+
+    // Set up polling interval to refresh data every 10 seconds
+    const intervalId = setInterval(() => {
+      // Only refresh if the tab is visible and we're not already loading
+      if (!document.hidden && !dataLoading) {
+        loadData();
+      }
+    }, 10000); // Refresh every 10 seconds
+
+    // Clean up interval on component unmount or when dependencies change
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [token, role, loadData, dataLoading]);
+
   const handleLogin = async () => {
     if (!passwordInput.trim()) return;
     setLoginLoading(true);
@@ -328,7 +346,10 @@ const AdminDashboard = () => {
           <div>
             <p className="adm__eyebrow">Admin Panel</p>
             <h1 className="adm__heading">EA Seed Conference 2026</h1>
-            {/* Show auto-refresh indicator */}
+            {/* Auto-refresh indicator */}
+            <span style={{ fontSize: "12px", color: "#666" }}>
+              Auto-refreshing every 10s
+            </span>
           </div>
           <div className="adm__topbar-actions">
             <span className="adm__role-pill">admin</span>
@@ -381,7 +402,7 @@ const AdminDashboard = () => {
             </div>
             <div className="adm__stat adm__stat--gold">
               <span className="adm__stat-val">
-                ${stats.totalRevenue.toLocaleString()}
+                KES {stats.totalRevenue.toLocaleString()}
               </span>
               <span className="adm__stat-label">Total revenue</span>
             </div>
@@ -539,7 +560,7 @@ const AdminDashboard = () => {
                             </span>
                           )}
                         </td>
-                        <td className="adm__cell-amount">${p.amount}</td>
+                        <td className="adm__cell-amount">KES {p.amount}</td>
                         <td>
                           <div className="adm__actions">
                             {p.paymentstatus === "paid" && (
