@@ -77,7 +77,7 @@ const Navbar = () => {
   };
 
   const handleRegisterClick = () => {
-    navigate('/register');
+    navigate("/register");
     setMobileMenuOpen(false);
   };
 
@@ -91,12 +91,11 @@ const Navbar = () => {
   return (
     <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
       <div className="nav-container">
-        
         {/* LEFT LOGO */}
         <Link to="/" className="nav-logo-left">
-          <img 
-            src={rightLogo} 
-            alt="Eastern Africa Indigenous Seed Conference" 
+          <img
+            src={rightLogo}
+            alt="Eastern Africa Indigenous Seed Conference"
             className="nav-logo-image"
           />
         </Link>
@@ -153,13 +152,21 @@ const Navbar = () => {
             </li>
 
             <li className="nav-item">
-              <button
-                onClick={handleRegisterClick}
-                className="nav-cta"
-              >
+              <button onClick={handleRegisterClick} className="nav-cta">
                 <span>Register Now</span>
-                <svg className="cta-arrow" viewBox="0 0 24 24" width="16" height="16">
-                  <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round"/>
+                <svg
+                  className="cta-arrow"
+                  viewBox="0 0 24 24"
+                  width="16"
+                  height="16"
+                >
+                  <path
+                    d="M5 12h14M12 5l7 7-7 7"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    fill="none"
+                    strokeLinecap="round"
+                  />
                 </svg>
               </button>
             </li>
@@ -168,17 +175,24 @@ const Navbar = () => {
           {/* Mobile menu footer */}
           <div className="mobile-footer">
             <div className="mobile-contact">
-              <a href="mailto:info@eaindigenousseedsconference.org">info@eaindigenousseedsconference.org</a>
+              <a href="mailto:info@eaindigenousseedsconference.org">
+                info@eaindigenousseedsconference.org
+              </a>
               <a href="tel:+256712451777">+256 712 451 777</a>
             </div>
             <div className="mobile-social">
-              <a href="#" aria-label="LinkedIn">in</a>
-              <a href="#" aria-label="Twitter">𝕏</a>
-              <a href="#" aria-label="Facebook">f</a>
+              <a href="#" aria-label="LinkedIn">
+                in
+              </a>
+              <a href="#" aria-label="Twitter">
+                𝕏
+              </a>
+              <a href="#" aria-label="Facebook">
+                f
+              </a>
             </div>
           </div>
         </div>
-
       </div>
     </nav>
   );

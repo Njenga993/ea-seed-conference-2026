@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader";
 import BackToTop from "./components/BackToTop";
+import LanguageTranslator from "./components/LanguageTranslator";
 /*import ProgramPage from "./pages/ProgramPage";
 import SpeakersPage from "./pages/SpeakersPage";*/
 import RegistrationAbstractPage from "./pages/RegistrationAbstractPage";
@@ -85,7 +86,7 @@ function AppContent() {
           <Route path="/contact" element={<ContactPage />} />
         </Routes>
         <Footer />
-
+        <LanguageTranslator />
         {/* Back to Top Button */}
         <BackToTop />
       </div>
