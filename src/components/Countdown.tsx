@@ -10,7 +10,7 @@ const Countdown = () => {
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const timerRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLDivElement>(null);
-  
+
   const eventDate = new Date("2026-11-17T09:00:00").getTime();
 
   const calculateTimeLeft = () => {
@@ -54,22 +54,22 @@ const Countdown = () => {
           if (entry.isIntersecting) {
             // Title appears first
             setTimeout(() => {
-              titleRef.current?.classList.add('countdown-title-visible');
+              titleRef.current?.classList.add("countdown-title-visible");
             }, 200);
-            
+
             // Subtitle appears second
             setTimeout(() => {
-              subtitleRef.current?.classList.add('countdown-subtitle-visible');
+              subtitleRef.current?.classList.add("countdown-subtitle-visible");
             }, 400);
-            
+
             // Timer appears third
             setTimeout(() => {
-              timerRef.current?.classList.add('countdown-timer-visible');
+              timerRef.current?.classList.add("countdown-timer-visible");
             }, 600);
-            
+
             // Button appears last
             setTimeout(() => {
-              buttonRef.current?.classList.add('countdown-button-visible');
+              buttonRef.current?.classList.add("countdown-button-visible");
             }, 800);
 
             observer.disconnect();
@@ -79,7 +79,7 @@ const Countdown = () => {
       {
         threshold: 0.3,
         rootMargin: "0px 0px -50px 0px",
-      }
+      },
     );
 
     if (sectionRef.current) {
@@ -94,7 +94,7 @@ const Countdown = () => {
   };
 
   const handleRegister = () => {
-    navigate("/registration");
+    navigate("/register");
   };
 
   // Check if a unit value changed for animation
@@ -107,28 +107,19 @@ const Countdown = () => {
       <div className="conf-countdown-wrapper">
         <div className="conf-countdown-inner">
           <header className="conf-countdown-header">
-            <h2 
-              className="conf-countdown-title" 
-              ref={titleRef}
-            >
+            <h2 className="conf-countdown-title" ref={titleRef}>
               Conference Begins In
             </h2>
-            <p 
-              className="conf-countdown-subtitle" 
-              ref={subtitleRef}
-            >
+            <p className="conf-countdown-subtitle" ref={subtitleRef}>
               17th – 20th November 2026 • Nairobi, Kenya
             </p>
           </header>
 
-          <div 
-            className="conf-countdown-timer" 
-            ref={timerRef}
-          >
+          <div className="conf-countdown-timer" ref={timerRef}>
             <div className="conf-timer-grid">
               <div className="conf-timer-unit">
-                <span 
-                  className={`conf-timer-value ${hasUnitChanged('days', timeLeft.days) ? 'conf-timer-pulse' : ''}`}
+                <span
+                  className={`conf-timer-value ${hasUnitChanged("days", timeLeft.days) ? "conf-timer-pulse" : ""}`}
                 >
                   {formatNumber(timeLeft.days)}
                 </span>
@@ -138,8 +129,8 @@ const Countdown = () => {
               <span className="conf-timer-separator">:</span>
 
               <div className="conf-timer-unit">
-                <span 
-                  className={`conf-timer-value ${hasUnitChanged('hours', timeLeft.hours) ? 'conf-timer-pulse' : ''}`}
+                <span
+                  className={`conf-timer-value ${hasUnitChanged("hours", timeLeft.hours) ? "conf-timer-pulse" : ""}`}
                 >
                   {formatNumber(timeLeft.hours)}
                 </span>
@@ -149,8 +140,8 @@ const Countdown = () => {
               <span className="conf-timer-separator">:</span>
 
               <div className="conf-timer-unit">
-                <span 
-                  className={`conf-timer-value ${hasUnitChanged('minutes', timeLeft.minutes) ? 'conf-timer-pulse' : ''}`}
+                <span
+                  className={`conf-timer-value ${hasUnitChanged("minutes", timeLeft.minutes) ? "conf-timer-pulse" : ""}`}
                 >
                   {formatNumber(timeLeft.minutes)}
                 </span>
@@ -160,8 +151,8 @@ const Countdown = () => {
               <span className="conf-timer-separator">:</span>
 
               <div className="conf-timer-unit">
-                <span 
-                  className={`conf-timer-value ${hasUnitChanged('seconds', timeLeft.seconds) ? 'conf-timer-pulse' : ''}`}
+                <span
+                  className={`conf-timer-value ${hasUnitChanged("seconds", timeLeft.seconds) ? "conf-timer-pulse" : ""}`}
                 >
                   {formatNumber(timeLeft.seconds)}
                 </span>
@@ -170,14 +161,8 @@ const Countdown = () => {
             </div>
           </div>
 
-          <div 
-            className="conf-countdown-action" 
-            ref={buttonRef}
-          >
-            <button 
-              className="conf-action-btn"
-              onClick={handleRegister}
-            >
+          <div className="conf-countdown-action" ref={buttonRef}>
+            <button className="conf-action-btn" onClick={handleRegister}>
               Register Now
               <span className="conf-btn-arrow">→</span>
             </button>
