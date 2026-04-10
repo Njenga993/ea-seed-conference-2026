@@ -191,7 +191,6 @@ interface FormData {
   galaDinner: boolean;
   hearAbout: string;
   dietaryRestrictions: string;
-  accommodation: string;
   specialNeeds: string;
   consent: boolean;
 }
@@ -353,7 +352,6 @@ const RegistrationForm = () => {
       galaDinner: false,
       hearAbout: "",
       dietaryRestrictions: "",
-      accommodation: "",
       specialNeeds: "",
       consent: false,
     };
@@ -599,7 +597,6 @@ const RegistrationForm = () => {
             galaDinner: formData.galaDinner,
             hearAbout: formData.hearAbout,
             dietaryRestrictions: formData.dietaryRestrictions,
-            accommodation: formData.accommodation,
             specialNeeds: formData.specialNeeds,
             currency: "USD", // Always send USD to backend for conversion
             dialCode: formData.dialCode,
@@ -721,9 +718,7 @@ const RegistrationForm = () => {
                     if (saved && JSON.parse(saved).fullName) {
                       return (
                         <div className="rfp__restore-banner">
-                          <span>
-                            ✦ Your previous progress has been restored.
-                          </span>
+                          <span>Your previous progress has been restored.</span>
                           <button
                             type="button"
                             onClick={() => {
@@ -742,7 +737,6 @@ const RegistrationForm = () => {
                                 galaDinner: false,
                                 hearAbout: "",
                                 dietaryRestrictions: "",
-                                accommodation: "",
                                 specialNeeds: "",
                                 consent: false,
                               });
@@ -871,7 +865,7 @@ const RegistrationForm = () => {
                       <option value="researcher">Researcher / Academic</option>
                       <option value="farmer">Farmer</option>
                       <option value="student">Student</option>
-                      <option value="ngo">NGO Representative</option>
+                      <option value="ngo">NGO/CSO Representative</option>
                       <option value="government">Government Official</option>
                       <option value="private">Private Sector</option>
                       <option value="media">Media</option>
@@ -1186,25 +1180,9 @@ const RegistrationForm = () => {
                       <option value="other">Other</option>
                     </select>
                   </div>
-                  <div className="rfp__field">
-                    <label htmlFor="accommodation">
-                      Accommodation assistance?
-                    </label>
-                    <select
-                      id="accommodation"
-                      name="accommodation"
-                      value={formData.accommodation}
-                      onChange={handleChange}
-                    >
-                      <option value="">Please select</option>
-                      <option value="yes">Yes, I need accommodation</option>
-                      <option value="no">No, I will arrange my own</option>
-                      <option value="info">Just need information</option>
-                    </select>
-                  </div>
                 </div>
 
-                <div className="rfp__field">
+                {/* <div className="rfp__field">
                   <label htmlFor="dietaryRestrictions">
                     Dietary restrictions or allergies
                   </label>
@@ -1216,7 +1194,7 @@ const RegistrationForm = () => {
                     onChange={handleChange}
                     placeholder="e.g. Vegetarian, Halal, nut allergy..."
                   />
-                </div>
+                </div>/
 
                 <div className="rfp__field">
                   <label htmlFor="specialNeeds">
@@ -1230,7 +1208,7 @@ const RegistrationForm = () => {
                     onChange={handleChange}
                     placeholder="Please let us know so we can make arrangements for you."
                   />
-                </div>
+                </div>*/}
 
                 {/* 🌍 CURRENCY SELECTOR - FOR REFERENCE ONLY */}
                 <div className="rfp__currency">
