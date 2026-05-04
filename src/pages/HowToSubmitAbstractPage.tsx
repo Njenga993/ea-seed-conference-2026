@@ -1,11 +1,284 @@
 // pages/HowToSubmitAbstractPage.tsx
+import { useState, useRef } from "react";
 import { Helmet } from "react-helmet-async";
 import "../styles/HowToSubmitAbstractPage.css";
 
 // Import background image (use your own)
 import heroBackground from "../assets/_MG_0937.webp";
 
+interface AbstractFormData {
+  prefix: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  organization: string;
+  country: string;
+  isStudent: boolean;
+  title: string;
+  theme: string;
+  presentationFormat: string;
+  keywords: string;
+  coAuthors: string;
+  agreeToTerms: boolean;
+}
+
+interface FormErrors {
+  [key: string]: string;
+}
+
+const themes = [
+  "Farmer-Managed Seed Systems in Practice",
+  "Seeds, Climate Change and Resilience",
+  "Gender Equity and Social Inclusion",
+  "Market Innovations",
+  "Data Sovereignty and Trends",
+  "Policy Solutions for Seed Sovereignty",
+];
+
+const presentationFormats = [
+  "Oral Presentation",
+  "Poster Presentation",
+  "Panel Session",
+  "Creative Arts/Exhibition",
+];
+
 const HowToSubmitAbstractPage = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [abstractId, setAbstractId] = useState("");
+  const [abstractFile, setAbstractFile] = useState<File | null>(null);
+  const [studentIdFile, setStudentIdFile] = useState<File | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const studentIdInputRef = useRef<HTMLInputElement>(null);
+  
+  const [formData, setFormData] = useState<AbstractFormData>({
+    prefix: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    organization: "",
+    country: "",
+    isStudent: false,
+    title: "",
+    theme: "",
+    presentationFormat: "",
+    keywords: "",
+    coAuthors: "",
+    agreeToTerms: false,
+  });
+
+  const [errors, setErrors] = useState<FormErrors>({});
+
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {};
+
+    // Presenter Information
+    if (!formData.prefix) newErrors.prefix = "Prefix is required";
+    if (!formData.firstName || formData.firstName.length < 2) 
+      newErrors.firstName = "First name is required (minimum 2 characters)";
+    if (!formData.lastName || formData.lastName.length < 2) 
+      newErrors.lastName = "Last name is required (minimum 2 characters)";
+    if (!formData.email) {
+      newErrors.email = "Email is required";
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email)) {
+      newErrors.email = "Invalid email address";
+    }
+    if (!formData.organization) newErrors.organization = "Organization is required";
+    if (!formData.country) newErrors.country = "Country is required";
+
+    // Abstract Details
+    if (!formData.title || formData.title.length > 200) 
+      newErrors.title = "Title is required (maximum 200 characters)";
+    if (!formData.theme) newErrors.theme = "Theme is required";
+    if (!formData.presentationFormat) newErrors.presentationFormat = "Presentation format is required";
+    
+    // File validation
+    if (!abstractFile) {
+      newErrors.abstractFile = "Abstract document is required";
+    } else if (abstractFile.size > 10 * 1024 * 1024) { // 10MB limit
+      newErrors.abstractFile = "File size must be less than 10MB";
+    }
+    
+    if (!formData.keywords) {
+      newErrors.keywords = "Keywords are required";
+    } else {
+      const keywordArray = formData.keywords.split(",").filter((k: string) => k.trim());
+      if (keywordArray.length < 3) newErrors.keywords = "Minimum 3 keywords required";
+      else if (keywordArray.length > 5) newErrors.keywords = "Maximum 5 keywords allowed";
+    }
+
+    // Student ID validation
+    if (formData.isStudent && !studentIdFile) {
+      newErrors.studentId = "Student ID is required";
+    }
+
+    // Terms
+    if (!formData.agreeToTerms) newErrors.agreeToTerms = "You must agree to the terms";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value, type } = e.target;
+    const checked = type === "checkbox" ? (e.target as HTMLInputElement).checked : undefined;
+    
+    setFormData(prev => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
+    }
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, files } = e.target;
+    if (files && files[0]) {
+      const file = files[0];
+      const allowedTypes = [
+        'application/pdf',
+        'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+      ];
+      
+      if (!allowedTypes.includes(file.type)) {
+        if (name === 'abstractFile') {
+          setErrors(prev => ({ ...prev, abstractFile: "Please upload a PDF or Word document (.pdf, .doc, .docx)" }));
+        } else if (name === 'studentId') {
+          setErrors(prev => ({ ...prev, studentId: "Please upload a PDF or image file" }));
+        }
+        return;
+      }
+
+      if (file.size > 10 * 1024 * 1024) { // 10MB
+        if (name === 'abstractFile') {
+          setErrors(prev => ({ ...prev, abstractFile: "File size must be less than 10MB" }));
+        } else if (name === 'studentId') {
+          setErrors(prev => ({ ...prev, studentId: "File size must be less than 10MB" }));
+        }
+        return;
+      }
+
+      if (name === 'abstractFile') {
+        setAbstractFile(file);
+        if (errors.abstractFile) {
+          setErrors(prev => {
+            const newErrors = { ...prev };
+            delete newErrors.abstractFile;
+            return newErrors;
+          });
+        }
+      } else if (name === 'studentId') {
+        setStudentIdFile(file);
+        if (errors.studentId) {
+          setErrors(prev => {
+            const newErrors = { ...prev };
+            delete newErrors.studentId;
+            return newErrors;
+          });
+        }
+      }
+    }
+  };
+
+  const removeFile = (fileType: 'abstract' | 'studentId') => {
+    if (fileType === 'abstract') {
+      setAbstractFile(null);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    } else {
+      setStudentIdFile(null);
+      if (studentIdInputRef.current) {
+        studentIdInputRef.current.value = '';
+      }
+    }
+  };
+
+  const formatFileSize = (bytes: number): string => {
+    if (bytes < 1024) return bytes + ' bytes';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    
+    if (!validateForm()) {
+      // Scroll to first error
+      const firstError = document.querySelector(".input-error");
+      if (firstError) {
+        firstError.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitError("");
+
+    try {
+      // Send as JSON to match backend expectations
+      const response = await fetch("https://api.eaindigenousseedconference.org/submit-abstract", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Submission failed. Please try again.");
+      }
+
+      const result = await response.json();
+      
+      // Store the abstract ID for display
+      setAbstractId(result.abstractId);
+      setSubmitSuccess(true);
+      
+      // Reset form
+      setFormData({
+        prefix: "",
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        organization: "",
+        country: "",
+        isStudent: false,
+        title: "",
+        theme: "",
+        presentationFormat: "",
+        keywords: "",
+        coAuthors: "",
+        agreeToTerms: false,
+      });
+      setAbstractFile(null);
+      setStudentIdFile(null);
+      setErrors({});
+      if (fileInputRef.current) fileInputRef.current.value = '';
+      if (studentIdInputRef.current) studentIdInputRef.current.value = '';
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch (error) {
+      setSubmitError(
+        error instanceof Error ? error.message : "An unexpected error occurred"
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   // Steps data for easier maintenance
   const steps = [
     {
@@ -13,63 +286,54 @@ const HowToSubmitAbstractPage = () => {
       title: "Log into the Submission System",
       content:
         "The first step is logging into the Ex Ordo submission system. Enter your email address, your first and last name, and a secure password. After which, you will be taken to your dashboard.",
-      imagePlaceholder: true,
     },
     {
       number: "02",
       title: "Start Your Submission",
       content:
         "On your dashboard, find your 'Submit' card and select 'Submit Your Abstract' to begin the process. You will then be brought into the workflow where you'll see all steps listed on the left-hand side. Red indicators mean incomplete; green means complete.",
-      imagePlaceholder: true,
     },
     {
       number: "03",
       title: "Review Guide for Authors",
       content:
-        "Read the conference guidelines carefully. Ensure your submission aligns with one of the six conference themes. If you have questions, contact the conference organizers at info@eaindigenousseedsconference.org. Once ready, click 'Skip: Start Workflow' to proceed.",
-      imagePlaceholder: false,
+        "Read the conference guidelines carefully. Ensure your submission aligns with one of the six conference themes. If you have questions, contact the conference organizers at info@eaindigenousseedsconference.org.",
     },
     {
       number: "04",
       title: "Select Presentation Format",
       content:
-        "Choose your preferred presentation format if your submission is accepted. Options include: Oral Presentation, Poster Presentation, Panel Session, or Creative Arts/Exhibition. Select the appropriate format and click 'Done: Go to Next Step'.",
-      imagePlaceholder: true,
+        "Choose your preferred presentation format if your submission is accepted. Options include: Oral Presentation, Poster Presentation, Panel Session, or Creative Arts/Exhibition.",
     },
     {
       number: "05",
       title: "Enter Paper Title and Abstract",
       content:
-        "Type your submission title and abstract into the provided fields. You may copy and paste, but ensure you adhere to the word limit (300-500 words). Use the text editor for formatting if needed. Click 'Done: Go to Next Step' when finished.",
-      imagePlaceholder: true,
+        "Type your submission title and abstract into the provided fields. You may copy and paste, but ensure you adhere to the word limit (300-500 words). Use the text editor for formatting if needed.",
     },
     {
       number: "06",
       title: "Add Author Information",
       content:
-        "Enter all author details including prefix, first name, surname, email, organization, and country. Identify the corresponding and presenting authors. You can add co-authors and reorder them as needed. If submitting on behalf of another author, use the 'I'm not the author' option. Click 'Done: Go to Next Step' after completing author details and biographies.",
-      imagePlaceholder: true,
+        "Enter all author details including prefix, first name, surname, email, organization, and country. Identify the corresponding and presenting authors. You can add co-authors and reorder them as needed.",
     },
     {
       number: "07",
       title: "Select Conference Theme",
       content:
-        "Choose the theme that best fits your submission from the six thematic areas: Farmer-Managed Seed Systems in Practice; Seeds, Climate Change and Resilience; Gender Equity and Social Inclusion; Market Innovations; Data Sovereignty and Trends; or Policy Solutions for Seed Sovereignty. Click 'Done: Go to Next Step'.",
-      imagePlaceholder: false,
+        "Choose the theme that best fits your submission from the six thematic areas.",
     },
     {
       number: "08",
       title: "Submit Additional Information",
       content:
-        "If you are a student submitting an abstract, upload your student ID for verification. If you are not a student, you can ignore this section. Click 'Done: Save Submission' to complete the process.",
-      imagePlaceholder: false,
+        "If you are a student submitting an abstract, upload your student ID for verification. If you are not a student, you can ignore this section.",
     },
     {
       number: "09",
       title: "Confirmation",
       content:
-        "After submission, you will be taken to your submission overview page. You and co-authors will receive an email confirmation. Your dashboard will now show a 'My Submissions' card where you can track the status of your abstract.",
-      imagePlaceholder: false,
+        "After submission, you will receive an email confirmation. Your dashboard will now show a 'My Submissions' card where you can track the status of your abstract.",
     },
   ];
 
@@ -81,11 +345,11 @@ const HowToSubmitAbstractPage = () => {
     description:
       "Step-by-step guide for submitting abstracts, papers, and presentations to the EA-ISC 2026 conference.",
     totalTime: "PT20M",
-    step: steps.map((step) => ({
+    step: steps.map((step, index) => ({
       "@type": "HowToStep",
       name: step.title,
       text: step.content,
-      position: steps.indexOf(step) + 1,
+      position: index + 1,
     })),
   };
 
@@ -169,78 +433,426 @@ const HowToSubmitAbstractPage = () => {
           </div>
         </section>
 
-        {/* Introduction Section */}
-        <section className="content-section">
+        {/* Abstract Submission Form Section */}
+        <section className="content-section" id="submit-form">
           <div className="container narrow">
-            <div className="intro-box">
-              <h2>Submission Overview</h2>
-              <p className="lead-text">
-                All abstracts and papers for the Eastern Africa Indigenous Seed
-                Conference 2026 must be submitted through the Ex Ordo submission
-                system. Follow this step-by-step guide to ensure your submission
-                is complete and meets all requirements.
-              </p>
-              <div className="info-cards">
-                <div className="info-card">
-                  <span className="info-number">01</span>
-                  <h4>Submission System</h4>
-                  <p>Ex Ordo online platform</p>
-                </div>
-                <div className="info-card">
-                  <span className="info-number">02</span>
-                  <h4>Deadline</h4>
-                  <p>October 31, 2026</p>
-                </div>
-                <div className="info-card">
-                  <span className="info-number">03</span>
-                  <h4>Word Limit</h4>
-                  <p>300-500 words</p>
-                </div>
-                <div className="info-card">
-                  <span className="info-number">04</span>
-                  <h4>Contact</h4>
-                  <p>info@eaindigenousseedsconference.org</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Steps Section */}
-        <section className="content-section bg-light">
-          <div className="container">
-            <h2 className="text-center">Submission Steps</h2>
-            <p className="section-subtitle text-center">
-              Follow these nine steps to successfully submit your abstract. Each
-              step must be completed before proceeding to the next.
+            <h2>Submit Your Abstract</h2>
+            <p className="lead-text">
+              Fill out the form below and upload your abstract document. You will receive an immediate confirmation email upon successful submission.
             </p>
 
-            <div className="steps-container">
-              {steps.map((step, index) => (
-                <div key={index} className="step-item">
-                  <div className="step-number" aria-hidden="true">
-                    {step.number}
+            {submitSuccess ? (
+              <div className="submission-success">
+                <div className="success-icon">✓</div>
+                <h3>Abstract Submitted Successfully!</h3>
+                <p>
+                  Thank you for your submission. A confirmation email has been sent to your email address. Your abstract will be reviewed by our scientific committee.
+                </p>
+                {abstractId && (
+                  <div className="abstract-reference">
+                    <p>Your Reference Number:</p>
+                    <strong>{abstractId}</strong>
+                    <p className="ref-note">Please quote this reference in any correspondence</p>
                   </div>
-                  <div className="step-content">
-                    <h3>{step.title}</h3>
-                    <p>{step.content}</p>
-                    {step.imagePlaceholder && (
-                      <div
-                        className="step-illustration"
-                        aria-label="Step illustration placeholder"
-                      >
-                        <div className="placeholder-box"></div>
+                )}
+                <div className="success-next-steps">
+                  <h4>What happens next?</h4>
+                  <ul>
+                    <li>You'll receive an immediate confirmation email</li>
+                    <li>The scientific committee will review your abstract</li>
+                    <li>Notification of acceptance: November 15, 2026</li>
+                    <li>Check your spam folder if you don't receive the confirmation</li>
+                  </ul>
+                </div>
+                <button
+                  onClick={() => {
+                    setSubmitSuccess(false);
+                    setAbstractId("");
+                  }}
+                  className="btn btn-primary"
+                  style={{ marginTop: "20px" }}
+                >
+                  Submit Another Abstract
+                </button>
+              </div>
+            ) : (
+              <>
+                {submitError && (
+                  <div className="form-error-banner">
+                    <span>⚠</span> {submitError}
+                  </div>
+                )}
+
+                <form onSubmit={handleSubmit} className="abstract-form">
+                  {/* Presenter Information */}
+                  <div className="form-section">
+                    <h3>Presenter Information</h3>
+                    
+                    <div className="form-row">
+                      <div className="form-group">
+                        <label htmlFor="prefix">Prefix *</label>
+                        <select
+                          id="prefix"
+                          name="prefix"
+                          value={formData.prefix}
+                          onChange={handleInputChange}
+                          className={errors.prefix ? "input-error" : ""}
+                        >
+                          <option value="">Select prefix</option>
+                          <option value="Dr.">Dr.</option>
+                          <option value="Prof.">Prof.</option>
+                          <option value="Mr.">Mr.</option>
+                          <option value="Mrs.">Mrs.</option>
+                          <option value="Ms.">Ms.</option>
+                        </select>
+                        {errors.prefix && (
+                          <span className="error-message">{errors.prefix}</span>
+                        )}
+                      </div>
+
+                      <div className="form-group">
+                        <label htmlFor="firstName">First Name *</label>
+                        <input
+                          type="text"
+                          id="firstName"
+                          name="firstName"
+                          value={formData.firstName}
+                          onChange={handleInputChange}
+                          className={errors.firstName ? "input-error" : ""}
+                          placeholder="Enter your first name"
+                        />
+                        {errors.firstName && (
+                          <span className="error-message">{errors.firstName}</span>
+                        )}
+                      </div>
+
+                      <div className="form-group">
+                        <label htmlFor="lastName">Last Name *</label>
+                        <input
+                          type="text"
+                          id="lastName"
+                          name="lastName"
+                          value={formData.lastName}
+                          onChange={handleInputChange}
+                          className={errors.lastName ? "input-error" : ""}
+                          placeholder="Enter your last name"
+                        />
+                        {errors.lastName && (
+                          <span className="error-message">{errors.lastName}</span>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="form-row">
+                      <div className="form-group">
+                        <label htmlFor="email">Email Address *</label>
+                        <input
+                          type="email"
+                          id="email"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleInputChange}
+                          className={errors.email ? "input-error" : ""}
+                          placeholder="your.email@example.com"
+                        />
+                        {errors.email && (
+                          <span className="error-message">{errors.email}</span>
+                        )}
+                      </div>
+
+                      <div className="form-group">
+                        <label htmlFor="phone">Phone Number</label>
+                        <input
+                          type="tel"
+                          id="phone"
+                          name="phone"
+                          value={formData.phone}
+                          onChange={handleInputChange}
+                          placeholder="+254 123 456 789"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="form-row">
+                      <div className="form-group">
+                        <label htmlFor="organization">Organization/Institution *</label>
+                        <input
+                          type="text"
+                          id="organization"
+                          name="organization"
+                          value={formData.organization}
+                          onChange={handleInputChange}
+                          className={errors.organization ? "input-error" : ""}
+                          placeholder="Your organization name"
+                        />
+                        {errors.organization && (
+                          <span className="error-message">{errors.organization}</span>
+                        )}
+                      </div>
+
+                      <div className="form-group">
+                        <label htmlFor="country">Country *</label>
+                        <input
+                          type="text"
+                          id="country"
+                          name="country"
+                          value={formData.country}
+                          onChange={handleInputChange}
+                          className={errors.country ? "input-error" : ""}
+                          placeholder="Your country"
+                        />
+                        {errors.country && (
+                          <span className="error-message">{errors.country}</span>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="form-group checkbox-group">
+                      <label className="checkbox-label">
+                        <input
+                          type="checkbox"
+                          name="isStudent"
+                          checked={formData.isStudent}
+                          onChange={handleInputChange}
+                        />
+                        <span>I am a student</span>
+                      </label>
+                    </div>
+
+                    {formData.isStudent && (
+                      <div className="form-group">
+                        <label htmlFor="studentId">Upload Student ID *</label>
+                        <div className="file-upload-area">
+                          <input
+                            type="file"
+                            id="studentId"
+                            name="studentId"
+                            ref={studentIdInputRef}
+                            onChange={handleFileChange}
+                            accept=".pdf,.jpg,.jpeg,.png"
+                            className="file-input"
+                          />
+                          {!studentIdFile ? (
+                            <div className="file-upload-placeholder">
+                              <div className="file-upload-icon">📄</div>
+                              <p>Click to upload your Student ID</p>
+                              <span className="form-hint">
+                                Accepted formats: PDF, JPG, PNG (max 5MB)
+                              </span>
+                            </div>
+                          ) : (
+                            <div className="file-uploaded">
+                              <div className="file-info">
+                                <span className="file-icon">📎</span>
+                                <div className="file-details">
+                                  <span className="file-name">{studentIdFile.name}</span>
+                                  <span className="file-size">{formatFileSize(studentIdFile.size)}</span>
+                                </div>
+                              </div>
+                              <button
+                                type="button"
+                                className="file-remove-btn"
+                                onClick={() => removeFile('studentId')}
+                              >
+                                ✕
+                              </button>
+                            </div>
+                          )}
+                        </div>
+                        {errors.studentId && (
+                          <span className="error-message">{errors.studentId}</span>
+                        )}
                       </div>
                     )}
                   </div>
-                </div>
-              ))}
-            </div>
+
+                  {/* Abstract Details */}
+                  <div className="form-section">
+                    <h3>Abstract Details</h3>
+
+                    <div className="form-group">
+                      <label htmlFor="title">Abstract Title *</label>
+                      <input
+                        type="text"
+                        id="title"
+                        name="title"
+                        value={formData.title}
+                        onChange={handleInputChange}
+                        className={errors.title ? "input-error" : ""}
+                        placeholder="Enter your abstract title (max 20 words)"
+                      />
+                      <span className="char-count">{formData.title.length}/200 characters</span>
+                      {errors.title && (
+                        <span className="error-message">{errors.title}</span>
+                      )}
+                    </div>
+
+                    <div className="form-row">
+                      <div className="form-group">
+                        <label htmlFor="theme">Conference Theme *</label>
+                        <select
+                          id="theme"
+                          name="theme"
+                          value={formData.theme}
+                          onChange={handleInputChange}
+                          className={errors.theme ? "input-error" : ""}
+                        >
+                          <option value="">Select a theme</option>
+                          {themes.map((theme) => (
+                            <option key={theme} value={theme}>
+                              {theme}
+                            </option>
+                          ))}
+                        </select>
+                        {errors.theme && (
+                          <span className="error-message">{errors.theme}</span>
+                        )}
+                      </div>
+
+                      <div className="form-group">
+                        <label htmlFor="presentationFormat">Preferred Format *</label>
+                        <select
+                          id="presentationFormat"
+                          name="presentationFormat"
+                          value={formData.presentationFormat}
+                          onChange={handleInputChange}
+                          className={errors.presentationFormat ? "input-error" : ""}
+                        >
+                          <option value="">Select format</option>
+                          {presentationFormats.map((format) => (
+                            <option key={format} value={format}>
+                              {format}
+                            </option>
+                          ))}
+                        </select>
+                        {errors.presentationFormat && (
+                          <span className="error-message">{errors.presentationFormat}</span>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="form-group">
+                      <label htmlFor="abstractFile">Upload Abstract Document *</label>
+                      <div className="file-upload-area">
+                        <input
+                          type="file"
+                          id="abstractFile"
+                          name="abstractFile"
+                          ref={fileInputRef}
+                          onChange={handleFileChange}
+                          accept=".pdf,.doc,.docx"
+                          className="file-input"
+                        />
+                        {!abstractFile ? (
+                          <div className="file-upload-placeholder">
+                            <div className="file-upload-icon">📁</div>
+                            <p>Click to upload your abstract document</p>
+                            <span className="form-hint">
+                              Accepted formats: PDF, DOC, DOCX (max 10MB)
+                            </span>
+                            <span className="form-hint">
+                              Abstract should be 300-500 words with proper formatting
+                            </span>
+                          </div>
+                        ) : (
+                          <div className="file-uploaded">
+                            <div className="file-info">
+                              <span className="file-icon">📎</span>
+                              <div className="file-details">
+                                <span className="file-name">{abstractFile.name}</span>
+                                <span className="file-size">{formatFileSize(abstractFile.size)}</span>
+                              </div>
+                            </div>
+                            <button
+                              type="button"
+                              className="file-remove-btn"
+                              onClick={() => removeFile('abstract')}
+                            >
+                              ✕
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                      {errors.abstractFile && (
+                        <span className="error-message">{errors.abstractFile}</span>
+                      )}
+                    </div>
+
+                    <div className="form-group">
+                      <label htmlFor="keywords">Keywords *</label>
+                      <input
+                        type="text"
+                        id="keywords"
+                        name="keywords"
+                        value={formData.keywords}
+                        onChange={handleInputChange}
+                        className={errors.keywords ? "input-error" : ""}
+                        placeholder="Enter 3-5 keywords, separated by commas"
+                      />
+                      <span className="form-hint">
+                        Separate keywords with commas (e.g., seed sovereignty, climate resilience, indigenous knowledge)
+                      </span>
+                      {errors.keywords && (
+                        <span className="error-message">{errors.keywords}</span>
+                      )}
+                    </div>
+
+                    <div className="form-group">
+                      <label htmlFor="coAuthors">Co-Authors (Optional)</label>
+                      <input
+                        type="text"
+                        id="coAuthors"
+                        name="coAuthors"
+                        value={formData.coAuthors}
+                        onChange={handleInputChange}
+                        placeholder="Enter co-author names, separated by commas"
+                      />
+                      <span className="form-hint">
+                        List any co-authors with their affiliations (e.g., Jane Doe (University of Nairobi), John Smith (KALRO))
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Terms and Submit */}
+                  <div className="form-section">
+                    <div className="form-group checkbox-group">
+                      <label className="checkbox-label">
+                        <input
+                          type="checkbox"
+                          name="agreeToTerms"
+                          checked={formData.agreeToTerms}
+                          onChange={handleInputChange}
+                        />
+                        <span>
+                          I confirm that the information provided is accurate. I understand that my abstract will be reviewed by the scientific committee and I will be notified of the decision by email. *
+                        </span>
+                      </label>
+                      {errors.agreeToTerms && (
+                        <span className="error-message">{errors.agreeToTerms}</span>
+                      )}
+                    </div>
+
+                    <div className="form-submit">
+                      <button
+                        type="submit"
+                        className="btn btn-primary btn-large"
+                        disabled={isSubmitting}
+                      >
+                        {isSubmitting ? "Submitting..." : "Submit Abstract"}
+                      </button>
+                      <p className="submit-notice">
+                        By submitting, you will receive an immediate confirmation email. If you don't receive it within 5 minutes, check your spam folder.
+                      </p>
+                    </div>
+                  </div>
+                </form>
+              </>
+            )}
           </div>
         </section>
 
         {/* Requirements Section */}
-        <section className="content-section">
+        <section className="content-section bg-light">
           <div className="container">
             <h2 className="text-center">Abstract Requirements</h2>
             <div className="requirements-grid">
@@ -281,7 +893,7 @@ const HowToSubmitAbstractPage = () => {
         </section>
 
         {/* Themes Quick Reference */}
-        <section className="content-section bg-light">
+        <section className="content-section">
           <div className="container">
             <h2 className="text-center">Conference Themes</h2>
             <p className="section-subtitle text-center">
@@ -352,7 +964,7 @@ const HowToSubmitAbstractPage = () => {
         </section>
 
         {/* Important Dates */}
-        <section className="content-section">
+        <section className="content-section bg-light">
           <div className="container narrow">
             <div className="dates-box">
               <h2 className="text-center">Important Dates</h2>
@@ -395,13 +1007,13 @@ const HowToSubmitAbstractPage = () => {
             </p>
             <div className="cta-buttons">
               <a
-                href="mailto:info@eaindigenousseedsconference.org"
+                href="mailto:abstracts@eaindigenousseedsconference.org"
                 className="btn btn-primary"
               >
                 Email Support
               </a>
-              <a href="/registration-abstract" className="btn btn-secondary">
-                Begin Submission
+              <a href="#submit-form" className="btn btn-secondary">
+                Submit Abstract
               </a>
             </div>
           </div>
