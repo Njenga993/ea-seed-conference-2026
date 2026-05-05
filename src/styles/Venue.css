@@ -1,12 +1,13 @@
 /* Conference Venue Component Styles */
-/* Using conf- prefix to avoid CSS collisions */
+/* Enhanced with interactive map instead of static image */
 
 /* CSS Variables */
 :root {
-  --conf-primary: #72BF44;
-  --conf-secondary: #5DAE35;
-  --conf-dark: #4F9E2C;
-  --conf-darkest: #1E4D11;
+  --conf-primary: #c59849;
+  --conf-primary-dark: #a07a3a;
+  --conf-secondary: #2c5f2d;
+  --conf-dark: #4a7c2b;
+  --conf-darkest: #1a3a0f;
   --conf-brown: #c17b3c;
   --conf-light-brown: #f5f1eb;
   --conf-text-dark: #1e293b;
@@ -14,6 +15,10 @@
   --conf-white: #ffffff;
   --conf-light-gray: #f8fafc;
   --conf-border: #e2e8f0;
+  --conf-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --conf-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.05);
+  --conf-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.05);
+  --conf-transition: all 0.3s ease;
 }
 
 /* Base Section */
@@ -21,22 +26,44 @@
   background-color: var(--conf-white);
   padding: 80px 0;
   position: relative;
+  overflow: hidden;
 }
 
 .conf-venue-section::before {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 5px;
-  background: linear-gradient(90deg, var(--conf-primary), var(--conf-secondary));
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    var(--conf-primary),
+    var(--conf-primary-dark),
+    var(--conf-primary)
+  );
+  background-size: 200% 100%;
+  animation: confGradient 3s ease infinite;
+}
+
+@keyframes confGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .conf-venue-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
+  position: relative;
+  z-index: 2;
 }
 
 .conf-venue-grid {
@@ -66,6 +93,12 @@
   margin-bottom: 20px;
   letter-spacing: 0.5px;
   text-transform: uppercase;
+  transition: var(--conf-transition);
+}
+
+.conf-venue-tag:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(197, 152, 73, 0.2);
 }
 
 .conf-venue-title {
@@ -78,39 +111,43 @@
 }
 
 .conf-venue-title::after {
-  content: '';
+  content: "";
   position: absolute;
-  bottom: -10px;
+  bottom: -12px;
   left: 0;
   width: 60px;
   height: 3px;
-  background: var(--conf-brown);
+  background: var(--conf-primary);
+  border-radius: 3px;
 }
 
 .conf-venue-description {
   font-size: 1.1rem;
   color: var(--conf-text-muted);
   line-height: 1.7;
-  margin: 30px 0 35px;
+  margin: 35px 0 35px;
 }
 
 /* Details Card */
 .conf-venue-details {
   background: var(--conf-light-gray);
   border: 1px solid var(--conf-border);
-  border-radius: 12px;
+  border-radius: 16px;
   padding: 30px;
   margin-bottom: 30px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+  box-shadow: var(--conf-shadow-md);
+  transition: var(--conf-transition);
+}
+
+.conf-venue-details:hover {
+  box-shadow: var(--conf-shadow-lg);
+  transform: translateY(-2px);
 }
 
 .conf-detail-item {
-  display: flex;
-  align-items: center;
-  gap: 20px;
   padding: 16px 0;
   border-bottom: 1px solid var(--conf-border);
-  transition: transform 0.2s ease;
+  transition: var(--conf-transition);
 }
 
 .conf-detail-item:last-child {
@@ -121,81 +158,31 @@
   transform: translateX(5px);
 }
 
-.conf-detail-icon-wrapper {
-  width: 48px;
-  height: 48px;
-  background: var(--conf-primary);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: all 0.3s ease;
-}
-
-.conf-detail-item:hover .conf-detail-icon-wrapper {
-  background: var(--conf-dark);
-  transform: scale(1.05);
-}
-
-/* Custom Icons */
-.conf-icon-building,
-.conf-icon-university,
-.conf-icon-location,
-.conf-icon-calendar {
-  width: 24px;
-  height: 24px;
-  position: relative;
-}
-
-.conf-icon-building::before {
-  content: '🏢';
-  font-size: 20px;
-}
-
-.conf-icon-university::before {
-  content: '🎓';
-  font-size: 20px;
-}
-
-.conf-icon-location::before {
-  content: '📍';
-  font-size: 20px;
-}
-
-.conf-icon-calendar::before {
-  content: '📅';
-  font-size: 20px;
-}
-
 .conf-detail-content {
   flex: 1;
 }
 
 .conf-detail-label {
-  font-size: 0.9rem;
-  color: var(--conf-text-muted);
+  font-size: 0.85rem;
+  color: var(--conf-primary);
   display: block;
-  margin-bottom: 4px;
-  font-weight: 500;
+  margin-bottom: 6px;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .conf-detail-value {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--conf-darkest);
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--conf-text-dark);
   display: block;
+  line-height: 1.4;
 }
 
 /* Actions */
 .conf-venue-actions {
-  display: flex;
-  align-items: center;
-  gap: 25px;
   margin-bottom: 30px;
-  flex-wrap: wrap;
 }
 
 .conf-map-btn {
@@ -209,203 +196,152 @@
   font-weight: 600;
   text-decoration: none;
   border-radius: 8px;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(114, 191, 68, 0.2);
+  transition: var(--conf-transition);
+  box-shadow: 0 4px 12px rgba(197, 152, 73, 0.25);
 }
 
 .conf-map-btn:hover {
-  background: var(--conf-dark);
+  background: var(--conf-primary-dark);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(114, 191, 68, 0.3);
+  box-shadow: 0 6px 20px rgba(197, 152, 73, 0.35);
 }
 
 .conf-btn-icon-map {
   width: 20px;
   height: 20px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z'/%3E%3C/svg%3E") no-repeat center;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z'/%3E%3C/svg%3E")
+    no-repeat center;
   background-size: contain;
-}
-
-.conf-accommodation-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--conf-brown);
-  text-decoration: none;
-  font-size: 1rem;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  position: relative;
-}
-
-.conf-accommodation-link::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: var(--conf-brown);
-  transition: width 0.3s ease;
-}
-
-.conf-accommodation-link:hover {
-  color: var(--conf-dark);
-}
-
-.conf-accommodation-link:hover::after {
-  width: 100%;
-}
-
-.conf-arrow-icon {
-  width: 16px;
-  height: 16px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23c17b3c'%3E%3Cpath d='M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z'/%3E%3C/svg%3E") no-repeat center;
-  background-size: contain;
-  transition: transform 0.3s ease;
-}
-
-.conf-accommodation-link:hover .conf-arrow-icon {
-  transform: translateX(3px);
 }
 
 /* Note */
 .conf-venue-note {
-  display: flex;
-  align-items: flex-start;
-  gap: 15px;
   background: var(--conf-light-brown);
-  border-left: 4px solid var(--conf-brown);
-  padding: 20px 25px;
-  border-radius: 0 8px 8px 0;
-}
-
-.conf-note-icon-wrapper {
-  width: 32px;
-  height: 32px;
-  background: var(--conf-brown);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.conf-note-icon {
-  width: 16px;
-  height: 16px;
-  position: relative;
-}
-
-.conf-note-icon::before {
-  content: '!';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-  font-weight: bold;
-  font-size: 16px;
+  border-left: 4px solid var(--conf-primary);
+  padding: 16px 20px;
+  border-radius: 8px;
 }
 
 .conf-venue-note p {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: var(--conf-text-dark);
   margin: 0;
   line-height: 1.6;
 }
 
-/* Image Side */
-.conf-venue-image-wrapper {
+/* Map Side - Enhanced Interactive Map */
+.conf-venue-map-wrapper {
   position: relative;
 }
 
-.conf-venue-image-card {
-  background: white;
-  border-radius: 12px;
+.conf-venue-map-card {
+  background: var(--conf-white);
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
+  box-shadow: var(--conf-shadow-lg);
+  transition: var(--conf-transition);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-.conf-venue-image-card:hover {
-  transform: translateY(-8px);
+.conf-venue-map-card:hover {
+  transform: translateY(-5px);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
 }
 
-.conf-image-container {
+.conf-map-container {
   position: relative;
-  overflow: hidden;
-}
-
-.conf-venue-image {
   width: 100%;
-  height: 380px;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.5s ease;
+  padding-bottom: 66.67%; /* 3:2 Aspect Ratio */
+  overflow: hidden;
+  background: #e2e8f0;
 }
 
-.conf-venue-image-card:hover .conf-venue-image {
-  transform: scale(1.05);
-}
-
-.conf-image-overlay {
+.conf-responsive-iframe {
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(30, 77, 17, 0.1);
+  width: 100%;
+  height: 100%;
+  border: 0;
+  transition: filter 0.3s ease;
+}
+
+.conf-venue-map-card:hover .conf-responsive-iframe {
+  filter: brightness(1.02);
+}
+
+.conf-map-caption {
+  padding: 20px;
+  background: var(--conf-white);
+  border-top: 1px solid var(--conf-border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.conf-map-marker {
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.conf-venue-image-card:hover .conf-image-overlay {
-  opacity: 1;
-}
-
-.conf-overlay-icon {
-  width: 60px;
-  height: 60px;
-  background: rgba(255, 255, 255, 0.9);
+  width: 40px;
+  height: 40px;
+  background: var(--conf-light-brown);
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform: scale(0.8);
-  transition: transform 0.3s ease;
+  color: var(--conf-primary);
+  flex-shrink: 0;
 }
 
-.conf-overlay-icon::before {
-  content: '🔍';
-  font-size: 28px;
+.conf-map-info {
+  flex: 1;
+  min-width: 150px;
 }
 
-.conf-venue-image-card:hover .conf-overlay-icon {
-  transform: scale(1);
-}
-
-.conf-image-caption {
-  padding: 25px;
-  background: white;
-}
-
-.conf-image-caption h4 {
-  font-size: 1.2rem;
-  color: var(--conf-darkest);
-  margin: 0 0 8px;
+.conf-map-info h4 {
+  font-size: 1rem;
   font-weight: 600;
+  color: var(--conf-text-dark);
+  margin: 0 0 4px 0;
 }
 
-.conf-image-caption p {
-  font-size: 0.95rem;
+.conf-map-info p {
+  font-size: 0.85rem;
   color: var(--conf-text-muted);
   margin: 0;
-  line-height: 1.5;
+  line-height: 1.4;
+}
+
+.conf-expand-map-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: var(--conf-light-gray);
+  border: 1px solid var(--conf-border);
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--conf-text-muted);
+  cursor: pointer;
+  transition: var(--conf-transition);
+  flex-shrink: 0;
+}
+
+.conf-expand-map-btn:hover {
+  background: var(--conf-primary);
+  border-color: var(--conf-primary);
+  color: var(--conf-white);
+  transform: translateY(-2px);
+}
+
+.conf-expand-map-btn svg {
+  transition: var(--conf-transition);
+}
+
+.conf-expand-map-btn:hover svg {
+  stroke: white;
 }
 
 /* Responsive Design */
@@ -413,13 +349,13 @@
   .conf-venue-grid {
     gap: 50px;
   }
-  
+
   .conf-venue-title {
     font-size: 2.2rem;
   }
-  
-  .conf-venue-image {
-    height: 340px;
+
+  .conf-map-container {
+    padding-bottom: 75%;
   }
 }
 
@@ -428,15 +364,19 @@
     grid-template-columns: 1fr;
     gap: 50px;
   }
-  
+
   .conf-venue-content {
     padding-right: 0;
   }
-  
-  .conf-venue-image-wrapper {
+
+  .conf-venue-map-wrapper {
     max-width: 600px;
     margin: 0 auto;
     width: 100%;
+  }
+
+  .conf-map-container {
+    padding-bottom: 56.25%; /* 16:9 on smaller screens */
   }
 }
 
@@ -444,93 +384,97 @@
   .conf-venue-section {
     padding: 60px 0;
   }
-  
+
+  .conf-venue-container {
+    padding: 0 20px;
+  }
+
   .conf-venue-title {
     font-size: 2rem;
   }
-  
+
   .conf-venue-description {
     font-size: 1rem;
   }
-  
+
   .conf-venue-details {
     padding: 25px;
   }
-  
+
   .conf-detail-item {
     padding: 14px 0;
   }
-  
-  .conf-venue-actions {
+
+  .conf-detail-value {
+    font-size: 1rem;
+  }
+
+  .conf-map-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .conf-map-caption {
     flex-direction: column;
-    align-items: stretch;
+    text-align: center;
     gap: 15px;
   }
-  
-  .conf-map-btn {
-    justify-content: center;
+
+  .conf-map-marker {
+    margin: 0 auto;
   }
-  
-  .conf-accommodation-link {
+
+  .conf-expand-map-btn {
+    width: 100%;
     justify-content: center;
-  }
-  
-  .conf-venue-image {
-    height: 300px;
   }
 }
 
 @media (max-width: 576px) {
+  .conf-venue-section {
+    padding: 50px 0;
+  }
+
+  .conf-venue-container {
+    padding: 0 16px;
+  }
+
   .conf-venue-tag {
     font-size: 0.75rem;
     padding: 6px 16px;
   }
-  
+
   .conf-venue-title {
     font-size: 1.8rem;
   }
-  
+
   .conf-venue-description {
     font-size: 0.95rem;
+    margin: 25px 0 25px;
   }
-  
+
   .conf-venue-details {
     padding: 20px;
   }
-  
-  .conf-detail-item {
-    gap: 15px;
-    padding: 12px 0;
+
+  .conf-detail-label {
+    font-size: 0.8rem;
   }
-  
-  .conf-detail-icon-wrapper {
-    width: 40px;
-    height: 40px;
-  }
-  
-  .conf-icon-building::before,
-  .conf-icon-university::before,
-  .conf-icon-location::before,
-  .conf-icon-calendar::before {
-    font-size: 18px;
-  }
-  
+
   .conf-detail-value {
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
-  
-  .conf-venue-note {
-    flex-direction: column;
-    text-align: center;
-    padding: 20px;
+
+  .conf-map-container {
+    padding-bottom: 66.67%;
   }
-  
-  .conf-venue-image {
-    height: 250px;
+
+  .conf-map-info h4 {
+    font-size: 0.95rem;
   }
-  
-  .conf-image-caption {
-    padding: 20px;
+
+  .conf-map-info p {
+    font-size: 0.8rem;
   }
 }
 
@@ -539,38 +483,99 @@
   .conf-venue-section {
     padding: 40px 0;
   }
-  
+
   .conf-venue-title {
     font-size: 1.6rem;
   }
-  
-  .conf-venue-image {
-    height: 200px;
+
+  .conf-venue-description {
+    font-size: 0.9rem;
   }
-  
-  .conf-detail-item {
-    flex-wrap: wrap;
-    justify-content: center;
-    text-align: center;
+
+  .conf-venue-details {
+    padding: 15px;
   }
+
+  .conf-detail-value {
+    font-size: 0.9rem;
+  }
+
+  .conf-map-btn {
+    padding: 12px 20px;
+    font-size: 0.9rem;
+  }
+
+  .conf-map-caption {
+    padding: 15px;
+  }
+}
+
+/* Animation for map marker pulse */
+@keyframes confPulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.conf-map-marker {
+  animation: confPulse 2s ease-in-out infinite;
 }
 
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
-  .conf-venue-image-card,
-  .conf-venue-image,
-  .conf-overlay-icon,
+  .conf-venue-section::before,
+  .conf-venue-map-card,
+  .conf-responsive-iframe,
   .conf-map-btn,
+  .conf-expand-map-btn,
   .conf-detail-item,
-  .conf-detail-icon-wrapper {
+  .conf-venue-details,
+  .conf-map-marker {
+    animation: none;
     transition: none;
   }
-  
-  .conf-venue-image-card:hover {
+
+  .conf-venue-map-card:hover {
     transform: none;
   }
-  
-  .conf-venue-image-card:hover .conf-venue-image {
-    transform: none;
+
+  .conf-map-marker {
+    animation: none;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .conf-venue-section {
+    padding: 40px 0;
+    background: white;
+  }
+
+  .conf-venue-section::before {
+    display: none;
+  }
+
+  .conf-map-container {
+    border: 1px solid #ccc;
+    padding-bottom: 50%;
+  }
+
+  .conf-map-btn,
+  .conf-expand-map-btn {
+    display: none;
+  }
+
+  .conf-venue-note {
+    border: 1px solid #ccc;
+    background: none;
   }
 }

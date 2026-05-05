@@ -111,7 +111,8 @@ const Countdown = () => {
               Conference Begins In
             </h2>
             <p className="conf-countdown-subtitle" ref={subtitleRef}>
-              17th – 20th November 2026 • Nairobi, Kenya
+              17th – 20th November 2026 • Catholic university of Eastern Africa,
+              Nairobi, Kenya
             </p>
           </header>
 

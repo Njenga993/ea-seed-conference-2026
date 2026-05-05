@@ -11,7 +11,7 @@ interface HomeHeroProps {
 }
 
 const HomeHero = ({
-  eventName = "1st Eastern Africa Indigenous Seed Conference 2026",
+  eventName = "1st Eastern Africa Indigenous Seed Conference",
 }: HomeHeroProps) => {
   // Structured Data for the Event (JSON-LD)
   const structuredData = {
@@ -27,12 +27,13 @@ const HomeHero = ({
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     location: {
       "@type": "Place",
-      name: "Kenya International Conference Centre",
+      name: " Catholic university of Eastern Africa, Nairobi,Kenya",
       address: {
         "@type": "PostalAddress",
         streetAddress: "Harambee Avenue",
-        addressLocality: "Nairobi",
-        addressRegion: "Nairobi County",
+        addressLocality:
+          " Catholic university of Eastern Africa, Nairobi,Kenya ",
+        addressRegion: "Catholic university of Eastern Africa, Nairobi,Kenya",
         addressCountry: "KE",
       },
     },
@@ -150,15 +151,18 @@ const HomeHero = ({
       <Helmet>
         {/* Primary Meta Tags */}
         <title>
-          1st Eastern Africa Indigenous Seed Conference 2026 | EAISC Nairobi
+          1st Eastern Africa Indigenous Seed Conference 2026 | EAISC 2026,
+          Nairobi,
         </title>
         <meta
           name="description"
-          content="Join the 1st Eastern Africa Indigenous Seed Conference 2026 in Nairobi. Building farmer-managed seed system communities of practice for a resilient East Africa. Connect with farmers, researchers, and policymakers championing seed sovereignty."
+          content="Join the 1st Eastern Africa Indigenous Seed Conference 2026 in Catholic university of Eastern Africa, Nairobi,
+. Building farmer-managed seed system communities of practice for a resilient East Africa. Connect with farmers, researchers, and policymakers championing seed sovereignty."
         />
         <meta
           name="keywords"
-          content="indigenous seeds, Eastern Africa seed conference, farmer-managed seed systems, seed sovereignty, agricultural biodiversity, climate resilience, community seed banks, Nairobi conference 2026, East Africa agriculture, traditional seeds, food sovereignty"
+          content="indigenous seeds, Eastern Africa seed conference, farmer-managed seed systems, seed sovereignty, agricultural biodiversity, climate resilience, community seed banks, Catholic university of Eastern Africa, Nairobi,
+ conference 2026, East Africa agriculture, traditional seeds, food sovereignty"
         />
         <meta name="author" content="Eastern Africa Indigenous Seed Council" />
         <meta name="robots" content="index, follow" />
@@ -181,7 +185,8 @@ const HomeHero = ({
         />
         <meta
           property="og:description"
-          content="Building farmer-managed seed system communities of practice for a resilient East Africa. Join us in Nairobi, Kenya from November 17-20, 2026."
+          content="Building farmer-managed seed system communities of practice for a resilient East Africa. Join us in Catholic university of Eastern Africa, Nairobi,
+, Kenya from November 17-20, 2026."
         />
         <meta
           property="og:image"
@@ -206,7 +211,8 @@ const HomeHero = ({
         />
         <meta
           name="twitter:description"
-          content="Building farmer-managed seed system communities of practice for a resilient East Africa. Join us in Nairobi, Kenya from November 17-20, 2026."
+          content="Building farmer-managed seed system communities of practice for a resilient East Africa. Join us in Catholic university of Eastern Africa, Nairobi,
+, Kenya from November 17-20, 2026."
         />
         <meta
           name="twitter:image"
@@ -360,9 +366,13 @@ const HomeHero = ({
                   itemScope
                   itemType="https://schema.org/PostalAddress"
                 >
-                  <meta itemProp="addressLocality" content="Nairobi" />
+                  <meta
+                    itemProp="addressLocality"
+                    content="Catholic university of Eastern Africa, Nairobi,
+"
+                  />
                   <meta itemProp="addressCountry" content="KE" />
-                  Nairobi, Kenya
+                  Catholic university of Eastern Africa, Nairobi, Kenya
                 </span>
               </div>
             </div>

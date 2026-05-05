@@ -4,10 +4,10 @@
 
 :root {
   --navbar-height: 80px;
-  --stripe-primary: #72BF44;
-  --stripe-secondary: #5DAE35;
-  --stripe-dark: #4F9E2C;
-  --stripe-darkest: #1E4D11;
+  --stripe-primary: #72bf44;
+  --stripe-secondary: #5dae35;
+  --stripe-dark: #4f9e2c;
+  --stripe-darkest: #1e4d11;
 }
 
 /* ============================= */
@@ -36,7 +36,10 @@
 .theme-stripe-pattern {
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.05) 1px,
+    transparent 1px
+  );
   background-size: 30px 30px;
   opacity: 0.3;
   pointer-events: none;
@@ -64,9 +67,10 @@
   left: 0;
   width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, 
-    transparent 0%, 
-    rgba(255,255,255,0.5) 50%, 
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.5) 50%,
     transparent 100%
   );
   z-index: 2;
@@ -76,7 +80,9 @@
 }
 
 @keyframes stripeTopLine {
-  to { transform: translateX(100%); }
+  to {
+    transform: translateX(100%);
+  }
 }
 
 /* Bottom accent line */
@@ -87,7 +93,7 @@
   left: 0;
   width: 100%;
   height: 1px;
-  background: rgba(255,255,255,0.2);
+  background: rgba(255, 255, 255, 0.2);
   z-index: 2;
 }
 
@@ -100,7 +106,7 @@
   inset: 0;
   background: radial-gradient(
     circle at var(--mouse-x) var(--mouse-y),
-    rgba(255,255,255,0.15) 0%,
+    rgba(255, 255, 255, 0.15) 0%,
     transparent 70%
   );
   opacity: 0;
@@ -131,17 +137,19 @@
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 28px;
-  background: rgba(0,0,0,0.15);
+  background: rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(8px);
   border-radius: 20px;
   padding: 36px 40px;
-  border: 1px solid rgba(255,255,255,0.15);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-  
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+
   /* Entrance animation */
   opacity: 0;
   transform: translateY(40px);
-  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.4,0,0.2,1);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Reveal */
@@ -158,9 +166,10 @@
   opacity: 0;
   transform: translateY(20px);
   filter: blur(2px);
-  transition: opacity 0.6s cubic-bezier(0.4,0,0.2,1),
-              transform 0.6s cubic-bezier(0.4,0,0.2,1),
-              filter 0.6s ease;
+  transition:
+    opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    filter 0.6s ease;
 }
 
 .theme-stagger-item.stripe-item-visible {
@@ -223,14 +232,14 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  color: rgba(255,255,255,0.8);
+  color: rgba(255, 255, 255, 0.8);
   margin-bottom: 6px;
   display: block;
   transition: color 0.3s ease;
 }
 
 .theme-stripe-item:hover .theme-stripe-label {
-  color: rgba(255,255,255,1);
+  color: rgba(255, 255, 255, 1);
   letter-spacing: 2px;
 }
 
@@ -249,14 +258,14 @@
 
 .theme-stripe-subtitle {
   font-size: 0.8rem;
-  color: rgba(255,255,255,0.8);
+  color: rgba(255, 255, 255, 0.8);
   margin-top: 6px;
   font-weight: 400;
   transition: color 0.3s ease;
 }
 
 .theme-stripe-item:hover .theme-stripe-subtitle {
-  color: rgba(255,255,255,1);
+  color: rgba(255, 255, 255, 1);
 }
 
 /* ============================= */
@@ -266,19 +275,19 @@
 .theme-stripe-divider {
   width: 1px;
   height: 60px;
-  background: rgba(255,255,255,0.2);
+  background: rgba(255, 255, 255, 0.2);
   position: relative;
   overflow: hidden;
 }
 
 .theme-stripe-divider::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(255,255,255,0.5);
+  background: rgba(255, 255, 255, 0.5);
   transform: translateY(-100%);
   transition: transform 0.3s ease;
 }
@@ -332,7 +341,7 @@
   text-decoration: none;
   font-weight: 600;
   font-size: 0.95rem;
-  transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
   width: 100%;
@@ -353,9 +362,11 @@
   width: 0;
   height: 0;
   border-radius: 50%;
-  background: rgba(255,255,255,0.15);
+  background: rgba(255, 255, 255, 0.15);
   transform: translate(-50%, -50%);
-  transition: width 0.6s ease, height 0.6s ease;
+  transition:
+    width 0.6s ease,
+    height 0.6s ease;
 }
 
 .theme-stripe-cta:hover::before {
@@ -367,7 +378,7 @@
   background: transparent;
   border-color: white;
   transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
 .theme-stripe-cta:hover .theme-cta-arrow {
@@ -380,7 +391,7 @@
 
 /* CTA entrance animation */
 .theme-stagger-item.stripe-item-visible .theme-stripe-cta {
-  animation: stripeCtaReveal 0.7s cubic-bezier(0.4,0,0.2,1) forwards;
+  animation: stripeCtaReveal 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 @keyframes stripeCtaReveal {
@@ -399,7 +410,7 @@
 
 .theme-stripe-cta-note {
   font-size: 0.75rem;
-  color: rgba(255,255,255,0.8);
+  color: rgba(255, 255, 255, 0.8);
   margin: 0;
   padding-left: 8px;
   transition: color 0.3s ease;
@@ -461,7 +472,7 @@
     justify-content: center;
     padding: 14px 24px;
   }
-  
+
   .theme-item-icon {
     width: 40px;
     height: 40px;
@@ -479,13 +490,13 @@
   .theme-stripe-value {
     font-size: 1rem;
   }
-  
+
   .theme-item-icon {
     width: 36px;
     height: 36px;
     font-size: 1rem;
   }
-  
+
   .theme-stripe-label {
     font-size: 0.65rem;
   }
@@ -518,7 +529,7 @@
   .theme-stripe-gradient {
     display: none;
   }
-  
+
   .theme-stripe-cta:hover {
     background: var(--stripe-darkest);
     border-color: transparent;

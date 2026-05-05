@@ -226,10 +226,10 @@ const AboutPage = () => {
       eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
       location: {
         "@type": "Place",
-        name: "Nairobi, Kenya",
+        name: "Catholic university of Eastern Africa, Nairobi, Kenya",
         address: {
           "@type": "PostalAddress",
-          addressLocality: "Nairobi",
+          addressLocality: "Catholic university of Eastern Africa, Nairobi,",
           addressCountry: "KE",
         },
       },
@@ -321,7 +321,7 @@ const AboutPage = () => {
       },
       {
         "@type": "CollegeOrUniversity",
-        name: "University of Nairobi, Department of Plant Science",
+        name: "University of Catholic university of Eastern Africa, Nairobi, Department of Plant Science",
         role: "Technical Partner",
       },
     ],
@@ -506,7 +506,7 @@ const AboutPage = () => {
                     >
                       <meta itemProp="addressLocality" content="Nairobi" />
                       <meta itemProp="addressCountry" content="KE" />
-                      Nairobi, Kenya
+                      Catholic university of Eastern Africa, Nairobi, Kenya
                     </span>
                   </span>
                 </div>

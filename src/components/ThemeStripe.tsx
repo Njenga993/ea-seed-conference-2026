@@ -37,20 +37,20 @@ const ThemeStripe = () => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setIsVisible(true);
-            
+
             // Add visible class to each element with staggered timing
             setTimeout(() => {
               themeRef.current?.classList.add("stripe-item-visible");
             }, 200);
-            
+
             setTimeout(() => {
               datesRef.current?.classList.add("stripe-item-visible");
             }, 350);
-            
+
             setTimeout(() => {
               locationRef.current?.classList.add("stripe-item-visible");
             }, 500);
-            
+
             setTimeout(() => {
               ctaRef.current?.classList.add("stripe-item-visible");
             }, 650);
@@ -59,7 +59,7 @@ const ThemeStripe = () => {
           }
         });
       },
-      { threshold: 0.3 }
+      { threshold: 0.3 },
     );
 
     if (sectionRef.current) {
@@ -82,11 +82,7 @@ const ThemeStripe = () => {
       <div className="theme-stripe-container">
         <div className="theme-stripe-content">
           {/* THEME */}
-          <div 
-            ref={themeRef} 
-            className="theme-stripe-item theme-stagger-item"
-          >
-            
+          <div ref={themeRef} className="theme-stripe-item theme-stagger-item">
             <div className="theme-item-content">
               <span className="theme-stripe-label">Theme</span>
               <h3 className="theme-stripe-value">
@@ -98,16 +94,10 @@ const ThemeStripe = () => {
           <div className="theme-stripe-divider"></div>
 
           {/* DATES */}
-          <div 
-            ref={datesRef} 
-            className="theme-stripe-item theme-stagger-item"
-          >
-            
+          <div ref={datesRef} className="theme-stripe-item theme-stagger-item">
             <div className="theme-item-content">
               <span className="theme-stripe-label">Dates</span>
-              <h3 className="theme-stripe-value">
-                November 17–20, 2026
-              </h3>
+              <h3 className="theme-stripe-value">November 17–20, 2026</h3>
               <p className="theme-stripe-subtitle">4 Days of Impact</p>
             </div>
           </div>
@@ -115,29 +105,28 @@ const ThemeStripe = () => {
           <div className="theme-stripe-divider"></div>
 
           {/* LOCATION */}
-          <div 
-            ref={locationRef} 
+          <div
+            ref={locationRef}
             className="theme-stripe-item theme-stagger-item"
           >
-            
             <div className="theme-item-content">
               <span className="theme-stripe-label">Location</span>
-              <h3 className="theme-stripe-value">Nairobi, Kenya</h3>
+              <h3 className="theme-stripe-value">
+                Catholic university of Eastern Africa, Nairobi, Kenya
+              </h3>
             </div>
           </div>
 
           {/* CTA */}
-          <div 
-            ref={ctaRef} 
+          <div
+            ref={ctaRef}
             className="theme-stripe-cta-wrapper theme-stagger-item"
           >
-            <Link to="/registration-abstract" className="theme-stripe-cta">
+            <Link to="/register" className="theme-stripe-cta">
               <span>Secure Your Seat</span>
               <span className="theme-cta-arrow">→</span>
             </Link>
-            <p className="theme-stripe-cta-note">
-              Early bird ends Oct 15
-            </p>
+            <p className="theme-stripe-cta-note">Early bird ends Oct 15</p>
           </div>
         </div>
       </div>

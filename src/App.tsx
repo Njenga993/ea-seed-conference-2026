@@ -17,9 +17,9 @@ import Sponsorship from "./pages/Sponsorship";
 import RegistrationForm from "./components/RegistrationForm";
 import RegistrationSuccess from "./pages/RegistrationSuccess";
 import ContactPage from "./pages/ContactPage";
-import PaymentSuccess from "./pages/PaymentSuccess";
-import CheckIn from "./pages/CheckIn";
-import AdminDashboard from "./pages/AdminDashboard";
+//import PaymentSuccess from "./pages/PaymentSuccess";
+//import CheckIn from "./pages/CheckIn";
+//import AdminDashboard from "./pages/AdminDashboard";
 
 // Wrapper component to handle route changes
 function AppContent() {
@@ -80,9 +80,9 @@ function AppContent() {
             path="/registration-success"
             element={<RegistrationSuccess />}
           />
-          <Route path="/payment-success" element={<PaymentSuccess />} />
+          {/*<Route path="/payment-success" element={<PaymentSuccess />} />
           <Route path="/checkin" element={<CheckIn />} />
-          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin" element={<AdminDashboard />} />*/}
           <Route path="/contact" element={<ContactPage />} />
         </Routes>
         <Footer />

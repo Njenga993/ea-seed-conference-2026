@@ -139,7 +139,7 @@ const InfoCards = () => {
 
             <button
               className="conf-card-learn-more"
-              onClick={() => handleLearnMore("/registration-abstract")}
+              onClick={() => handleLearnMore("/register")}
             >
               Learn More
               <span className="conf-card-arrow">→</span>
@@ -149,7 +149,9 @@ const InfoCards = () => {
           {/* Venue Card */}
           <article className="conf-info-card" ref={card3Ref}>
             <div className="conf-card-content">
-              <span className="conf-card-badge">Nairobi, Kenya</span>
+              <span className="conf-card-badge">
+                Catholic university of Eastern Africa, Nairobi, Kenya
+              </span>
               <h3 className="conf-card-title">Venue & Location</h3>
 
               <p className="conf-card-description">
