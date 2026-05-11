@@ -48,6 +48,85 @@
   text-align: center;
 }
 
+/* Selection Cards */
+.selection-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.selection-card {
+  background: var(--bg-white);
+  border: 2px solid var(--border);
+  border-radius: 16px;
+  padding: 40px 30px;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+}
+
+.selection-card:hover {
+  border-color: var(--secondary);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.selection-card.active {
+  border-color: var(--primary);
+  background: var(--primary-light);
+  box-shadow: 0 8px 25px rgba(30, 74, 107, 0.15);
+}
+
+.selection-card-icon {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.selection-card h3 {
+  color: var(--primary);
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+}
+
+.selection-card p {
+  color: var(--text-medium);
+  line-height: 1.6;
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+}
+
+.selection-card-badge {
+  display: inline-block;
+  padding: 6px 16px;
+  background: var(--primary);
+  color: white;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.selection-card-badge.farmer-badge {
+  background: #4caf50;
+}
+
+/* Farmer button */
+.farmer-btn {
+  background: #4caf50 !important;
+}
+
+.farmer-btn:hover {
+  background: #388e3c !important;
+}
+
+@media (max-width: 768px) {
+  .selection-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
 .section-subtitle {
   font-size: 1rem;
   color: var(--text-light);
