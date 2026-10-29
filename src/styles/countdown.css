@@ -3,10 +3,10 @@
 
 /* CSS Variables */
 :root {
-  --conf-primary: #72BF44;
-  --conf-secondary: #5DAE35;
-  --conf-dark: #4F9E2C;
-  --conf-darkest: #1E4D11;
+  --conf-primary: #72bf44;
+  --conf-secondary: #5dae35;
+  --conf-dark: #4f9e2c;
+  --conf-darkest: #1e4d11;
   --conf-text-light: rgba(255, 255, 255, 0.95);
   --conf-text-muted: rgba(255, 255, 255, 0.8);
 }
@@ -23,13 +23,16 @@
 
 /* Subtle background pattern */
 .conf-countdown-section::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.05) 1px,
+    transparent 1px
+  );
   background-size: 30px 30px;
   opacity: 0.5;
   pointer-events: none;
@@ -37,7 +40,7 @@
 
 /* Animated line at top */
 .conf-countdown-section::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -51,7 +54,9 @@
 }
 
 @keyframes countdownLineAppear {
-  to { transform: scaleX(1); }
+  to {
+    transform: scaleX(1);
+  }
 }
 
 .conf-countdown-wrapper {
@@ -74,7 +79,9 @@
   color: white;
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
 }
 
 .conf-countdown-title.countdown-title-visible {
@@ -88,7 +95,9 @@
   margin: 0;
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
   transition-delay: 0.2s;
 }
 
@@ -102,7 +111,9 @@
   margin-bottom: 30px;
   opacity: 0;
   transform: scale(0.95);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
   transition-delay: 0.4s;
 }
 
@@ -129,7 +140,7 @@
 
 /* Add subtle background to timer units */
 .conf-timer-unit::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -5px;
   left: -5px;
@@ -152,7 +163,7 @@
   font-weight: 700;
   line-height: 1;
   color: white;
-  font-family: 'Courier New', monospace;
+  font-family: "Courier New", monospace;
   transition: all 0.2s ease;
   position: relative;
 }
@@ -163,9 +174,16 @@
 }
 
 @keyframes numberPulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); color: var(--conf-primary); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+    color: var(--conf-primary);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .conf-timer-label {
@@ -193,8 +211,13 @@
 }
 
 @keyframes separatorPulse {
-  0%, 100% { opacity: 0.7; }
-  50% { opacity: 1; }
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 /* CTA Button */
@@ -202,7 +225,9 @@
   margin-top: 20px;
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
   transition-delay: 0.6s;
 }
 
@@ -236,7 +261,7 @@
 }
 
 .conf-action-btn::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;
@@ -245,7 +270,9 @@
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.1);
   transform: translate(-50%, -50%);
-  transition: width 0.6s ease, height 0.6s ease;
+  transition:
+    width 0.6s ease,
+    height 0.6s ease;
 }
 
 .conf-action-btn:hover::before {
@@ -335,7 +362,7 @@
     margin: 0 2px;
     padding-top: 4px;
   }
-  
+
   .conf-action-btn {
     padding: 10px 30px;
     font-size: 0.9rem;
@@ -372,7 +399,7 @@
     transition: none;
     transform: none;
   }
-  
+
   .conf-countdown-title,
   .conf-countdown-subtitle,
   .conf-countdown-timer,
@@ -380,7 +407,7 @@
     opacity: 1;
     transform: none;
   }
-  
+
   .conf-action-btn:hover {
     transform: none;
     background: var(--conf-darkest);

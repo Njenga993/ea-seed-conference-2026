@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import "../styles/navbar.css";
 
 // Import logos (update these paths to match your actual logo files)
-import leftLogo from "../assets/ea.webp"; // Your left side logo
+
 import rightLogo from "../assets/ssklogo.webp"; // Your right side logo
 
 const Navbar = () => {
@@ -95,7 +95,7 @@ const Navbar = () => {
         {/* LEFT LOGO */}
         <Link to="/" className="nav-logo-left">
           <img 
-            src={leftLogo} 
+            src={rightLogo} 
             alt="Eastern Africa Indigenous Seed Conference" 
             className="nav-logo-image"
           />
@@ -142,6 +142,23 @@ const Navbar = () => {
                 Registration
               </Link>
             </li>
+            <li className="nav-item">
+              <Link
+                to="/call-for-exhibitors"
+                className={`nav-link ${location.pathname === "/call-for-exhibitors" ? "active" : ""}`}
+              >
+                Exhibitors
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link
+                to="/how-to-submit-abstract"
+                className={`nav-link ${location.pathname === "/how-to-submit-abstract" ? "active" : ""}`}
+              >
+                Abstract Submission
+              </Link>
+            </li>
 
             <li className="nav-item">
               <Link
@@ -168,8 +185,8 @@ const Navbar = () => {
           {/* Mobile menu footer */}
           <div className="mobile-footer">
             <div className="mobile-contact">
-              <a href="mailto:info@eaindigenousseedsconference.org">info@eaindigenousseedsconference.org</a>
-              <a href="tel:+256712451777">+256 712 451 777</a>
+              <a href="mailto:info@eaindigenousseedconference.org">info@eaindigenousseedconference.org</a>
+              <a href="tel:+256712451777">+254 712 451 777</a>
             </div>
             <div className="mobile-social">
               <a href="#" aria-label="LinkedIn">in</a>
@@ -179,14 +196,6 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* RIGHT LOGO */}
-        <Link to="/" className="nav-logo-right">
-          <img 
-            src={rightLogo} 
-            alt="Partner Organization" 
-            className="nav-logo-image"
-          />
-        </Link>
       </div>
     </nav>
   );

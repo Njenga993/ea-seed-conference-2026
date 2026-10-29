@@ -278,7 +278,7 @@ const Registration = () => {
             </p>
             <p className="home-registration-support">
               Need help with registration? 
-              <a href=" mailto:registration@eaindigenousseedsconference.org">Contact Support</a>
+              <a href=" mailto:registration@eaindigenousseedconference.org">Contact Support</a>
             </p>
           </div>
         </div>

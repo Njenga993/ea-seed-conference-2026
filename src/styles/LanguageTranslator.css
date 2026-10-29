@@ -1,0 +1,162 @@
+/* ─── Aggressively hide the Google Translate top banner ─── */
+.goog-te-banner-frame,
+.goog-te-banner-frame.skiptranslate,
+iframe.goog-te-banner-frame {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+}
+
+/* Prevent Google Translate from pushing the body down */
+body {
+  top: 0 !important;
+  position: static !important;
+}
+
+/* Hide the tooltip bubble Google sometimes shows */
+#goog-gt-tt,
+.goog-te-balloon-frame,
+.goog-tooltip,
+.goog-tooltip:hover,
+.goog-text-highlight {
+  display: none !important;
+  box-shadow: none !important;
+}
+
+/* ─── Floating container — sits above BackToTop ─── */
+.lang-floating {
+  position: fixed;
+  bottom: 90px; /* sits just above the BackToTop button (which is ~72px) */
+  right: 24px;
+  z-index: 9999;
+}
+
+/* ─── Trigger button ─── */
+.lang-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: #ffffff;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 999px;
+  color: #1a1a2e;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  transition:
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+  white-space: nowrap;
+}
+
+.lang-trigger:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  border-color: #d1d5db;
+}
+
+/* ─── Flag emoji ─── */
+.lang-flag {
+  font-size: 16px;
+  line-height: 1;
+}
+
+/* ─── Selected language label (visible on desktop) ─── */
+.lang-selected-label {
+  font-size: 13px;
+}
+
+/* ─── Chevron ─── */
+.lang-chevron {
+  transition: transform 0.2s ease;
+  opacity: 0.6;
+}
+
+.lang-chevron.open {
+  transform: rotate(180deg);
+}
+
+/* ─── Dropdown list — opens upward ─── */
+.lang-dropdown {
+  position: absolute;
+  bottom: calc(100% + 10px); /* opens upward */
+  right: 0;
+  min-width: 190px;
+  max-height: 300px;
+  overflow-y: auto;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.12);
+  list-style: none;
+  margin: 0;
+  padding: 6px;
+  animation: fadeUp 0.15s ease;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── Individual option ─── */
+.lang-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #1a1a2e;
+  cursor: pointer;
+  transition: background 0.1s ease;
+}
+
+.lang-option:hover {
+  background: #f3f4f6;
+}
+
+.lang-option.active {
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-weight: 500;
+}
+
+.lang-option-label {
+  font-size: 14px;
+}
+
+/* ─── Scrollbar ─── */
+.lang-dropdown::-webkit-scrollbar {
+  width: 4px;
+}
+.lang-dropdown::-webkit-scrollbar-track {
+  background: transparent;
+}
+.lang-dropdown::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 4px;
+}
+
+/* ─── Mobile: hide label, keep flag only ─── */
+@media (max-width: 640px) {
+  .lang-selected-label {
+    display: none;
+  }
+
+  .lang-trigger {
+    padding: 8px 10px;
+  }
+
+  .lang-floating {
+    bottom: 80px;
+    right: 16px;
+  }
+}

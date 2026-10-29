@@ -732,7 +732,7 @@ const SpeakersPage = () => {
               Speaker Guidelines
             </a>
           </div>
-          <p className="cta-deadline"> Abstract Deadline: March 15, 2026</p>
+          <p className="cta-deadline"> Abstract Deadline: August 31st, 2026</p>
         </div>
       </section>
     </div>

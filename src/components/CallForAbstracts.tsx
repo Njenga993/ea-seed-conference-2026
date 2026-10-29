@@ -70,10 +70,7 @@ const CallForAbstracts = () => {
           <div className="deadline-banner">
             <div className="deadline-banner-content">
               <span className="deadline-banner-label">Submission Deadline</span>
-              <span className="deadline-banner-date">August 15, 2026</span>
-            </div>
-            <div className="deadline-banner-remaining">
-              <span className="deadline-banner-days">60 days remaining</span>
+              <span className="deadline-banner-date">August 31st, 2026</span>
             </div>
           </div>
         </div>
@@ -151,7 +148,7 @@ const CallForAbstracts = () => {
                 </p>
                 <div className="submission-card-detail">
                   <span className="submission-card-label">Email:</span>
-                  <span className="submission-card-value">abstracts@eaindeigenousseedsconference.org</span>
+                  <span className="submission-card-value">abstracts@eaindeigenousseedconference.org</span>
                 </div>
                 <span className="submission-card-arrow">→</span>
               </a>
@@ -159,7 +156,7 @@ const CallForAbstracts = () => {
               <div className="submission-note">
                 <span className="submission-note-icon">•</span>
                 <p className="submission-note-text">
-                  At least one author must register by October 31, 2026 for inclusion in the program
+                  At least one author must register by August 31, 2026 for inclusion in the program
                 </p>
               </div>
             </div>
@@ -171,11 +168,11 @@ const CallForAbstracts = () => {
           <div className="dates-grid">
             <div className="date-item">
               <span className="date-label">Abstract Submission</span>
-              <span className="date-value">Aug 15, 2026</span>
+              <span className="date-value">Aug 31st, 2026</span>
             </div>
             <div className="date-item">
               <span className="date-label">Notification</span>
-              <span className="date-value">Sep 15, 2026</span>
+              <span className="date-value">Sep 30th, 2026</span>
             </div>
             <div className="date-item">
               <span className="date-label">Early Bird</span>
