@@ -1,10 +1,12 @@
 // pages/Home.tsx
 import { Helmet } from "react-helmet-async";
 import Hero from "../components/Hero";
-import About from "../components/About";
+//import About from "../components/About";
+import Homesupport from "../components/HomeSupport";
 import FocusAreas from "../components/FocusAreas";
-import Countdown from "../components/Countdown";
+
 import InfoCards from "../components/InfoCards";
+import AboutConferenceSection from "../components/AboutConferenceSection";
 import Contact from "../components/Contact";
 import ThemeStripe from "../components/ThemeStripe";
 import SEO from "../components/SEO";
@@ -91,10 +93,14 @@ const Home = () => {
       {/* Your existing components */}
       <Hero />
       <ThemeStripe />
-      <About />
+      {/* <About /> */}
+      <AboutConferenceSection />
+
+      <Homesupport />
       <FocusAreas />
-      <Countdown />
+      
       <InfoCards />
+    
       <Contact />
     </>
   );

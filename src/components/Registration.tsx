@@ -1,10 +1,11 @@
 // components/HomeRegistration.tsx
 import { useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom"; // Add this import
 import "../styles/Registration.css";
 
+const GOOGLE_FORM_URL =
+  "https://api.eaindigenousseedconference.org/";
+
 const Registration = () => {
-  const navigate = useNavigate(); // Add this
   const sectionRef = useRef<HTMLElement>(null);
   const tagRef = useRef<HTMLSpanElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -20,37 +21,34 @@ const Registration = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // Animate header elements
             setTimeout(() => {
               tagRef.current?.classList.add("home-reg-item-visible");
             }, 200);
-            
+
             setTimeout(() => {
               titleRef.current?.classList.add("home-reg-item-visible");
             }, 350);
-            
+
             setTimeout(() => {
               introRef.current?.classList.add("home-reg-item-visible");
             }, 500);
 
-            // Animate cards with staggered delays
             setTimeout(() => {
               card1Ref.current?.classList.add("home-reg-item-visible");
             }, 650);
-            
+
             setTimeout(() => {
               card2Ref.current?.classList.add("home-reg-item-visible");
             }, 800);
-            
+
             setTimeout(() => {
               card3Ref.current?.classList.add("home-reg-item-visible");
             }, 950);
-            
+
             setTimeout(() => {
               card4Ref.current?.classList.add("home-reg-item-visible");
             }, 1100);
 
-            // Animate footer
             setTimeout(() => {
               footerRef.current?.classList.add("home-reg-item-visible");
             }, 1250);
@@ -72,46 +70,42 @@ const Registration = () => {
     return () => observer.disconnect();
   }, []);
 
-  const handleRegister = (type: string) => {
-    navigate('/register', { 
-      state: { type: type.toLowerCase() } 
-    });
-  };
-
   return (
     <section className="home-registration" ref={sectionRef}>
       <div className="home-registration-container">
         <div className="home-registration-header">
-          <span 
-            ref={tagRef} 
+          <span
+            ref={tagRef}
             className="home-registration-tag home-reg-stagger-item"
           >
             Registration Options
           </span>
-          <h2 
-            ref={titleRef} 
+          <h2
+            ref={titleRef}
             className="home-registration-title home-reg-stagger-item"
           >
             Choose Your Participation
           </h2>
-          <p 
-            ref={introRef} 
+          <p
+            ref={introRef}
             className="home-registration-intro home-reg-stagger-item"
           >
-            Select the registration type that best suits your needs. Early registration 
-            is encouraged due to limited capacity.
+            Select the registration type that best suits your needs. Early
+            registration is encouraged due to limited capacity.
           </p>
         </div>
 
         <div className="home-pricing-grid">
           {/* Card 1: African & International Delegates */}
-          <div 
-            ref={card1Ref} 
+          <div
+            ref={card1Ref}
             className="home-pricing-card featured home-reg-stagger-item"
           >
             <span className="home-card-badge">RECOMMENDED</span>
             <div className="home-card-header">
-              <h3 className="home-pricing-name">African & International Delegates</h3>
+              <h3 className="home-pricing-name">
+                African & International Delegates
+              </h3>
             </div>
             <div className="home-pricing-price">
               <span className="home-price-amount">$200</span>
@@ -138,18 +132,21 @@ const Registration = () => {
                 <span>Networking opportunities</span>
               </li>
             </ul>
-            <button 
+            <a
+              href={GOOGLE_FORM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="home-register-btn"
-              onClick={() => handleRegister('delegate')}
+              aria-label="Register as African or International Delegate for $200"
             >
               <span>Register Now</span>
               <span className="home-btn-arrow">→</span>
-            </button>
+            </a>
           </div>
 
           {/* Card 2: Farmers */}
-          <div 
-            ref={card2Ref} 
+          <div
+            ref={card2Ref}
             className="home-pricing-card home-reg-stagger-item"
           >
             <div className="home-card-header">
@@ -180,18 +177,21 @@ const Registration = () => {
                 <span>Certificate of participation</span>
               </li>
             </ul>
-            <button 
+            <a
+              href={GOOGLE_FORM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="home-register-btn"
-              onClick={() => handleRegister('farmer')}
+              aria-label="Register as Farmer for $150"
             >
               <span>Register Now</span>
               <span className="home-btn-arrow">→</span>
-            </button>
+            </a>
           </div>
 
           {/* Card 3: Virtual Participants */}
-          <div 
-            ref={card3Ref} 
+          <div
+            ref={card3Ref}
             className="home-pricing-card home-reg-stagger-item"
           >
             <div className="home-card-header">
@@ -222,18 +222,21 @@ const Registration = () => {
                 <span>Digital certificate</span>
               </li>
             </ul>
-            <button 
+            <a
+              href={GOOGLE_FORM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="home-register-btn"
-              onClick={() => handleRegister('virtual')}
+              aria-label="Register as Virtual Participant for $100"
             >
               <span>Register Now</span>
               <span className="home-btn-arrow">→</span>
-            </button>
+            </a>
           </div>
 
           {/* Card 4: Add-ons */}
-          <div 
-            ref={card4Ref} 
+          <div
+            ref={card4Ref}
             className="home-pricing-card add-ons home-reg-stagger-item"
           >
             <div className="home-card-header">
@@ -246,39 +249,49 @@ const Registration = () => {
               <div className="home-addon-item">
                 <div className="home-addon-info">
                   <h4 className="home-addon-name">Field Excursion</h4>
-                  <p className="home-addon-desc">Visit local agricultural projects</p>
+                  <p className="home-addon-desc">
+                    Visit local agricultural projects
+                  </p>
                 </div>
                 <div className="home-addon-price">$50</div>
               </div>
               <div className="home-addon-item">
                 <div className="home-addon-info">
                   <h4 className="home-addon-name">Gala Dinner</h4>
-                  <p className="home-addon-desc">Formal networking dinner event</p>
+                  <p className="home-addon-desc">
+                    Formal networking dinner event
+                  </p>
                 </div>
                 <div className="home-addon-price">$100</div>
               </div>
             </div>
-            <button 
+            <a
+              href={GOOGLE_FORM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="home-register-btn addon-btn"
-              onClick={() => handleRegister('addons')}
+              aria-label="Add extras to your registration via Google Form"
             >
               <span>Add to Registration</span>
               <span className="home-btn-arrow">→</span>
-            </button>
+            </a>
           </div>
         </div>
 
-        <div 
-          ref={footerRef} 
+        <div
+          ref={footerRef}
           className="home-registration-footer home-reg-stagger-item"
         >
           <div className="home-footer-info">
             <p className="home-registration-note">
-              <strong>Note:</strong>  Add-ons can only be purchased with a main registration type.
+              <strong>Note:</strong> Add-ons can only be purchased with a main
+              registration type.
             </p>
             <p className="home-registration-support">
-              Need help with registration? 
-              <a href=" mailto:registration@eaindigenousseedconference.org">Contact Support</a>
+              Need help with registration?{" "}
+              <a href="mailto:registration@eaindigenousseedconference.org">
+                Contact Support
+              </a>
             </p>
           </div>
         </div>

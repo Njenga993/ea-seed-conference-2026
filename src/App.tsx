@@ -8,8 +8,10 @@ import Footer from "./components/Footer";
 import Loader from "./components/Loader";
 import BackToTop from "./components/BackToTop";
 import LanguageTranslator from "./components/LanguageTranslator";
+import Countdown from "./components/Countdown";
 /*import ProgramPage from "./pages/ProgramPage";
 import SpeakersPage from "./pages/SpeakersPage";*/
+import CallForSideEventsPage from "./pages/CallForSideEventsPage";
 import CallForExhibitorsPage from "./pages/CallForExhibitorsPage";
 import RegistrationAbstractPage from "./pages/RegistrationAbstractPage";
 import HowToSubmitAbstractPage from "./pages/HowToSubmitAbstractPage";
@@ -18,6 +20,10 @@ import Sponsorship from "./pages/Sponsorship";
 import RegistrationForm from "./components/RegistrationForm";
 import RegistrationSuccess from "./pages/RegistrationSuccess";
 import ContactPage from "./pages/ContactPage";
+import Accomodation from "./pages/Accomodation"
+import FAQPage from "./pages/FAQPage";
+import EbolaUpdate from "./pages/EbolaUpdate";
+import LogisticsPage from "./pages/LogisticsPage";
 //import PaymentSuccess from "./pages/PaymentSuccess";
 //import CheckIn from "./pages/CheckIn";
 //import AdminDashboard from "./pages/AdminDashboard";
@@ -71,6 +77,22 @@ function AppContent() {
             path="/call-for-exhibitors"
             element={<CallForExhibitorsPage />}
           />
+          
+          <Route
+            path="/call-for-sideevents"
+            element={<CallForSideEventsPage/>}
+            />
+
+           <Route
+            path="/faqs"
+            element={<FAQPage/>}
+            />
+
+            <Route
+            path="/ebola-update"
+            element={<EbolaUpdate/>}
+            />
+
           <Route
             path="/how-to-submit-abstract"
             element={<HowToSubmitAbstractPage />}
@@ -79,6 +101,11 @@ function AppContent() {
             path="/how-to-apply-for-side-events"
             element={<HowToApplyForSideEvents />}
           />
+          <Route
+            path="/accommodation"
+            element={<Accomodation />}
+          />
+          <Route path="/logistics" element={<LogisticsPage />} />
           <Route path="/sponsorship" element={<Sponsorship />} />
           <Route path="/register" element={<RegistrationForm />} />
           <Route
@@ -94,6 +121,9 @@ function AppContent() {
         <LanguageTranslator />
         {/* Back to Top Button */}
         <BackToTop />
+        
+        {/* Countdown Popup - rendered outside the Routes so it appears on every page */}
+        <Countdown />
       </div>
     </>
   );

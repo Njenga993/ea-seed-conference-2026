@@ -1,7 +1,7 @@
 // pages/RegistrationPage.tsx
 import { Helmet } from "react-helmet-async";
 import Registration from "../components/Registration";
-import AbstractSubmission from "../components/CallForAbstracts";
+//import AbstractSubmission from "../components/CallForAbstracts";
 import "../styles/registrationAbstract.css";
 
 // Import background images and textures
@@ -383,7 +383,7 @@ const RegistrationPage = () => {
           className="abstract-section-wrapper pattern-dots"
           itemProp="mainContentOfPage"
         >
-          <AbstractSubmission />
+          
         </div>
 
         {/* Hidden registration summary for SEO */}

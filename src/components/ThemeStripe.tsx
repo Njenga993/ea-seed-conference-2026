@@ -1,6 +1,6 @@
 // components/ThemeStripe.tsx
 import "../styles/themeStripe.css";
-import { Link } from "react-router-dom";
+
 import { useEffect, useRef, useState } from "react";
 
 const ThemeStripe = () => {
@@ -10,6 +10,9 @@ const ThemeStripe = () => {
   const locationRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+
+  // External Google Form URL
+  const GOOGLE_FORM_URL = "https://api.eaindigenousseedconference.org/";
 
   // Mouse highlight effect
   useEffect(() => {
@@ -69,6 +72,12 @@ const ThemeStripe = () => {
     return () => observer.disconnect();
   }, []);
 
+  // UPDATED: Handle register click to open Google Form in new tab
+  const handleRegister = (e: React.MouseEvent) => {
+    e.preventDefault();
+    window.open(GOOGLE_FORM_URL, "_blank");
+  };
+
   return (
     <section
       className={`theme-stripe sticky-stripe ${
@@ -117,16 +126,20 @@ const ThemeStripe = () => {
             </div>
           </div>
 
-          {/* CTA */}
+          {/* CTA - UPDATED */}
           <div
             ref={ctaRef}
             className="theme-stripe-cta-wrapper theme-stagger-item"
           >
-            <Link to="/register" className="theme-stripe-cta">
+            <button 
+              className="theme-stripe-cta" 
+              onClick={handleRegister}
+              aria-label="Secure your seat at the conference"
+            >
               <span>Secure Your Seat</span>
               <span className="theme-cta-arrow">→</span>
-            </Link>
-            <p className="theme-stripe-cta-note">Early bird ends Oct 15</p>
+            </button>
+           
           </div>
         </div>
       </div>

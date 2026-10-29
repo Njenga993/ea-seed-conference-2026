@@ -57,6 +57,67 @@
   margin: 0 auto;
 }
 
+/* ── Submissions Closed State ── */
+
+.deadline-badge-closed {
+  background: rgba(220, 38, 38, 0.25);
+  border-color: rgba(220, 38, 38, 0.5);
+}
+
+.submissions-closed-banner {
+  max-width: 700px;
+  margin: 0 auto 40px;
+  padding: 30px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.submissions-closed-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  background: #dc2626;
+  color: white;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.submissions-closed-banner h3 {
+  color: #991b1b;
+  margin-bottom: 10px;
+}
+
+.submissions-closed-banner p {
+  color: #7f1d1d;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.selection-card.disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+  filter: grayscale(0.3);
+}
+
+.selection-card.disabled:hover {
+  border-color: var(--border);
+  box-shadow: none;
+  transform: none;
+}
+
+.selection-card.disabled .selection-card-badge {
+  background: #94a3b8;
+}
+
+.selection-card.disabled .selection-card-badge.farmer-badge {
+  background: #94a3b8;
+}
+
 .selection-card {
   background: var(--bg-white);
   border: 2px solid var(--border);

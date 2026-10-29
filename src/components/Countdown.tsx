@@ -1,16 +1,17 @@
 // components/Countdown.tsx
-import { useEffect, useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState, useRef, useCallback } from "react";
+
 import "../styles/countdown.css";
 
-const Countdown = () => {
-  const navigate = useNavigate();
-  const sectionRef = useRef<HTMLElement>(null);
-  const titleRef = useRef<HTMLHeadingElement>(null);
-  const subtitleRef = useRef<HTMLParagraphElement>(null);
-  const timerRef = useRef<HTMLDivElement>(null);
-  const buttonRef = useRef<HTMLDivElement>(null);
+// ── Update these two before shipping ──────────────────────────────────────
+import posterImage from "../assets/campaign.jpg"; // swap in the real poster asset
+const SIDE_EVENT_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdUDLfN291bFxb4ybfMqzb1Lqvz0ywEpvO43rPr8ZbVGdHqiA/viewform";
+// ────────────────────────────────────────────────────────────────────────
 
+const REGISTER_URL = "https://api.eaindigenousseedconference.org/";
+const SESSION_DISMISS_KEY = "eaisc_popup_dismissed";
+
+const Countdown = () => {
   const eventDate = new Date("2026-11-17T09:00:00").getTime();
 
   const calculateTimeLeft = () => {
@@ -18,12 +19,7 @@ const Countdown = () => {
     const difference = eventDate - now;
 
     if (difference <= 0) {
-      return {
-        days: 0,
-        hours: 0,
-        minutes: 0,
-        seconds: 0,
-      };
+      return { days: 0, hours: 0, minutes: 0, seconds: 0 };
     }
 
     return {
@@ -35,142 +31,136 @@ const Countdown = () => {
   };
 
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
-  const [prevTimeLeft, setPrevTimeLeft] = useState(timeLeft);
+  const [isOpen, setIsOpen] = useState(false);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
+  // Tick the countdown every second, only while the popup is open.
   useEffect(() => {
-    const timer = setInterval(() => {
-      setPrevTimeLeft(timeLeft);
-      setTimeLeft(calculateTimeLeft());
-    }, 1000);
-
+    if (!isOpen) return;
+    const timer = setInterval(() => setTimeLeft(calculateTimeLeft()), 1000);
     return () => clearInterval(timer);
-  }, [timeLeft]);
+  }, [isOpen]);
 
-  // Scroll animations
+  // Show once per browser session, after a brief delay so it doesn't
+  // slam the visitor the instant the page paints.
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Title appears first
-            setTimeout(() => {
-              titleRef.current?.classList.add("countdown-title-visible");
-            }, 200);
+    const alreadyDismissed = sessionStorage.getItem(SESSION_DISMISS_KEY);
+    if (alreadyDismissed) return;
 
-            // Subtitle appears second
-            setTimeout(() => {
-              subtitleRef.current?.classList.add("countdown-subtitle-visible");
-            }, 400);
-
-            // Timer appears third
-            setTimeout(() => {
-              timerRef.current?.classList.add("countdown-timer-visible");
-            }, 600);
-
-            // Button appears last
-            setTimeout(() => {
-              buttonRef.current?.classList.add("countdown-button-visible");
-            }, 800);
-
-            observer.disconnect();
-          }
-        });
-      },
-      {
-        threshold: 0.3,
-        rootMargin: "0px 0px -50px 0px",
-      },
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
+    const showTimer = setTimeout(() => setIsOpen(true), 700);
+    return () => clearTimeout(showTimer);
   }, []);
 
-  const formatNumber = (num: number): string => {
-    return num < 10 ? `0${num}` : num.toString();
-  };
+  const handleClose = useCallback(() => {
+    setIsOpen(false);
+    sessionStorage.setItem(SESSION_DISMISS_KEY, "true");
+  }, []);
 
-  const handleRegister = () => {
-    navigate("/register");
-  };
+  // Close on Escape, and move focus to the close button on open.
+  useEffect(() => {
+    if (!isOpen) return;
 
-  // Check if a unit value changed for animation
-  const hasUnitChanged = (unit: keyof typeof timeLeft, value: number) => {
-    return prevTimeLeft[unit] !== value;
-  };
+    closeButtonRef.current?.focus();
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") handleClose();
+    };
+    document.addEventListener("keydown", handleKeyDown);
+
+    // Prevent background scroll while the popup is open.
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isOpen, handleClose]);
+
+  const formatNumber = (num: number): string => (num < 10 ? `0${num}` : num.toString());
+  const eventHasStarted = timeLeft.days === 0 && timeLeft.hours === 0 && timeLeft.minutes === 0 && timeLeft.seconds === 0;
+
+  if (!isOpen) return null;
 
   return (
-    <section className="conf-countdown-section" ref={sectionRef}>
-      <div className="conf-countdown-wrapper">
-        <div className="conf-countdown-inner">
-          <header className="conf-countdown-header">
-            <h2 className="conf-countdown-title" ref={titleRef}>
-              Conference Begins In
-            </h2>
-            <p className="conf-countdown-subtitle" ref={subtitleRef}>
-              17th – 20th November 2026 • Catholic university of Eastern Africa,
-              Nairobi, Kenya
-            </p>
-          </header>
+    <div
+      className="eaisc-popup-overlay"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) handleClose();
+      }}
+    >
+      <div
+        className="eaisc-popup-card"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="eaisc-popup-title"
+      >
+        <button
+          ref={closeButtonRef}
+          className="eaisc-popup-close"
+          onClick={handleClose}
+          aria-label="Close popup"
+        >
+          ✕
+        </button>
 
-          <div className="conf-countdown-timer" ref={timerRef}>
-            <div className="conf-timer-grid">
-              <div className="conf-timer-unit">
-                <span
-                  className={`conf-timer-value ${hasUnitChanged("days", timeLeft.days) ? "conf-timer-pulse" : ""}`}
-                >
-                  {formatNumber(timeLeft.days)}
-                </span>
-                <span className="conf-timer-label">Days</span>
+        <div className="eaisc-popup-poster">
+          <img src={posterImage} alt="EA-ISC 2026 official conference poster" />
+        </div>
+
+        <div className="eaisc-popup-content">
+          <p className="eaisc-popup-eyebrow">1st Eastern Africa Indigenous Seed Conference</p>
+          <h2 id="eaisc-popup-title" className="eaisc-popup-title">
+            {eventHasStarted ? "Happening Now!" : "Conference Begins In"}
+          </h2>
+          <p className="eaisc-popup-subtitle">
+            17–20 November 2026 · Catholic University of Eastern Africa, Nairobi
+          </p>
+
+          {!eventHasStarted && (
+            <div className="eaisc-popup-timer" aria-live="polite">
+              <div className="eaisc-popup-timer-unit">
+                <span className="eaisc-popup-timer-value">{formatNumber(timeLeft.days)}</span>
+                <span className="eaisc-popup-timer-label">Days</span>
               </div>
-
-              <span className="conf-timer-separator">:</span>
-
-              <div className="conf-timer-unit">
-                <span
-                  className={`conf-timer-value ${hasUnitChanged("hours", timeLeft.hours) ? "conf-timer-pulse" : ""}`}
-                >
-                  {formatNumber(timeLeft.hours)}
-                </span>
-                <span className="conf-timer-label">Hours</span>
+              <span className="eaisc-popup-timer-sep">:</span>
+              <div className="eaisc-popup-timer-unit">
+                <span className="eaisc-popup-timer-value">{formatNumber(timeLeft.hours)}</span>
+                <span className="eaisc-popup-timer-label">Hrs</span>
               </div>
-
-              <span className="conf-timer-separator">:</span>
-
-              <div className="conf-timer-unit">
-                <span
-                  className={`conf-timer-value ${hasUnitChanged("minutes", timeLeft.minutes) ? "conf-timer-pulse" : ""}`}
-                >
-                  {formatNumber(timeLeft.minutes)}
-                </span>
-                <span className="conf-timer-label">Minutes</span>
+              <span className="eaisc-popup-timer-sep">:</span>
+              <div className="eaisc-popup-timer-unit">
+                <span className="eaisc-popup-timer-value">{formatNumber(timeLeft.minutes)}</span>
+                <span className="eaisc-popup-timer-label">Min</span>
               </div>
-
-              <span className="conf-timer-separator">:</span>
-
-              <div className="conf-timer-unit">
-                <span
-                  className={`conf-timer-value ${hasUnitChanged("seconds", timeLeft.seconds) ? "conf-timer-pulse" : ""}`}
-                >
-                  {formatNumber(timeLeft.seconds)}
-                </span>
-                <span className="conf-timer-label">Seconds</span>
+              <span className="eaisc-popup-timer-sep">:</span>
+              <div className="eaisc-popup-timer-unit">
+                <span className="eaisc-popup-timer-value">{formatNumber(timeLeft.seconds)}</span>
+                <span className="eaisc-popup-timer-label">Sec</span>
               </div>
             </div>
-          </div>
+          )}
 
-          <div className="conf-countdown-action" ref={buttonRef}>
-            <button className="conf-action-btn" onClick={handleRegister}>
-              Register Now
-              <span className="conf-btn-arrow">→</span>
-            </button>
-          </div>
+          <a href={REGISTER_URL} className="eaisc-popup-register-btn">
+            Register Now
+            <span aria-hidden="true">→</span>
+          </a>
+
+          <a
+            href={SIDE_EVENT_FORM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="eaisc-popup-side-link"
+          >
+            Apply for a Side Event
+          </a>
+
+          <p className="eaisc-popup-abstract-notice">
+            Abstract submissions are now closed.
+          </p>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

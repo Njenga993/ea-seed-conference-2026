@@ -1,0 +1,112 @@
+/* styles/AboutConferenceSection.css */
+
+.about-conference-section {
+  padding: 70px 0;
+  background: var(--bg-white, #ffffff);
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+}
+
+.about-conference-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 50px;
+  align-items: start;
+}
+
+.about-conference-text h2 {
+  font-size: clamp(1.8rem, 4vw, 2.2rem);
+  color: var(--primary, #1e4a6b);
+  margin-bottom: 24px;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.about-conference-text h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: var(--secondary, #c17b3c);
+}
+
+.about-conference-text p {
+  color: var(--text-medium, #475569);
+  font-size: 1rem;
+  line-height: 1.75;
+  margin-bottom: 20px;
+}
+
+.about-conference-text em {
+  color: var(--primary, #1e4a6b);
+  font-style: italic;
+}
+
+.about-conference-cta {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 14px 32px;
+  background: var(--primary, #1e4a6b);
+  color: white;
+  font-weight: 500;
+  font-size: 1rem;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.about-conference-cta:hover {
+  background: var(--secondary, #c17b3c);
+  transform: translateY(-2px);
+}
+
+.about-conference-cta-note {
+  margin-top: 10px !important;
+  font-size: 0.9rem !important;
+  color: var(--text-light, #64748b) !important;
+}
+
+.about-conference-image {
+  position: sticky;
+  top: 100px;
+}
+
+.about-conference-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  object-fit: cover;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .about-conference-container {
+    grid-template-columns: 1fr;
+  }
+
+  .about-conference-image {
+    position: static;
+    order: -1;
+  }
+}
+
+@media (max-width: 576px) {
+  .about-conference-section {
+    padding: 50px 0;
+  }
+
+  .about-conference-container {
+    padding: 0 20px;
+  }
+}

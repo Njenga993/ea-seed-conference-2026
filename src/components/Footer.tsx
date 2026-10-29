@@ -1,52 +1,15 @@
 // components/Footer.tsx
-import { useState } from "react";
+
 import "../styles/Footer.css";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  const [faqExpanded, setFaqExpanded] = useState(false);
-  const [expandedQuestion, setExpandedQuestion] = useState<number | null>(null);
+ 
+  
 
-  const faqs = [
-    {
-      question: "When is the abstract submission deadline?",
-      answer:
-        "The abstract submission deadline is August 15, 2026. Late submissions may be considered until August 31, 2026, subject to space availability.",
-    },
-    {
-      question: "How do I register for the conference?",
-      answer:
-        "Registration is available through our online portal. Visit the Registration page, select your category, and complete the payment process. Early bird registration ends October 31, 2026.",
-    },
-    {
-      question: "Are there travel grants available?",
-      answer:
-        "Limited travel grants are available for farmers, students, and researchers from Eastern Africa. Applications must be submitted by July 31, 2026.",
-    },
-    {
-      question: "What is the visa application process?",
-      answer:
-        "Registered participants will receive an invitation letter to support visa applications. We recommend applying at least 8 weeks before the conference.",
-    },
-    {
-      question: "Will sessions be recorded?",
-      answer:
-        "Yes, plenary sessions will be recorded and made available to registered participants post-conference. Workshops and parallel sessions will not be recorded.",
-    },
-    {
-      question: "Is accommodation provided?",
-      answer:
-        "Accommodation is not included in registration fees. We have secured special rates with partner hotels. Details are available on the Venue page.",
-    },
-  ];
 
-  const toggleFaqSection = () => {
-    setFaqExpanded(!faqExpanded);
-  };
 
-  const toggleQuestion = (index: number) => {
-    setExpandedQuestion(expandedQuestion === index ? null : index);
-  };
+
 
   return (
     <footer className="footer">
@@ -120,10 +83,13 @@ const Footer = () => {
             <h4>For Attendees</h4>
             <ul className="footer-links">
               <li>
+                <a href="/accommodation">Accommodation</a>
+              </li>
+              <li>
                 <a href="/contact">Venue Information</a>
               </li>
               <li>
-                <a href="/contact">FAQ</a>
+                <a href="/faqs">FAQ</a>
               </li>
             </ul>
           </div>
@@ -155,7 +121,7 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Collapsible FAQ Section */}
+        {/* Collapsible FAQ Section 
         <div className="footer-faq-container">
           <button
             className={`footer-faq-header ${faqExpanded ? "expanded" : ""}`}
@@ -189,53 +155,7 @@ const Footer = () => {
             </div>
           </button>
 
-          <div
-            className={`footer-faq-content ${faqExpanded ? "expanded" : ""}`}
-          >
-            <div className="footer-faq-grid">
-              {faqs.map((faq, index) => (
-                <div key={index} className="footer-faq-item">
-                  <button
-                    className={`footer-faq-question ${expandedQuestion === index ? "active" : ""}`}
-                    onClick={() => toggleQuestion(index)}
-                    aria-expanded={expandedQuestion === index}
-                  >
-                    <span className="faq-question-text">{faq.question}</span>
-                    <span className="faq-question-icon">
-                      <svg
-                        width="18"
-                        height="18"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                      >
-                        {expandedQuestion === index ? (
-                          <path d="M18 12H6" strokeLinecap="round" />
-                        ) : (
-                          <path d="M12 6v12M6 12h12" strokeLinecap="round" />
-                        )}
-                      </svg>
-                    </span>
-                  </button>
-                  <div
-                    className={`footer-faq-answer ${expandedQuestion === index ? "expanded" : ""}`}
-                  >
-                    <div className="footer-faq-answer-content">
-                      {faq.answer}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="footer-faq-footer">
-              <p>
-                Still have questions? <a href="/contact">Contact support</a>
-              </p>
-            </div>
-          </div>
-        </div>
+        </div>*/}
 
         {/* Footer Bottom with Powered by KSPACE */}
         <div className="footer-bottom">

@@ -64,7 +64,6 @@ const exhibitionIncludes = [
 ];
 
 const whoShouldExhibit = [
-  "Seed Companies and Agri-Businesses",
   "Research Institutions and Universities",
   "Government Agencies and Ministries",
   "NGOs and Development Organisations",
@@ -205,7 +204,7 @@ const CallForExhibitorsPage = () => {
               </strong>.
             </p>
             <p className="lead-text">
-              Whether you are a seed company, research institution, agri-tech
+              Whether you are a research institution, agri-tech
               firm, cooperative, or civil society organisation — the EA-ISC
               exhibition floor is your platform to demonstrate impact, build
               lasting relationships, and help shape the regional conversation on
@@ -374,7 +373,7 @@ const CallForExhibitorsPage = () => {
           </div>
         </section>
 
-        {/* ── Important Dates ──────────────────────────────────────────── */}
+        {/* ── Important Dates ──────────────────────────────────────────── 
         <section className="content-section bg-light">
           <div className="container narrow">
             <div className="dates-box">
@@ -402,7 +401,7 @@ const CallForExhibitorsPage = () => {
               </div>
             </div>
           </div>
-        </section>
+        </section>*/}
 
         {/* ── FAQ ──────────────────────────────────────────────────────── */}
         <section className="content-section">

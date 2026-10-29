@@ -911,11 +911,7 @@ const AboutPage = () => {
                 Submit Abstract
               </a>
             </div>
-            <p className="deadline-note">
-              <time dateTime="2026-10-31">
-                Early registration ends October 31, 2026
-              </time>
-            </p>
+            
           </div>
         </section>
       </div>

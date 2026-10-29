@@ -15,6 +15,9 @@ const InfoCards = () => {
   const card4Ref = useRef<HTMLDivElement>(null);
   const card5Ref = useRef<HTMLDivElement>(null);
 
+  // External Google Form URL
+  const GOOGLE_FORM_URL = "https://api.eaindigenousseedconference.org/";
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -69,6 +72,12 @@ const InfoCards = () => {
     navigate(path);
   };
 
+  // UPDATED: Handle register to open Google Form in new tab
+  const handleRegister = (e: React.MouseEvent) => {
+    e.preventDefault();
+    window.open(GOOGLE_FORM_URL, "_blank");
+  };
+
   return (
     <section className="conf-info-cards-section" ref={sectionRef}>
       <div className="conf-info-cards-container">
@@ -93,10 +102,7 @@ const InfoCards = () => {
                 are welcome from all relevant fields.
               </p>
 
-              <div className="conf-card-deadline">
-                <div className="conf-deadline-label">Submission Deadline</div>
-                <div className="conf-deadline-date">August 31st, 2026</div>
-              </div>
+              
 
               <ul className="conf-card-features">
                 <li>250–500 words limit</li>
@@ -114,7 +120,7 @@ const InfoCards = () => {
             </button>
           </article>
 
-          {/* Registration Card */}
+          {/* Registration Card - UPDATED */}
           <article className="conf-info-card" ref={card2Ref}>
             <div className="conf-card-content">
               <span className="conf-card-badge">Early Bird</span>
@@ -125,23 +131,16 @@ const InfoCards = () => {
                 early registration discounts.
               </p>
 
-              <div className="conf-card-deadline">
-                <div className="conf-deadline-label">Early Bird Ends</div>
-                <div className="conf-deadline-date">September 30th, 2026</div>
-              </div>
 
-              <ul className="conf-card-features">
-                <li>Multiple registration types</li>
-                <li>Group discounts available</li>
-                <li>Certificate of attendance</li>
-              </ul>
+              
             </div>
 
             <button
               className="conf-card-learn-more"
-              onClick={() => handleLearnMore("/register")}
+              onClick={handleRegister}
+              aria-label="Register for the conference"
             >
-              Learn More
+              Register Now
               <span className="conf-card-arrow">→</span>
             </button>
           </article>
@@ -194,10 +193,6 @@ const InfoCards = () => {
                 sovereignty and agricultural biodiversity.
               </p>
 
-              <div className="conf-card-deadline">
-                <div className="conf-deadline-label">Sponsorship Deadline</div>
-                <div className="conf-deadline-date">August 15th, 2026</div>
-              </div>
 
               <ul className="conf-card-features">
                 <li> Premium brand visibility</li>
@@ -231,10 +226,7 @@ const InfoCards = () => {
                 alongside the main conference program.
               </p>
 
-              <div className="conf-card-deadline">
-                <div className="conf-deadline-label">Application Deadline</div>
-                <div className="conf-deadline-date">August 31st, 2026</div>
-              </div>
+              
 
               <ul className="conf-card-features">
                 <li> 60-90 minute session slots</li>

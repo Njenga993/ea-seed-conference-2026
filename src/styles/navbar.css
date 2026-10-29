@@ -1,5 +1,5 @@
 /* =========================================
-   EA-ISC 2026 – Navbar with Dual Logos
+   EA-ISC 2026 – Navbar
 ========================================= */
 
 /* ========= CSS VARIABLES ========= */
@@ -29,7 +29,7 @@
 }
 
 /* =========================================
-   BASE NAVBAR - INCREASED HEIGHT
+   BASE NAVBAR
 ========================================= */
 
 .navbar {
@@ -46,43 +46,60 @@
   align-items: center;
 }
 
+/* The frosted background lives on a pseudo-element. A backdrop-filter on
+   .navbar itself would trap the fixed mobile menu inside the navbar's box
+   and break it as soon as the page is scrolled. */
+.navbar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: transparent;
+  pointer-events: none;
+  transition: var(--transition-smooth);
+}
+
 /* When user scrolls */
 .navbar.scrolled {
-  background: var(--nav-bg-light);
-  backdrop-filter: blur(12px);
   box-shadow: var(--shadow-light);
   height: var(--nav-height-scrolled);
   border-bottom: 1px solid var(--nav-border);
 }
 
+.navbar.scrolled::before {
+  background: var(--nav-bg-light);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
 /* =========================================
-   CONTAINER - UPDATED FOR LOGOS ON BOTH ENDS
+   CONTAINER
 ========================================= */
 
 .nav-container {
-  max-width: 1400px; /* Increased for more space */
+  max-width: 1400px;
   width: 100%;
   margin: 0 auto;
   padding: 0 2rem;
 
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Changed to space-between for logos */
+  justify-content: space-between;
   position: relative;
   height: 100%;
 }
 
 /* =========================================
-   LOGOS - BOTH SIDES
+   LOGO
 ========================================= */
 
-.nav-logo-left,
-.nav-logo-right {
+.nav-logo-left {
   display: flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
   height: 100%;
+  flex-shrink: 0;
   z-index: 1001; /* Above mobile menu */
   transition: var(--transition-smooth);
 }
@@ -96,13 +113,12 @@
 }
 
 /* Logo hover effect */
-.nav-logo-left:hover,
-.nav-logo-right:hover {
+.nav-logo-left:hover {
   opacity: 0.9;
   transform: scale(1.02);
 }
 
-/* Scrolled state logos */
+/* Scrolled state logo */
 .navbar.scrolled .nav-logo-image {
   height: var(--nav-logo-size-scrolled);
 }
@@ -115,14 +131,14 @@
   display: flex;
   align-items: center;
   height: 100%;
-  flex: 1; /* Takes available space */
-  justify-content: center; /* Centers the nav items */
+  flex: 1;
+  justify-content: center;
 }
 
 .nav-list {
   display: flex;
   align-items: center;
-  gap: 2.5rem;
+  gap: clamp(1rem, 1.6vw, 2.5rem);
   list-style: none;
   margin: 0;
   padding: 0;
@@ -133,7 +149,7 @@
 }
 
 /* =========================================
-   LINKS - ENHANCED WITH GREEN HOVER EFFECT
+   LINKS
 ========================================= */
 
 .nav-link {
@@ -141,6 +157,8 @@
   border: none;
   cursor: pointer;
   text-decoration: none;
+  white-space: nowrap;
+  font-family: inherit;
 
   font-size: 1rem;
   font-weight: 500;
@@ -210,13 +228,114 @@
 }
 
 /* =========================================
-   CTA BUTTON - ENHANCED
+   DROPDOWNS
+========================================= */
+
+.nav-item-dropdown {
+  position: relative;
+}
+
+.nav-item-dropdown .nav-link {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.dropdown-chevron {
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.nav-item-dropdown.open .dropdown-chevron {
+  transform: rotate(180deg);
+}
+
+/* Keep the parent highlighted while its dropdown is open */
+.nav-item-dropdown.open > .nav-link {
+  color: var(--nav-green);
+}
+
+.navbar.scrolled .nav-item-dropdown.open > .nav-link {
+  color: var(--nav-green-dark);
+}
+
+.nav-item-dropdown.open > .nav-link::after {
+  background: var(--nav-green);
+  width: 100%;
+}
+
+.navbar.scrolled .nav-item-dropdown.open > .nav-link::after {
+  background: var(--nav-green-dark);
+}
+
+.nav-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 190px;
+  margin: 0;
+  padding: 6px 0;
+  list-style: none;
+
+  background: #ffffff;
+  border: 1px solid var(--nav-border);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px);
+  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+}
+
+/* Invisible bridge so the dropdown doesn't close while the pointer
+   crosses the gap between the link and the card */
+.nav-dropdown::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 0;
+  right: 0;
+  height: 10px;
+}
+
+.nav-item-dropdown.open > .nav-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.nav-dropdown-link {
+  display: block;
+  padding: 10px 18px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #475569;
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease;
+  white-space: nowrap;
+}
+
+.nav-dropdown-link:hover {
+  background: #e8f0f7;
+  color: #1e4a6b;
+}
+
+.nav-dropdown-link-active {
+  color: #1e4a6b;
+  font-weight: 600;
+}
+
+/* =========================================
+   CTA BUTTON
 ========================================= */
 
 .nav-cta {
   background: var(--nav-gold);
   color: var(--nav-white);
   border: none;
+  font-family: inherit;
 
   padding: 0.75rem 1.8rem;
   border-radius: 40px;
@@ -232,7 +351,7 @@
   transition: var(--transition-smooth);
   box-shadow: 0 4px 12px rgba(197, 152, 73, 0.3);
   border: 1px solid transparent;
-  white-space: nowrap; /* Prevents text wrapping */
+  white-space: nowrap;
 }
 
 /* CTA when navbar is scrolled */
@@ -265,7 +384,7 @@
 }
 
 /* =========================================
-   MOBILE TOGGLE - POSITIONED NEXT TO RIGHT LOGO
+   MOBILE TOGGLE (hidden on desktop)
 ========================================= */
 
 .mobile-toggle {
@@ -281,7 +400,7 @@
   cursor: pointer;
   padding: 0;
   z-index: 1100;
-  margin-left: 1rem; /* Space from right logo */
+  margin-left: 1rem;
 }
 
 .mobile-toggle span {
@@ -297,7 +416,7 @@
   background: var(--nav-dark);
 }
 
-/* Animate to X - refined */
+/* Animate to X */
 .mobile-toggle.active span:nth-child(1) {
   transform: rotate(45deg) translate(5px, 6px);
   width: 24px;
@@ -313,57 +432,69 @@
   width: 24px;
 }
 
+/* The menu panel is white, so the X must be dark even before scrolling */
+.mobile-toggle.active span {
+  background: var(--nav-dark);
+}
+
 /* Mobile footer - hidden on large screens */
 .mobile-footer {
   display: none;
 }
 
 /* =========================================
-   DESKTOP LAYOUT - LOGOS VISIBLE
+   COMPACT DESKTOP (1181px – 1320px)
 ========================================= */
 
-@media (min-width: 769px) {
-  /* Both logos visible on desktop */
-  .nav-logo-left,
-  .nav-logo-right {
-    display: flex;
+@media (min-width: 1181px) and (max-width: 1320px) {
+  .nav-container {
+    padding: 0 1.25rem;
+  }
+
+  .nav-list {
+    gap: 1rem;
+  }
+
+  .nav-link {
+    font-size: 0.92rem;
+    letter-spacing: 0.01em;
+  }
+
+  .nav-cta {
+    padding: 0.7rem 1.3rem;
+    font-size: 0.9rem;
+  }
+
+  .nav-logo-image {
+    max-width: 120px;
   }
 }
 
 /* =========================================
-   MOBILE MENU - LOGOS ADJUSTMENT
+   MOBILE / TABLET MENU (up to 1180px)
+   There are 9 items, so the slide-in menu
+   starts earlier than 768px to avoid overflow.
 ========================================= */
 
-@media (max-width: 768px) {
-  /* Adjust navbar height for mobile */
+@media (max-width: 1180px) {
   .navbar {
     height: 70px;
   }
-  
+
   .navbar.scrolled {
     height: 60px;
   }
-  
+
   .nav-logo-image {
     height: 45px;
   }
-  
+
   .navbar.scrolled .nav-logo-image {
     height: 35px;
   }
 
   .mobile-toggle {
     display: flex;
-    order: 3; /* Places toggle after right logo */
-  }
-
-  /* Logo order on mobile */
-  .nav-logo-left {
-    order: 1;
-  }
-  
-  .nav-logo-right {
-    order: 2;
   }
 
   .nav-menu {
@@ -373,13 +504,16 @@
     width: 85%;
     max-width: 400px;
     height: 100vh;
+    height: 100dvh;
 
     background: var(--nav-white);
     box-shadow: var(--shadow-medium);
 
     padding: 6rem 2rem 2rem;
+    overflow-y: auto;
 
-    transition: var(--transition-smooth);
+    transition: var(--transition-smooth), visibility 0s linear 0.35s;
+    visibility: hidden;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -389,11 +523,13 @@
 
   .nav-menu.active {
     right: 0;
+    visibility: visible;
+    transition: var(--transition-smooth), visibility 0s;
   }
 
   .nav-list {
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.5rem;
     align-items: flex-start;
     width: 100%;
   }
@@ -402,43 +538,106 @@
     width: 100%;
   }
 
-  .nav-link {
+  .nav-link,
+  .navbar.scrolled .nav-link {
     font-size: 1.2rem;
     color: var(--nav-dark);
     display: block;
     width: 100%;
+    text-align: left;
     padding: 0.5rem 0;
   }
 
-  /* Mobile menu link hover effects */
-  .nav-link:hover {
-    color: var(--nav-green);
+  .nav-item-dropdown .nav-link {
+    display: flex;
+    justify-content: space-between;
   }
 
-  .nav-link::after {
-    bottom: 0;
+  .dropdown-chevron {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* Mobile menu link hover / active */
+  .nav-link:hover,
+  .nav-item-dropdown.open > .nav-link,
+  .navbar.scrolled .nav-link:hover,
+  .navbar.scrolled .nav-item-dropdown.open > .nav-link {
+    color: var(--nav-green-dark);
+  }
+
+  .nav-link::after,
+  .nav-link:hover::after,
+  .nav-link.active::after,
+  .nav-item-dropdown.open > .nav-link::after,
+  .navbar.scrolled .nav-link:hover::after,
+  .navbar.scrolled .nav-link.active::after,
+  .navbar.scrolled .nav-item-dropdown.open > .nav-link::after {
     background: var(--nav-green);
   }
 
-  .nav-link.active {
-    color: var(--nav-green);
+  .nav-link.active,
+  .navbar.scrolled .nav-link.active {
+    color: var(--nav-green-dark);
   }
 
-  .nav-link.active::after {
-    background: var(--nav-green);
+  /* Dropdowns become accordions inside the menu */
+  .nav-dropdown {
+    position: static;
+    display: none;
+    min-width: 0;
+    margin: 0.4rem 0 0.2rem;
+    padding: 0 0 0 1rem;
+    background: transparent;
+    border: none;
+    border-left: 2px solid var(--nav-green);
+    border-radius: 0;
+    box-shadow: none;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition: none;
   }
 
-  .nav-cta {
+  .nav-dropdown::before {
+    display: none;
+  }
+
+  .nav-item-dropdown.open > .nav-dropdown {
+    display: block;
+  }
+
+  .nav-dropdown-link {
+    padding: 0.7rem 0.25rem;
+    font-size: 1.05rem;
+    white-space: normal;
+  }
+
+  .nav-dropdown-link:hover {
+    background: transparent;
+    color: var(--nav-green-dark);
+  }
+
+  .nav-dropdown-link-active {
+    color: var(--nav-green-dark);
+  }
+
+  .nav-cta,
+  .navbar.scrolled .nav-cta {
     background: var(--nav-gold);
     color: var(--nav-white);
+    border-color: transparent;
     width: 100%;
     justify-content: center;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     padding: 1rem;
   }
 
-  .nav-cta:hover {
+  .nav-cta:hover,
+  .navbar.scrolled .nav-cta:hover {
     background: var(--nav-green);
+    color: var(--nav-white);
+    border-color: var(--nav-green);
   }
 
   /* Mobile footer - visible only on mobile */
@@ -465,7 +664,7 @@
   }
 
   .mobile-contact a:hover {
-    color: var(--nav-green);
+    color: var(--nav-green-dark);
   }
 
   .mobile-social {
@@ -494,30 +693,13 @@
 }
 
 /* =========================================
-   TABLET REFINEMENT
-========================================= */
-
-@media (min-width: 769px) and (max-width: 1024px) {
-  .nav-list {
-    gap: 1.8rem;
-  }
-  
-  .nav-cta {
-    padding: 0.7rem 1.5rem;
-  }
-  
-  .nav-logo-image {
-    max-width: 120px;
-  }
-}
-
-/* =========================================
    ACCESSIBILITY
 ========================================= */
 
 .nav-link:focus-visible,
 .nav-cta:focus-visible,
-.mobile-toggle:focus-visible {
+.mobile-toggle:focus-visible,
+.nav-dropdown-link:focus-visible {
   outline: 2px solid var(--nav-green);
   outline-offset: 3px;
 }
@@ -528,13 +710,15 @@
 
 @media (prefers-reduced-motion: reduce) {
   .navbar,
+  .navbar::before,
   .nav-link::after,
   .nav-cta,
   .cta-arrow,
   .mobile-toggle span,
   .nav-menu,
+  .nav-dropdown,
+  .dropdown-chevron,
   .nav-logo-left,
-  .nav-logo-right,
   .nav-logo-image {
     transition: none !important;
   }

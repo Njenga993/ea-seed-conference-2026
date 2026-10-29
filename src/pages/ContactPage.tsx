@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Mail, Phone, MapPin, MessageSquare } from "lucide-react";
 import Venue from "../components/Venue";
+
 import "../styles/contactPage.css";
 
 // Import background image
