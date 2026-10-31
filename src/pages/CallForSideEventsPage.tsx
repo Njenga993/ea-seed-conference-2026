@@ -17,7 +17,7 @@ import sideEventSIDAA from "../assets/SIDAA.png";
 import sideEventPELUM from "../assets/PELUM.png";
 import sideEventWomen from "../assets/AWC.png";
 import sideEventSWISSDCA from "../assets/SwissaidDCA.png";
-import sideEventBiovision from "../assets/Biovision.png";
+import sideEventBiovision from "../assets/BioVision.png";
 import sideEventOpenSource from "../assets/OSSeeds.png";
 import sideEventPFF from "../assets/PFF.png";
 
