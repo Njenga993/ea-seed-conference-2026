@@ -11,7 +11,7 @@ import sideEvent2Poster from "../assets/image_icraf.png";
 import sideEvent3Poster from "../assets/side3.png";
 import sideEvent4Poster from "../assets/side4.jpeg";
 import sideEvent5Poster from "../assets/side5.png";
-import sideEventAF from "../assets/AgroecologyFund.png";
+import sideEventAF from "../assets/Agroecologyfund.png";
 import sideEventDCA from "../assets/DCA.png";
 import sideEventSIDAA from "../assets/SIDAA.png";
 import sideEventPELUM from "../assets/PELUM.png";
