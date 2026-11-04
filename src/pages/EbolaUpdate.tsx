@@ -112,11 +112,12 @@ const EbolaUpdate = () => {
               <div className="eu-eyebrow">
                 Ministry of Health, Kenya · Updated {LAST_UPDATED}
               </div>
-              <h1>Ebola Update: No New Cases Since 19 October</h1>
+              <h1>Ebola Update: Kenya Has Been Declared Ebola-Free</h1>
               <p className="eu-hero-description">
-                Patients are recovering and contacts are returning home after
-                completing 21 days of monitoring without symptoms. Here is where
-                things stand.
+                According to the Ministry of Health's statement of 3 November
+                2026, five patients have been discharged, 46 more contacts have
+                been released from quarantine after 21 days without symptoms,
+                and no new case has been recorded since 19 October.
               </p>
             </div>
           </div>
@@ -133,28 +134,7 @@ const EbolaUpdate = () => {
           </div>
         </div>
 
-        {/* ── Where things stand ────────────────────────────────────────── */}
-        <section className="eu-section">
-          <div className="eu-container">
-            <h2 className="eu-heading eu-center">Where Things Stand</h2>
-            <p className="eu-subtitle eu-center">
-              Kenya has recorded nine confirmed cases in total, all linked to one
-              imported case that was confirmed on 6 October 2026.
-            </p>
-
-            <div className="eu-stats-grid">
-              {figures.map(({ number, label, note }) => (
-                <div className="eu-stat-card" key={label}>
-                  <span className="eu-stat-number">{number}</span>
-                  <span className="eu-stat-label">{label}</span>
-                  <p className="eu-stat-note">{note}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ── Video ─────────────────────────────────────────────────────── */}
+        {/* ── Video (straight after the hero) ───────────────────────────── */}
         <section className="eu-section eu-bg-light">
           <div className="eu-container eu-narrow">
             <h2 className="eu-heading">Watch the Report</h2>
@@ -183,8 +163,29 @@ const EbolaUpdate = () => {
           </div>
         </section>
 
-        {/* ── What this means ───────────────────────────────────────────── */}
+        {/* ── Where things stand ────────────────────────────────────────── */}
         <section className="eu-section">
+          <div className="eu-container">
+            <h2 className="eu-heading eu-center">Where Things Stand</h2>
+            <p className="eu-subtitle eu-center">
+              Kenya has recorded nine confirmed cases in total, all linked to one
+              imported case that was confirmed on 6 October 2026.
+            </p>
+
+            <div className="eu-stats-grid">
+              {figures.map(({ number, label, note }) => (
+                <div className="eu-stat-card" key={label}>
+                  <span className="eu-stat-number">{number}</span>
+                  <span className="eu-stat-label">{label}</span>
+                  <p className="eu-stat-note">{note}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── What this means ───────────────────────────────────────────── */}
+        <section className="eu-section eu-bg-light">
           <div className="eu-container eu-narrow">
             <h2 className="eu-heading">What This Means</h2>
 
@@ -200,7 +201,7 @@ const EbolaUpdate = () => {
         </section>
 
         {/* ── Help and travel ───────────────────────────────────────────── */}
-        <section className="eu-section eu-bg-light">
+        <section className="eu-section">
           <div className="eu-container eu-narrow">
             <h2 className="eu-heading">If You Feel Unwell</h2>
 
