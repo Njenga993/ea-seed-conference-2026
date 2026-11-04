@@ -1,102 +1,52 @@
 // pages/EbolaUpdate.tsx
 import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
 import "../styles/EbolaUpdate.css";
 
-// Place the PDF in your /public folder with this exact file name
-// (or change the path below to match whatever you name it).
-const PDF_URL = "/MOH Statement on Ebola.pdf";
-const PDF_FILE_NAME = "MoH-Ebola-Update-Day-17-22-October-2026.pdf";
+// ── Update this block whenever the Ministry of Health announces something new ─
+const LAST_UPDATED = "4 November 2026";
+const LAST_UPDATED_ISO = "2026-11-04";
 
-// ── Data (taken from the Ministry of Health press release, 22 Oct 2026) ──────
-const keyFigures = [
-  {
-    number: "9",
-    label: "Total confirmed cases",
-    note: "Including the index case, who died on 5 October 2026. All belong to a single cluster.",
-  },
+// ── Video (YouTube) ──────────────────────────────────────────────────────────
+const VIDEO_ID = "lMFjQKsWc30";
+const VIDEO_TITLE = "Five Ebola patients discharged from hospital after completing treatment";
+const VIDEO_SOURCE = "Citizen TV Kenya, 3 November 2026";
+
+const figures = [
   {
     number: "0",
-    label: "New cases today",
-    note: "All 14 samples tested in the last 24 hours were negative for BVD.",
+    label: "New cases since 19 Oct",
+    note: "All nine confirmed cases were linked to a single imported case.",
   },
   {
-    number: "135",
-    label: "Contacts traced",
-    note: "100% traced, in Kenya and abroad.",
+    number: "5",
+    label: "Patients discharged",
+    note: "Five patients recovered and left hospital on 3 November. Two remain in care.",
   },
   {
-    number: "709,093",
-    label: "Travellers screened",
-    note: "At points of entry, including 3,107 in the last 24 hours.",
+    number: "66",
+    label: "Contacts released",
+    note: "20 on 26 October and 46 on 3 November, each after 21 days without symptoms.",
   },
   {
-    number: "461",
-    label: "Samples tested",
-    note: "Since the start of the outbreak in May 2026.",
-  },
-  {
-    number: "8",
-    label: "Patients in treatment",
-    note: "Four family members and four health workers. All stable.",
+    number: "52",
+    label: "Contacts still monitored",
+    note: "Expected to complete their 21 days and go home by 11 November.",
   },
 ];
 
-const updateSections = [
+const points = [
   {
-    heading: "Patients are stable and progressing well",
-    body: [
-      "The eight patients undergoing treatment in designated isolation facilities, four family members and four health workers who cared for the first case, are stable and responding well to treatment from infectious disease specialists.",
-      "The Ministry looks forward to each of them completing treatment, recovering fully, and being discharged home to their families.",
-    ],
+    heading: "People who have been released pose no risk to others",
+    text: "Contacts are released only after 21 days without symptoms and a final health check. The Ministry of Health says they pose no risk of infection to anyone, and asks communities to welcome them home warmly and without stigma.",
   },
   {
-    heading: "Every contact has been traced, at home and abroad",
-    body: [
-      "All 135 contacts associated with the first case have been traced (100%), both within Kenya and internationally. The relevant health authorities of the countries concerned have been formally informed in line with the International Health Regulations (2005).",
-      "The Ministry thanked national and county contact-tracing teams, families, communities and development partners for this achievement.",
-    ],
+    heading: "No evidence of community spread",
+    text: "The Ministry reports no evidence of community transmission. Kenya remains open, with no restrictions on travel, trade or public gatherings.",
   },
   {
-    heading: "How the infections occurred",
-    body: [
-      "Epidemiologists have mapped the exposure dates, quarantine dates and symptom onset of every case. Each patient was in close contact with the first case between 3 and 5 October, before entering quarantine, and each fell ill within the known incubation period of Ebola (2 to 21 days).",
-      "This pattern is consistent with infection from the first case, and shows that no infection has been traced to transmission within quarantine facilities, where infection prevention and control measures have been strengthened further.",
-      "Each contact's 21-day monitoring period is counted from their own last exposure. Anyone exposed to a later confirmed case is monitored from that date.",
-    ],
-  },
-  {
-    heading: "Surveillance and testing continue nationwide",
-    body: [
-      "Enhanced surveillance continues in health facilities and communities across all counties. At points of entry, 709,093 travellers have been screened, including 3,107 in the last 24 hours. A total of 461 samples have been tested since the start of the outbreak in May 2026.",
-    ],
-  },
-];
-
-const timeline = [
-  {
-    date: "3 – 5 Oct 2026",
-    title: "Exposure window",
-    text: "Each patient was in close contact with the first case before entering quarantine.",
-  },
-  {
-    date: "5 Oct 2026",
-    title: "Index case dies",
-    text: "The first case died.",
-  },
-  {
-    date: "6 Oct 2026",
-    title: "First imported case confirmed",
-    text: "Kenya confirmed its first imported case of Ebola (Bundibugyo Virus Disease). This is Day 1 of the response.",
-  },
-  {
-    date: "22 Oct 2026",
-    title: "Day 17 update",
-    text: "No new cases, all contacts traced, 14 of 14 samples negative.",
-  },
-  {
-    date: "25 Oct 2026",
-    title: "First contacts go home",
-    text: "Contacts who complete 21 days of monitoring in good health are released from quarantine.",
+    heading: "The outbreak is not yet officially over",
+    text: "Kenya will start a 42-day countdown once the final patient has recovered. The outbreak can be declared over only if no new case appears during that period. Surveillance and screening continue in the meantime.",
   },
 ];
 
@@ -113,30 +63,30 @@ const symptoms = [
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  name: "Ebola (Bundibugyo Virus Disease) Update: Day 17",
-  description:
-    "Summary of the Kenya Ministry of Health press release of 22 October 2026: no new cases, all contacts traced, and first contacts set to return home.",
+  name: "Ebola Update: Kenya",
+  description: `Where things stand as at ${LAST_UPDATED}: no new cases since 19 October, patients discharged and contacts released after 21 days without symptoms.`,
   datePublished: "2026-10-22",
+  dateModified: LAST_UPDATED_ISO,
 };
 
-// ── Component ─────────────────────────────────────────────────────────────────
+// ── Component ────────────────────────────────────────────────────────────────
 const EbolaUpdate = () => {
   return (
     <>
       <Helmet>
-        <title>Ebola Update: Day 17 | EA-ISC 2026</title>
+        <title>Ebola Update: Kenya | EA-ISC 2026</title>
         <meta
           name="description"
-          content="Summary of the Kenya Ministry of Health Ebola (Bundibugyo Virus Disease) update of 22 October 2026: no new cases, all 135 contacts traced, first contacts set to return home. View or download the full press release."
+          content={`Ebola update for Kenya as at ${LAST_UPDATED}: no new cases since 19 October, patients discharged and contacts released after 21 days without symptoms.`}
         />
         <link
           rel="canonical"
           href="https://eaindigenousseedconference.org/ebola-update"
         />
-        <meta property="og:title" content="Ebola Update: Day 17 | EA-ISC 2026" />
+        <meta property="og:title" content="Ebola Update: Kenya | EA-ISC 2026" />
         <meta
           property="og:description"
-          content="No new cases, all contacts traced, and first contacts set to return home. Read the summary or download the Ministry of Health press release."
+          content="No new cases since 19 October. Patients are recovering and contacts are going home after 21 days without symptoms."
         />
         <meta
           property="og:url"
@@ -153,35 +103,21 @@ const EbolaUpdate = () => {
         <section className="eu-hero">
           <div className="eu-container">
             <nav className="eu-breadcrumb" aria-label="Breadcrumb">
-              <a href="/" className="eu-breadcrumb-link">Home</a>
+              <Link to="/" className="eu-breadcrumb-link">Home</Link>
               <span aria-hidden="true">/</span>
               <span className="eu-breadcrumb-current">Ebola Update</span>
             </nav>
 
             <div className="eu-hero-content">
               <div className="eu-eyebrow">
-                Ministry of Health, Kenya · Press release · 22 October 2026
+                Ministry of Health, Kenya · Updated {LAST_UPDATED}
               </div>
-              <h1>Day 17: No New Cases, All Contacts Traced, and First Contacts Set to Return Home</h1>
+              <h1>Ebola Update: No New Cases Since 19 October</h1>
               <p className="eu-hero-description">
-                Kenya's response to the Ebola (Bundibugyo Virus Disease) outbreak
-                continues to make steady progress. Here is a plain summary of the
-                Ministry of Health's latest update, with the full press release
-                available to view and download.
+                Patients are recovering and contacts are returning home after
+                completing 21 days of monitoring without symptoms. Here is where
+                things stand.
               </p>
-
-              <div className="eu-hero-actions">
-                <a href="#full-document" className="eu-btn eu-btn-accent">
-                  View Full Press Release
-                </a>
-                <a
-                  href={PDF_URL}
-                  download={PDF_FILE_NAME}
-                  className="eu-btn eu-btn-outline-light"
-                >
-                  Download PDF
-                </a>
-              </div>
             </div>
           </div>
         </section>
@@ -189,26 +125,25 @@ const EbolaUpdate = () => {
         {/* ── Notice ────────────────────────────────────────────────────── */}
         <div className="eu-notice">
           <div className="eu-container eu-notice-inner">
-            <strong>Information as at 22 October 2026.</strong>
+            <strong>Information as at {LAST_UPDATED}.</strong>
             <span>
-              Figures come from the Ministry of Health press release of that date
-              and may have changed since. Always follow the Ministry of Health for
-              the latest guidance.
+              Figures come from Ministry of Health announcements and may change.
+              Always follow the Ministry of Health for the latest guidance.
             </span>
           </div>
         </div>
 
-        {/* ── Key figures ───────────────────────────────────────────────── */}
+        {/* ── Where things stand ────────────────────────────────────────── */}
         <section className="eu-section">
           <div className="eu-container">
-            <h2 className="eu-heading eu-center">The Situation at a Glance</h2>
+            <h2 className="eu-heading eu-center">Where Things Stand</h2>
             <p className="eu-subtitle eu-center">
-              Today marks Day 17 since Kenya confirmed its first imported case on
-              6 October 2026. There is no evidence of community spread.
+              Kenya has recorded nine confirmed cases in total, all linked to one
+              imported case that was confirmed on 6 October 2026.
             </p>
 
             <div className="eu-stats-grid">
-              {keyFigures.map(({ number, label, note }) => (
+              {figures.map(({ number, label, note }) => (
                 <div className="eu-stat-card" key={label}>
                   <span className="eu-stat-number">{number}</span>
                   <span className="eu-stat-label">{label}</span>
@@ -219,78 +154,55 @@ const EbolaUpdate = () => {
           </div>
         </section>
 
-        {/* ── Going home banner ─────────────────────────────────────────── */}
+        {/* ── Video ─────────────────────────────────────────────────────── */}
         <section className="eu-section eu-bg-light">
           <div className="eu-container eu-narrow">
-            <div className="eu-home-card">
-              <div className="eu-home-date">
-                <span className="eu-home-day">25</span>
-                <span className="eu-home-month">Oct</span>
-              </div>
-              <div className="eu-home-text">
-                <h3>Going home this weekend</h3>
-                <p>
-                  From Sunday, 25 October, the first contacts to complete 21 days
-                  of monitoring, and who are in good health, will be released from
-                  quarantine and reunited with their families.
-                </p>
-                <p>
-                  They have passed the full monitoring period without falling ill
-                  and <strong>cannot pass the infection</strong> to anybody. The
-                  Ministry asks neighbours, workplaces and communities to receive
-                  them warmly.
-                </p>
-              </div>
+            <h2 className="eu-heading">Watch the Report</h2>
+
+            <div className="eu-video-frame">
+              <iframe
+                src={`https://www.youtube-nocookie.com/embed/${VIDEO_ID}`}
+                title={VIDEO_TITLE}
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              />
             </div>
+
+            <p className="eu-video-caption">
+              {VIDEO_SOURCE}: {VIDEO_TITLE}.{" "}
+              <a
+                href={`https://www.youtube.com/watch?v=${VIDEO_ID}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Watch on YouTube
+              </a>
+            </p>
           </div>
         </section>
 
-        {/* ── Detailed update ───────────────────────────────────────────── */}
+        {/* ── What this means ───────────────────────────────────────────── */}
         <section className="eu-section">
           <div className="eu-container eu-narrow">
-            <h2 className="eu-heading">What the Update Says</h2>
+            <h2 className="eu-heading">What This Means</h2>
 
-            <div className="eu-update-list">
-              {updateSections.map(({ heading, body }) => (
-                <article className="eu-update-item" key={heading}>
+            <div className="eu-point-list">
+              {points.map(({ heading, text }) => (
+                <article className="eu-point" key={heading}>
                   <h3>{heading}</h3>
-                  {body.map((paragraph, i) => (
-                    <p key={i}>{paragraph}</p>
-                  ))}
+                  <p>{text}</p>
                 </article>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ── Timeline ──────────────────────────────────────────────────── */}
+        {/* ── Help and travel ───────────────────────────────────────────── */}
         <section className="eu-section eu-bg-light">
           <div className="eu-container eu-narrow">
-            <h2 className="eu-heading">Key Dates</h2>
-            <ol className="eu-timeline">
-              {timeline.map(({ date, title, text }) => (
-                <li className="eu-timeline-item" key={date + title}>
-                  <span className="eu-timeline-date">{date}</span>
-                  <div className="eu-timeline-body">
-                    <h4>{title}</h4>
-                    <p>{text}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </section>
-
-        {/* ── What you should do ────────────────────────────────────────── */}
-        <section className="eu-section">
-          <div className="eu-container eu-narrow">
-            <h2 className="eu-heading">What You Should Do</h2>
-            <p className="eu-lead">
-              Life in Kenya continues as normal: travel, trade and public
-              gatherings are not restricted. Every Kenyan can help bring this
-              outbreak to a close by following Ministry of Health guidance and
-              cooperating fully with the response teams.
-            </p>
+            <h2 className="eu-heading">If You Feel Unwell</h2>
 
             <div className="eu-help-grid">
               <div className="eu-help-card">
@@ -330,43 +242,30 @@ const EbolaUpdate = () => {
               </div>
             </div>
 
+            <p className="eu-travel-note">
+              <strong>Travelling to or from Kenya?</strong> Some countries have
+              introduced travel restrictions or quarantine rules for people who
+              have recently been in Kenya. Check your own government's current
+              guidance before you travel.
+            </p>
+
             <p className="eu-closing">
               Let us stand with our patients, contacts and health workers with
-              compassion, not stigma. The end of this outbreak is within reach,
-              and together we will get there.
-            </p>
-          </div>
-        </section>
-
-        {/* ── Full document (view + download) ───────────────────────────── */}
-        <section className="eu-section eu-bg-light" id="full-document">
-          <div className="eu-container eu-narrow">
-            <h2 className="eu-heading">The Full Press Release</h2>
-            <p className="eu-lead">
-              Read the original statement from the Office of the Director General
-              for Health, signed by Dr. Patrick Amoth, CBS, Director General.
+              compassion, not stigma.
             </p>
 
-            <div className="eu-doc-actions">
+            <p className="eu-source-note">
+              Source: Kenya Ministry of Health announcements of 26 October and 3
+              November 2026. Latest updates are published on the{" "}
               <a
-                href={PDF_URL}
+                href="https://www.health.go.ke"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="eu-btn eu-btn-primary"
               >
-                Open in New Tab
+                Ministry of Health website
               </a>
-              <a
-                href={PDF_URL}
-                download={PDF_FILE_NAME}
-                className="eu-btn eu-btn-secondary"
-              >
-                Download PDF
-              </a>
-            </div>
-
-
-            
+              .
+            </p>
           </div>
         </section>
       </div>
