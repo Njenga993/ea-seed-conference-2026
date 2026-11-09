@@ -1,0 +1,784 @@
+/* excursionPage.css — every class is prefixed "ex-" so nothing collides with
+   other pages. Solid colours only (no gradients). */
+
+:root {
+  --ex-gold: #c59849;
+  --ex-gold-dark: #a07a3a;
+  --ex-gold-text: #7a5a1f;
+  --ex-gold-soft: #f5ede1;
+  --ex-green: #2d4a1a;
+  --ex-green-soft: #f4f8ef;
+  --ex-green-accent: #5dae35;
+  --ex-text: #1e293b;
+  --ex-text-medium: #475569;
+  --ex-border: #e2e8f0;
+  --ex-bg: #ffffff;
+  --ex-cream: #faf6ee;
+  --ex-nav-offset: 70px; /* height of the fixed site navbar once scrolled */
+}
+
+.ex-page {
+  min-height: 100vh;
+  background: var(--ex-bg);
+  color: var(--ex-text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  overflow-x: clip;
+}
+
+.ex-page *,
+.ex-page *::before,
+.ex-page *::after {
+  box-sizing: border-box;
+}
+
+.ex-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* =========================================
+   HERO
+========================================= */
+
+.ex-hero {
+  position: relative;
+  padding: 150px 0 80px;
+  background-color: var(--ex-green);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.ex-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.64);
+}
+
+.ex-hero-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.ex-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 28px;
+  font-size: 0.875rem;
+}
+
+.ex-breadcrumb-link {
+  text-decoration: none;
+}
+
+.ex-breadcrumb-link:hover {
+  text-decoration: underline;
+}
+
+.ex-breadcrumb-current {
+  font-weight: 600;
+}
+
+.ex-badge {
+  display: inline-block;
+  padding: 0.35rem 0.9rem;
+  border: 1px solid rgba(230, 201, 135, 0.65);
+  border-radius: 999px;
+  background: rgba(197, 152, 73, 0.25);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.ex-hero h1 {
+  margin: 1rem 0 0.9rem;
+  font-size: clamp(2.1rem, 5vw, 3.1rem);
+  font-weight: 700;
+  line-height: 1.12;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.ex-hero-lead {
+  max-width: 660px;
+  margin: 0 0 2rem;
+  font-size: clamp(1rem, 2.4vw, 1.12rem);
+  line-height: 1.7;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.ex-hero-stats {
+  display: flex;
+  gap: 2.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ex-hero-stats li {
+  display: flex;
+  flex-direction: column;
+}
+
+.ex-stat-value {
+  font-size: clamp(1.6rem, 4vw, 2.1rem);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.ex-stat-label {
+  font-size: 0.85rem;
+}
+
+/* =========================================
+   STICKY SITE MENU
+========================================= */
+
+.ex-jump {
+  position: sticky;
+  top: var(--ex-nav-offset);
+  z-index: 900;
+  background: #ffffff;
+  border-bottom: 1px solid var(--ex-border);
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+}
+
+.ex-jump-inner {
+  display: flex;
+  gap: 0.6rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.ex-jump-inner::-webkit-scrollbar {
+  display: none;
+}
+
+.ex-chip {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.5rem 1rem 0.5rem 0.55rem;
+  border: 1.5px solid var(--ex-border);
+  border-radius: 999px;
+  background: #ffffff;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.ex-chip-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--ex-gold-soft);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.ex-chip-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.ex-chip:hover {
+  border-color: var(--ex-gold);
+}
+
+.ex-chip.is-active {
+  background: var(--ex-green);
+  border-color: var(--ex-green);
+}
+
+.ex-chip.is-active .ex-chip-number {
+  background: var(--ex-gold);
+}
+
+/* =========================================
+   SITE SECTIONS
+========================================= */
+
+.ex-site {
+  padding: 4.5rem 0;
+  background: #ffffff;
+  scroll-margin-top: calc(var(--ex-nav-offset) + 60px);
+}
+
+.ex-site--alt {
+  background: var(--ex-cream);
+}
+
+.ex-site-header {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 2.25rem;
+}
+
+.ex-site-number {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 68px;
+  height: 68px;
+  border-radius: 18px;
+  background: var(--ex-green);
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.ex-tag {
+  display: inline-block;
+  padding: 0.28rem 0.75rem;
+  border-radius: 999px;
+  background: var(--ex-gold-soft);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.ex-site-title {
+  margin: 0.4rem 0 0;
+  font-size: clamp(1.6rem, 3.4vw, 2.3rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.ex-site-subtitle {
+  margin: 0.35rem 0 0;
+  font-size: 1.02rem;
+}
+
+.ex-site-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.ex-site-grid--reverse .ex-site-info {
+  order: 2;
+}
+
+.ex-site-grid--reverse .ex-gallery {
+  order: 1;
+}
+
+.ex-site-text {
+  margin: 0 0 1rem;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+/* ── Learnings ─────────────────────────────────────────────────────────────── */
+
+.ex-learnings {
+  margin-top: 1.75rem;
+  padding: 1.4rem 1.5rem;
+  background: #ffffff;
+  border: 1px solid rgba(197, 152, 73, 0.35);
+  border-left: 5px solid var(--ex-gold);
+  border-radius: 12px;
+}
+
+.ex-site--alt .ex-learnings {
+  background: #ffffff;
+}
+
+.ex-learnings-title {
+  margin: 0 0 0.9rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ex-learnings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ex-learnings-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.ex-check {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  margin-top: 1px;
+  border-radius: 50%;
+  background: var(--ex-green);
+}
+
+/* =========================================
+   GALLERY (1 large + 4 small)
+========================================= */
+
+.ex-gallery {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px;
+  aspect-ratio: 16 / 11;
+  width: 100%;
+}
+
+.ex-tile {
+  position: relative;
+  display: block;
+  padding: 0;
+  border: 0;
+  border-radius: 14px;
+  background: var(--ex-border);
+  overflow: hidden;
+  cursor: zoom-in;
+}
+
+.ex-tile:first-child {
+  grid-row: 1 / span 2;
+}
+
+.ex-tile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.45s ease;
+}
+
+.ex-tile:hover img,
+.ex-tile:focus-visible img {
+  transform: scale(1.06);
+}
+
+.ex-tile:focus-visible {
+  outline: 3px solid var(--ex-gold);
+  outline-offset: 2px;
+}
+
+.ex-tile-badge {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.82);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+/* =========================================
+   CLOSING BAND
+========================================= */
+
+.ex-cta {
+  padding: 3.75rem 0;
+  background: var(--ex-green);
+}
+
+.ex-cta-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.ex-cta-text {
+  flex: 1 1 360px;
+}
+
+.ex-cta-text h2 {
+  margin: 0 0 0.6rem;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+.ex-cta-text p {
+  margin: 0;
+  max-width: 520px;
+  line-height: 1.6;
+}
+
+.ex-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.ex-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 1.5rem;
+  border: 1.5px solid transparent;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.ex-btn:hover {
+  transform: translateY(-2px);
+}
+
+.ex-btn:focus-visible {
+  outline: 3px solid rgba(230, 201, 135, 0.8);
+  outline-offset: 2px;
+}
+
+.ex-btn-primary {
+  background: var(--ex-gold);
+  box-shadow: 0 6px 16px rgba(197, 152, 73, 0.4);
+}
+
+.ex-btn-primary:hover {
+  background: var(--ex-gold-dark);
+}
+
+.ex-btn-outline {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.8);
+}
+
+.ex-btn-outline:hover {
+  background: #ffffff;
+}
+
+/* =========================================
+   LIGHTBOX
+========================================= */
+
+.ex-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: rgba(10, 14, 12, 0.92);
+}
+
+.ex-lightbox-figure {
+  position: relative;
+  margin: 0;
+  max-width: min(1100px, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ex-lightbox-figure img {
+  display: block;
+  max-width: 100%;
+  max-height: 78vh;
+  border-radius: 10px;
+  object-fit: contain;
+}
+
+.ex-lightbox-figure figcaption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  margin-top: 0.85rem;
+  font-size: 0.95rem;
+}
+
+.ex-lightbox-close,
+.ex-lightbox-nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.ex-lightbox-close:hover,
+.ex-lightbox-nav:hover {
+  background: rgba(255, 255, 255, 0.32);
+}
+
+.ex-lightbox-close:focus-visible,
+.ex-lightbox-nav:focus-visible {
+  outline: 3px solid var(--ex-gold);
+  outline-offset: 2px;
+}
+
+.ex-lightbox-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 44px;
+  height: 44px;
+}
+
+.ex-lightbox-nav {
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1180px) {
+  :root {
+    --ex-nav-offset: 60px;
+  }
+}
+
+@media (max-width: 960px) {
+  .ex-site {
+    padding: 3.5rem 0;
+  }
+
+  .ex-site-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  /* Gallery comes right after the intro on small screens */
+  .ex-site-grid--reverse .ex-site-info,
+  .ex-site-grid--reverse .ex-gallery {
+    order: 0;
+  }
+
+  .ex-gallery {
+    aspect-ratio: 16 / 10;
+  }
+}
+
+@media (max-width: 640px) {
+  .ex-container {
+    padding: 0 16px;
+  }
+
+  .ex-hero {
+    padding: 120px 0 56px;
+  }
+
+  .ex-hero-stats {
+    gap: 1.75rem;
+  }
+
+  .ex-site-header {
+    gap: 1rem;
+  }
+
+  .ex-site-number {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    font-size: 1.3rem;
+  }
+
+  /* 1 large photo on top, 4 small below in a 2x2 */
+  .ex-gallery {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    aspect-ratio: auto;
+  }
+
+  .ex-tile {
+    aspect-ratio: 4 / 3;
+  }
+
+  .ex-tile:first-child {
+    grid-column: 1 / span 2;
+    grid-row: auto;
+    aspect-ratio: 16 / 10;
+  }
+
+  .ex-learnings {
+    padding: 1.15rem 1.15rem;
+  }
+
+  .ex-cta-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .ex-btn {
+    width: 100%;
+  }
+
+  .ex-lightbox {
+    flex-wrap: wrap;
+    align-content: center;
+    padding: 1rem;
+  }
+
+  .ex-lightbox-figure {
+    order: 1;
+    width: 100%;
+  }
+
+  .ex-lightbox-prev {
+    order: 2;
+  }
+
+  .ex-lightbox-next {
+    order: 3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ex-tile img,
+  .ex-chip,
+  .ex-btn,
+  .ex-lightbox-close,
+  .ex-lightbox-nav {
+    transition: none;
+  }
+
+  .ex-tile:hover img,
+  .ex-tile:focus-visible img {
+    transform: none;
+  }
+}
+
+/* =========================================
+   TEXT COLOUR SAFEGUARDS
+   Global h1 / h2 / h3 / p / a styles elsewhere in the site can override
+   colours (this happened on the logistics page). These rules are scoped to
+   .ex-page so the text stays readable on every background.
+========================================= */
+
+/* Remove any decorative underline a global heading style adds */
+.ex-page h1::before,
+.ex-page h1::after,
+.ex-page h2::before,
+.ex-page h2::after,
+.ex-page h3::before,
+.ex-page h3::after {
+  content: none !important;
+  display: none !important;
+}
+
+.ex-page h1,
+.ex-page h2,
+.ex-page h3,
+.ex-page p {
+  font-family: inherit;
+  letter-spacing: normal;
+  text-transform: none;
+  text-align: left;
+}
+
+/* Dark backgrounds → white text */
+.ex-page .ex-hero h1,
+.ex-page .ex-hero .ex-hero-lead,
+.ex-page .ex-breadcrumb,
+.ex-page .ex-breadcrumb-link,
+.ex-page .ex-breadcrumb-current,
+.ex-page .ex-stat-value,
+.ex-page .ex-stat-label,
+.ex-page .ex-cta-text h2,
+.ex-page .ex-cta-text p,
+.ex-page .ex-site-number,
+.ex-page .ex-check,
+.ex-page .ex-tile-badge,
+.ex-page .ex-lightbox-figure figcaption,
+.ex-page .ex-lightbox-close,
+.ex-page .ex-lightbox-nav {
+  color: #ffffff !important;
+}
+
+.ex-page .ex-badge {
+  color: #f2d49b !important;
+}
+
+.ex-page .ex-hero .ex-hero-lead,
+.ex-page .ex-cta-text p {
+  opacity: 1;
+}
+
+/* Light backgrounds → dark text */
+.ex-page .ex-site-title {
+  color: var(--ex-green) !important;
+}
+
+.ex-page .ex-site-subtitle {
+  color: var(--ex-text-medium) !important;
+}
+
+.ex-page .ex-site-text {
+  color: var(--ex-text-medium) !important;
+}
+
+.ex-page .ex-tag {
+  color: var(--ex-gold-text) !important;
+}
+
+.ex-page .ex-learnings-title {
+  color: var(--ex-gold-text) !important;
+}
+
+.ex-page .ex-learnings-list li {
+  color: var(--ex-text) !important;
+}
+
+/* Sticky menu chips */
+.ex-page .ex-chip-label {
+  color: var(--ex-text);
+}
+
+.ex-page .ex-chip-number {
+  color: var(--ex-gold-text);
+}
+
+.ex-page .ex-chip.is-active .ex-chip-label,
+.ex-page .ex-chip.is-active .ex-chip-number {
+  color: #ffffff;
+}
+
+/* Buttons (colours set here so link styles elsewhere can't change them) */
+.ex-page .ex-btn-primary,
+.ex-page .ex-btn-primary:hover {
+  color: #ffffff;
+}
+
+.ex-page .ex-btn-outline {
+  color: #ffffff;
+}
+
+.ex-page .ex-btn-outline:hover {
+  color: var(--ex-green);
+}

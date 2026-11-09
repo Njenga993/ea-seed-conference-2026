@@ -23,6 +23,7 @@ import ContactPage from "./pages/ContactPage";
 import Accomodation from "./pages/Accomodation"
 import FAQPage from "./pages/FAQPage";
 import EbolaUpdate from "./pages/EbolaUpdate";
+import ExcursionPage from "./pages/ExcursionPage";
 import LogisticsPage from "./pages/LogisticsPage";
 //import PaymentSuccess from "./pages/PaymentSuccess";
 //import CheckIn from "./pages/CheckIn";
@@ -112,6 +113,7 @@ function AppContent() {
             path="/registration-success"
             element={<RegistrationSuccess />}
           />
+          <Route path="/excursion" element={<ExcursionPage />} />
           {/*<Route path="/payment-success" element={<PaymentSuccess />} />
           <Route path="/checkin" element={<CheckIn />} />
           <Route path="/admin" element={<AdminDashboard />} />*/}

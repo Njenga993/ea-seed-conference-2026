@@ -15,7 +15,7 @@ import sideEventAF from "../assets/Agroecologyfund.png";
 import sideEventDCA from "../assets/DCA.png";
 import sideEventSIDAA from "../assets/SIDAA.png";
 import sideEventPELUM from "../assets/PELUM.png";
-import sideEventWomen from "../assets/AWC.png";
+import sideEventWomen from "../assets/AWD.png";
 import sideEventSWISSDCA from "../assets/SwissaidDCA.png";
 import sideEventBiovision from "../assets/BioVision.png";
 import sideEventOpenSource from "../assets/OSSeeds.png";
@@ -199,10 +199,10 @@ const confirmedSideEvents: ConfirmedSideEvent[] = [
   },
   {
     title:
-      "Scaling up Agroecology Initiatives for Soil Health, Climate Resilience, Economic Stability, and Sustainable Healthy Food Systems. ",
+      "Scaling up Agroecology Initiatives for Soil Health, Climate Resilience, Economic Stability, and Sustainable Healthy Food Systems.  ",
     organisers: "PELUM Kenya",
     description: [
-      "To position Agroecology at the center of Kenya’s agricultural and food systems transformation",
+      " To position Agroecology at the center of Kenya’s agricultural and food systems transformation",
       "Agroecology is increasingly recognized as a transformative, sustainable and holistic approach to agricultural development. It integrates ecological, economic, and social principles to foster resilient farming systems. However, effective implementation of Agroecological practices such as soil regeneration, agroforestry, and biodiversity restoration requires long-term investment in land; thus secure and predictable land access is key to mainstreaming Agroecological principles in food systems.",
       "Unfortunately, insecure land tenure remains a significant barrier, particularly for smallholder farmers, women, youths, and pastoralist communities. Without guaranteed land rights, many producers are unable or unwilling to invest in long-term, regenerative practices central to Agroecology Principles."
     ],
@@ -259,7 +259,7 @@ const confirmedSideEvents: ConfirmedSideEvent[] = [
   {
     title:
       "POWER FOR FOOD PARTNERSHIP",
-    organisers: " POWER FOR FOOD PARTNERSHIP- IKEA FOUNDATION, SNV, SEED SAVERS NETWORK, CO-ELIB. KILIMO TRUST, WORLD VEG, GREEN ZONE KENYA, BIP INC, KEREA , SOCAA",
+    organisers: " POWER FOR FOOD PARTNERSHIP- IKEA FOUNDATION, SNV, SEED SAVERS NETWORK, CO-ELIB. KILIMO TRUST, WORLD VEG, GREEN ZONE KENYA, BOP INC, KEREA , SOCAA",
     description: [
       "To facilitate cross-country knowledge exchange and strengthen regional partnerships.",
       "To showcase country experiences, evidence and case studies on regenerative agriculture, the productive use of renewable energy (PURE)",

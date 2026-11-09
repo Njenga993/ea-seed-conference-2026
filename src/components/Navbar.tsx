@@ -13,7 +13,7 @@ const isDesktop = () =>
 
 // Your old file used both "/accommodation" and "/accomodation".
 // Set this to whichever path your router actually defines.
-const ACCOMMODATION_PATH = "/accommodation";
+
 
 type DropdownKey = "accommodation" | "contact";
 
@@ -175,7 +175,7 @@ const Navbar = () => {
     setOpenDropdown((prev) => (prev === key ? null : key));
   };
 
-  const accommodationActive = location.pathname === ACCOMMODATION_PATH;
+  const accommodationActive = location.pathname === "/accommodation" || location.pathname === "/ebola-update" || location.pathname === "/logistics";
   const contactActive =
     location.pathname === "/contact" ||
     location.pathname === "/faqs" ||
@@ -276,7 +276,7 @@ const Navbar = () => {
               {...dropdownHandlers("accommodation")}
             >
               <Link
-                to={ACCOMMODATION_PATH}
+                to= "/accommodation"
                 onClick={(e) => handleParentClick(e, "accommodation")}
                 aria-haspopup="true"
                 aria-expanded={openDropdown === "accommodation"}
@@ -304,13 +304,13 @@ const Navbar = () => {
               <ul className="nav-dropdown">
                 <li>
                   <Link
-                    to={ACCOMMODATION_PATH}
+                    to= "/excursion"
                     onClick={closeMenus}
                     className={`nav-dropdown-link ${
-                      accommodationActive ? "nav-dropdown-link-active" : ""
+                      location.pathname === "/excursion" ? "nav-dropdown-link-active" : ""
                     }`}
                   >
-                    Accommodation
+                    Excursion Sites
                   </Link>
                 </li>
                 <li>
