@@ -66,9 +66,9 @@ const sites: ExcursionSite[] = [
     subtitle: "Field visit: ICRAF Campus and Karura Forest",
     focus: "Trees & agroforestry",
     description: [
-      
+      "Discover how trees and scientific innovation are helping address some of the world’s most pressing challenges, from climate change and biodiversity loss to food security and land degradation.",
+      "The visit will begin at the Landscape Alliance (ICRAF) Campus with guided tours of our state-of-the-art laboratories, where science and innovation are generating practical solutions for sustainable land management, tree conservation and landscape restoration. Participants will then proceed to nearby Karura Forest to explore how partnerships, community stewardship and science are contributing to the conservation and restoration of urban forests.",
       "Tree Seed Laboratory and Genebank: It conserves and promotes the sustainable use of agroforestry tree genetic resources. Its gene bank holds 248 agroforestry tree species and plays an important role in increasing access to high-quality tree seeds. This helps farmers and communities plant the right trees, in the right places and for the right purposes.",
-      "Soil and Land Health Laboratory: A leading global facility offering rapid, reliable and cost-effective analysis of soils, plants and agricultural inputs, including manure and fertilizers, using advanced dry spectral techniques. With more than 20,000 samples analysed annually, it enables soil health assessments at scale, from individual farms to national and international levels. It also serves as a key reference facility for more than 20 regional spectroscopy laboratories worldwide and contributes to the Food and Agriculture Organization of the United Nations (FAO)'s Global Soil Laboratory Network (GLOSOLAN).",
       "Friends of Karura Forest (FKF) is a Community Forest Association established in 2009 that transformed Karura Forest from a dangerous no-go zone into one of Kenya's most popular recreational and conservation areas, attracting more than 75,000 visits each month. Located on the outskirts of Nairobi, Karura Forest plays a unique role as an urban conservation and recreational forest. The FKF works to protect and restore the forest's natural ecosystem, provide public access to green spaces, and create employment opportunities for neighbouring communities. Through years of dedicated stewardship, Karura Forest has gained international recognition as one of Africa's most successful urban forests.",
       
     ],
@@ -281,7 +281,7 @@ const ExcursionPage = () => {
         <meta property="og:title" content="Excursions | EA-ISC 2026" />
         <meta
           property="og:description"
-          content="Four field excursions on trees, seeds, insects and indigenous livestock, part of the 1st Eastern Africa Indigenous Seed Conference."
+          content="Five field excursions on trees, seeds, insects and indigenous livestock, part of the 1st Eastern Africa Indigenous Seed Conference."
         />
         <meta property="og:site_name" content="EA-ISC 2026" />
         <script type="application/ld+json">{JSON.stringify(pageData)}</script>
@@ -310,7 +310,7 @@ const ExcursionPage = () => {
             <span className="ex-badge">Field Learning · EA-ISC 2026</span>
             <h1>Conference Excursions</h1>
             <p className="ex-hero-lead">
-              Step out of the conference hall and into the field. Four sites
+              Step out of the conference hall and into the field. Five sites
               have been selected to show indigenous seeds, trees, insects and
               livestock at work: practical learning from the people and
               institutions leading the way.
@@ -318,11 +318,11 @@ const ExcursionPage = () => {
 
             <ul className="ex-hero-stats">
               <li>
-                <span className="ex-stat-value">4</span>
+                <span className="ex-stat-value">5</span>
                 <span className="ex-stat-label">Learning sites</span>
               </li>
               <li>
-                <span className="ex-stat-value">4</span>
+                <span className="ex-stat-value">5</span>
                 <span className="ex-stat-label">Themes</span>
               </li>
             </ul>

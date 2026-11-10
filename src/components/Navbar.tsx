@@ -312,6 +312,18 @@ const Navbar = () => {
               </Link>
 
               <ul className="nav-dropdown">
+
+                <li>
+                  <Link
+                    to="/accommodation"
+                    onClick={closeMenus}
+                    className={`nav-dropdown-link ${
+                      location.pathname === "/accommodation" ? "nav-dropdown-link-active" : ""
+                    }`}
+                  >
+                    Accommodation
+                  </Link>
+                </li>
                 <li>
                   <Link
                     to="/ebola-update"
