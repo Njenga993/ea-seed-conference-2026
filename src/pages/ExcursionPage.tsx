@@ -12,11 +12,11 @@ import heroBackground from "../assets/contact.webp";
 // ── Photos ───────────────────────────────────────────────────────────────────
 // Put 5 photos per site in src/assets/excursion/ using these names
 // (or change the paths / extensions below to match your files).
-import la1 from "../assets/sites/alliance.png";
-import la2 from "../assets/sites/alliance2.png";
-import la3 from "../assets/sites/alliance.png";
-import la4 from "../assets/sites/alliance.png";
-import la5 from "../assets/sites/alliance2.png";
+import la1 from "../assets/sites/alliance1.png";
+import la2 from "../assets/sites/alliance4.png";
+import la3 from "../assets/sites/alliance5.png";
+import la4 from "../assets/sites/alliance4.png";
+import la5 from "../assets/sites/alliance5.png";
 
 import ssn1 from "../assets/sites/ssn1.png";
 import ssn2 from "../assets/sites/ssn2.png";
@@ -36,6 +36,12 @@ import kl2 from "../assets/sites/kalro2.png";
 import kl3 from "../assets/sites/kalro1.png";
 import kl4 from "../assets/sites/kalro2.png";
 import kl5 from "../assets/sites/kalro1.png";
+
+import cf1 from "../assets/sites/chari1.png";
+import cf2 from "../assets/sites/chari2.png";
+import cf3 from "../assets/sites/chari3.png";
+import cf4 from "../assets/sites/chari4.png";
+import cf5 from "../assets/sites/chari1.png";
 
 const SITE_URL = "https://eaindigenousseedconference.org";
 
@@ -57,19 +63,23 @@ const sites: ExcursionSite[] = [
     id: "site-1",
     number: "01",
     name: "Landscape Alliance",
+    subtitle: "Field visit: ICRAF Campus and Karura Forest",
     focus: "Trees & agroforestry",
     description: [
-      "Landscape Alliance works at the intersection of science, policy and practice to deliver systems-level solutions for interconnected global challenges. Its work focuses on the power of trees, forests and agroforestry landscapes to address the climate crisis, biodiversity loss, food and nutrition insecurity, and persistent inequalities in livelihoods and well-being.",
-      "Through an integrated landscape approach, it co-designs solutions with communities, governments, Indigenous Peoples, research partners, civil society and the private sector, combining rigorous science, local and Indigenous knowledge, adaptive learning and long-term partnerships to deliver practical, scalable and equitable impact.",
-      "Landscape Alliance is the shared operating name of the Center for International Forestry Research (CIFOR) and the International Centre for Research in Agroforestry (ICRAF), two independent international organisations and CGIAR Research Centers working together through a common strategy, governance and leadership structure.",
+      
+      "Tree Seed Laboratory and Genebank: It conserves and promotes the sustainable use of agroforestry tree genetic resources. Its gene bank holds 248 agroforestry tree species and plays an important role in increasing access to high-quality tree seeds. This helps farmers and communities plant the right trees, in the right places and for the right purposes.",
+      "Soil and Land Health Laboratory: A leading global facility offering rapid, reliable and cost-effective analysis of soils, plants and agricultural inputs, including manure and fertilizers, using advanced dry spectral techniques. With more than 20,000 samples analysed annually, it enables soil health assessments at scale, from individual farms to national and international levels. It also serves as a key reference facility for more than 20 regional spectroscopy laboratories worldwide and contributes to the Food and Agriculture Organization of the United Nations (FAO)'s Global Soil Laboratory Network (GLOSOLAN).",
+      "Friends of Karura Forest (FKF) is a Community Forest Association established in 2009 that transformed Karura Forest from a dangerous no-go zone into one of Kenya's most popular recreational and conservation areas, attracting more than 75,000 visits each month. Located on the outskirts of Nairobi, Karura Forest plays a unique role as an urban conservation and recreational forest. The FKF works to protect and restore the forest's natural ecosystem, provide public access to green spaces, and create employment opportunities for neighbouring communities. Through years of dedicated stewardship, Karura Forest has gained international recognition as one of Africa's most successful urban forests.",
+      
     ],
-    learningsTitle: "Key learnings",
+    learningsTitle: "Visit highlights",
     learnings: [
-      "Tree nursery",
-      "Agroforestry and landscape restoration research",
-      "Tree seed genebank",
-      "Tree seed laboratory",
-      "Karura Forest Restoration Walk",
+      "Tree Seed Laboratory and Genebank",
+      "Soil and Land Health Laboratory",
+      "Spatial Data Science and Applied Learning Laboratory (SPACIAL)",
+      "Guided walk through Karura Forest",
+      "Visit to the Multi-Species Breeding Seed Orchard (MBSO) site and project overview",
+      "Tour of the Karura indigenous tree nursery",
     ],
     photos: [la1, la2, la3, la4, la5],
   },
@@ -128,6 +138,27 @@ const sites: ExcursionSite[] = [
       "The contribution of indigenous livestock to food security, livelihoods and biodiversity conservation",
     ],
     photos: [kl1, kl2, kl3, kl4, kl5],
+  },
+  {
+    id: "site-5",
+    number: "05",
+    name: "Charis Farm",
+    subtitle: " sustainable urban farming, organic food production, and agricultural training",
+    focus: "Sustainable urban farming",
+    description: [
+      "Charis Farm is an agricultural demonstration and model center located in Nyondia along Kinagop Road, about 8 km from Naivasha Town in Nakuru County, Kenya. Founded by Joyce Kiara, the farm focuses on sustainable urban farming, organic food production, and agricultural training.",
+      "The visit to Charis Farm will expose participants to the principles and practices of sustainable urban farming, organic food production, and agricultural training.",
+      "Farmers will learn about the importance of sustainable urban farming practices, identifying locally adapted crops and understanding their unique characteristics, including their ability to withstand harsh climatic conditions, tolerate diseases and survive under low-input production systems.",
+      "The visit will also provide an opportunity to learn about sustainable agriculture management, crop selection, breeding practices, pasture and fodder management, and how sustainable urban farming contributes to household food security, income generation and climate resilience.",
+    ],
+    learningsTitle: "Key learnings for farmers",
+    learnings: [
+      "Sustainable Urban Farming:  kitchen garden technologies (such as multi-level, multi-story, tire, and raised-bed gardens) designed for small spaces.",
+      "Livestock & Aquaculture: Rears dairy goat breeds (Saanen, Toggenburg, British Alpine, German Alpine), pigs, poultry, ornamental birds, rabbits, and fish in greenhouse setups",
+      "Organic Innovations: Utilizes local waste conversion (pig/goat manure, rabbit urine, Azolla water purification, and natural pest traps).",
+      
+    ],
+    photos: [cf1, cf2, cf3, cf4, cf5],
   },
 ];
 
