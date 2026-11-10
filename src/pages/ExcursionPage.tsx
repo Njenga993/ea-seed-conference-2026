@@ -12,11 +12,11 @@ import heroBackground from "../assets/contact.webp";
 // ── Photos ───────────────────────────────────────────────────────────────────
 // Put 5 photos per site in src/assets/excursion/ using these names
 // (or change the paths / extensions below to match your files).
-import la1 from "../assets/sites/chari1.png";
-import la2 from "../assets/sites/chari2.png";
-import la3 from "../assets/sites/chari3.png";
-import la4 from "../assets/sites/chari4.png";
-import la5 from "../assets/sites/chari1.png";
+import la1 from "../assets/sites/alliance.png";
+import la2 from "../assets/sites/alliance2.png";
+import la3 from "../assets/sites/alliance.png";
+import la4 from "../assets/sites/alliance.png";
+import la5 from "../assets/sites/alliance2.png";
 
 import ssn1 from "../assets/sites/ssn1.png";
 import ssn2 from "../assets/sites/ssn2.png";

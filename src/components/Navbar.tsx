@@ -270,6 +270,16 @@ const Navbar = () => {
               </Link>
             </li>
 
+            <li className="nav-item">
+              <Link
+                to="/excursion"
+                onClick={closeMenus}
+                className={`nav-link ${location.pathname === "/excursion" ? "active" : ""}`}
+              >
+                Excursion Sites
+              </Link>
+            </li>
+
             {/* Accommodation dropdown */}
             <li
               className={`nav-item nav-item-dropdown ${openDropdown === "accommodation" ? "open" : ""}`}
@@ -302,17 +312,6 @@ const Navbar = () => {
               </Link>
 
               <ul className="nav-dropdown">
-                <li>
-                  <Link
-                    to= "/excursion"
-                    onClick={closeMenus}
-                    className={`nav-dropdown-link ${
-                      location.pathname === "/excursion" ? "nav-dropdown-link-active" : ""
-                    }`}
-                  >
-                    Excursion Sites
-                  </Link>
-                </li>
                 <li>
                   <Link
                     to="/ebola-update"
