@@ -1,14 +1,13 @@
 // pages/Home.tsx
 import { Helmet } from "react-helmet-async";
 import Hero from "../components/Hero";
-//import About from "../components/About";
-import Homesupport from "../components/HomeSupport";
-import FocusAreas from "../components/FocusAreas";
-
-import InfoCards from "../components/InfoCards";
-import AboutConferenceSection from "../components/AboutConferenceSection";
-import Contact from "../components/Contact";
 import ThemeStripe from "../components/ThemeStripe";
+import AboutConferenceSection from "../components/AboutConferenceSection";
+import FocusAreas from "../components/FocusAreas";
+import InfoCards from "../components/InfoCards";
+import Homesupport from "../components/HomeSupport";
+import Sponsors from "../components/Sponsors";
+import Contact from "../components/Contact";
 import SEO from "../components/SEO";
 
 const Home = () => {
@@ -23,10 +22,10 @@ const Home = () => {
     endDate: "2026-11-20T18:00",
     location: {
       "@type": "Place",
-      name: "Kenya International Conference Centre",
+      name: "Catholic University of Eastern Africa (CUEA)",
       address: {
         "@type": "PostalAddress",
-        addressLocality: "Catholic university of Eastern Africa, Nairobi,Kenya",
+        addressLocality: "Nairobi",
         addressCountry: "KE",
       },
     },
@@ -90,17 +89,20 @@ const Home = () => {
         </script>
       </Helmet>
 
-      {/* Your existing components */}
+      {/* What it is, when it is, why it matters */}
       <Hero />
       <ThemeStripe />
-      {/* <About /> */}
       <AboutConferenceSection />
 
-      <Homesupport />
+      {/* What the conference covers and the practical details */}
       <FocusAreas />
-      
       <InfoCards />
-    
+
+      {/* How to take part or support */}
+      <Homesupport />
+
+      {/* Social proof, leading into the contact section */}
+      <Sponsors />
       <Contact />
     </>
   );

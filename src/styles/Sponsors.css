@@ -1,247 +1,413 @@
-/* sponsors.css - Simple and clean */
+/* styles/sponsors.css
+   Redesigned: each tier now gets its own labeled, static row of cards —
+   one card per sponsor, no scrolling, no duplication.
 
-/* Base Section */
-.home-sponsors {
-  background-color: #f5f1eb;
-  padding: 80px 0;
-  text-align: center;
+   Follows the same design tokens as CallForSideEventsPage.css.
+   No gradients. No emojis in CSS.
+   Every class is prefixed "sp-" and the tokens are scoped to .sp-section, so
+   nothing leaks into (or gets changed by) other pages' :root variables.
+*/
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
+/* ── Design tokens (same values as before) ─────────────────────────────────── */
+.sp-section {
+  --sp-primary:        #1e4a6b;
+  --sp-primary-dark:   #0f2c3f;
+  --sp-primary-light:  #e8f0f7;
+  --sp-secondary:      #c17b3c;
+  --sp-secondary-dark: #a8672e;
+  --sp-secondary-light:#f5e6d9;
+  --sp-text-dark:      #1e293b;
+  --sp-text-medium:    #475569;
+  --sp-text-light:     #64748b;
+  --sp-border:         #e2e8f0;
+  --sp-bg-light:       #f8fafc;
+  --sp-bg-white:       #ffffff;
+  --sp-shadow-sm:      0 1px 3px rgba(0, 0, 0, 0.05);
+  --sp-shadow-md:      0 4px 6px rgba(0, 0, 0, 0.05);
+  --sp-shadow-lg:      0 10px 30px rgba(0, 0, 0, 0.08);
+  --sp-transition:     all 0.2s ease;
+
+  --sp-gap: 24px; /* space between logo cards in a row */
+
+  padding: 70px 0;
+  background: var(--sp-bg-light);
+  color: var(--sp-text-dark);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
 }
 
-.home-sponsors-container {
+.sp-section *,
+.sp-section *::before,
+.sp-section *::after {
+  box-sizing: border-box;
+}
+
+.sp-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
+  width: 100%;
 }
 
-/* Header */
-.home-sponsors-header {
-  margin-bottom: 50px;
+/* ── Heading (same treatment as before) ─────────────────────────────────────── */
+.sp-title {
+  position: relative;
+  margin: 0 0 1.5rem;
+  padding-bottom: 15px;
+  font-size: clamp(1.8rem, 4vw, 2.2rem);
+  text-align: center;
 }
 
-.home-sponsors-tag {
-  display: inline-block;
-  background: #e8f0f7;
-  color: #1e4a6b;
-  padding: 6px 16px;
-  border-radius: 30px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  margin-bottom: 15px;
+.sp-section .sp-title::after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: var(--sp-secondary);
 }
 
-.home-sponsors-title {
-  font-size: 2.2rem;
-  font-weight: 600;
-  color: #1e4a6b;
-  margin-bottom: 15px;
-}
-
-.home-sponsors-intro {
-  font-size: 1.1rem;
-  color: #475569;
-  line-height: 1.6;
+.sp-subtitle {
   max-width: 650px;
-  margin: 0 auto;
+  margin: 0 auto 24px;
+  font-size: 1rem;
+  line-height: 1.6;
+  text-align: center;
 }
 
-/* Sponsors Grid */
-.home-sponsors-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 25px;
-  margin-bottom: 50px;
-}
-
-/* Sponsor Card */
-.home-sponsor-card {
-  background: white;
-  border: 1px solid #e2e8f0;
-  border-radius: 6px;
-  padding: 25px 15px;
-  transition: all 0.2s ease;
+/* ── Tier stack ────────────────────────────────────────────────────────────── */
+/* Each tier is its own block: header + static card row. A hairline divider
+   sits between tiers so the eye reads them as separate groups. */
+.sp-tiers {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 12px;
+  margin-top: 32px;
 }
 
-.home-sponsor-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-  border-color: #c17b3c;
+.sp-tier {
+  position: relative;
 }
 
-.home-sponsor-image {
-  width: 100%;
-  height: 80px;
+.sp-tier + .sp-tier {
+  margin-top: 32px;
+  padding-top: 32px;
+  border-top: 1px solid var(--sp-border);
+}
+
+/* Per-tier color tokens. These cascade down to the badge, the card top
+   border, and the small in-card label, so every tier is colour-coded without
+   repeating the values. */
+.sp-tier--platinum { --tier-color: #1e4a6b; --tier-soft: #e8f0f7; --tier-text: #1e4a6b; }
+.sp-tier--gold     { --tier-color: #d4a017; --tier-soft: #fbf3d9; --tier-text: #7a5a05; }
+.sp-tier--silver   { --tier-color: #94a3b8; --tier-soft: #f1f5f9; --tier-text: #475569; }
+.sp-tier--bronze   { --tier-color: #b0733a; --tier-soft: #f5e6d9; --tier-text: #8a4f1f; }
+
+/* Tier header: coloured pill badge + thin rule + partner count */
+.sp-tier-head {
   display: flex;
   align-items: center;
+  gap: 16px;
+  max-width: 1200px;
+  margin: 0 auto 10px;
+  padding: 0 24px;
+}
+
+.sp-tier-badge {
+  flex-shrink: 0;
+  padding: 5px 16px;
+  background: var(--tier-soft);
+  color: var(--tier-text);
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.6;
+  text-transform: uppercase;
+}
+
+.sp-tier-rule {
+  flex: 1;
+  height: 1px;
+  background: var(--sp-border);
+}
+
+.sp-tier-count {
+  flex-shrink: 0;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--sp-text-light);
+}
+
+/* ── Static card row (one card per sponsor) ────────────────────────────────── */
+.sp-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-gap);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 6px 24px 24px;
+  list-style: none;
+}
+
+/* Tiers with 1–2 sponsors centre their cards; tiers with 3+ spread them
+   across the row. Both still wrap on narrow viewports. */
+.sp-row--center {
   justify-content: center;
 }
 
-.home-sponsor-image img {
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
-  filter: grayscale(100%);
-  opacity: 0.7;
-  transition: all 0.2s ease;
+.sp-row--spread {
+  justify-content: flex-start;
 }
 
-.home-sponsor-card:hover .home-sponsor-image img {
-  filter: grayscale(0%);
-  opacity: 1;
-  transform: scale(1.05);
+/* ── Logo cards (same card language as before) ─────────────────────────────── */
+.sp-card {
+  flex-shrink: 0;
+  width: var(--card-w);
+  height: var(--card-h);
 }
 
-.home-sponsor-level {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #1e4a6b;
-  padding: 4px 12px;
-  background: #e8f0f7;
-  border-radius: 20px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
+/* Size steps down with the tier; colours come from .sp-tier--* above */
+.sp-card--platinum { --card-w: 300px; --card-h: 170px; }
+.sp-card--gold     { --card-w: 260px; --card-h: 150px; }
+.sp-card--silver   { --card-w: 230px; --card-h: 135px; }
+.sp-card--bronze   { --card-w: 200px; --card-h: 120px; }
 
-/* CTA Section */
-.home-sponsors-cta {
-  background: white;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  padding: 30px;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.home-sponsors-cta-text {
-  font-size: 1rem;
-  color: #475569;
-  margin-bottom: 15px;
-}
-
-.home-sponsors-button {
-  display: inline-block;
-  background: #c17b3c;
-  color: white;
-  padding: 12px 32px;
-  font-size: 1rem;
-  font-weight: 500;
+.sp-card-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 14px 20px 18px;
+  background: var(--sp-bg-white);
+  border: 1px solid var(--sp-border);
+  border-top: 3px solid var(--tier-color);
+  border-radius: 0 0 8px 8px;
+  box-shadow: var(--sp-shadow-sm);
   text-decoration: none;
-  border-radius: 4px;
-  transition: all 0.2s ease;
-  border: none;
-  cursor: pointer;
+  transition: var(--sp-transition);
 }
 
-.home-sponsors-button:hover {
-  background: #a5672f;
+.sp-card-inner:hover {
+  box-shadow: var(--sp-shadow-lg);
+  transform: translateY(-3px);
+}
+
+a.sp-card-inner:focus-visible {
+  outline: 3px solid var(--sp-secondary);
+  outline-offset: 2px;
+}
+
+.sp-tier-label {
+  flex-shrink: 0;
+  margin-bottom: 10px;
+  padding: 2px 12px;
+  background: var(--tier-soft);
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  line-height: 1.6;
+  text-transform: uppercase;
+  color: var(--tier-text);
+}
+
+/* The logo fills whatever space is left, whatever its shape or file type */
+.sp-logo {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+}
+
+.sp-logo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Shown only if a logo file is missing or fails to load */
+.sp-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: center;
+  color: var(--sp-primary);
+}
+
+/* ── Become a sponsor box (same look as before) ────────────────────────────── */
+.sp-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  max-width: 900px;
+  margin: 50px auto 0;
+  padding: 36px 40px;
+  background: var(--sp-bg-white);
+  border: 1px solid var(--sp-border);
+  border-left: 4px solid var(--sp-secondary);
+  border-radius: 0 10px 10px 0;
+}
+
+.sp-cta-text h3 {
+  margin: 0 0 10px;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.sp-cta-text p {
+  max-width: 480px;
+  margin: 0;
+  font-size: 0.93rem;
+  line-height: 1.7;
+}
+
+.sp-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  padding: 14px 32px;
+  background: var(--sp-secondary);
+  border: 2px solid var(--sp-secondary);
+  border-radius: 5px;
+  font-size: 0.97rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: var(--sp-transition);
+  color: #ffffff;
+}
+
+.sp-cta-btn:hover {
+  background: var(--sp-secondary-dark);
+  border-color: var(--sp-secondary-dark);
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(193, 123, 60, 0.2);
 }
 
-/* Responsive Design */
-@media (max-width: 1024px) {
-  .home-sponsors-grid {
-    grid-template-columns: repeat(3, 1fr);
+.sp-cta-btn:focus-visible {
+  outline: 3px solid var(--sp-primary);
+  outline-offset: 2px;
+}
+
+/* ── Responsive ────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .sp-section {
+    padding: 50px 0;
+  }
+
+  .sp-cta {
+    padding: 28px 22px;
+  }
+
+  .sp-tier-head {
+    padding: 0 16px;
+  }
+
+  .sp-row {
+    padding: 6px 16px 22px;
+  }
+}
+
+@media (max-width: 700px) {
+  .sp-cta {
+    flex-direction: column;
+    align-items: flex-start;
     gap: 20px;
   }
-  
-  .home-sponsors-title {
-    font-size: 2rem;
-  }
-}
 
-@media (max-width: 900px) {
-  .home-sponsors-grid {
-    grid-template-columns: repeat(2, 1fr);
-    max-width: 600px;
-    margin: 0 auto 40px;
-  }
-}
-
-@media (max-width: 768px) {
-  .home-sponsors {
-    padding: 60px 0;
-  }
-  
-  .home-sponsors-title {
-    font-size: 1.8rem;
-  }
-  
-  .home-sponsors-intro {
-    font-size: 1rem;
-  }
-  
-  .home-sponsor-card {
-    padding: 20px 15px;
-  }
-  
-  .home-sponsor-image {
-    height: 70px;
-  }
-  
-  .home-sponsors-cta {
-    padding: 25px 20px;
-  }
-}
-
-@media (max-width: 576px) {
-  .home-sponsors-tag {
-    font-size: 0.75rem;
-    padding: 4px 12px;
-  }
-  
-  .home-sponsors-title {
-    font-size: 1.6rem;
-  }
-  
-  .home-sponsors-grid {
-    grid-template-columns: 1fr;
-    max-width: 280px;
-    gap: 15px;
-  }
-  
-  .home-sponsor-card {
-    padding: 20px;
-  }
-  
-  .home-sponsor-image {
-    height: 80px;
-  }
-  
-  .home-sponsors-cta-text {
-    font-size: 0.95rem;
-  }
-  
-  .home-sponsors-button {
+  .sp-cta-btn {
     width: 100%;
-    max-width: 280px;
+    justify-content: center;
   }
 }
 
-/* Small phones */
-@media (max-width: 380px) {
-  .home-sponsors-title {
-    font-size: 1.4rem;
+@media (max-width: 640px) {
+  .sp-section {
+    --sp-gap: 16px;
   }
-  
-  .home-sponsor-card {
-    padding: 15px;
+
+  .sp-container {
+    padding: 0 16px;
   }
-  
-  .home-sponsor-image {
-    height: 60px;
+
+  .sp-tier-head {
+    padding: 0 16px;
+    gap: 12px;
   }
-  
-  .home-sponsor-level {
-    font-size: 0.75rem;
-    padding: 3px 10px;
+
+  .sp-tier-count {
+    display: none;
   }
-  
-  .home-sponsors-cta {
-    padding: 20px 15px;
+
+  .sp-row {
+    padding: 6px 16px 20px;
   }
+
+  /* On phones, single-sponsor tiers already centre; multi-sponsor tiers also
+     centre so a card isn't stranded at the far left on a narrow screen. */
+  .sp-row--spread {
+    justify-content: center;
+  }
+
+  .sp-card--platinum { --card-w: 250px; --card-h: 150px; }
+  .sp-card--gold     { --card-w: 220px; --card-h: 135px; }
+  .sp-card--silver   { --card-w: 200px; --card-h: 125px; }
+  .sp-card--bronze   { --card-w: 180px; --card-h: 115px; }
+}
+
+/* ── Text colour safeguards ────────────────────────────────────────────────── */
+/* Global h2 / h3 / p / a styles elsewhere in the site have overridden colours
+   before. These rules are scoped to .sp-section so the text stays readable. */
+.sp-section h3::before,
+.sp-section h3::after {
+  content: none !important;
+  display: none !important;
+}
+
+.sp-section h2,
+.sp-section h3,
+.sp-section p {
+  font-family: inherit;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.sp-section .sp-title {
+  color: var(--sp-primary) !important;
+}
+
+.sp-section .sp-subtitle {
+  color: var(--sp-text-light) !important;
+}
+
+.sp-section .sp-cta-text h3 {
+  color: var(--sp-primary) !important;
+  text-align: left;
+}
+
+.sp-section .sp-cta-text p {
+  color: var(--sp-text-medium) !important;
+  text-align: left;
+}
+
+.sp-section .sp-cta-btn,
+.sp-section .sp-cta-btn:hover {
+  color: #ffffff;
 }
