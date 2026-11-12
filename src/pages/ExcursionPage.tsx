@@ -2,7 +2,15 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { Check, ChevronLeft, ChevronRight, Camera, X } from "lucide-react";
+import {
+  Check,
+  ChevronLeft,
+  ChevronRight,
+  Camera,
+  Clock,
+  ExternalLink,
+  X,
+} from "lucide-react";
 
 import "../styles/excursionPage.css";
 
@@ -45,6 +53,12 @@ import cf5 from "../assets/sites/tea5.png";
 
 const SITE_URL = "https://eaindigenousseedconference.org";
 
+// Google Form where delegates pick their preferred excursion site.
+const EXCURSION_FORM_URL =
+  "https://docs.google.com/forms/d/e/1FAIpQLSeBxVqkNIfnxttGbIt02zJI23qeRg3bfw2osxLy_exrOzMerw/viewform?usp=publish-editor";
+
+// All travel times are measured from the conference venue (CUEA).
+
 // ── Data ─────────────────────────────────────────────────────────────────────
 interface ExcursionSite {
   id: string;
@@ -52,6 +66,7 @@ interface ExcursionSite {
   name: string;
   subtitle?: string;
   focus: string;
+  travelTime: string; // approximate one-way drive from CUEA
   description: string[];
   learningsTitle: string;
   learnings: string[];
@@ -65,6 +80,7 @@ const sites: ExcursionSite[] = [
     name: "Landscape Alliance",
     subtitle: "Field visit: ICRAF Campus and Karura Forest",
     focus: "Trees & agroforestry",
+    travelTime: "About 1 hr",
     description: [
       "Discover how trees and scientific innovation are helping address some of the world's most pressing challenges, from climate change and biodiversity loss to food security and land degradation.",
       "Laboratory tours: the visit begins at the Landscape Alliance (ICRAF) Campus with guided tours of three specialised laboratories, showcasing how science, technology and innovation are generating practical solutions for tree conservation, soil health, sustainable land management and landscape restoration.",
@@ -91,17 +107,18 @@ const sites: ExcursionSite[] = [
     number: "02",
     name: "Seed Savers Network",
     focus: "Seeds & food systems",
+    travelTime: "About 3 hrs",
     description: [
       "Seed Savers Network is a civil society organisation dedicated to preserving agricultural biodiversity and empowering farming communities across Kenya. Founded on the principle that seed sovereignty is fundamental to food sovereignty, it works directly with smallholder farmers to conserve, regenerate and exchange indigenous seed varieties that are resilient to climate change and vital for sustainable food systems.",
       "Its journey began with a simple but powerful realisation: the loss of traditional seed varieties is not only a loss of genetic diversity, but a loss of cultural heritage, traditional knowledge and community resilience. For over a decade, the network has been at the forefront of the seed conservation movement in Africa, establishing community seed banks, training seed ambassadors and advocating for policies that protect farmers' rights to save, exchange and sell their seeds.",
     ],
     learningsTitle: "Learning points",
     learnings: [
-      "Seed banking",
-      "Bio-inputs production",
+      "seed saving and seed banking",
+      "various agroecology demonstrations",
       "Food forest",
-      "Enterprise development",
-      "Renewable energy integration",
+      "learn on  diffrent agroecology enterprises eg value addition through dehydration of vegetables",
+      "communal cold room utilization",
     ],
     photos: [ssn1, ssn2, ssn3, ssn4, ssn5],
   },
@@ -109,7 +126,8 @@ const sites: ExcursionSite[] = [
     id: "site-3",
     number: "03",
     name: "Comfort Worms and Insects",
-    focus: "Insects & circular farming",
+    focus: "agroecology enterprise- worm farming",
+    travelTime: "About 1 hr 15 min",
     description: [
       "Comfort Worms and Insects started with a focus on breeding worms to feed chickens. Its founder, George Muturi, raised local chickens and struggled with the high cost of feed, which pushed him to look for alternative ways of feeding his birds.",
       "After three years of experimenting with red worms, George discovered that black soldier flies and azolla could effectively feed poultry and other livestock.",
@@ -125,6 +143,7 @@ const sites: ExcursionSite[] = [
     name: "KALRO Naivasha",
     subtitle: "Farmer learning visit: indigenous livestock breeds",
     focus: "Indigenous livestock",
+    travelTime: "About 2 hrs",
     description: [
       "The visit to KALRO Naivasha will expose participants to the conservation, management and improvement of indigenous livestock breeds and their contribution to resilient farming systems.",
       "Farmers will learn about the importance of conserving indigenous livestock genetic resources, identifying locally adapted breeds and understanding their unique characteristics, including their ability to withstand harsh climatic conditions, tolerate diseases and survive under low-input production systems.",
@@ -132,22 +151,17 @@ const sites: ExcursionSite[] = [
     ],
     learningsTitle: "Key learnings for farmers",
     learnings: [
-      "Identification and characteristics of indigenous livestock breeds",
-      "Importance of conserving indigenous livestock genetic resources",
-      "Adaptation of indigenous breeds to drought, heat and changing climatic conditions",
-      "Selection and breeding practices for maintaining desirable traits",
-      "Sustainable pasture, fodder and livestock feeding management",
-      "Livestock disease prevention and good animal husbandry practices",
-      "The contribution of indigenous livestock to food security, livelihoods and biodiversity conservation",
+      "learn on productive managemnet of indigenous livestock breeds- cows , goats and chicken ",
     ],
     photos: [kl1, kl2, kl3, kl4, kl5],
   },
   {
     id: "site-5",
     number: "05",
-    name: "organic Tea Farmering in Kiambu County",
+    name: "Organic Tea Farming in Kiambu County",
     subtitle: "Tea and organic farming",
     focus: "Tea and organic farming",
+    travelTime: "About 1 hr 15 min",
     description: [
       "The visit to the organic tea farm in Kiambu County will provide participants with insights into sustainable tea farming practices, organic certification processes and the benefits of organic agriculture for both farmers and consumers.",
       "Farmers will learn about the principles of organic farming, including soil health management, pest and disease control, crop rotation, and the use of organic inputs. They will also gain an understanding of the economic and environmental advantages of organic tea production, as well as the market opportunities for organic products.",
@@ -170,7 +184,7 @@ const pageData = {
   "@type": "WebPage",
   name: "Excursions | EA-ISC 2026",
   description:
-    "Field excursions at the 1st Eastern Africa Indigenous Seed Conference 2026: Landscape Alliance, Seed Savers Network, Comfort Worms and Insects, and KALRO Naivasha.",
+    "Field excursions at the 1st Eastern Africa Indigenous Seed Conference 2026: Landscape Alliance, Seed Savers Network, Comfort Worms and Insects, KALRO Naivasha, and Organic Tea Farming in Kiambu County.",
   url: `${SITE_URL}/excursions`,
 };
 
@@ -275,7 +289,7 @@ const ExcursionPage = () => {
         <title>Excursions | EA-ISC 2026</title>
         <meta
           name="description"
-          content="Explore the field excursions at EA-ISC 2026: Landscape Alliance, Seed Savers Network, Comfort Worms and Insects, and KALRO Naivasha. Hands-on learning on trees, seeds, insects and indigenous livestock."
+          content="Explore the field excursions at EA-ISC 2026: Landscape Alliance, Seed Savers Network, Comfort Worms and Insects, KALRO Naivasha, and Organic Tea Farming in Kiambu County. Pick your preferred site and see travel times from CUEA."
         />
         <link rel="canonical" href={`${SITE_URL}/excursions`} />
         <meta property="og:type" content="website" />
@@ -318,6 +332,25 @@ const ExcursionPage = () => {
               institutions leading the way.
             </p>
 
+            <div className="ex-hero-actions">
+              <a
+                href={EXCURSION_FORM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ex-btn ex-btn-primary"
+              >
+                Pick Your Preferred Excursion
+                <ExternalLink size={16} aria-hidden="true" />
+              </a>
+              <a
+                href="#ex-pick"
+                className="ex-btn ex-btn-outline"
+                onClick={(e) => jumpTo(e, "ex-pick")}
+              >
+                See Sites and Travel Times
+              </a>
+            </div>
+
             <ul className="ex-hero-stats">
               <li>
                 <span className="ex-stat-value">5</span>
@@ -349,6 +382,61 @@ const ExcursionPage = () => {
           </div>
         </nav>
 
+        {/* ── Choose an excursion ───────────────────────────────────────── */}
+        <section id="ex-pick" className="ex-pick" aria-labelledby="ex-pick-heading">
+          <div className="ex-container">
+            <div className="ex-pick-head">
+              <h2 id="ex-pick-heading">Choose your field excursion</h2>
+              <p>
+                Look through the five sites below, note how far each one is from
+                the conference venue (CUEA), then tell us which one you would
+                like to join.
+              </p>
+            </div>
+
+            <ul className="ex-pick-list">
+              {sites.map((site) => (
+                <li key={site.id}>
+                  <a
+                    href={`#${site.id}`}
+                    className="ex-pick-card"
+                    onClick={(e) => jumpTo(e, site.id)}
+                  >
+                    <span className="ex-pick-num">Site {site.number}</span>
+                    <span className="ex-pick-name">{site.name}</span>
+                    <span className="ex-pick-time">
+                      <Clock size={14} aria-hidden="true" />
+                      {site.travelTime} from CUEA
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+
+            <div className="ex-pick-head">
+              <h2 id="ex-pick-heading">Departure Time - 8:30 AM</h2>
+              </div>
+
+            <div className="ex-pick-action">
+              <a
+                href={EXCURSION_FORM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ex-btn ex-btn-primary"
+              >
+                Pick Your Preferred Excursion
+                <ExternalLink size={16} aria-hidden="true" />
+              </a>
+              <p className="ex-pick-note">
+                Opens a short Google Form in a new tab. Travel times are
+                approximate one-way drive times from CUEA and may change with
+                traffic; final transport timings will be confirmed before the
+                excursion.
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* ── Sites ─────────────────────────────────────────────────────── */}
         {sites.map((site, siteIndex) => (
           <section
@@ -363,7 +451,13 @@ const ExcursionPage = () => {
                   {site.number}
                 </span>
                 <div>
-                  <span className="ex-tag">{site.focus}</span>
+                  <div className="ex-meta">
+                    <span className="ex-tag">{site.focus}</span>
+                    <span className="ex-travel">
+                      <Clock size={13} aria-hidden="true" />
+                      {site.travelTime} from CUEA
+                    </span>
+                  </div>
                   <h2 id={`${site.id}-title`} className="ex-site-title">
                     {site.name}
                   </h2>
@@ -443,14 +537,24 @@ const ExcursionPage = () => {
         <section className="ex-cta" aria-labelledby="ex-cta-heading">
           <div className="ex-container ex-cta-inner">
             <div className="ex-cta-text">
-              <h2 id="ex-cta-heading">Questions about the excursions?</h2>
+              <h2 id="ex-cta-heading">Ready to choose your excursion?</h2>
               <p>
-                Our team can answer questions about the field visits and help
-                you plan your time at EA-ISC 2026.
+                Tell us which site you would like to visit. Questions about the
+                field visits? Our team can help you plan your time at EA-ISC
+                2026.
               </p>
             </div>
             <div className="ex-cta-actions">
-              <Link to="/contact" className="ex-btn ex-btn-primary">
+              <a
+                href={EXCURSION_FORM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ex-btn ex-btn-primary"
+              >
+                Pick Your Preferred Excursion
+                <ExternalLink size={16} aria-hidden="true" />
+              </a>
+              <Link to="/contact" className="ex-btn ex-btn-outline">
                 Contact the Team
               </Link>
               <Link to="/registration-abstract" className="ex-btn ex-btn-outline">
