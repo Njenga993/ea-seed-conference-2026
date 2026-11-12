@@ -37,11 +37,11 @@ import kl3 from "../assets/sites/kalro1.png";
 import kl4 from "../assets/sites/kalro2.png";
 import kl5 from "../assets/sites/kalro1.png";
 
-import cf1 from "../assets/sites/chari1.png";
-import cf2 from "../assets/sites/chari2.png";
-import cf3 from "../assets/sites/chari3.png";
-import cf4 from "../assets/sites/chari4.png";
-import cf5 from "../assets/sites/chari1.png";
+import cf1 from "../assets/sites/tea1.png";
+import cf2 from "../assets/sites/tea2.png";
+import cf3 from "../assets/sites/tea3.png";
+import cf4 from "../assets/sites/tea4.png";
+import cf5 from "../assets/sites/tea5.png";
 
 const SITE_URL = "https://eaindigenousseedconference.org";
 
@@ -145,20 +145,19 @@ const sites: ExcursionSite[] = [
   {
     id: "site-5",
     number: "05",
-    name: "Charis Farm",
-    subtitle: " sustainable urban farming, organic food production, and agricultural training",
-    focus: "Sustainable urban farming",
+    name: "organic Tea Farmering in Kiambu County",
+    subtitle: "Tea and organic farming",
+    focus: "Tea and organic farming",
     description: [
-      "Charis Farm is an agricultural demonstration and model center located in Nyondia along Kinagop Road, about 8 km from Naivasha Town in Nakuru County, Kenya. Founded by Joyce Kiara, the farm focuses on sustainable urban farming, organic food production, and agricultural training.",
-      "The visit to Charis Farm will expose participants to the principles and practices of sustainable urban farming, organic food production, and agricultural training.",
-      "Farmers will learn about the importance of sustainable urban farming practices, identifying locally adapted crops and understanding their unique characteristics, including their ability to withstand harsh climatic conditions, tolerate diseases and survive under low-input production systems.",
-      "The visit will also provide an opportunity to learn about sustainable agriculture management, crop selection, breeding practices, pasture and fodder management, and how sustainable urban farming contributes to household food security, income generation and climate resilience.",
+      "The visit to the organic tea farm in Kiambu County will provide participants with insights into sustainable tea farming practices, organic certification processes and the benefits of organic agriculture for both farmers and consumers.",
+      "Farmers will learn about the principles of organic farming, including soil health management, pest and disease control, crop rotation, and the use of organic inputs. They will also gain an understanding of the economic and environmental advantages of organic tea production, as well as the market opportunities for organic products.",
+      "The visit will include a tour of the tea plantation, where participants can observe the cultivation practices, harvesting techniques and processing methods used in organic tea production. Additionally, there will be discussions on the challenges faced by organic farmers and strategies for overcoming them.",
     ],
     learningsTitle: "Key learnings for farmers",
     learnings: [
-      "Sustainable Urban Farming:  kitchen garden technologies (such as multi-level, multi-story, tire, and raised-bed gardens) designed for small spaces.",
-      "Livestock & Aquaculture: Rears dairy goat breeds (Saanen, Toggenburg, British Alpine, German Alpine), pigs, poultry, ornamental birds, rabbits, and fish in greenhouse setups",
-      "Organic Innovations: Utilizes local waste conversion (pig/goat manure, rabbit urine, Azolla water purification, and natural pest traps).",
+      "Principles of organic farming and soil health management",
+      "Pest and disease control in organic tea production",
+      "Crop rotation and sustainable farming practices",
       
     ],
     photos: [cf1, cf2, cf3, cf4, cf5],

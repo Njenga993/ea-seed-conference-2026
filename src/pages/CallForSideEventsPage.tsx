@@ -15,7 +15,7 @@ import sideEventAF from "../assets/Agroecologyfund.png";
 import sideEventDCA from "../assets/DCA.png";
 import sideEventSIDAA from "../assets/SIDAA.png";
 import sideEventPELUM from "../assets/PELUM.png";
-import sideEventWomen from "../assets/AWD.png";
+import sideEventWomen from "../assets/awc_sideevent.png";
 import sideEventSWISSDCA from "../assets/SwissaidDCA.png";
 import sideEventBiovision from "../assets/BioVision.png";
 import sideEventOpenSource from "../assets/OSSeeds.png";
@@ -199,23 +199,24 @@ const confirmedSideEvents: ConfirmedSideEvent[] = [
   },
   {
     title:
-      "Scaling up Agroecology Initiatives for Soil Health, Climate Resilience, Economic Stability, and Sustainable Healthy Food Systems.  ",
+      "Beyond Seed Conservation: Advancing Indeginous Seed Sovereignity Through BioInputs and Reduced Reliance on Hghly Hazardous Pesticides",
     organisers: "PELUM Kenya",
     description: [
-      " To position Agroecology at the center of Kenya’s agricultural and food systems transformation",
-      "Agroecology is increasingly recognized as a transformative, sustainable and holistic approach to agricultural development. It integrates ecological, economic, and social principles to foster resilient farming systems. However, effective implementation of Agroecological practices such as soil regeneration, agroforestry, and biodiversity restoration requires long-term investment in land; thus secure and predictable land access is key to mainstreaming Agroecological principles in food systems.",
-      "Unfortunately, insecure land tenure remains a significant barrier, particularly for smallholder farmers, women, youths, and pastoralist communities. Without guaranteed land rights, many producers are unable or unwilling to invest in long-term, regenerative practices central to Agroecology Principles."
+      "Highlight the implications of the Highly Hazardous Pesticides (HHPs) on indeginous seed systems, biodiversity , human health and ecological resilience",
+        "Showcase emerging opportunities, Innovations and experience in Bio-Inputs production, accessibility and adoption within Agroecology farming Systems.",
+    " Facilitate dialogue on practical strategies and policy action for scaling dafe Bio Inputs and reducing depennce on harzanous pesticides to strengthen farmer managed seed systems(FMSS)."
     ],
     poster: sideEventPELUM,
   },
   {
     title:
-      "Women's Seeds",
+      "Indeginous Seeds, Nutrition and Resilience: Finding and reccomedations from farmer led research.",
     organisers: " African Women's Collaborative for Healthy Food System",
     description: [
-      "Women’s seeds are very different: a woman possesses full control of them and is free to decide what to do with them without permission from her husband.",
-      "The Collaborative highlights the role and contribution of peasant and indigenous women in community food systems. Women have a special relationship with seeds as sorters, savers, and sharers.",
-        "We recognize the importance of healthy seeds as the source and strength of plants and animals that are central to our food systems. We share our knowledge and experience about women’s seeds and invite others to share their perspective and actions."
+      "The Emphirical Study of Nutritional African Foods.",
+      "Nutritional Assessment of the Ten Climate-Resilient Food Crops.",
+      "Highlight the contribution of African nutrional foods and climate resilient crops to healthy diverse and resilient food systems.",
+      "provide space for women farmers to reflect on the research findings and their practical implications."
     ],
     poster: sideEventWomen,
   },
