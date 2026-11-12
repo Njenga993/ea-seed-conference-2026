@@ -158,14 +158,15 @@ const sites: ExcursionSite[] = [
   {
     id: "site-5",
     number: "05",
-    name: "Organic Tea Farming in Kiambu County",
-    subtitle: "Tea and organic farming",
-    focus: "Tea and organic farming",
+    name: "Two Model Farms in Kiambu County: Exploring Tea and Coffee Value Chains",
+    subtitle: "Tea and Coffee farming",
+    focus: "Tea and Coffee farming",
     travelTime: "About 1 hr 15 min",
     description: [
-      "The visit to the organic tea farm in Kiambu County will provide participants with insights into sustainable tea farming practices, organic certification processes and the benefits of organic agriculture for both farmers and consumers.",
-      "Farmers will learn about the principles of organic farming, including soil health management, pest and disease control, crop rotation, and the use of organic inputs. They will also gain an understanding of the economic and environmental advantages of organic tea production, as well as the market opportunities for organic products.",
+      "Discover how small-scale farmers are successfully participating in Kenya's tea and coffee value chains through a learning visit to two model farms in Kiambu County.",
+      "The visit will offer delegates a practical opportunity to explore organic tea production, from sustainable tea-picking practices, organic soil fertility management and pest control to organic certification and market access. Participants will also visit a tea processing factory to experience the journey from freshly harvested tea leaves to the final product, learning about processing, quality assurance, value addition, packaging and export markets.",
       "The visit will include a tour of the tea plantation, where participants can observe the cultivation practices, harvesting techniques and processing methods used in organic tea production. Additionally, there will be discussions on the challenges faced by organic farmers and strategies for overcoming them.",
+      "At the second model farm, delegates will explore small-scale coffee production and processing, gaining practical insights into coffee establishment, crop management, harvesting, post-harvest handling, processing, value addition and marketing"
     ],
     learningsTitle: "Key learnings for farmers",
     learnings: [
