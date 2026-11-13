@@ -20,6 +20,7 @@ import sideEventSWISSDCA from "../assets/SwissaidDCA.png";
 import sideEventBiovision from "../assets/BioVision.png";
 import sideEventOpenSource from "../assets/OSSeeds.png";
 import sideEventPFF from "../assets/PFF.png";
+import sideEventBIBA from "../assets/biba.png";
 
 // ── Data ─────────────────────────────────────────────────────────────────────
 
@@ -269,6 +270,19 @@ const confirmedSideEvents: ConfirmedSideEvent[] = [
         "The side event will serve as a catalyst for action rather than simply a communication platform. It will convene key actors across agriculture, energy, finance, research and policy to showcase evidence The conference provides a timely regional platform for P4FP to share emerging evidence, farmer adoption and viable business cases can translate regenerative agriculture and productive use of renewable energy into investable solutions."
     ],
     poster: sideEventPFF,
+  },
+  {
+    title:
+      "From the Courtroom to the Shamba: Operationalizing the Landmark Seed Law Victory for Farmer‑Managed Seed Systems",
+    organisers: " Biodiversity and Biosafety Association of Kenya (BIBA Kenya)",
+    description: [
+      "The landmark court judgment affirming the rights of smallholder farmers to save, share, and exchange indigenous seeds represents a historic milestone for seed sovereignty and food security in Eastern Africa. ",
+      "This ruling not only validates the constitutional protection of traditional seed systems but also challenges the dominance of commercial seed regimes that have long marginalized farmer‑managed seed practices.",
+        "By connecting legal analysis with lived agricultural experience, the session will define actionable strategies for embedding farmer rights within seed governance frameworks and advancing agroecological resilience across the region.",
+        "However, judicial victory alone does not guarantee transformation. The next frontier lies in operationalizing this legal success   translating constitutional principles into enforceable safeguards, institutional reforms, and community‑level empowerment. ",
+        "The 1st East Africa Seed Conference provides a timely platform to bridge the gap between courtroom triumphs and on‑the‑ground realities, ensuring that farmer‑managed seed systems (FMSS) remain central to national and regional agricultural policy."
+    ],
+    poster: sideEventBIBA,
   },
 ];
 

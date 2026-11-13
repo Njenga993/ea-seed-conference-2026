@@ -48,8 +48,8 @@ import kl5 from "../assets/sites/kalro1.png";
 import cf1 from "../assets/sites/tea1.png";
 import cf2 from "../assets/sites/tea2.png";
 import cf3 from "../assets/sites/tea3.png";
-import cf4 from "../assets/sites/tea4.png";
-import cf5 from "../assets/sites/tea5.png";
+import cf4 from "../assets/sites/coffee1.png";
+import cf5 from "../assets/sites/coffee2.png";
 
 const SITE_URL = "https://eaindigenousseedconference.org";
 
@@ -80,7 +80,7 @@ const sites: ExcursionSite[] = [
     name: "Landscape Alliance",
     subtitle: "Field visit: ICRAF Campus and Karura Forest",
     focus: "Trees & agroforestry",
-    travelTime: "About 1 hr",
+    travelTime: "",
     description: [
       "Discover how trees and scientific innovation are helping address some of the world's most pressing challenges, from climate change and biodiversity loss to food security and land degradation.",
       "Laboratory tours: the visit begins at the Landscape Alliance (ICRAF) Campus with guided tours of three specialised laboratories, showcasing how science, technology and innovation are generating practical solutions for tree conservation, soil health, sustainable land management and landscape restoration.",
@@ -107,7 +107,7 @@ const sites: ExcursionSite[] = [
     number: "02",
     name: "Seed Savers Network",
     focus: "Seeds & food systems",
-    travelTime: "About 3 hrs",
+    travelTime: "",
     description: [
       "Seed Savers Network is a civil society organisation dedicated to preserving agricultural biodiversity and empowering farming communities across Kenya. Founded on the principle that seed sovereignty is fundamental to food sovereignty, it works directly with smallholder farmers to conserve, regenerate and exchange indigenous seed varieties that are resilient to climate change and vital for sustainable food systems.",
       "Its journey began with a simple but powerful realisation: the loss of traditional seed varieties is not only a loss of genetic diversity, but a loss of cultural heritage, traditional knowledge and community resilience. For over a decade, the network has been at the forefront of the seed conservation movement in Africa, establishing community seed banks, training seed ambassadors and advocating for policies that protect farmers' rights to save, exchange and sell their seeds.",
@@ -127,7 +127,7 @@ const sites: ExcursionSite[] = [
     number: "03",
     name: "Comfort Worms and Insects",
     focus: "agroecology enterprise- worm farming",
-    travelTime: "About 1 hr 15 min",
+    travelTime: "",
     description: [
       "Comfort Worms and Insects started with a focus on breeding worms to feed chickens. Its founder, George Muturi, raised local chickens and struggled with the high cost of feed, which pushed him to look for alternative ways of feeding his birds.",
       "After three years of experimenting with red worms, George discovered that black soldier flies and azolla could effectively feed poultry and other livestock.",
@@ -143,7 +143,7 @@ const sites: ExcursionSite[] = [
     name: "KALRO Naivasha",
     subtitle: "Farmer learning visit: indigenous livestock breeds",
     focus: "Indigenous livestock",
-    travelTime: "About 2 hrs",
+    travelTime: "",
     description: [
       "The visit to KALRO Naivasha will expose participants to the conservation, management and improvement of indigenous livestock breeds and their contribution to resilient farming systems.",
       "Farmers will learn about the importance of conserving indigenous livestock genetic resources, identifying locally adapted breeds and understanding their unique characteristics, including their ability to withstand harsh climatic conditions, tolerate diseases and survive under low-input production systems.",
@@ -161,7 +161,7 @@ const sites: ExcursionSite[] = [
     name: "Two Model Farms in Kiambu County: Exploring Tea and Coffee Value Chains",
     subtitle: "Tea and Coffee farming",
     focus: "Tea and Coffee farming",
-    travelTime: "About 1 hr 15 min",
+    travelTime: "",
     description: [
       "Discover how small-scale farmers are successfully participating in Kenya's tea and coffee value chains through a learning visit to two model farms in Kiambu County.",
       "The visit will offer delegates a practical opportunity to explore organic tea production, from sustainable tea-picking practices, organic soil fertility management and pest control to organic certification and market access. Participants will also visit a tea processing factory to experience the journey from freshly harvested tea leaves to the final product, learning about processing, quality assurance, value addition, packaging and export markets.",
