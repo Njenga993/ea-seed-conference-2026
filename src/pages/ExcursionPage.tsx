@@ -30,7 +30,7 @@ import ssn1 from "../assets/sites/ssn1.png";
 import ssn2 from "../assets/sites/ssn2.png";
 import ssn3 from "../assets/sites/ssn3.png";
 import ssn4 from "../assets/sites/ssn4.png";
-import ssn5 from "../assets/sites/ssn1.png";
+import ssn5 from "../assets/sites/ssn5.png";
 
 
 import cw1 from "../assets/sites/worms1.png";

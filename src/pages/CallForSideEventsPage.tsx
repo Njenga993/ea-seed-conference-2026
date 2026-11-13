@@ -21,6 +21,7 @@ import sideEventBiovision from "../assets/BioVision.png";
 import sideEventOpenSource from "../assets/OSSeeds.png";
 import sideEventPFF from "../assets/PFF.png";
 import sideEventBIBA from "../assets/biba.png";
+import sideEventTISA from "../assets/TISA_sideevent.jpg";
 
 // ── Data ─────────────────────────────────────────────────────────────────────
 
@@ -283,6 +284,19 @@ const confirmedSideEvents: ConfirmedSideEvent[] = [
         "The 1st East Africa Seed Conference provides a timely platform to bridge the gap between courtroom triumphs and on‑the‑ground realities, ensuring that farmer‑managed seed systems (FMSS) remain central to national and regional agricultural policy."
     ],
     poster: sideEventBIBA,
+  },
+    {
+    title:
+      "Resourcing Inclusive Seed Systems for gender just and food secure futures",
+    organisers: " The Institute for Social Accountability (TISA) ,WHH, SUNCSA, RTF COALITION ",
+    description: [
+      "Explore the linkages between gender equality, seed sovereignty and the Right to Food, highlighting barriers to women's access to and control over seeds, land and other productive resources.  ",
+      "Facilitate peer learning on practical approaches to transforming gender norms and power relations within households and communities. ",
+      "Identify policy and institutional opportunities for promoting genderresponsive seed systems, women's leadership and the protection of farmers' and communities' rights. ",
+      "Strengthen multi-stakeholder collaboration towards inclusive seed systems, gender justice, seed sovereignty and the realization of the Right to Food in Eastern Africa.",
+      "Showcase community experiences from Kiambu and Vihiga on how gendertransformative approaches, including GALS, strengthen women's leadership, agency and participation in seed systems and food governance."
+    ],
+    poster: sideEventTISA,
   },
 ];
 
