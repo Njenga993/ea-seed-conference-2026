@@ -237,14 +237,13 @@ const confirmedSideEvents: ConfirmedSideEvent[] = [
   },
   {
     title:
-      "Role of the community seed bank in addressing and strengthening Emergency seed response and climate resilience in Eastern Africa",
+      "Seeds for Resilience - Enhancing Emergency Seed Response, Climate Resilience and Sustainable Farmers' Livelihoods",
     organisers: "  Swissaid, DCA Kenya, Seed Savers Network",
     description: [
-      "Share practical experiences and lessons on the role of community seed banks in emergency seed response and post-disaster recovery",
-      "The 1st Eastern Africa Indigenous Seed Conference 2026 provides an important platform for farmers, policymakers, researchers, civil society organizations, and seed advocates to exchange knowledge and develop strategies for protecting indigenous seeds and strengthening farmer-managed seed systems across Eastern Africa.",
-        "Across the region, farming communities increasingly face the effects of climate change, including prolonged droughts, unpredictable rainfall, floods, crop failures, and declining agricultural biodiversity. These challenges threaten food security, agricultural livelihoods, and farmers’ ability to access diverse and locally adapted seeds, particularly in arid and semi-arid lands (ASALs) and other climate-vulnerable areas.",
-        "Emergency seed preparedness and response  is an important intervention following climate-related disasters and other shocks. However, conventional emergency seed responses often rely on externally sourced, commercially available, or formally certified seeds, which may not adequately reflect farmers’ preferences, local growing conditions, cultural practices, and diverse seed needs. Delays in seed distribution and limited availability of locally adapted varieties can further undermine the effectiveness of emergency interventions.",
-        "This side event will provide a platform to examine how community seed banks can contribute to effective emergency seed response, climate adaptation, and resilient farmer-managed seed systems. It will draw on practical experiences from Eastern Africa, with particular attention to community-led approaches in drought-prone and climate-vulnerable farming communities"
+      "To strengthen the capacity of humanitarian and development actors to support farmer-managed seed systems and enhance climate resilience, food security and sustainable livelihoods in Eastern Africa.",
+      "The side event will provide a platform for dialogue, knowledge exchange, and collective action among farmers, humanitarian and development practitioners, researchers, policymakers, civil society organizations, and other stakeholders working to support farmer-managed seed systems in the context of climate change and humanitarian crises.",
+      "The side event will explore practical approaches to enhancing emergency seed response, promoting climate-resilient agricultural practices, and supporting sustainable livelihoods for smallholder farmers. Through interactive discussions, experience sharing, and reflection on policy and practice, participants will highlight successful initiatives, identify existing gaps, and explore opportunities for collaboration across the region.",
+      "Particular attention will be given to the role of community seed banks, farmer-managed seed networks, and local knowledge in sustaining seed diversity and advancing resilient food systems. The event will conclude with shared recommendations and actionable commitments to strengthen emergency seed response, promote enabling policy environments, and ensure that farmers remain central to the conservation and use of agricultural biodiversity."
     ],
     poster: sideEventSWISSDCA,
   },
